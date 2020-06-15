@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E272B6FC-7EC7-4E2A-935A-0C0A889EFE3E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MolexPlugin.DAL</RootNamespace>
+    <AssemblyName>MolexPlugin.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NXOpen">
+      <HintPath>..\..\Managed\NXOpen.dll</HintPath>
+    </Reference>
+    <Reference Include="NXOpen.Guide">
+      <HintPath>..\..\Managed\NXOpen.Guide.dll</HintPath>
+    </Reference>
+    <Reference Include="NXOpen.UF">
+      <HintPath>..\..\Managed\NXOpen.UF.dll</HintPath>
+    </Reference>
+    <Reference Include="NXOpen.Utilities">
+      <HintPath>..\..\Managed\NXOpen.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="NXOpenUI">
+      <HintPath>..\..\Managed\NXOpenUI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SlopeAndDia\AnalysisBodySlopeAndMinDia.cs" />
+    <Compile Include="SlopeAndDia\FaceSlopeColourBuilder.cs" />
+    <Compile Include="SlopeAndDia\BackOffFaceSlopeColour.cs" />
+    <Compile Include="SlopeAndDia\SlantFaceSlopeColour.cs" />
+    <Compile Include="SlopeAndDia\VerticalFaceSlopeColour.cs" />
+    <Compile Include="SlopeAndDia\PlaneFaceSlopeColour.cs" />
+    <Compile Include="SlopeAndDia\AbstractFaceSlopeColour.cs" />
+    <Compile Include="SlopeAndDia\AnalysisFaceSlopeAndDia.cs" />
+    <Compile Include="SlopeAndDia\FaceSlopeAndDiaFactory.cs" />
+    <Compile Include="SlopeAndDia\CircularConeFaceSlopeAndDia.cs" />
+    <Compile Include="SlopeAndDia\CylinderFaceSlopeAndDia.cs" />
+    <Compile Include="SlopeAndDia\SweptFaceFaceSlopeAndDia.cs" />
+    <Compile Include="SlopeAndDia\PlaneFaceSlopeAndDia.cs" />
+    <Compile Include="SlopeAndDia\AbstractFaceSlopeAndDia.cs" />
+    <Compile Include="AddAndDeleteData.cs" />
+    <Compile Include="AuthenticatedUser.cs" />
+    <Compile Include="IMoveBulider.cs" />
+    <Compile Include="Jurisdictionl.cs" />
+    <Compile Include="MoveCsysBuilder.cs" />
+    <Compile Include="MoveRotateBuilder.cs" />
+    <Compile Include="MovePointToPointBuilder.cs" />
+    <Compile Include="NXObjectAooearancePoint.cs" />
+    <Compile Include="OperationData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ControlDeserialize.cs" />
+    <Compile Include="UserInfoDeserialize.cs" />
+    <Compile Include="UserSingleton.cs" />
+    <Compile Include="MoveVisibleObjects.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Basic\Basic.csproj">
+      <Project>{2c31e235-7108-44e6-a24d-ab95beef0531}</Project>
+      <Name>Basic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MolexPlugin.DLL\MolexPlugin.DLL.csproj">
+      <Project>{a70709d8-286e-47e5-89e5-dd86aa6660df}</Project>
+      <Name>MolexPlugin.DLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MolexPlugin.Model\MolexPlugin.Model.csproj">
+      <Project>{79cc90cf-5f32-4054-ab58-1e73111b9da1}</Project>
+      <Name>MolexPlugin.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
