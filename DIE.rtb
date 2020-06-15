@@ -1,0 +1,18 @@
+﻿!
+!  NX PMI ribbon tab file
+!
+! 
+
+TITLE  DIE
+VERSION 170
+
+BEGIN_GROUP NX_RBN_MI_PROJECT_FAIGROUP_3
+LABEL  DIE
+CONTEXT_TITLE Project(Axis tab)
+BITMAP pmi_inferred_dim
+
+
+    BUTTON MENU_BatchExportDrawing
+    RIBBON_STYLE ALWAYS_LARGE_IMAG
+	
+END_GROUP

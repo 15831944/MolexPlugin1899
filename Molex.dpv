@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet type="text/xsl" href="Molex.xsl"?>
+<PrefValues defaultLockStatus="unlocked">
+<Pref Application="基本环境" Category="常规" Tab="部件" displayValue="0" modified="2019-11-02T00:33:01" name="UG_Auto_part_save" title="提醒保存更改的时间间隔" value="0"/>
+<Pref Application="基本环境" Category="用户界面" Tab="操作记录" displayValue="C#" modified="2020-02-22T00:27:19" name="UG_journalLanguage" title="操作记录语言" value="3"/>
+<Pref Application="基本环境" Category="可视化" Tab="性能" displayValue="关" modified="2018-03-06T01:48:04" name="UG_fullSceneAntialiasing" title="一般图形 - 禁用全景反锯齿" value="true"/>
+<Pref Application="基本环境" Category="可视化" Tab="着重" displayValue="否" modified="2018-03-06T01:48:04" name="UG_seeThruAll" title="全部通透显示" value="false"/>
+<Pref Application="基本环境" Category="视图操作" Tab="视图操作" displayValue="后退以放大" modified="2017-03-30T00:56:59" name="UG_mouse_wheel_scroll" title="鼠标滚轮滚动（Mac 操作系统除外） - 方向" value="1"/>
+<Pref Application="建模" Category="常规" Tab="常规" displayValue="否" modified="2018-02-14T08:02:56" name="Display_LegacyFeatNames" title="显示原有特征名称" value="0"/>
+<Pref Application="建模" Category="常规" Tab="常规" displayValue="父体" modified="2019-10-30T01:11:04" name="Solids_usePartDefaultsForNewFace" title="显示新几何元素的属性 - 用于新面" value="2"/>
+<Pref Application="建模" Category="常规" Tab="常规" displayValue="工具体" modified="2020-02-24T07:24:02" name="Solids_useToolBodyFaceProperties" title="显示新几何元素的属性 - 用于布尔操作面" value="1"/>
+<Pref Application="建模" Category="常规" Tab="编辑" displayValue="可回滚编辑" modified="2018-02-14T07:59:38" name="SketchDBAction" title="双击操作（草图）" value="0"/>
+<Pref Application="建模" Category="自由曲面特征参数" Tab="整体突变" displayValue="三次" modified="2018-02-14T08:02:56" name="Model_Swoop_Degree_Mode" title="次数" value="0"/>
+<Pref Application="草图" Category="自动判断约束和尺寸" Tab="尺寸" displayValue="否" modified="2018-02-21T06:15:46" name="Sketch_continuousAutoDimensioningDesign" title="在设计应用程序中连续自动标注尺寸" value="0"/>
+<Pref Application="分析" Category="模型比较" Tab="显示" displayValue="103" modified="2018-03-06T01:51:16" name="Analysis_MdlCmp_ChngdEdgesPart1Color" title="更改的边部件 1 的颜色" value="103"/>
+<Pref Application="分析" Category="模型比较" Tab="显示" displayValue="186" modified="2018-03-06T01:50:08" name="Analysis_MdlCmp_ChngdFacesPart1Color" title="更改的面部件 1 的颜色" value="186"/>
+<Pref Application="分析" Category="模型比较" Tab="显示" displayValue="211" modified="2018-03-06T01:50:08" name="Analysis_MdlCmp_ChngdFacesPart2Color" title="更改的面部件 2 的颜色" value="211"/>
+<Pref Application="分析" Category="模型比较" Tab="显示" displayValue="93" modified="2018-03-06T01:51:16" name="Analysis_MdlCmp_UniqEdgesPart1Color" title="唯一的边部件 1 的颜色" value="93"/>
+<Pref Application="分析" Category="模型比较" Tab="显示" displayValue="36" modified="2018-03-06T01:51:16" name="Analysis_MdlCmp_UniqFacesPart1Color" title="唯一的面部件 1 的颜色" value="36"/>
+<Pref Application="分析" Category="模型比较" Tab="显示" displayValue="181" modified="2018-03-06T01:51:16" name="Analysis_MdlCmp_UniqFacesPart2Color" title="唯一的面部件 2 的颜色" value="181"/>
+<Pref Application="制图" Category="常规/设置" Tab="标准" displayValue="123" modified="2020-03-19T01:54:58" name="Drafting_Standard" title="制图标准" value="123"/>
+<Pref Application="制图" Category="常规/设置" Tab="杂项" displayValue="是" modified="2018-02-14T07:58:10" name="Drafting_AllowExpressions" title="允许表达式" value="true"/>
+<Pref Application="制图" Category="图纸自动化" Tab="图册" displayValue="是" modified="2018-02-21T06:04:02" name="Drafting_wizardShowTemplateStep" title="向导步骤 - 显示模板" value="true"/>
+<Pref Application="加工" Category="常规" Tab="软件更新" displayValue="否" modified="2019-11-09T00:53:14" name="CAM_general_use_updated_libraries" title="库文件 - 使用最新的更新库" value="false"/>
+<Pref Application="加工" Category="用户界面" Tab="对话框" displayValue="13" modified="2019-11-02T00:32:36" name="CAM_vis_scr_itm" title="布局 - 滚动前的项目数" value="13"/>
+<Pref Application="加工" Category="工序" Tab="常规" displayValue="是" modified="2019-11-02T00:25:49" name="CAM_autoset_machining_data" title="加工数据 - 在工序中自动设置" value="1"/>
+<Pref Application="加工" Category="仿真与可视化" Tab="常规" displayValue="静态" modified="2019-11-02T00:32:36" name="CAM_vsz_ui_page" title="用户界面 - 开始页面" value="4"/>
+<Pref Application="加工" Category="仿真与可视化" Tab="常规" displayValue="是" modified="2019-11-02T00:32:36" name="CAM_vsz_show_static_page" title="用户界面 - 显示静态页面" value="1"/>
+<Pref Application="加工" Category="仿真与可视化" Tab="常规" displayValue="是" modified="2019-11-02T00:32:36" name="CAM_vsz_show_verify_2d" title="用户界面 - 显示 2D 动态页面" value="1"/>
+<Pref Application="加工" Category="仿真与可视化" Tab="常规" displayValue="5" modified="2019-11-02T00:32:36" name="CAM_ged_anm_spd" title="常规 - 动画速度" value="5"/>
+<Pref Application="加工" Category="仿真与可视化" Tab="过切" displayValue="是" modified="2019-11-02T00:32:36" name="CAM_vsz_gouge_pause_on_first_gouge" title="过切和碰撞设置 - 第一次过切或碰撞时暂停" value="true"/>
+<Pref Application="加工" Category="仿真与可视化" Tab="过切" displayValue="否" modified="2019-11-02T00:32:36" name="CAM_vsz_gouge_stop_when_limit_reached" title="过切和碰撞设置 - 达到限制时停止" value="false"/>
+<Pref Application="注塑模向导" Category="注塑模工具" Tab="常规" displayValue="0" modified="2019-10-30T01:20:20" name="MW_ToolsBoxTranslucency" title="包容体 - 透明度" value="0"/>
+<Pref Application="电极设计" Category="常规" Tab="部件名定义" displayValue="否" modified="2018-03-06T02:03:33" name="MW_EW_DISPLAY_RENAME_DIALOG" title="公共 - 显示重命名对话框" value="false"/>
+<Pref Application="电极设计" Category="常规" Tab="部件名定义" displayValue="&lt;PROJECT_NAME&gt;_&lt;TEMPLATE_NAME&gt;_??? " modified="2017-11-08T07:18:08" name="MW_EW_PART_NAME_RULE" title="公共 - 定制部件命名规则" value="&quot;&lt;PROJECT_NAME&gt;_&lt;TEMPLATE_NAME&gt;_???&quot;\&quot;&quot;"/>
+<Pref Application="电极设计" Category="常规" Tab="部件名定义" displayValue="否" modified="2018-02-21T06:15:46" name="MW_EW_CLONE_DRY_RUN" title="公共 - 克隆前检查错误" value="false"/>
+<Pref Application="电极设计" Category="常规" Tab="部件名定义" displayValue="&lt;TEMPLATE_NAME&gt;_dwg_???" modified="2018-02-21T06:42:46" name="MW_EW_DRAWING_PART_NAME_RULE" title="图纸规则 - 主模型部件命名规则" value="&lt;TEMPLATE_NAME&gt;_dwg_???"/>
+<Pref Application="电极设计" Category="常规" Tab="电极毛坯" displayValue="是" modified="2018-03-06T02:03:33" name="MW_EW_UNITE_HEAD_BLANK" title="合并头部" value="true"/>
+</PrefValues>
