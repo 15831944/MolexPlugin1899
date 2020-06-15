@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractCircleFace.cs" />
     <Compile Include="SlopeAndDia\AnalysisBodySlopeAndMinDia.cs" />
     <Compile Include="SlopeAndDia\FaceSlopeColourBuilder.cs" />
     <Compile Include="SlopeAndDia\BackOffFaceSlopeColour.cs" />

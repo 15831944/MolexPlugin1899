@@ -11,7 +11,7 @@ namespace MolexPlugin.Model
     /// <summary>
     /// 创建用户实体
     /// </summary>
-    public class UserModel
+    public class UserModel: ISetAttribute
     {
         public string CreatorName { get; set; }
 

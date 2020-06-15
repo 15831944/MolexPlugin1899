@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseModel\ControlEnum.cs" />
+    <Compile Include="ISetAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseModel\Role.cs" />
     <Compile Include="DatabaseModel\UserInfo.cs" />
