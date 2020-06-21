@@ -164,7 +164,7 @@ namespace MolexPlugin
             {
                 PostShopdocCreateForm.Show();
             }*/
-            //  Test.cs();
+              Test.cs();
 
             return 1;
         }

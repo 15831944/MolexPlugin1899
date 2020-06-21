@@ -56,7 +56,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractCircleFace.cs" />
+    <Compile Include="Circle\CircleFaceFactory.cs" />
+    <Compile Include="Circle\AbstractCircleFace.cs" />
+    <Compile Include="Circle\CircleAnnylusFace.cs" />
+    <Compile Include="Circle\CircularConeFace.cs" />
+    <Compile Include="Circle\CylinderFace.cs" />
+    <Compile Include="CircleBuilder\CylinderBuilder.cs" />
+    <Compile Include="IDisplayObject.cs" />
     <Compile Include="SlopeAndDia\AnalysisBodySlopeAndMinDia.cs" />
     <Compile Include="SlopeAndDia\FaceSlopeColourBuilder.cs" />
     <Compile Include="SlopeAndDia\BackOffFaceSlopeColour.cs" />

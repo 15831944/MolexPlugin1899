@@ -76,6 +76,7 @@
     <Compile Include="SelectionRule\SelectionEdgeRule .cs" />
     <Compile Include="SelectionRule\SelectionFaceRule.cs" />
     <Compile Include="SelectionRule\SelectionRuleFactory.cs" />
+    <Compile Include="TraceARay.cs" />
     <Compile Include="UMathUtils.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="UVector.cs" />

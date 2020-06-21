@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Basic;
 using System.DirectoryServices;
+using NXOpen;
+using NXOpen.UF;
+using NXOpen.Utilities;
 
 namespace MolexPlugin
 {
@@ -13,25 +16,29 @@ namespace MolexPlugin
 
         public static void cs()
         {
-         /*AD
-            string adPath = "LDAP://molex.com";
-            DirectoryEntry de = new DirectoryEntry(adPath);
-            DirectorySearcher deSearch = new DirectorySearcher(de);
-            deSearch.Filter = "(&(&(objectCategory=person)(objectClass=user))(sAMAccountName=" +
-                "jyang10" + "))";       // LDAP 查询串
-            SearchResult results = deSearch.FindOne();
-            LogMgr.WriteLog(results.Path);
-            ResultPropertyCollection coll = results.Properties;
-            foreach (string str in coll.PropertyNames)
-            {
-                string tab = str+"==============";
-               
-                foreach (Object myCollection in coll[str])
-                {
-                    LogMgr.WriteLog(tab + myCollection);
-                }
-            }
-            */
+            /*AD
+               string adPath = "LDAP://molex.com";
+               DirectoryEntry de = new DirectoryEntry(adPath);
+               DirectorySearcher deSearch = new DirectorySearcher(de);
+               deSearch.Filter = "(&(&(objectCategory=person)(objectClass=user))(sAMAccountName=" +
+                   "jyang10" + "))";       // LDAP 查询串
+               SearchResult results = deSearch.FindOne();
+               LogMgr.WriteLog(results.Path);
+               ResultPropertyCollection coll = results.Properties;
+               foreach (string str in coll.PropertyNames)
+               {
+                   string tab = str+"==============";
+
+                   foreach (Object myCollection in coll[str])
+                   {
+                       LogMgr.WriteLog(tab + myCollection);
+                   }
+               }
+               */
+            Tag temp = (Tag)51951; Face face = NXObjectManager.Get(temp) as Face;
+            FaceData data = FaceUtils.AskFaceData(face);
+            LogMgr.WriteLog(data.FaceType.ToString() + "------------" +face.SolidFaceType);
+
         }
         public static bool IsAuthenticated(string username, string pwd)
         {
