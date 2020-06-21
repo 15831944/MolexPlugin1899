@@ -1,0 +1,157 @@
+VERSION 120
+EDIT  UG_GATEWAY_MAIN_MENUBAR
+
+BEFORE UG_HELP
+CASCADE_BUTTON MENU_PTME_1
+LABEL Molex EDM
+END_OF_BEFORE
+
+MENU MENU_PTME_1
+CASCADE_BUTTON MENU_PTME_2
+LABEL GM
+
+
+END_OF_BEFORE
+
+MENU MENU_PTME_1
+
+BUTTON MENU_MoveObject
+LABEL 移动工件
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_MoveObjectMin
+LABEL  最小
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_MoveObjectMax
+LABEL  最大
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_MoveObjectRotateX
+LABEL  X
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_MoveObjectRotateY
+LABEL  Y
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_MoveObjectRotateZ
+LABEL  Z
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_SuperBox
+LABEL  方块盒
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_AnalyzeBodyAndFace
+LABEL  分析
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_AddEdmAsm
+LABEL  电极组立
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_AddWork
+LABEL  添加WORK
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_EleStandardSeatZ+
+LABEL  Z+
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+
+BUTTON MENU_EleStandardSeatX+
+LABEL  X+
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+
+BUTTON MENU_EleStandardSeatX-
+LABEL  X-
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+
+BUTTON MENU_EleStandardSeatY+
+LABEL  Y+
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+
+BUTTON MENU_EleStandardSeatY-
+LABEL  Y-
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_DeleteEle
+LABEL  删除电极
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_PositionEle
+LABEL  电极跑位
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_Interference
+LABEL  电极检查
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_WorkpieceDrawing
+LABEL  装夹图
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_ElectrodeDrawing
+LABEL  电极图
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_Bom
+LABEL  BOM表
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_EleProgram
+LABEL  批量电极程序
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_Program
+LABEL  电极程序
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_ExportElectrode
+LABEL  导出电极
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_AddProgram
+LABEL  修改程序组
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_PostShopdoc
+LABEL  后处理
+BITMAP feature_painter
+ACTIONS MolexPlugin.dll
+
+BUTTON MENU_BatchExportDrawing
+LABEL  批量导出图纸
+BITMAP feature_painter
+ACTIONS DiePlugin.dll
+
+END_OF_MENU
