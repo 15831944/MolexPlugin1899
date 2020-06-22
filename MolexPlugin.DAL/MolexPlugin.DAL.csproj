@@ -56,12 +56,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CircleBuilder\CircularCollection.cs" />
+    <Compile Include="CircleBuilder\CircularFaceList.cs" />
+    <Compile Include="CircleBuilder\CylinderBuilder.cs" />
     <Compile Include="Circle\CircleFaceFactory.cs" />
     <Compile Include="Circle\AbstractCircleFace.cs" />
     <Compile Include="Circle\CircleAnnylusFace.cs" />
     <Compile Include="Circle\CircularConeFace.cs" />
     <Compile Include="Circle\CylinderFace.cs" />
-    <Compile Include="CircleBuilder\CylinderBuilder.cs" />
+    <Compile Include="CircleBuilder\CylinderFeater.cs" />
+    <Compile Include="Hole\OnlyBlindHoleFeature.cs" />
+    <Compile Include="Hole\AbstractHoleFeater.cs" />
     <Compile Include="IDisplayObject.cs" />
     <Compile Include="SlopeAndDia\AnalysisBodySlopeAndMinDia.cs" />
     <Compile Include="SlopeAndDia\FaceSlopeColourBuilder.cs" />
@@ -77,20 +82,20 @@
     <Compile Include="SlopeAndDia\SweptFaceFaceSlopeAndDia.cs" />
     <Compile Include="SlopeAndDia\PlaneFaceSlopeAndDia.cs" />
     <Compile Include="SlopeAndDia\AbstractFaceSlopeAndDia.cs" />
-    <Compile Include="AddAndDeleteData.cs" />
-    <Compile Include="AuthenticatedUser.cs" />
+    <Compile Include="Database\AddAndDeleteData.cs" />
+    <Compile Include="Database\AuthenticatedUser.cs" />
     <Compile Include="IMoveBulider.cs" />
-    <Compile Include="Jurisdictionl.cs" />
-    <Compile Include="MoveCsysBuilder.cs" />
-    <Compile Include="MoveRotateBuilder.cs" />
-    <Compile Include="MovePointToPointBuilder.cs" />
-    <Compile Include="NXObjectAooearancePoint.cs" />
-    <Compile Include="OperationData.cs" />
+    <Compile Include="Database\Jurisdictionl.cs" />
+    <Compile Include="Move\MoveCsysBuilder.cs" />
+    <Compile Include="Move\MoveRotateBuilder.cs" />
+    <Compile Include="Move\MovePointToPointBuilder.cs" />
+    <Compile Include="Move\NXObjectAooearancePoint.cs" />
+    <Compile Include="Database\OperationData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ControlDeserialize.cs" />
-    <Compile Include="UserInfoDeserialize.cs" />
-    <Compile Include="UserSingleton.cs" />
-    <Compile Include="MoveVisibleObjects.cs" />
+    <Compile Include="Database\ControlDeserialize.cs" />
+    <Compile Include="Database\UserInfoDeserialize.cs" />
+    <Compile Include="Database\UserSingleton.cs" />
+    <Compile Include="Move\MoveVisibleObjects.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Basic\Basic.csproj">
@@ -106,7 +111,9 @@
       <Name>MolexPlugin.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

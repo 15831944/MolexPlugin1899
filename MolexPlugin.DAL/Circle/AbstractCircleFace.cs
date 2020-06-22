@@ -16,6 +16,14 @@ namespace MolexPlugin.DAL
     {
         protected Matrix4 matr;
         protected Vector3d dir;
+        /// <summary>
+        /// 起点
+        /// </summary>
+        public Point3d StartPt { get; protected set; }
+        /// <summary>
+        /// 终点
+        /// </summary>
+        public Point3d EndPt { get; protected set; }
         public FaceData Data { get; private set; }
         /// <summary>
         /// 方向
@@ -119,7 +127,7 @@ namespace MolexPlugin.DAL
         /// </summary>
         /// <param name="centerPt"></param>
         /// <param name="disPt"></param>
-        protected void GetFaceBoundingBox(out Point3d centerPt, out Point3d disPt)
+        public void GetFaceBoundingBox(out Point3d centerPt, out Point3d disPt)
         {
             centerPt = new Point3d();
             disPt = new Point3d();
@@ -128,7 +136,7 @@ namespace MolexPlugin.DAL
             CartesianCoordinateSystem csys = BoundingBoxUtils.CreateCoordinateSystem(this.Matr, inve);
             BoundingBoxUtils.GetBoundingBoxInLocal(obj, csys, this.Matr, ref centerPt, ref disPt);
         }
-     
+
         public int CompareTo(AbstractCircleFace other)
         {
             Point3d pt1 = this.CenterPt;
@@ -143,9 +151,24 @@ namespace MolexPlugin.DAL
         /// <param name="dir"></param>
         public void SetReverseDirection(Vector3d dir)
         {
-            this.dir = dir;
-            this.matr.TransformToZAxis(this.CenterPt, dir);
+            double angle = UMathUtils.Angle(this.dir, dir);
+            if (UMathUtils.IsEqual(angle, 0))
+                return;
+            else if (UMathUtils.IsEqual(angle, Math.PI))
+            {
+                this.dir = dir;
+                this.matr.TransformToZAxis(this.CenterPt, dir);
+                Point3d temp = this.StartPt;
+                this.StartPt = this.EndPt;
+                this.EndPt = temp;
+            }
+            else
+            {
+                LogMgr.WriteLog("面反向错误！");
+            }
+
         }
+
 
     }
 }

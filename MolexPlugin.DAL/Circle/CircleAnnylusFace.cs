@@ -31,11 +31,16 @@ namespace MolexPlugin.DAL
         /// </summary>
         public double MaxRadius { get { return this.Data.Radius; } }
 
-        // public List<ar>
         public CircleAnnylusFace(FaceData data, List<ArcEdgeData> edge) : base(data)
         {
             this.edgeData = edge;
-            this.CenterPt = edge[0].Center;
+            GetFacePoint();
+        }
+        private void GetFacePoint()
+        {
+            this.CenterPt = edgeData[0].Center;
+            this.StartPt = this.CenterPt;
+            this.EndPt = this.EndPt;
         }
         /// <summary>
         /// 判断是否是圆环面
@@ -110,5 +115,9 @@ namespace MolexPlugin.DAL
             return false;
         }
 
+        public override string ToString()
+        {
+            return this.MinRadius.ToString("f3") + "+" + this.MaxRadius.ToString("f3");
+        }
     }
 }

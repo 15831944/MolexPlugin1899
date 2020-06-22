@@ -14,14 +14,6 @@ namespace MolexPlugin.DAL
     public class CylinderFace : AbstractCircleFace
     {
         /// <summary>
-        /// 起点
-        /// </summary>
-        public Point3d StartPt { get; protected set; }
-        /// <summary>
-        /// 终点
-        /// </summary>
-        public Point3d EndPt { get; protected set; }
-        /// <summary>
         /// 半径
         /// </summary>
         public double Radius { get { return this.Data.Radius; } }
@@ -31,12 +23,12 @@ namespace MolexPlugin.DAL
         public double Length { get; private set; }
         public CylinderFace(FaceData data) : base(data)
         {
-
+            GetFacePoint();
         }
         /// <summary>
         /// 设置圆柱的属性点
         /// </summary>
-        private void SetClyinderPoint()
+        private  void GetFacePoint()
         {
             Part workPart = Session.GetSession().Parts.Work;
             Matrix3x3 mat3 = workPart.WCS.CoordinateSystem.Orientation.Element;
@@ -87,6 +79,11 @@ namespace MolexPlugin.DAL
             disPt.X = this.Data.Radius;
             disPt.Y = this.Data.Radius;
             disPt.Z = UMathUtils.GetDis(min, max) / 2;
+
+        }
+        public override string ToString()
+        {
+            return this.Radius.ToString("f3") + "+" + this.Length.ToString("f3");
 
         }
     }

@@ -13,14 +13,7 @@ namespace MolexPlugin.DAL
     /// </summary>
     public class CircularConeFace : AbstractCircleFace
     {
-        /// <summary>
-        /// 起点
-        /// </summary>
-        public Point3d StartPt { get; protected set; }
-        /// <summary>
-        /// 终点
-        /// </summary>
-        public Point3d EndPt { get; protected set; }
+      
         /// <summary>
         /// 最小半径
         /// </summary>
@@ -39,12 +32,12 @@ namespace MolexPlugin.DAL
         public double Length { get; private set; }
         public CircularConeFace(FaceData data) : base(data)
         {
-            SetCircularConePoint();
+            GetFacePoint();
         }
         /// <summary>
         /// 设置属性点
         /// </summary>
-        private void SetCircularConePoint()
+        private void GetFacePoint()
         {
             Point3d centerPt = new Point3d();
             Point3d disPt = new Point3d();
@@ -61,6 +54,10 @@ namespace MolexPlugin.DAL
             this.StartPt = start;
             this.EndPt = end;
             this.Length = disPt.Z * 2;
+        }
+        public override string ToString()
+        {
+            return this.MinRadius.ToString("f3") + "+" + this.MaxRadius.ToString("f3") + "+" + this.Length.ToString("f3");
         }
     }
 }
