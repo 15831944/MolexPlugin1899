@@ -22,23 +22,32 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public static CylinderFeater GetCylinderFeater(List<AbstractCircleFace> circle, CylinderFace cyl)
         {
+
             List<AbstractCircleFace> cylinder = new List<AbstractCircleFace>();
             cylinder.Add(cyl);
             int index = circle.IndexOf(cyl);
             if (index != -1)
             {
-                for (int i = index - 1; i < 0; i--)
+                for (int i = index - 1; i < 0; i--) 
                 {
-                    if (!(circle[1] is CylinderFace) || !(circle[1] is CircleAnnylusFace))
+                    if (!(circle[i] is CylinderFace) || !(circle[i] is CircleAnnylusFace))
                     {
-                        cylinder.Add(cyl);
+                        cylinder.Add(circle[i]);
+                    }
+                    if ((circle[i] is CylinderFace) && (UMathUtils.IsEqual((circle[i] as CylinderFace).Radius, cyl.Radius)))
+                    {
+                        cylinder.Add(circle[i]);
                     }
                 }
                 for (int i = index + 1; i < circle.Count; i++)
                 {
-                    if (!(circle[1] is CylinderFace) || !(circle[1] is CircleAnnylusFace))
+                    if (!(circle[i] is CylinderFace) || !(circle[i] is CircleAnnylusFace))
                     {
-                        cylinder.Add(cyl);
+                        cylinder.Add(circle[i]);
+                    }
+                    if ((circle[i] is CylinderFace) && (UMathUtils.IsEqual((circle[i] as CylinderFace).Radius, cyl.Radius)))
+                    {
+                        cylinder.Add(circle[i]);
                     }
                 }
             }

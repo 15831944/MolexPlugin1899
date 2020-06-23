@@ -92,19 +92,9 @@ namespace MolexPlugin.DAL
         }
         public void Highlight(bool highlight)
         {
-            if (highlight)
+            foreach (AbstractCircleFace af in this.CylinderFace)
             {
-                foreach (AbstractCircleFace af in CylinderFace)
-                {
-                    af.Data.Face.Highlight();
-                }
-            }
-            else
-            {
-                foreach (AbstractCircleFace af in CylinderFace)
-                {
-                    af.Data.Face.Unhighlight();
-                }
+                af.Highlight(highlight);
             }
         }
 

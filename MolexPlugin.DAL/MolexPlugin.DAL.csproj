@@ -65,6 +65,7 @@
     <Compile Include="Circle\CircularConeFace.cs" />
     <Compile Include="Circle\CylinderFace.cs" />
     <Compile Include="CircleBuilder\CylinderFeater.cs" />
+    <Compile Include="Hole\HoleBuilder.cs" />
     <Compile Include="Hole\OnlyBlindHoleFeature.cs" />
     <Compile Include="Hole\AbstractHoleFeater.cs" />
     <Compile Include="IDisplayObject.cs" />
@@ -110,9 +111,6 @@
       <Project>{79cc90cf-5f32-4054-ab58-1e73111b9da1}</Project>
       <Name>MolexPlugin.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

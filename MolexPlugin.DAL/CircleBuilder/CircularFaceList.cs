@@ -10,9 +10,9 @@ using Basic;
 namespace MolexPlugin.DAL
 {
     /// <summary>
-    /// 圆柱形
+    /// 同一中轴线圆柱形
     /// </summary>
-    public class CircularFaceList
+    public class CircularFaceList : IDisplayObject
     {
         public List<AbstractCircleFace> CircleFaceList { get; private set; } = new List<AbstractCircleFace>();
         /// <summary>
@@ -68,10 +68,34 @@ namespace MolexPlugin.DAL
             List<CylinderFace> cyls = CircleFaceList.FindAll(a => a is CylinderFace).Select(a => a as CylinderFace).ToList();
             List<CylinderFeater> featers = new List<CylinderFeater>();
             foreach (CylinderFace cy in cyls)
-            {                              
+            {
                 featers.Add(CylinderBuilder.GetCylinderFeater(this.CircleFaceList, cy));
             }
             return featers;
+        }
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public void Sort(Vector3d vec)
+        {
+            Matrix4 mat = new Matrix4();
+            mat.Identity();
+            mat.TransformToZAxis(new Point3d(0, 0, 0), vec);
+            this.CircleFaceList.Sort(delegate (AbstractCircleFace a, AbstractCircleFace b)
+            {
+                Point3d pt1 = a.CenterPt;
+                Point3d pt2 = b.CenterPt;
+                mat.ApplyPos(ref pt1);
+                mat.ApplyPos(ref pt2);
+                return pt1.Z.CompareTo(pt2.Z);
+            });
+        }
+        public void Highlight(bool highlight)
+        {
+            foreach (AbstractCircleFace af in this.CircleFaceList)
+            {
+                af.Highlight(highlight);
+            }
         }
     }
 }

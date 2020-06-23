@@ -41,30 +41,16 @@ namespace MolexPlugin.DAL
         /// <summary>
         /// 孔特征
         /// </summary>
-        public List<CylinderFeater> CylinderFeater { get; private set; }
+        public CircularFaceList HoleFace { get; private set; }
 
-        public AbstractHoleFeater(List<CylinderFeater> cylFeat)
+        public AbstractHoleFeater(CircularFaceList holeFace)
         {
-            this.CylinderFeater = cylFeat;
+            this.HoleFace = holeFace;
         }
-        /// <summary>
-        /// 判断是否是盲孔
-        /// </summary>
-        /// <returns></returns>
-        protected bool GetAskBlindHole()
-        {
-            Vector3d vec1 = this.CylinderFeater[0].Direction;
-            Vector3d vec2 = new Vector3d(-vec1.X, -vec1.Y, -vec1.Z);
-            int k1 = TraceARay.AskTraceARay(this.CylinderFeater[0].Cylinder.Data.Face.GetBody(), this.CylinderFeater[0].StartPt, vec1);
-            int k2 = TraceARay.AskTraceARay(this.CylinderFeater[0].Cylinder.Data.Face.GetBody(), this.CylinderFeater[0].StartPt, vec1);
-            return k1 != 0 || k2 != 0;
-        }
+       
         public void Highlight(bool highlight)
         {
-            foreach (CylinderFeater cf in CylinderFeater)
-            {
-                cf.Highlight(highlight);
-            }
+            this.HoleFace.Highlight(highlight);
         }
     }
     public enum HoleType

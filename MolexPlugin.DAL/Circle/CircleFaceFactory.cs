@@ -9,7 +9,7 @@ using Basic;
 namespace MolexPlugin.DAL
 {
     /// <summary>
-    /// 创建圆形面公厂
+    /// 创建圆形面工厂
     /// </summary>
     public class CircleFaceFactory
     {
