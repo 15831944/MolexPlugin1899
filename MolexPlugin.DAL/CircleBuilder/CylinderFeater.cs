@@ -16,7 +16,7 @@ namespace MolexPlugin.DAL
     {
         public CylinderFace Cylinder { get; private set; }
         /// <summary>
-        /// 圆形面
+        /// 圆形面（包括圆柱本身）
         /// </summary>
         public List<AbstractCircleFace> CylinderFace { get; private set; } = new List<AbstractCircleFace>();
         /// <summary>
@@ -31,7 +31,7 @@ namespace MolexPlugin.DAL
         /// </summary>
         public Point3d EndPt
         {
-            get { return CylinderFace[CylinderFace.Count - 1].EndPt; }
+            get { return Cylinder.EndPt; }
         }
         /// <summary>
         /// 长度
@@ -69,7 +69,7 @@ namespace MolexPlugin.DAL
         /// <param name="vec"></param>
         public void SetDirection(Vector3d vec)
         {
-            Cylinder.SetReverseDirection(vec);
+            //  Cylinder.SetReverseDirection(vec);
             foreach (AbstractCircleFace af in CylinderFace)
             {
                 af.SetReverseDirection(vec);

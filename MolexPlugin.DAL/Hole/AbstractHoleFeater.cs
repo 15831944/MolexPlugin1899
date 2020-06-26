@@ -41,17 +41,32 @@ namespace MolexPlugin.DAL
         /// <summary>
         /// 孔特征
         /// </summary>
-        public CircularFaceList HoleFace { get; private set; }
+        public HoleBuilder Builder { get; private set; }
 
-        public AbstractHoleFeater(CircularFaceList holeFace)
+        public AbstractHoleFeater(HoleBuilder builder)
         {
-            this.HoleFace = holeFace;
+            this.Builder = builder;
+            GetDirection();
+            GetStartAndEndPt();
         }
-       
+
         public void Highlight(bool highlight)
         {
-            this.HoleFace.Highlight(highlight);
+            this.Builder.Highlight(highlight);
         }
+        /// <summary>
+        /// 获取起点和终点
+        /// </summary>
+        protected abstract void GetStartAndEndPt();
+        /// <summary>
+        /// 获取顶边
+        /// </summary>
+        /// <returns></returns>
+        public abstract ArcEdgeData GetTopEdge();
+        /// <summary>
+        /// 获取轴向方向
+        /// </summary>
+        protected abstract void GetDirection();
     }
     public enum HoleType
     {
