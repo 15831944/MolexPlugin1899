@@ -12,7 +12,7 @@ namespace MolexPlugin.DAL
     /// <summary>
     /// 孔特征抽象类
     /// </summary>
-    public abstract class AbstractHoleFeater : IDisplayObject
+    public abstract class AbstractHoleFeater : IDisplayObject, IEquatable<AbstractHoleFeater>
     {
         /// <summary>
         /// 起点
@@ -46,6 +46,7 @@ namespace MolexPlugin.DAL
         public AbstractHoleFeater(HoleBuilder builder)
         {
             this.Builder = builder;
+            this.Builder.CylFeater.Sort();
             GetDirection();
             GetStartAndEndPt();
         }
@@ -62,11 +63,53 @@ namespace MolexPlugin.DAL
         /// 获取顶边
         /// </summary>
         /// <returns></returns>
-        public abstract ArcEdgeData GetTopEdge();
+        public  ArcEdgeData GetTopEdge()
+        {
+            string err = "";
+            List<ArcEdgeData> arcs = new List<ArcEdgeData>();
+            foreach (Edge eg in this.Builder.CylFeater[0].Cylinder.Data.Face.GetEdges())
+            {
+                if (eg.SolidEdgeType == Edge.EdgeType.Circular)
+                {
+                    ArcEdgeData data = EdgeUtils.GetArcData(eg, ref err);
+                    arcs.Add(data);
+                }
+            }
+            arcs.Sort(delegate (ArcEdgeData a, ArcEdgeData b)
+            {
+                Matrix4 mat = this.Builder.CylFeater[0].Cylinder.Matr;
+                Point3d centerPt1 = a.Center;
+                Point3d centerPt2 = b.Center;
+                mat.ApplyPos(ref centerPt1);
+                mat.ApplyPos(ref centerPt2);
+                return centerPt2.Z.CompareTo(centerPt1.Z);
+            });
+            return arcs[0];
+        }
         /// <summary>
         /// 获取轴向方向
         /// </summary>
         protected abstract void GetDirection();
+
+        public bool Equals(AbstractHoleFeater other)
+        {
+            double angle = UMathUtils.Angle(this.Direction, other.Direction);
+            if (this.Type == other.Type && this.ToString().Equals(other.ToString(), StringComparison.CurrentCultureIgnoreCase) && UMathUtils.IsEqual(angle, 0))
+            {
+                Matrix4 mat = new Matrix4();
+                mat.Identity();
+                mat.TransformToZAxis(this.StratPt, this.Direction);
+                Point3d strat = this.StratPt;
+                Point3d otherStrat = other.StratPt;
+                mat.ApplyPos(ref strat);
+                mat.ApplyPos(ref otherStrat);
+                if (UMathUtils.IsEqual(strat.Z, otherStrat.Z))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
     public enum HoleType
     {

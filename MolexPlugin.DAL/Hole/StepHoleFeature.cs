@@ -10,9 +10,9 @@ using Basic;
 namespace MolexPlugin.DAL
 {
     /// <summary>
-    /// 单一盲孔
+    /// 平底盲孔
     /// </summary>
-    public class OnlyBlindHoleFeature : AbstractHoleFeater
+    public class StepHoleFeature : AbstractHoleFeater
     {
         /// <summary>
         /// 半径
@@ -22,12 +22,10 @@ namespace MolexPlugin.DAL
             get { return Builder.CylFeater[0].Radius; }
         }
 
-        public OnlyBlindHoleFeature(HoleBuilder builder) : base(builder)
+        public StepHoleFeature(HoleBuilder builder) : base(builder)
         {
-            this.Type = HoleType.OnlyBlindHole;
-
+            this.Type = HoleType.StepHole;
         }
-
         protected override void GetDirection()
         {
             Vector3d dir = this.Builder.CylFeater[0].Direction;
@@ -51,7 +49,7 @@ namespace MolexPlugin.DAL
         }
         public override string ToString()
         {
-            return "D"+(this.Radius*2).ToString("f3")+"H"+this.Length.ToString("f3");
+            return "D" + (this.Radius * 2).ToString("f3") + "H" + this.Length.ToString("f3");
         }
     }
 }

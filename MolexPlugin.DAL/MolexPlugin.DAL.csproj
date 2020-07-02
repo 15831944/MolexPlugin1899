@@ -56,6 +56,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalysisMold.cs" />
+    <Compile Include="CircleBuilder\CylinderTwoStepBody.cs" />
+    <Compile Include="CircleBuilder\CylinderBody.cs" />
+    <Compile Include="CircleBuilder\AbstractCylinderBody.cs" />
+    <Compile Include="CircleBuilder\BodyCircleFeater.cs" />
     <Compile Include="CircleBuilder\CircularCollection.cs" />
     <Compile Include="CircleBuilder\CircularFaceList.cs" />
     <Compile Include="CircleBuilder\CylinderBuilder.cs" />
@@ -65,10 +70,16 @@
     <Compile Include="Circle\CircularConeFace.cs" />
     <Compile Include="Circle\CylinderFace.cs" />
     <Compile Include="CircleBuilder\CylinderFeater.cs" />
+    <Compile Include="Hole\StepBuilder.cs" />
     <Compile Include="Hole\HoleBuilder.cs" />
+    <Compile Include="Hole\StepBlindHoleFeature.cs" />
+    <Compile Include="Hole\StepThroughHoleFeature.cs" />
+    <Compile Include="Hole\StepHoleFeature.cs" />
+    <Compile Include="Hole\OnlyThroughHoleFeature.cs" />
     <Compile Include="Hole\OnlyBlindHoleFeature.cs" />
     <Compile Include="Hole\AbstractHoleFeater.cs" />
     <Compile Include="IDisplayObject.cs" />
+    <Compile Include="MoldBaseModel.cs" />
     <Compile Include="SlopeAndDia\AnalysisBodySlopeAndMinDia.cs" />
     <Compile Include="SlopeAndDia\FaceSlopeColourBuilder.cs" />
     <Compile Include="SlopeAndDia\BackOffFaceSlopeColour.cs" />
@@ -85,7 +96,7 @@
     <Compile Include="SlopeAndDia\AbstractFaceSlopeAndDia.cs" />
     <Compile Include="Database\AddAndDeleteData.cs" />
     <Compile Include="Database\AuthenticatedUser.cs" />
-    <Compile Include="IMoveBulider.cs" />
+    <Compile Include="Move\IMoveBulider.cs" />
     <Compile Include="Database\Jurisdictionl.cs" />
     <Compile Include="Move\MoveCsysBuilder.cs" />
     <Compile Include="Move\MoveRotateBuilder.cs" />

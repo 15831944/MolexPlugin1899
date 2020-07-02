@@ -38,7 +38,7 @@ namespace MolexPlugin.DAL
         /// </summary>
         public double Length
         {
-            get { return UMathUtils.GetDis(StartPt, EndPt); }
+            get { return UMathUtils.GetDis(StartPt, this.CylinderFace[this.CylinderFace.Count - 1].EndPt); }
         }
         /// <summary>
         /// 方向
@@ -61,7 +61,7 @@ namespace MolexPlugin.DAL
         {
             this.Cylinder = cyl;
             this.CylinderFace = circle;
-            CylinderFaceSort();
+            SetDirection(cyl.Direction);
         }
         /// <summary>
         /// 设置轴向方向
