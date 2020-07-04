@@ -36,14 +36,9 @@ namespace MolexPlugin.DAL
         /// <summary>
         /// 是否是孔
         /// </summary>
-        public bool IsHole
-        {
-            get
-            {
-                return this.Data.IntNorm == -1;
+        public bool IsHole { get; protected set; }
 
-            }
-        }
+        public bool IsStep { get; protected set; }
         /// <summary>
         /// 中心点
         /// </summary>

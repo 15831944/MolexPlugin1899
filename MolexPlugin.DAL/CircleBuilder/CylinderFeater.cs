@@ -100,7 +100,7 @@ namespace MolexPlugin.DAL
 
         public int CompareTo(CylinderFeater other)
         {
-            return this.Radius.CompareTo(other.Radius);
+            return other.Radius.CompareTo(this.Radius);
         }
     }
 }

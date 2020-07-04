@@ -24,6 +24,8 @@ namespace MolexPlugin.DAL
         public CylinderFace(FaceData data) : base(data)
         {
             GetFacePoint();
+            this.IsHole = data.IntNorm == -1;
+            this.IsStep = data.IntNorm == 1;
         }
         /// <summary>
         /// 设置圆柱的属性点

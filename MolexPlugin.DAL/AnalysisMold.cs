@@ -15,7 +15,7 @@ namespace MolexPlugin.DAL
     {
         private Body aBody;
         private Body bBody;
-        private Matrix4 matr;
+        private Matrix4 matr=new Matrix4();
         private Part workPart;
         /// <summary>
         /// 上模
@@ -65,14 +65,26 @@ namespace MolexPlugin.DAL
             foreach (Body by in workPart.Bodies)
             {
                 MoldBaseModel mm = new MoldBaseModel(by, this.matr);
-                if (UMathUtils.IsEqual(mm.CenterPt.X, 0) || UMathUtils.IsEqual(mm.CenterPt.Y, 0))
+                if (UMathUtils.IsEqual(mm.CenterPt.X, 0) && UMathUtils.IsEqual(mm.CenterPt.Y, 0))
                 {
                     moldBase.Add(mm);
                 }
                 else
                 {
+                    StepBuilder builder;
                     BodyCircleFeater bf = new BodyCircleFeater(by);
-                    bf.
+                    if (bf.IsCylinderBody(out builder))
+                    {
+                        AbstractCylinderBody ab = CylinderBodyFactory.Create(builder);
+                        if (ab != null)
+                        {
+                            cylinder.Add(ab);
+                        }
+                    }
+                    else if (UMathUtils.IsEqual(mm.CenterPt.X, 0) || UMathUtils.IsEqual(mm.CenterPt.Y, 0))
+                    {
+                        moldBase.Add(mm);
+                    }
                 }
             }
         }

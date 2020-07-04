@@ -8,7 +8,7 @@ using System.DirectoryServices;
 using NXOpen;
 using NXOpen.UF;
 using NXOpen.Utilities;
-
+using MolexPlugin.DAL;
 namespace MolexPlugin
 {
     public class Test
@@ -35,10 +35,27 @@ namespace MolexPlugin
                    }
                }
                */
-            Tag temp = (Tag)51951; Face face = NXObjectManager.Get(temp) as Face;
-            FaceData data = FaceUtils.AskFaceData(face);
-            LogMgr.WriteLog(data.FaceType.ToString() + "------------" +face.SolidFaceType);
+            /*
+         Tag temp = (Tag)51951; Face face = NXObjectManager.Get(temp) as Face;
+         FaceData data = FaceUtils.AskFaceData(face);
+         LogMgr.WriteLog(data.FaceType.ToString() + "------------" +face.SolidFaceType);
+         */
+            Body by = NXObjectManager.Get((Tag)52471) as Body;
+            //StepBuilder builder;
+            BodyCircleFeater bf = new BodyCircleFeater(by);
+            //if (bf.IsCylinderBody(out builder))
+            //{
+            //    AbstractCylinderBody ab = CylinderBodyFactory.Create(builder);
+            //    LogMgr.WriteLog(ab.StratPt.X.ToString()+","+ab.StratPt.Y.ToString()+","+ ab.StratPt.Z.ToString());
+            //    LogMgr.WriteLog(ab.EndPt.X.ToString() + "," + ab.EndPt.Y.ToString() + "," + ab.EndPt.Z.ToString());
+            //    LogMgr.WriteLog(ab.Length.ToString());
+            //}
 
+            List<OnlyBlindHoleFeature> blind = bf.GetOnlyBlindHoleFeature();
+            foreach(OnlyBlindHoleFeature oh in blind)
+            {
+                oh.Highlight(true);
+            }
         }
         public static bool IsAuthenticated(string username, string pwd)
         {

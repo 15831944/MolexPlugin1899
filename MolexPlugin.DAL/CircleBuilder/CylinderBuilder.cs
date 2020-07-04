@@ -28,26 +28,35 @@ namespace MolexPlugin.DAL
             int index = circle.IndexOf(cyl);
             if (index != -1)
             {
-                for (int i = index - 1; i < 0; i--) 
+                for (int i = index - 1; i >= 0; i--) 
                 {
-                    if (!(circle[i] is CylinderFace) || !(circle[i] is CircleAnnylusFace))
+                    if (!(circle[i] is CylinderFace) )
                     {
                         cylinder.Add(circle[i]);
                     }
                     if ((circle[i] is CylinderFace) && (UMathUtils.IsEqual((circle[i] as CylinderFace).Radius, cyl.Radius)))
                     {
                         cylinder.Add(circle[i]);
+                    }
+                    if(circle[i] is CircleAnnylusFace)
+                    {
+                        break;
                     }
                 }
                 for (int i = index + 1; i < circle.Count; i++)
                 {
-                    if (!(circle[i] is CylinderFace) || !(circle[i] is CircleAnnylusFace))
+                    if (!(circle[i] is CylinderFace) )
                     {
                         cylinder.Add(circle[i]);
+
                     }
                     if ((circle[i] is CylinderFace) && (UMathUtils.IsEqual((circle[i] as CylinderFace).Radius, cyl.Radius)))
                     {
                         cylinder.Add(circle[i]);
+                    }
+                    if (circle[i] is CircleAnnylusFace)
+                    {
+                        break;
                     }
                 }
             }

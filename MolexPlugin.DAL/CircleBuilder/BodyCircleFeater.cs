@@ -13,7 +13,7 @@ namespace MolexPlugin.DAL
     /// </summary>
     public class BodyCircleFeater
     {
-        private List<AbstractCircleFace> circleFaces;
+        private List<AbstractCircleFace> circleFaces = new List<AbstractCircleFace>();
         private List<HoleBuilder> holeBuilders = new List<HoleBuilder>();
         private List<StepBuilder> steps = new List<StepBuilder>();
         private Body body;
@@ -33,7 +33,7 @@ namespace MolexPlugin.DAL
         private void GetHoleBuilder()
         {
 
-            if (holeBuilders.Count != 0)
+            if (holeBuilders.Count == 0)
             {
                 List<CircularFaceList> hole = CircularCollection.GetHoleList(this.circleFaces);
                 foreach (CircularFaceList cl in hole)
@@ -49,7 +49,7 @@ namespace MolexPlugin.DAL
         private void GetStepBuilder()
         {
 
-            if (holeBuilders.Count != 0)
+            if (holeBuilders.Count == 0)
             {
                 List<CircularFaceList> step = CircularCollection.GetStepList(this.circleFaces);
                 foreach (CircularFaceList cl in step)
@@ -64,7 +64,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public bool IsCylinderBody(out StepBuilder step)
         {
-            GetHoleBuilder();
+            GetStepBuilder();
             if (this.steps.Count == 1)
             {
                 double rid = this.steps[0].CylFeater[0].Cylinder.Radius;
@@ -84,6 +84,8 @@ namespace MolexPlugin.DAL
             step = null;
             return false;
         }
+
+
         /// <summary>
         /// 获取单一盲孔
         /// </summary>
@@ -153,7 +155,7 @@ namespace MolexPlugin.DAL
             List<StepBlindHoleFeature> feat = new List<StepBlindHoleFeature>();
             foreach (HoleBuilder hb in holeBuilders)
             {
-                if (hb.CylFeater.Count > 1 && !hb.IsBlindHole())
+                if (hb.CylFeater.Count > 1 && hb.IsBlindHole())
                 {
                     feat.Add(new StepBlindHoleFeature(hb));
                 }
@@ -170,7 +172,7 @@ namespace MolexPlugin.DAL
             List<StepThroughHoleFeature> feat = new List<StepThroughHoleFeature>();
             foreach (HoleBuilder hb in holeBuilders)
             {
-                if (hb.CylFeater.Count > 1 && hb.IsBlindHole())
+                if (hb.CylFeater.Count > 1 && !hb.IsBlindHole())
                 {
                     feat.Add(new StepThroughHoleFeature(hb));
                 }

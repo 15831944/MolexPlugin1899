@@ -160,10 +160,12 @@ namespace MolexPlugin
                 AddProgram ele = new AddProgram();
                 ele.Show();
             }
+            */
             if (args[0] == "MENU_PostShopdoc")
             {
-                PostShopdocCreateForm.Show();
-            }*/
+                MoldeBase mold = new MoldeBase();
+                mold.Show();
+            }
               Test.cs();
 
             return 1;

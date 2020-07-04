@@ -13,7 +13,7 @@ namespace MolexPlugin.DAL
     /// </summary>
     public class CircularConeFace : AbstractCircleFace
     {
-      
+
         /// <summary>
         /// 最小半径
         /// </summary>
@@ -33,6 +33,8 @@ namespace MolexPlugin.DAL
         public CircularConeFace(FaceData data) : base(data)
         {
             GetFacePoint();
+            this.IsHole = data.IntNorm == -1;
+            this.IsStep = data.IntNorm == 1;
         }
         /// <summary>
         /// 设置属性点

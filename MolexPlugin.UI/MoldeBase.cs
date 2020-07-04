@@ -37,6 +37,9 @@
 using System;
 using NXOpen;
 using NXOpen.BlockStyler;
+using MolexPlugin.DAL;
+using System.Collections.Generic;
+
 namespace MolexPlugin
 {
 
@@ -315,6 +318,12 @@ namespace MolexPlugin
             try
             {
                 //---- Enter your callback code here -----
+                List<MoldBaseModel> bases = new List<MoldBaseModel>();
+                List<AbstractCylinderBody> cylinder = new List<AbstractCylinderBody>();
+                Body aBody = this.bodySelectA.GetSelectedObjects()[0] as Body;
+                Body bBody = this.bodySelectB.GetSelectedObjects()[0] as Body;
+                AnalysisMold mold = new AnalysisMold(aBody, bBody);
+                mold.GetBase(out bases,out cylinder);
             }
             catch (Exception ex)
             {

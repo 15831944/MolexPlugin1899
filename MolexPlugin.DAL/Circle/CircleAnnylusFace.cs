@@ -35,12 +35,14 @@ namespace MolexPlugin.DAL
         {
             this.edgeData = edge;
             GetFacePoint();
+            this.IsHole = true;
+            this.IsStep = true;
         }
         private void GetFacePoint()
         {
             this.CenterPt = edgeData[0].Center;
             this.StartPt = this.CenterPt;
-            this.EndPt = this.EndPt;
+            this.EndPt = this.CenterPt;
         }
         /// <summary>
         /// 判断是否是圆环面

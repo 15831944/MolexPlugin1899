@@ -65,12 +65,18 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public List<CylinderFeater> GetCylinderFeaters()
         {
-            List<CylinderFace> cyls = CircleFaceList.FindAll(a => a is CylinderFace).Select(a => a as CylinderFace).ToList();
+            List<AbstractCircleFace> cyls = CircleFaceList.FindAll(a => a is CylinderFace).ToList();
             List<CylinderFeater> featers = new List<CylinderFeater>();
-            foreach (CylinderFace cy in cyls)
+            if (cyls != null && cyls.Count > 0)
             {
-                featers.Add(CylinderBuilder.GetCylinderFeater(this.CircleFaceList, cy));
+                Sort(cyls[0].Direction);
+
+                foreach (CylinderFace cy in cyls)
+                {
+                    featers.Add(CylinderBuilder.GetCylinderFeater(this.CircleFaceList, cy));
+                }
             }
+
             return featers;
         }
         /// <summary>

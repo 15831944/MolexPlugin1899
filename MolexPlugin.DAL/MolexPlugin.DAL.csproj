@@ -64,6 +64,7 @@
     <Compile Include="CircleBuilder\CircularCollection.cs" />
     <Compile Include="CircleBuilder\CircularFaceList.cs" />
     <Compile Include="CircleBuilder\CylinderBuilder.cs" />
+    <Compile Include="CylinderBodyFactory.cs" />
     <Compile Include="Circle\CircleFaceFactory.cs" />
     <Compile Include="Circle\AbstractCircleFace.cs" />
     <Compile Include="Circle\CircleAnnylusFace.cs" />

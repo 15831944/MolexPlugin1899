@@ -64,7 +64,7 @@ namespace MolexPlugin.DAL
             List<CircularFaceList> stepList = new List<CircularFaceList>();
             foreach (AbstractCircleFace af in circles)
             {
-                if (!af.IsHole)
+                if (af.IsStep)
                 {
                     if (stepList.Count == 0)
                     {
