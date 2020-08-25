@@ -26,11 +26,11 @@ namespace Basic
                 return workPart.ScRuleFactory.CreateRuleCurveDumb(curves.ToArray());
             }
 
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("Basic.SelectionCurveRule.CreateSelectionRule:错误：" + ex.Message);
-            }
-            return null;
+                throw ex;
+            }    
         }
     }
 }

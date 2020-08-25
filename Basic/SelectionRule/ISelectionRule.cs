@@ -7,6 +7,9 @@ using NXOpen;
 
 namespace Basic
 {
+    /// <summary>
+    /// 选择器接口
+    /// </summary>
    public interface ISelectionRule
     {
         SelectionIntentRule CreateSelectionRule();

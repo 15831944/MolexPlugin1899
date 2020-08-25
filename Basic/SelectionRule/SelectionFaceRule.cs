@@ -26,11 +26,11 @@ namespace Basic
                 return workPart.ScRuleFactory.CreateRuleFaceDumb(faces.ToArray());
             }
 
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("Basic.SelectionFaceRule.CreateSelectionRule:错误：" + ex.Message);
-            }
-            return null;
+                throw ex;
+            }     
         }
     }
 }

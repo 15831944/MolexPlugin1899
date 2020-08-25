@@ -121,7 +121,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public bool GetComm()
         {
-            if ((this.Jus == Jurisd.Electrode) || (this.Jus == Jurisd.ElectrodeAndCAM) || (this.Jus == Jurisd.Admin) || (this.Jus == Jurisd.Comm))
+            if ((this.Jus == Jurisd.Electrode) || (this.Jus == Jurisd.ElectrodeAndCAM) || (this.Jus == Jurisd.Admin) )
             {
                 return true;
             }

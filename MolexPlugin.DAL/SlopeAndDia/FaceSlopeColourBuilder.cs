@@ -15,7 +15,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public static AbstractFaceSlopeColour Build(AnalysisFaceSlopeAndDia analy)
         {
-            AbstractFaceSlopeColour plane = new PlaneFaceSlopeColour(analy);
+            AbstractFaceSlopeColour plane = new PlaneFaceSlopeColour(analy); 
             AbstractFaceSlopeColour vert = new VerticalFaceSlopeColour(analy);
             AbstractFaceSlopeColour slant = new SlantFaceSlopeColour(analy);
             AbstractFaceSlopeColour back = new BackOffFaceSlopeColour(analy);

@@ -7,6 +7,7 @@ using MolexPlugin.Model;
 using MolexPlugin.DLL;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Basic;
 
 namespace MolexPlugin.DAL
 {
@@ -23,6 +24,10 @@ namespace MolexPlugin.DAL
         {
             string userAccount = Environment.UserName;//获取电脑用户名
             List<UserInfo> users = Deserialize();
+            if(users==null)
+            {
+                LogMgr.WriteLog("用户反序列化错误");
+            }
             return users.Find(a => a.UserAccount.Equals(userAccount, StringComparison.CurrentCultureIgnoreCase));
         }
 

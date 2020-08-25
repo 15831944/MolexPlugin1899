@@ -11,7 +11,7 @@ namespace MolexPlugin.Model
     /// <summary>
     /// 创建用户实体
     /// </summary>
-    public class UserModel: ISetAttribute
+    public class UserModel : ISetAttribute
     {
         public string CreatorName { get; set; }
 
@@ -35,16 +35,38 @@ namespace MolexPlugin.Model
             this.CreatorName = AttributeUtils.GetAttrForString(obj, "CreatorName");
             this.CreateDate = AttributeUtils.GetAttrForString(obj, "CreateDate");
         }
+
+        public static UserModel GetAttribute(NXObject obj)
+        {
+            UserModel model = new UserModel();
+            try
+            {
+                model.CreatorName = AttributeUtils.GetAttrForString(obj, "CreatorName");
+                model.CreateDate = AttributeUtils.GetAttrForString(obj, "CreateDate");
+                return model;
+            }
+            catch (NXException ex)
+            {
+                throw ex;
+            }
+        }
         /// <summary>
         /// 设置属性
         /// </summary>
         /// <param name="objs"></param>
-        public void SetAttribute(params NXObject[] objs)
+        /// <returns></returns>
+        public bool SetAttribute(params NXObject[] objs)
         {
-            AttributeUtils.AttributeOperation("CreatorName", this.CreatorName, objs);
-            AttributeUtils.AttributeOperation("CreateDate", this.CreateDate, objs);
+            try
+            {
+                AttributeUtils.AttributeOperation("CreatorName", this.CreatorName, objs);
+                AttributeUtils.AttributeOperation("CreateDate", this.CreateDate, objs);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
-
-
     }
 }

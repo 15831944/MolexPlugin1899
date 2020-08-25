@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisUtils.cs" />
+    <Compile Include="AssmbliesUtils.cs" />
     <Compile Include="AttributeUtils.cs" />
     <Compile Include="BooleanUtils.cs" />
     <Compile Include="BoundingBoxUtils.cs" />
@@ -65,7 +66,10 @@
     <Compile Include="EdgeUtils.cs" />
     <Compile Include="FaceLoopUtils.cs" />
     <Compile Include="FaceUtils.cs" />
-    <Compile Include="ISelectionRule.cs" />
+    <Compile Include="PartUtils.cs" />
+    <Compile Include="PlaneUtils.cs" />
+    <Compile Include="SelectionRule\AbstractSelectionRuleFactory.cs" />
+    <Compile Include="SelectionRule\ISelectionRule.cs" />
     <Compile Include="LogMgr.cs" />
     <Compile Include="Matrix4.cs" />
     <Compile Include="MoveObject.cs" />
@@ -75,8 +79,16 @@
     <Compile Include="SelectionRule\SelectionCurveRule.cs" />
     <Compile Include="SelectionRule\SelectionEdgeRule .cs" />
     <Compile Include="SelectionRule\SelectionFaceRule.cs" />
+    <Compile Include="SelectionRule\SelectionRuleFaceFactory.cs" />
+    <Compile Include="SelectionRule\SelectionRuleEdgeFactory.cs" />
+    <Compile Include="SelectionRule\SelectionRuleCurveFromPointFactory.cs" />
+    <Compile Include="SelectionRule\SelectionRuleBodyFactory.cs" />
+    <Compile Include="SelectionRule\SelectionRuleCurveFactory.cs" />
+    <Compile Include="SelectionRule\SelectionRuleBuilder.cs" />
     <Compile Include="SelectionRule\SelectionRuleFactory.cs" />
+    <Compile Include="ToolingBoxFeature.cs" />
     <Compile Include="TraceARay.cs" />
+    <Compile Include="TrimBodyUtils.cs" />
     <Compile Include="UMathUtils.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="UVector.cs" />

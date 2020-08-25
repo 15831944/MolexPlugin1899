@@ -144,8 +144,10 @@ namespace Basic
             }
             catch (Exception ex)
             {
-                LogMgr.WriteLog("BoundingBoxUtils.CreateCoordinateSystem "+ex.Message);
-                return workPart.CoordinateSystems.CreateCoordinateSystem(ori, xVec, yVec);
+                LogMgr.WriteLog("BoundingBoxUtils.CreateCoordinateSystem 矩阵不是正交！ " + ex.Message);
+                CartesianCoordinateSystem car= workPart.CoordinateSystems.CreateCoordinateSystem(ori, xVec, yVec);
+                car.Blank();
+                return car;
             }
         }
 

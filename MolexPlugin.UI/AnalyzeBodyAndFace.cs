@@ -207,7 +207,7 @@ namespace MolexPlugin
                     SolidBodySubtype = UFConstants.UF_UI_SEL_FEATURE_BODY
                 };
                 Selection.MaskTriple[] masks = { maskFace, maskBody };
-                this.selectiObj.SetSelectionFilter(Selection.SelectionAction.ClearAndEnableSpecific, masks);//过滤只选择点和面
+                this.selectiObj.SetSelectionFilter(Selection.SelectionAction.ClearAndEnableSpecific, masks);//过滤只选择体和面
             }
             catch (Exception ex)
             {
@@ -246,14 +246,14 @@ namespace MolexPlugin
             try
             {
                 //---- Enter your callback code here -----
+                Part workPart = theSession.Parts.Work;
                 if (this.bodys.Count > 0)
                 {
                     double min = 9999;
                     bool backOff = true;
                     foreach (Body by in bodys)
                     {
-                        AnalysisBodySlopeAndMinDia ana = new AnalysisBodySlopeAndMinDia(this.vector.Vector, by);
-                        ana.Analysis();
+                        AnalysisBodySlopeAndMinDia ana = new AnalysisBodySlopeAndMinDia(this.vector.Vector, by);                      
                         if (ana.AskBackOffFace())
                             backOff = false;
                         if (min >= ana.MinDia)
@@ -262,9 +262,12 @@ namespace MolexPlugin
                             ana.SetColour();
                     }
                     if (min != 9999)
-                        theUI.NXMessageBox.Show("提示！", NXMessageBox.DialogType.Warning, "最小内R角" + (min / 2).ToString("f3"));
+                    {
+                        Basic.ClassItem.Print("最小内R角          " + (min / 2).ToString("f3"));
+                    }                        
                     if (!backOff)
                         theUI.NXMessageBox.Show("提示！", NXMessageBox.DialogType.Warning, "有倒扣面");
+                    workPart.ModelingViews.WorkView.Regenerate();
                 }
             }
             catch (Exception ex)

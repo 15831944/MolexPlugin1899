@@ -8,11 +8,11 @@ using NXOpen.UF;
 
 namespace Basic
 {
-    public class ClassItem 
+    public class ClassItem
     {
-        public static Session theSession ;
-        public static UI theUi ;
-        public static UFSession theUFSession ;
+        public static Session theSession;
+        public static UI theUi;
+        public static UFSession theUFSession;
         private static ListingWindow lw;
         private static LogFile lf;
         private static NXMessageBox mb;
@@ -21,13 +21,13 @@ namespace Basic
             theSession = Session.GetSession();
             theUi = UI.GetUI();
             theUFSession = UFSession.GetUFSession();
-            
+
             lw = theSession.ListingWindow;
             lf = theSession.LogFile;
             mb = theUi.NXMessageBox;
 
         }
-       
+
         public static int MessageBox(string msg, NXMessageBox.DialogType type)
         {
             return mb.Show("错误", type, msg);
@@ -51,6 +51,7 @@ namespace Basic
         /// <param name="str"></param>
         public static void WriteLogFile(string str)
         {
+            str += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:  ");
             lf.WriteLine(str);
         }
     }

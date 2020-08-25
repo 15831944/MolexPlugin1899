@@ -16,8 +16,12 @@ namespace MolexPlugin.DAL
     {
         private static UserSingleton user = null;
         private Jurisdiction jurisd = null;
-        private UserModel creatorUser = new UserModel();
+        private UserModel creatorUser = null;
         private UserInfo info;
+        /// <summary>
+        /// 获取是否成功
+        /// </summary>
+        public bool UserSucceed { get; private set; } = true;
         /// <summary>
         /// 创建用户
         /// </summary>
@@ -25,8 +29,14 @@ namespace MolexPlugin.DAL
         {
             get
             {
-                creatorUser.CreateDate = DateTime.Now.ToString("yyyy-MM-dd");
-                creatorUser.CreatorName = info.UserName;
+                if (UserSucceed && creatorUser == null)
+                {
+                    creatorUser = new UserModel()
+                    {
+                        CreateDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                        CreatorName = info.UserName
+                    };
+                }
                 return creatorUser;
             }
         }
@@ -37,7 +47,7 @@ namespace MolexPlugin.DAL
         {
             get
             {
-                if (jurisd == null)
+                if (UserSucceed && jurisd == null)
                     jurisd = new Jurisdiction(info);
                 return jurisd;
             }
@@ -46,6 +56,10 @@ namespace MolexPlugin.DAL
         private UserSingleton()
         {
             this.info = UserInfoDeserialize.GetDeserializeToUser();
+            if (this.info == null)
+            {
+                UserSucceed = false;
+            }
         }
         public static UserSingleton Instance()
         {

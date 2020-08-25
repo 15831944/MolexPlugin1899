@@ -53,18 +53,15 @@ namespace Basic
                 NXOpen.Features.Feature boolFeature = booleanBuilder1.CommitFeature();
                 return boolFeature as NXOpen.Features.BooleanFeature;
             }
-           catch(Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("Basic.BooleanUtils.CreateBooleanFeature:错误：" + ex.Message);
-                return null;
+                throw ex;
             }
             finally
             {
                 booleanBuilder1.Destroy();
             }
-
-           
-      
 
         }
 

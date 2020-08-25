@@ -26,11 +26,11 @@ namespace Basic
                 return workPart.ScRuleFactory.CreateRuleEdgeDumb(edges.ToArray());
             }
 
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("Basic.SelectionEdgeRule.CreateSelectionRule:错误：" + ex.Message);
-            }
-            return null;
+                throw ex;
+            }   
         }
     }
 }

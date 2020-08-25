@@ -27,17 +27,15 @@ namespace Basic
                 int nErrs = theSession.UpdateManager.DoUpdate(mark);
                 return dt != 0;
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("DeleteObject.UpdateObject: 删除失败！" + ex.Message);
-                return false;
+                throw ex;
             }
             finally
             {
                 theSession.DeleteUndoMark(mark, null);
             }
-
-
         }
         /// <summary>
         ///更新
@@ -52,9 +50,10 @@ namespace Basic
             {
                 theSession.UpdateManager.DoUpdate(markId);
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("DeleteObject.UpdateObject:更新失败！" + ex.Message);
+                throw ex;
             }
             finally
             {

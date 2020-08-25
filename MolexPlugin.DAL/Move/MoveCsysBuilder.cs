@@ -23,9 +23,18 @@ namespace MolexPlugin.DAL
         }
         public NXObject Move(params NXObject[] objs)
         {
-            if (user.Jurisd.GetComm())
+            if (user.UserSucceed && user.Jurisd.GetComm())
             {
-                return MoveObject.MoveObjectOfCsys(csys, objs);
+                try
+                {
+                    NXObject obj = MoveObject.MoveObjectOfCsys(csys, objs);
+                    return obj;
+                }
+                catch (NXException ex)
+                {
+                    UI.GetUI().NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "无法移动--" + ex.Message);
+                    return null;
+                }
             }
             else
             {

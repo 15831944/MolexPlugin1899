@@ -55,12 +55,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ElectrodeModel\ElectrodeModel.cs" />
+    <Compile Include="ElectrodeModel\WorkpieceModel.cs" />
+    <Compile Include="ElectrodeModel\WorkModel.cs" />
+    <Compile Include="ElectrodeModel\EDMModel.cs" />
+    <Compile Include="ElectrodeModel\ASMModel.cs" />
+    <Compile Include="ElectrodeModel\AbstractAssmbileModel.cs" />
+    <Compile Include="IDisplayObject.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeAllInfo.cs" />
+    <Compile Include="ElectrodeInfo\Matrix4Info.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeInfo.cs" />
+    <Compile Include="ElectrodeInfo\WorkInfo.cs" />
+    <Compile Include="ElectrodeInfo\EDMInfo.cs" />
+    <Compile Include="ElectrodeInfo\ASMInfo.cs" />
+    <Compile Include="ElectrodeInfo\WorkPieceInfo.cs" />
+    <Compile Include="ElectrodeInfo\ParentAssmblieInfo.cs" />
     <Compile Include="DatabaseModel\ControlEnum.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeCAMInfo.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeGapValueInfo.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeInfo11.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodePreparationInfo.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodePitchInfo.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeAttributeInfo.cs" />
     <Compile Include="ISetAttribute.cs" />
+    <Compile Include="ElectrodeInfo\MoldInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseModel\Role.cs" />
     <Compile Include="DatabaseModel\UserInfo.cs" />
-    <Compile Include="UserModel.cs" />
+    <Compile Include="ElectrodeInfo\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Basic\Basic.csproj">
@@ -68,6 +90,7 @@
       <Name>Basic</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

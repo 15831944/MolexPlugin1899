@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MolexPlugin.Model;
+using System.IO;
+using MolexPlugin.DLL;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace MolexPlugin.DAL
 {
@@ -11,6 +14,7 @@ namespace MolexPlugin.DAL
     {
         private UserSingleton users;
         private bool auth;
+
         private OperationData oper = new OperationData();
         public AddAndDeleteData()
         {
@@ -24,7 +28,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public bool DeleteUser(params UserInfo[] user)
         {
-            if (auth && users.Jurisd.GetAdminJurisd())
+            if (users.UserSucceed && auth && users.Jurisd.GetAdminJurisd())
             {
                 bool isok = oper.DeleteDatabaseToUser(user);
                 if (isok)
@@ -43,7 +47,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public bool AddUser(params UserInfo[] user)
         {
-            if (auth && users.Jurisd.GetAdminJurisd())
+            if (users.UserSucceed && auth && users.Jurisd.GetAdminJurisd())
             {
                 bool isok = oper.AddDatabaseToUser(user);
                 if (isok)
@@ -56,13 +60,31 @@ namespace MolexPlugin.DAL
                 return false;
         }
         /// <summary>
+        /// 序列化用户
+        /// </summary>
+        public void SerializeUserToData()
+        {
+            if (users.UserSucceed && auth && users.Jurisd.GetAdminJurisd())
+            {
+                string dllPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+                string contrPath = dllPath.Replace("application\\", "Cofigure\\SerializeContr.dat");
+                if (File.Exists(contrPath))
+                    File.Delete(contrPath);
+                List<ControlEnum> users = new ControlEnumNameDll().GetList();
+                FileStream fs = new FileStream(contrPath, FileMode.Create);
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(fs, users);
+                fs.Close();
+            }
+        }
+        /// <summary>
         /// 删除控件
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
         public bool DeleteControl(params ControlEnum[] ce)
         {
-            if (auth && users.Jurisd.GetAdminJurisd())
+            if (users.UserSucceed && auth && users.Jurisd.GetAdminJurisd())
             {
                 bool isok = oper.DeleteDatabaseToControl(ce);
                 if (isok)
@@ -81,7 +103,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public bool AddControl(params ControlEnum[] ce)
         {
-            if (auth && users.Jurisd.GetAdminJurisd())
+            if (users.UserSucceed && auth && users.Jurisd.GetAdminJurisd())
             {
                 bool isok = oper.AddDatabaseToControl(ce);
                 if (isok)
@@ -93,5 +115,6 @@ namespace MolexPlugin.DAL
             else
                 return false;
         }
+
     }
 }

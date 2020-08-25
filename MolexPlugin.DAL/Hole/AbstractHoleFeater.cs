@@ -63,7 +63,7 @@ namespace MolexPlugin.DAL
         /// 获取顶边
         /// </summary>
         /// <returns></returns>
-        public  ArcEdgeData GetTopEdge()
+        public ArcEdgeData GetTopEdge()
         {
             string err = "";
             List<ArcEdgeData> arcs = new List<ArcEdgeData>();

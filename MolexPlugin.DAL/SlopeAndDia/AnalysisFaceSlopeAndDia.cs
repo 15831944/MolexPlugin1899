@@ -16,14 +16,25 @@ namespace MolexPlugin.DAL
         public Face Face { get; private set; }
         private UserSingleton user;
         private Vector3d vec;
+        /// <summary>
+        /// 最小半径
+        /// </summary>
         public double MinDia { get; private set; } = 0;
-
+        /// <summary>
+        /// 最大半径
+        /// </summary>
         public double MaxDia { get; private set; } = 0;
-
+        /// <summary>
+        /// 最小斜度
+        /// </summary>
         public double MinSlope { get; private set; } = 0;
-
+        /// <summary>
+        /// 最大斜度
+        /// </summary>
         public double MaxSlope { get; private set; } = 0;
-
+        /// <summary>
+        /// 面数据
+        /// </summary>
         public FaceData Data { get; private set; }
         public AnalysisFaceSlopeAndDia(Face face, Vector3d vec)
         {
@@ -32,19 +43,21 @@ namespace MolexPlugin.DAL
             double[] dia = new double[2];
             double[] slope = new double[2];
             user = UserSingleton.Instance();
-
-            if (!user.Jurisd.GetComm())
+            if (user.UserSucceed && user.Jurisd.GetComm())
+            {
+                AbstractFaceSlopeAndDia absface = FaceSlopeAndDiaFactory.CreateFaceSlopeAndDia(face);
+                this.Data = absface.Data;
+                absface.GetSlopeAndDia(vec, out slope, out dia);
+                this.MaxSlope = slope[1];
+                this.MinSlope = slope[0];
+                this.MinDia = dia[0];
+                this.MaxDia = dia[1];
+            }
+            else
             {
                 this.Data = FaceUtils.AskFaceData(face);
                 return;
             }
-            AbstractFaceSlopeAndDia absface = FaceSlopeAndDiaFactory.CreateFaceSlopeAndDia(face);
-            this.Data = absface.Data;
-            absface.GetSlopeAndDia(vec, out slope, out dia);
-            this.MaxSlope = slope[1];
-            this.MinSlope = slope[0];
-            this.MinDia = dia[0];
-            this.MaxDia = dia[1];
         }
         /// <summary>
         /// 设置颜色
@@ -69,7 +82,11 @@ namespace MolexPlugin.DAL
             else
                 return false;
         }
-
+        /// <summary>
+        /// 以vec向量为Z向高低排序
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public int CompareTo(AnalysisFaceSlopeAndDia other)
         {
             Part workPart = Session.GetSession().Parts.Work;

@@ -34,31 +34,8 @@ namespace MolexPlugin.DAL
         private ControlDeserialize()
         {
 
-        }
-        public static bool AddCoutrol(params ControlEnum[] control)
-        {
-            ControlEnumNameDll dll = new ControlEnumNameDll();
-            int cout = dll.Insert(control.ToList());
-            if (cout == control.Length)
-                return true;
-            else
-                return false;
-        }
-        /// <summary>
-        /// 序列化
-        /// </summary>
-        public static void Serialize()
-        {
-            string dllPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-            string contrPath = dllPath.Replace("application\\", "Cofigure\\SerializeContr.dat");
-            if (File.Exists(contrPath))
-                File.Delete(contrPath);
-            List<ControlEnum> users = new ControlEnumNameDll().GetList();
-            FileStream fs = new FileStream(contrPath, FileMode.Create);
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(fs, users);
-            fs.Close();
-        }
+        }     
+       
         /// <summary>
         /// 反序列化
         /// </summary>

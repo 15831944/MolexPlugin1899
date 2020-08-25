@@ -10,7 +10,7 @@ namespace Basic
     /// <summary>
     /// 选择点
     /// </summary>
-    public class SelectionCurveFromPointRule : ClassItem,ISelectionRule
+    public class SelectionCurveFromPointRule : ClassItem, ISelectionRule
     {
         private List<Point> points = new List<Point>();
 
@@ -26,11 +26,11 @@ namespace Basic
                 return workPart.ScRuleFactory.CreateRuleCurveDumbFromPoints(points.ToArray());
             }
 
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("Basic.SelectionFaceFromPointRule.CreateSelectionRule:错误：" + ex.Message);
-            }
-            return null;
+                throw ex;
+            }   
         }
     }
 }

@@ -158,7 +158,7 @@ namespace Basic
         }
 
         /// <summary>
-        /// 矢量相减
+        /// 矢量相减 
         /// </summary>
         /// <param name="vec1"></param>
         /// <param name="vec2"></param>

@@ -554,10 +554,10 @@ namespace Basic
         /// </summary>
         /// <param name="mat"></param>
         /// <returns></returns>
-        public Point3d GetCenter(Matrix4 mat)
+        public Point3d GetCenter()
         {
             Point3d temp = new Point3d(0, 0, 0);
-            Matrix4 inver = mat.GetInversMatrix();
+            Matrix4 inver = this.GetInversMatrix();
             inver.ApplyPos(ref temp);
             return temp;
 

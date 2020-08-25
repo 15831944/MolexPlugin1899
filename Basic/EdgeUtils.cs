@@ -80,7 +80,7 @@ namespace Basic
             {
                 errorMsg += ex.Message;
                 LogMgr.WriteLog("EdgeUtils:GetArcData1:"+edge.Tag.ToString() + ex.Message);
-                return null;
+                throw ex;
             }
             finally
             {

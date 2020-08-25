@@ -32,7 +32,7 @@ namespace Basic
             wcs.SetOriginAndMatrix(centerPt, csys.Orientation.Element);
         }
         /// <summary>
-        /// 以点和3x3的矩阵提到WCS
+        /// 以点和3x3的矩阵设置WCS
         /// </summary>
         /// <param name="centerPt"></param>
         /// <param name="matr"></param>

@@ -35,11 +35,15 @@ namespace Basic
             {
                 return moveObjectBuilder.Commit();
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("Basic.MoveObject.MoveObjectOfCsys:错误：" + ex.Message);
+                throw ex;
             }
-            return null;
+            finally
+            {
+                moveObjectBuilder.Destroy();
+            }
         }
         /// <summary>
         /// 按点到点移动工件
@@ -64,11 +68,15 @@ namespace Basic
             {
                 return moveObjectBuilder.Commit();
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("Basic.MoveObject.MoveObjectOfCsys:错误：" + ex.Message);
+                throw ex;
             }
-            return null;
+            finally
+            {
+                moveObjectBuilder.Destroy();
+            }
         }
         /// <summary>
         /// 绕轴旋转
@@ -95,11 +103,15 @@ namespace Basic
             {
                 return moveObjectBuilder.Commit();
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("Basic.MoveObject.MoveObjectOfCsys:错误：" + ex.Message);
+                throw ex;
             }
-            return null;
+            finally
+            {
+                moveObjectBuilder.Destroy();
+            }
         }
 
         // <summary>
@@ -135,18 +147,18 @@ namespace Basic
             {
 
                 nXObject1 = moveObjectBuilder1.Commit();
+                return nXObject1;
 
             }
             catch (Exception ex)
             {
                 LogMgr.WriteLog("MoveObject:CreateMoveObjToXYZ:      " + ex.Message);
-
+                throw ex;
             }
             finally
             {
                 moveObjectBuilder1.Destroy();
             }
-            return nXObject1;
 
         }
 

@@ -10,7 +10,7 @@ namespace Basic
     /// <summary>
     /// 选择体
     /// </summary>
-    public class SelectionBodyRule:ClassItem,ISelectionRule
+    public class SelectionBodyRule : ClassItem, ISelectionRule
     {
         private List<Body> bodys = new List<Body>();
 
@@ -26,11 +26,11 @@ namespace Basic
                 return workPart.ScRuleFactory.CreateRuleBodyDumb(bodys.ToArray());
             }
 
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("Basic.SelectionBodyRule.CreateSelectionRule:错误：" + ex.Message);
+                throw ex;
             }
-            return null;
         }
     }
 }

@@ -42,7 +42,11 @@ namespace MolexPlugin.DAL
             if (cout == infos.Length)
                 return true;
             else
+            {
+                user.Delete(infos.ToList());
                 return false;
+            }
+              
         }
         /// <summary>
         /// 删除用户数据

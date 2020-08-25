@@ -56,7 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalysisMold.cs" />
+    <Compile Include="BOX\AbstractSuperBox.cs" />
+    <Compile Include="BOX\BoxTrimBodyBuilder.cs" />
     <Compile Include="CircleBuilder\CylinderTwoStepBody.cs" />
     <Compile Include="CircleBuilder\CylinderBody.cs" />
     <Compile Include="CircleBuilder\AbstractCylinderBody.cs" />
@@ -64,7 +65,7 @@
     <Compile Include="CircleBuilder\CircularCollection.cs" />
     <Compile Include="CircleBuilder\CircularFaceList.cs" />
     <Compile Include="CircleBuilder\CylinderBuilder.cs" />
-    <Compile Include="CylinderBodyFactory.cs" />
+    <Compile Include="CircleBuilder\CylinderBodyFactory.cs" />
     <Compile Include="Circle\CircleFaceFactory.cs" />
     <Compile Include="Circle\AbstractCircleFace.cs" />
     <Compile Include="Circle\CircleAnnylusFace.cs" />
@@ -80,7 +81,6 @@
     <Compile Include="Hole\OnlyBlindHoleFeature.cs" />
     <Compile Include="Hole\AbstractHoleFeater.cs" />
     <Compile Include="IDisplayObject.cs" />
-    <Compile Include="MoldBaseModel.cs" />
     <Compile Include="SlopeAndDia\AnalysisBodySlopeAndMinDia.cs" />
     <Compile Include="SlopeAndDia\FaceSlopeColourBuilder.cs" />
     <Compile Include="SlopeAndDia\BackOffFaceSlopeColour.cs" />
@@ -109,6 +109,8 @@
     <Compile Include="Database\UserInfoDeserialize.cs" />
     <Compile Include="Database\UserSingleton.cs" />
     <Compile Include="Move\MoveVisibleObjects.cs" />
+    <Compile Include="BOX\SuperBoxCylinder.cs" />
+    <Compile Include="BOX\SuperBoxBlock.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Basic\Basic.csproj">
@@ -124,6 +126,7 @@
       <Name>MolexPlugin.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

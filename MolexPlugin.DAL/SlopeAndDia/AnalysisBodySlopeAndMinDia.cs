@@ -15,11 +15,22 @@ namespace MolexPlugin.DAL
         private Vector3d vec;
         private Body body;
         private UserSingleton user;
+        private double min = 0;
         private List<AnalysisFaceSlopeAndDia> anaFace = new List<AnalysisFaceSlopeAndDia>();
         /// <summary>
         /// 最小内R角
         /// </summary>
-        public double MinDia { get; private set; }
+        public double MinDia
+        {
+            get
+            {
+                if (this.anaFace.Count == 0)
+                {
+                    Analysis();
+                }
+                return min;
+            }
+        }
 
         public AnalysisBodySlopeAndMinDia(Vector3d vec, Body body)
         {
@@ -30,29 +41,33 @@ namespace MolexPlugin.DAL
         /// <summary>
         /// 分析
         /// </summary>
-        public void Analysis()
+        private void Analysis()
         {
             double min = 9999;
-            if (!user.Jurisd.GetComm())
-                return;
-
-            foreach (Face face in body.GetFaces())
+            if (user.UserSucceed && user.Jurisd.GetComm())
             {
-                AnalysisFaceSlopeAndDia afs = new AnalysisFaceSlopeAndDia(face, vec);
-                if (afs.Data.IntNorm == -1 && afs.MinDia != 0)
+                foreach (Face face in body.GetFaces())
                 {
-                    if (min > afs.MinDia)
-                        min = afs.MinDia;
+                    AnalysisFaceSlopeAndDia afs = new AnalysisFaceSlopeAndDia(face, vec);
+                    if (afs.Data.IntNorm == -1 && afs.MinDia != 0)
+                    {
+                        if (min > afs.MinDia)
+                            min = afs.MinDia;
+                    }
+                    anaFace.Add(afs);
                 }
-                anaFace.Add(afs);
             }
-            this.MinDia = min;
+            this.min = min;
         }
         /// <summary>
         /// 设置颜色
         /// </summary>
         public void SetColour()
         {
+            if (this.anaFace.Count == 0)
+            {
+                Analysis();
+            }
             foreach (AnalysisFaceSlopeAndDia an in anaFace)
             {
                 an.SetColour();
@@ -64,6 +79,10 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public bool AskBackOffFace()
         {
+            if (this.anaFace.Count == 0)
+            {
+                Analysis();
+            }
             anaFace.Sort();
             for (int i = 1; i < anaFace.Count; i++)
             {

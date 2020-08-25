@@ -27,6 +27,10 @@ namespace MolexPlugin.DAL
         /// </summary>
         /// <returns></returns>
         public abstract string GetFaceType();
+        /// <summary>
+        /// 设置下一个颜色面
+        /// </summary>
+        /// <param name="colour"></param>
         public void SetNext(AbstractFaceSlopeColour colour)
         {
             this.colour = colour;

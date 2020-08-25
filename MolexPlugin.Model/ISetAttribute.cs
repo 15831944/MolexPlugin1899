@@ -13,6 +13,6 @@ namespace MolexPlugin.Model
         /// 设置属性
         /// </summary>
         /// <param name="objs"></param>
-        void SetAttribute(params NXObject[] objs);
+        bool SetAttribute(params NXObject[] objs);
     }
 }

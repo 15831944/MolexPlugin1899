@@ -20,7 +20,6 @@ namespace Basic
         /// <returns></returns>
         public static bool AttributeOperation(string title, string value = "", params NXObject[] attrObj)
         {
-
             NXOpen.AttributePropertiesBuilder attributePropertiesBuilder1;
             attributePropertiesBuilder1 = theSession.AttributeManager.CreateAttributePropertiesBuilder(attrObj[0].OwningPart, attrObj, NXOpen.AttributePropertiesBuilder.OperationType.None);
             attributePropertiesBuilder1.DataType = NXOpen.AttributePropertiesBaseBuilder.DataTypeOptions.String;
@@ -32,14 +31,13 @@ namespace Basic
                 nXObject1 = attributePropertiesBuilder1.Commit();
                 return true;
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
-                return false;
+                throw ex;
             }
             finally
             {
-
                 attributePropertiesBuilder1.Destroy();
             }
 
@@ -67,10 +65,10 @@ namespace Basic
                 nXObject1 = attributePropertiesBuilder1.Commit();
                 return true;
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
-                return false;
+                throw ex;
             }
             finally
             {
@@ -93,10 +91,10 @@ namespace Basic
                 nXObject1 = attributePropertiesBuilder1.Commit();
                 return true;
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
-                return false;
+                throw ex;
             }
             finally
             {
@@ -127,10 +125,10 @@ namespace Basic
                 nXObject1 = attributePropertiesBuilder1.Commit();
                 return true;
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
-                return false;
+                throw ex;
             }
             finally
             {
@@ -154,14 +152,13 @@ namespace Basic
                 nXObject1 = attributePropertiesBuilder1.Commit();
                 return true;
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
-                return false;
+                throw ex;
             }
             finally
             {
-
                 attributePropertiesBuilder1.Destroy();
             }
 
@@ -188,10 +185,10 @@ namespace Basic
                 nXObject1 = attributePropertiesBuilder1.Commit();
                 return true;
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
-                return false;
+                throw ex;
             }
             finally
             {
@@ -218,10 +215,10 @@ namespace Basic
                 nXObject1 = attributePropertiesBuilder1.Commit();
                 return true;
             }
-            catch (Exception ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
-                return false;
+                throw ex;
             }
             finally
             {
@@ -256,7 +253,6 @@ namespace Basic
                     LogMgr.WriteLog("未获取" + title + "属性");
             }
             return value;
-
         }
 
         public static string GetAttrForString(NXObject obj, string title, int index)
