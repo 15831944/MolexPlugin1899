@@ -17,30 +17,30 @@ namespace MolexPlugin.Model
     [Serializable]
     public class ElectrodeInfo : ParentAssmblieInfo
     {
-        public ElectrodeAllInfo AllInfo { get;  set; }
+        public ElectrodeAllInfo AllInfo { get; set; }
 
-        public Matrix4Info MatrInfo { get;  set; }
+        public Matrix4Info MatrInfo { get; set; }
         /// <summary>
         /// 矩阵
         /// </summary>
-        public Matrix4 Matr { get;  set; }
-        public ElectrodeInfo(MoldInfo mold, UserModel user, ElectrodeAllInfo allInfo, Matrix4 mat) : base(mold, user)
+        public Matrix4 Matr { get; set; }
+        public ElectrodeInfo(MoldInfo mold, UserModel user, ElectrodeAllInfo allInfo, Matrix4Info matInfo) : base(mold, user)
         {
             this.Type = PartType.Work;
-            this.Matr = mat;
-            this.MatrInfo = new Matrix4Info(mat);
+            this.MatrInfo = matInfo;
             this.AllInfo = allInfo;
+            this.Matr = matInfo.Matr;
         }
         /// <summary>
         /// 以属性得到实体
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static ParentAssmblieInfo GetAttribute(NXObject obj)
+        public new static ElectrodeInfo GetAttribute(NXObject obj)
         {
             try
             {
-                return new ElectrodeInfo(MoldInfo.GetAttribute(obj), UserModel.GetAttribute(obj), ElectrodeAllInfo.GetAttribute(obj), Matrix4Info.GetAttribute(obj).Matr);
+                return new ElectrodeInfo(MoldInfo.GetAttribute(obj), UserModel.GetAttribute(obj), ElectrodeAllInfo.GetAttribute(obj), Matrix4Info.GetAttribute(obj));
 
             }
             catch (NXException ex)

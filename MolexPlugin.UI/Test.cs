@@ -16,6 +16,7 @@ namespace MolexPlugin
 
         public static void cs()
         {
+            Part workPart = Session.GetSession().Parts.Work;
             /*AD
                string adPath = "LDAP://molex.com";
                DirectoryEntry de = new DirectoryEntry(adPath);
@@ -40,22 +41,31 @@ namespace MolexPlugin
          FaceData data = FaceUtils.AskFaceData(face);
          LogMgr.WriteLog(data.FaceType.ToString() + "------------" +face.SolidFaceType);
          */
-            Body by = NXObjectManager.Get((Tag)52471) as Body;
-            //StepBuilder builder;
-            BodyCircleFeater bf = new BodyCircleFeater(by);
-            //if (bf.IsCylinderBody(out builder))
-            //{
-            //    AbstractCylinderBody ab = CylinderBodyFactory.Create(builder);
-            //    LogMgr.WriteLog(ab.StratPt.X.ToString()+","+ab.StratPt.Y.ToString()+","+ ab.StratPt.Z.ToString());
-            //    LogMgr.WriteLog(ab.EndPt.X.ToString() + "," + ab.EndPt.Y.ToString() + "," + ab.EndPt.Z.ToString());
-            //    LogMgr.WriteLog(ab.Length.ToString());
-            //}
+            /*
+               Body by = NXObjectManager.Get((Tag)52471) as Body;
+               StepBuilder builder;
+               BodyCircleFeater bf = new BodyCircleFeater(by);
+               if (bf.IsCylinderBody(out builder))
+               {
+                   AbstractCylinderBody ab = CylinderBodyFactory.Create(builder);
+                   LogMgr.WriteLog(ab.StratPt.X.ToString()+","+ab.StratPt.Y.ToString()+","+ ab.StratPt.Z.ToString());
+                   LogMgr.WriteLog(ab.EndPt.X.ToString() + "," + ab.EndPt.Y.ToString() + "," + ab.EndPt.Z.ToString());
+                   LogMgr.WriteLog(ab.Length.ToString());
+               }
 
-            List<OnlyBlindHoleFeature> blind = bf.GetOnlyBlindHoleFeature();
-            foreach(OnlyBlindHoleFeature oh in blind)
-            {
-                oh.Highlight(true);
-            }
+               List<OnlyBlindHoleFeature> blind = bf.GetOnlyBlindHoleFeature();
+               foreach(OnlyBlindHoleFeature oh in blind)
+               {
+                   oh.Highlight(true);
+               }
+               */
+            Tag sketch = SketchUtils.CreateShetch(-10);
+            Vector3d vecX = new Vector3d(1, 0, 0);
+            Vector3d vecY = new Vector3d(0, 1, 0);
+            Arc arc1 = workPart.Curves.CreateArc(new Point3d(0, 0, 0), vecX, vecY, 2.5, 0, Math.PI * 2);
+
+            SketchUtils.AddShetch(sketch, arc1);
+
         }
         public static bool IsAuthenticated(string username, string pwd)
         {

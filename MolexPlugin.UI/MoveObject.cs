@@ -366,7 +366,7 @@ namespace MolexPlugin
                 if (this.selectionFace == null)
                     return this.selectionPt.Coordinates;
                 else
-                    return aoo.GetPointToFaceDis(this.selectionPt, this.selectionFace);
+                    return NXObjectAooearancePoint.GetPointToFaceDis(this.selectionPt, this.selectionFace);
             }
             return new Point3d(0, 0, 0);
         }

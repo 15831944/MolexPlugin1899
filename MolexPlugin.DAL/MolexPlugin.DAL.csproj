@@ -56,6 +56,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateElectrode.cs" />
+    <Compile Include="ElectrodeBuilder\AbstractCreateAssmbile.cs" />
+    <Compile Include="ElectrodeBuilder\YPositiveElectrodeMatrix.cs" />
+    <Compile Include="ElectrodeBuilder\YNegativeElectrodeMatrix.cs" />
+    <Compile Include="ElectrodeBuilder\XPositiveElectrodeMatrix.cs" />
+    <Compile Include="ElectrodeBuilder\XNegativeElectrodeMatrix.cs" />
+    <Compile Include="ElectrodeBuilder\ZPositiveElectrodeMatrix.cs" />
+    <Compile Include="ElectrodeBuilder\AbstractElectrodeMatrix.cs" />
+    <Compile Include="ElectrodeBuilder\ZElectrodeExpression.cs" />
+    <Compile Include="ElectrodeBuilder\YElectrodeExpression.cs" />
+    <Compile Include="ElectrodeBuilder\XElectrodeExpression.cs" />
+    <Compile Include="ElectrodeBuilder\AbstractElectrodeExpression.cs" />
+    <Compile Include="ElectrodeBuilder\ComputeDischargeFace.cs" />
+    <Compile Include="ElectrodeBuilder\EdmCreateAssmbile.cs" />
+    <Compile Include="ElectrodeBuilder\WorkCreateAssmbile.cs" />
+    <Compile Include="ElectrodeBuilder\AsmCreateAssmbile.cs" />
+    <Compile Include="Collection\AssmbileCollection.cs" />
+    <Compile Include="Collection\EDMCollection.cs" />
+    <Compile Include="Collection\WorkCollection.cs" />
+    <Compile Include="Collection\ASMCollection.cs" />
     <Compile Include="BOX\AbstractSuperBox.cs" />
     <Compile Include="BOX\BoxTrimBodyBuilder.cs" />
     <Compile Include="CircleBuilder\CylinderTwoStepBody.cs" />
@@ -72,6 +92,15 @@
     <Compile Include="Circle\CircularConeFace.cs" />
     <Compile Include="Circle\CylinderFace.cs" />
     <Compile Include="CircleBuilder\CylinderFeater.cs" />
+    <Compile Include="ElectrodeCreateCondition.cs" />
+    <Compile Include="ElectrodeCreateExpAndMatr.cs" />
+    <Compile Include="ElectrodeFeelerBuilder.cs" />
+    <Compile Include="ElectrodePreveiw.cs" />
+    <Compile Include="ElectrodeMoveBuilder.cs" />
+    <Compile Include="ElectrodePartBuilder.cs" />
+    <Compile Include="ElectrodeDatumBuilder.cs" />
+    <Compile Include="ElectrodeSketchBuilder.cs" />
+    <Compile Include="EletrodePreparation.cs" />
     <Compile Include="Hole\StepBuilder.cs" />
     <Compile Include="Hole\HoleBuilder.cs" />
     <Compile Include="Hole\StepBlindHoleFeature.cs" />
@@ -81,6 +110,7 @@
     <Compile Include="Hole\OnlyBlindHoleFeature.cs" />
     <Compile Include="Hole\AbstractHoleFeater.cs" />
     <Compile Include="IDisplayObject.cs" />
+    <Compile Include="IElectrodeBuilder.cs" />
     <Compile Include="SlopeAndDia\AnalysisBodySlopeAndMinDia.cs" />
     <Compile Include="SlopeAndDia\FaceSlopeColourBuilder.cs" />
     <Compile Include="SlopeAndDia\BackOffFaceSlopeColour.cs" />

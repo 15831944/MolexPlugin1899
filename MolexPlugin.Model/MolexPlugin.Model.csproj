@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BodyPitchClassify.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeNameInfo.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodePositioningInfo.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeDatumInfo.cs" />
+    <Compile Include="ElectrodeToolhInfo.cs" />
+    <Compile Include="ElectrodeInfo\BodyInfo.cs" />
     <Compile Include="ElectrodeModel\ElectrodeModel.cs" />
     <Compile Include="ElectrodeModel\WorkpieceModel.cs" />
     <Compile Include="ElectrodeModel\WorkModel.cs" />
@@ -76,7 +82,7 @@
     <Compile Include="ElectrodeInfo\ElectrodeInfo11.cs" />
     <Compile Include="ElectrodeInfo\ElectrodePreparationInfo.cs" />
     <Compile Include="ElectrodeInfo\ElectrodePitchInfo.cs" />
-    <Compile Include="ElectrodeInfo\ElectrodeAttributeInfo.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeRemarksInfo.cs" />
     <Compile Include="ISetAttribute.cs" />
     <Compile Include="ElectrodeInfo\MoldInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

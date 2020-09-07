@@ -147,11 +147,9 @@ namespace MolexPlugin
         private NXOpen.Features.BooleanFeature CreateBooleanFeature()
         {
             Body toolBody = AskSelectParent();
-
-
             if (toolBody != null && this.superBox.ToolingBoxFeature != null)
             {
-                return BooleanUtils.CreateBooleanFeature(this.superBox.ToolingBoxFeature.GetBodies()[0], toolBody, true, NXOpen.Features.Feature.BooleanType.Subtract);
+                return BooleanUtils.CreateBooleanFeature(this.superBox.ToolingBoxFeature.GetBodies()[0], false, true, NXOpen.Features.Feature.BooleanType.Subtract, toolBody);
             }
             return null;
         }

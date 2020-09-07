@@ -15,8 +15,8 @@ namespace MolexPlugin.Model
     /// <summary>
     /// 模具信息
     /// </summary>
-     [Serializable]
-    public class MoldInfo : ISetAttribute, ICloneable
+    [Serializable]
+    public class MoldInfo : ISetAttribute, ICloneable, IEquatable<MoldInfo>
     {
         /// <summary>
         /// 模号
@@ -107,6 +107,13 @@ namespace MolexPlugin.Model
             bf.Serialize(ms, this);
             ms.Seek(0, SeekOrigin.Begin);
             return bf.Deserialize(ms);
+        }
+
+        public bool Equals(MoldInfo other)
+        {
+            return this.MoldNumber.Equals(other.MoldNumber, StringComparison.CurrentCultureIgnoreCase) &&
+                 this.WorkpieceNumber.Equals(other.WorkpieceNumber, StringComparison.CurrentCultureIgnoreCase) &&
+                 this.EditionNumber.Equals(other.EditionNumber, StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }

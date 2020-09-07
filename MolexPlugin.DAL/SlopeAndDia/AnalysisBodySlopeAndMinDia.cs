@@ -57,6 +57,8 @@ namespace MolexPlugin.DAL
                     anaFace.Add(afs);
                 }
             }
+            anaFace.Sort();
+            anaFace.RemoveAt(0);
             this.min = min;
         }
         /// <summary>
@@ -79,16 +81,24 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public bool AskBackOffFace()
         {
+            List<Face> backFace = new List<Face>();
             if (this.anaFace.Count == 0)
             {
                 Analysis();
             }
-            anaFace.Sort();
-            for (int i = 1; i < anaFace.Count; i++)
+            foreach (AnalysisFaceSlopeAndDia face in anaFace)
             {
-                return anaFace[i].isBackOffFace();
+                if (face.isBackOffFace())
+                {
+                    face.SetColour();
+                    backFace.Add(face.Face);
+                }
+
             }
-            return false;
+            if (backFace.Count > 0)
+                return true;
+            else
+                return false;
         }
 
     }

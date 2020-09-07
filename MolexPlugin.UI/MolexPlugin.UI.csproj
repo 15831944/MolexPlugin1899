@@ -52,17 +52,37 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddEdmAsm.cs" />
+    <Compile Include="EleStandardSeatFormInternal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddWorkInternal.cs" />
+    <Compile Include="AddWork.cs" />
+    <Compile Include="AddWorkpiece.cs" />
     <Compile Include="AnalyzeBodyAndFace.cs" />
+    <Compile Include="CheckElectrode.cs" />
+    <Compile Include="CreateEleStandardSeatForm.cs" />
+    <Compile Include="EleStandardSeatForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EleStandardSeatForm.Designer.cs">
+      <DependentUpon>EleStandardSeatForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MoveBody.cs" />
     <Compile Include="MoveObject.cs" />
     <Compile Include="SuperBox.cs" />
+    <Compile Include="AddEdmAsmInternal.cs" />
     <Compile Include="SuperBoxInternal.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +96,15 @@
       <Project>{e272b6fc-7ec7-4e2a-935a-0c0a889efe3e}</Project>
       <Name>MolexPlugin.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MolexPlugin.Model\MolexPlugin.Model.csproj">
+      <Project>{79cc90cf-5f32-4054-ab58-1e73111b9da1}</Project>
+      <Name>MolexPlugin.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EleStandardSeatForm.resx">
+      <DependentUpon>EleStandardSeatForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

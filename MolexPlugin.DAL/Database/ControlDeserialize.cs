@@ -22,25 +22,24 @@ namespace MolexPlugin.DAL
             {
                 if (controls.Count == 0 || controls == null)
                 {
-                    return Deserialize();
+                    controls = Deserialize();
                 }
-                else
-                {
-                    return controls;
-                }
+
+                return controls;
+
             }
         }
 
         private ControlDeserialize()
         {
 
-        }     
-       
+        }
+
         /// <summary>
         /// 反序列化
         /// </summary>
         /// <returns></returns>
-        public static List<ControlEnum> Deserialize()
+        private static List<ControlEnum> Deserialize()
         {
             string dllPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             string contrPath = dllPath.Replace("application\\", "Cofigure\\SerializeContr.dat");

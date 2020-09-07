@@ -18,7 +18,10 @@ namespace MolexPlugin.Model
     public class WorkInfo : ParentAssmblieInfo
     {
         public int WorkNumber { get; set; }
-
+        /// <summary>
+        /// 是否过切检查
+        /// </summary>
+        public bool Interference { get; set; } = false;
         public Matrix4Info MatrInfo { get; set; }
         /// <summary>
         /// 矩阵
@@ -36,7 +39,7 @@ namespace MolexPlugin.Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static ParentAssmblieInfo GetAttribute(NXObject obj)
+        public new static WorkInfo GetAttribute(NXObject obj)
         {
             int num = 0;
 
@@ -45,7 +48,9 @@ namespace MolexPlugin.Model
             try
             {
                 num = AttributeUtils.GetAttrForInt(obj, "WorkNumber");
-                return new WorkInfo(MoldInfo.GetAttribute(obj), UserModel.GetAttribute(obj), num, Matrix4Info.GetAttribute(obj).Matr);
+                WorkInfo info = new WorkInfo(MoldInfo.GetAttribute(obj), UserModel.GetAttribute(obj), num, Matrix4Info.GetAttribute(obj).Matr);
+                info.Interference = AttributeUtils.GetAttrForBool(obj, "Interference");
+                return info;
 
             }
             catch (NXException ex)
@@ -59,6 +64,7 @@ namespace MolexPlugin.Model
             try
             {
                 AttributeUtils.AttributeOperation("WorkNumber", this.WorkNumber, objs);
+                AttributeUtils.AttributeOperation("Interference", this.Interference, objs);
                 return base.SetAttribute(objs) && this.MatrInfo.SetAttribute(objs);
             }
             catch

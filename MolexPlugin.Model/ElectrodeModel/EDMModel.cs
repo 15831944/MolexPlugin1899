@@ -16,24 +16,21 @@ namespace MolexPlugin.Model
     /// </summary>
     public class EDMModel : AbstractAssmbileModel
     {
-
+        public EDMInfo Info { get; protected set; }
         public EDMModel(Part part) : base(part)
         {
 
         }
 
-        public EDMModel(EDMInfo info) : base(info)
+        public EDMModel(EDMInfo info)
         {
+            this.Info = info;
         }
 
         public override string GetAssembleName()
         {
-            string num = "";
-            if ((this.AssmblieInfo as EDMInfo).EdmNumber != 0)
-            {
-                num = (this.AssmblieInfo as EDMInfo).EdmNumber.ToString();
-            }
-            return this.AssmblieInfo.MoldInfo.MoldNumber + "-" + this.AssmblieInfo.MoldInfo.WorkpieceNumber + "-" + "EDM" + num;
+
+            return this.Info.MoldInfo.MoldNumber + "-" + this.Info.MoldInfo.WorkpieceNumber + "-" + "EDM";
         }
 
         public override Component Load(Part parentPart)
@@ -54,7 +51,21 @@ namespace MolexPlugin.Model
 
         protected override void GetModelForAttribute(NXObject obj)
         {
-            this.AssmblieInfo = EDMInfo.GetAttribute(obj);
+            this.Info = EDMInfo.GetAttribute(obj);
+        }
+        /// <summary>
+        /// 判断当前部件是否是EDM
+        /// </summary>
+        /// <param name="part"></param>
+        /// <returns></returns>
+        public static bool IsEDM(Part part)
+        {
+            ParentAssmblieInfo info = ParentAssmblieInfo.GetAttribute(part);
+            return info.Type == PartType.EDM;
+        }
+        public override bool SetAttribute(NXObject obj)
+        {
+            return this.Info.SetAttribute(obj);
         }
     }
 }

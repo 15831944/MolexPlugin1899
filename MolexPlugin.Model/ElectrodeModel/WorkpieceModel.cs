@@ -14,40 +14,25 @@ namespace MolexPlugin.Model
     /// <summary>
     /// Workpiece装配档
     /// </summary>
-    public class WorkpieceModel
+    public class WorkpieceModel : AbstractAssmbileModel
     {
         public WorkPieceInfo Info { get; private set; } = null;
 
-        public Part PartTag { get; private set; }
-        /// <summary>
-        /// 工件地址
-        /// </summary>
-        public string WorkpiecePath { get; private set; }
-        /// <summary>
-        /// 文件夹位置
-        /// </summary>
-        public string WorkpieceDirectoryPath { get; private set; }
-        /// <summary>
-        /// 装配名字
-        /// </summary>
-        public string AssembleName { get { return GetAssembleName(); } }
-        public WorkpieceModel(WorkPieceInfo info, Part part = null)
+        public WorkpieceModel(WorkPieceInfo info, Part part = null) 
         {
             this.Info = info;
             this.PartTag = part;
         }
-        public WorkpieceModel(Part part)
+        public WorkpieceModel(Part part) : base(part)
         {
-            this.PartTag = part;
-            GetPath(part);
-            GetModelForAttribute(part);
+           
         }
         /// <summary>
         /// 创建part档
         /// </summary>
         /// <param name="directoryPath">文件夹地址加\\</param>
         /// <returns></returns>
-        public bool CreatePart(string directoryPath)
+        public override bool CreatePart(string directoryPath)
         {
             this.WorkpieceDirectoryPath = directoryPath;
             this.WorkpiecePath = directoryPath + AssembleName + ".prt";
@@ -60,10 +45,13 @@ namespace MolexPlugin.Model
                         File.Delete(this.WorkpiecePath);
                     }
                     if (PartTag != null)
+                    {
+                        string oldPath = this.PartTag.FullPath;
                         PartTag.Close(BasePart.CloseWholeTree.False, BasePart.CloseModified.UseResponses, null);
-                    File.Move(this.PartTag.FullPath, this.WorkpiecePath);
-                    this.PartTag = PartUtils.OpenPartFile(this.WorkpiecePath);
-                    return SetAttribute(this.PartTag);
+                        File.Move(oldPath, this.WorkpiecePath);
+                        this.PartTag = PartUtils.OpenPartFile(this.WorkpiecePath);
+                        return SetAttribute(this.PartTag);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -73,14 +61,47 @@ namespace MolexPlugin.Model
             return false;
 
         }
-
+        public bool CreatePart(string directoryPath, string partPath)
+        {
+            this.WorkpieceDirectoryPath = directoryPath;
+            this.WorkpiecePath = directoryPath + AssembleName + ".prt";
+            if (Info != null)
+            {
+                try
+                {
+                    if (File.Exists(this.WorkpiecePath))
+                    {
+                        File.Delete(this.WorkpiecePath);
+                    }
+                    foreach (Part pt in Session.GetSession().Parts)
+                    {
+                        if (pt.FullPath.Equals(partPath, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            pt.Close(BasePart.CloseWholeTree.False, BasePart.CloseModified.UseResponses, null);
+                            break;
+                        }
+                    }
+                    File.Move(partPath, this.WorkpiecePath);
+                    this.PartTag = PartUtils.OpenPartFile(this.WorkpiecePath);
+                    return SetAttribute(this.PartTag);
+                }
+                catch (Exception ex)
+                {
+                    ClassItem.WriteLogFile("移动工件错误" + ex.Message);
+                }
+            }
+            return false;
+        }
         /// <summary>
         /// 获取装配档名称
         /// </summary>
         /// <returns></returns>
-        public string GetAssembleName()
+        public override string GetAssembleName()
         {
-
+            return this.Info.MoldInfo.MoldNumber + "-" + this.Info.MoldInfo.WorkpieceNumber + "-" + this.Info.MoldInfo.EditionNumber;
+        }
+        public override string GetAssembleName(NXObject obj)
+        {
             return this.Info.MoldInfo.MoldNumber + "-" + this.Info.MoldInfo.WorkpieceNumber + "-" + this.Info.MoldInfo.EditionNumber;
         }
         /// <summary>
@@ -88,7 +109,7 @@ namespace MolexPlugin.Model
         /// </summary>
         /// <param name="parentPart"></param>
         /// <returns></returns>
-        public Component Load(Part parentPart)
+        public override Component Load(Part parentPart)
         {
             Matrix4 matr = new Matrix4();
             matr.Identity();
@@ -103,48 +124,26 @@ namespace MolexPlugin.Model
                 throw ex;
             }
         }
+
         /// <summary>
-        /// 获取属性
+        /// 判断当前部件是否是Workpiece
         /// </summary>
         /// <param name="part"></param>
-        protected void GetModelForAttribute(Part part)
-        {
-            this.Info = (WorkPieceInfo.GetAttribute(part)) as WorkPieceInfo;
-        }
-        /// <summary>
-        /// 获取地址
-        /// </summary>
-        /// <param name="part"></param>
-        protected void GetPath(Part part)
-        {
-            this.WorkpiecePath = part.FullPath;
-            this.WorkpieceDirectoryPath = Path.GetDirectoryName(WorkpiecePath) + "\\";
-        }
-        /// <summary>
-        /// 是否禁用
-        /// </summary>
-        /// <param name="parentPart">需要禁用的父本文件</param>
         /// <returns></returns>
-        public bool IsSuppressed(Part parentPart)
+        public static bool IsWorkpiece(Part part)
         {
-            Component ct = null;
-            try
-            {
-                ct = AssmbliesUtils.GetPartComp(parentPart, this.PartTag);
-                return ct.IsSuppressed;
-            }
-            catch (NXException ex)
-            {
-                throw ex;
-            }
+            ParentAssmblieInfo info = ParentAssmblieInfo.GetAttribute(part);
+            return info.Type == PartType.Workpiece;
         }
-        /// <summary>
-        /// 设置属性
-        /// </summary>
-        /// <returns></returns>
-        public bool SetAttribute(Part part)
+
+
+        protected override void GetModelForAttribute(NXObject obj)
         {
-            return this.Info.SetAttribute(part);
+            this.Info = WorkPieceInfo.GetAttribute(obj);
+        }
+        public override bool SetAttribute(NXObject obj)
+        {
+            return this.Info.SetAttribute(obj);
         }
     }
 }

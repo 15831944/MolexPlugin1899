@@ -16,10 +16,8 @@ namespace MolexPlugin.Model
     public abstract class AbstractAssmbileModel : IEquatable<AbstractAssmbileModel>, IDisplayObject
     {
         private string name = "";
-        /// <summary>
-        /// 装配信息
-        /// </summary>
-        public ParentAssmblieInfo AssmblieInfo { get; protected set; }
+        protected AbstractAssmbileModel parentModel = null;
+  
         /// <summary>
         /// 工件
         /// </summary>
@@ -62,18 +60,16 @@ namespace MolexPlugin.Model
             GetModelForAttribute(part);
         }
 
-        public AbstractAssmbileModel(ParentAssmblieInfo info)
+        public AbstractAssmbileModel()
         {
-            this.AssmblieInfo = info;
+           
         }
         /// <summary>
         /// 设置属性
         /// </summary>
         /// <returns></returns>
-        public bool SetAttribute(NXObject obj)
-        {
-            return this.AssmblieInfo.SetAttribute(obj);
-        }
+        public abstract bool SetAttribute(NXObject obj);
+       
         /// <summary>
         /// 以属性获取实体
         /// </summary>
@@ -86,7 +82,7 @@ namespace MolexPlugin.Model
         /// </summary>
         public abstract string GetAssembleName();
 
-        public string GetAssembleName(NXObject obj)
+        public virtual string GetAssembleName(NXObject obj)
         {
             return obj.Name;
         }
@@ -95,7 +91,7 @@ namespace MolexPlugin.Model
         /// </summary>
         /// <param name="directoryPath">文件夹地址加\\</param>
         /// <returns></returns>
-        public bool CreatePart(string directoryPath)
+        public virtual bool CreatePart(string directoryPath)
         {
             this.WorkpieceDirectoryPath = directoryPath;
             this.WorkpiecePath = directoryPath + this.AssembleName + ".prt";
@@ -122,6 +118,21 @@ namespace MolexPlugin.Model
         /// <param name="parentPart"></param>
         /// <returns></returns>
         public abstract NXOpen.Assemblies.Component Load(Part parentPart);
+        public NXOpen.Assemblies.Component Load()
+        {
+            if (this.parentModel != null)
+            {
+                try
+                {
+                    return this.Load(parentModel.PartTag);
+                }
+                catch (NXException ex)
+                {
+                    throw ex;
+                }
+            }
+            return null;
+        }
         /// <summary>
         /// 获取装配档下Occs值
         /// </summary>
@@ -142,6 +153,8 @@ namespace MolexPlugin.Model
             }
 
         }
+
+
         public void Highlight(bool highlight)
         {
             Part workPart = Session.GetSession().Parts.Work;
@@ -152,8 +165,12 @@ namespace MolexPlugin.Model
                 {
                     ct.Blank();
                 }
-                NXOpen.Assemblies.Component eleComp = Basic.AssmbliesUtils.GetPartComp(workPart, this.PartTag);
-                eleComp.Unblank();
+                List<NXOpen.Assemblies.Component> eleComp = Basic.AssmbliesUtils.GetPartComp(workPart, this.PartTag);
+                foreach (NXOpen.Assemblies.Component ct in eleComp)
+                {
+                    ct.Unblank();
+                }
+
             }
         }
 
@@ -171,5 +188,14 @@ namespace MolexPlugin.Model
             this.WorkpiecePath = part.FullPath;
             this.WorkpieceDirectoryPath = Path.GetDirectoryName(WorkpiecePath) + "\\";
         }
+        /// <summary>
+        /// 设置父本
+        /// </summary>
+        /// <param name="model"></param>
+        public void SetParentModel(AbstractAssmbileModel model)
+        {
+            this.parentModel = model;
+        }
+
     }
 }

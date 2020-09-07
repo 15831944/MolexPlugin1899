@@ -40,12 +40,10 @@ namespace Basic
         /// <summary>
         ///更新
         /// </summary>
-        public static void UpdateObject()
+        public static void UpdateObject(NXOpen.Session.UndoMarkId markId, string name)
         {
             Part workPart = theSession.Parts.Work;
-            theSession.Preferences.Modeling.UpdatePending = false;
-            NXOpen.Session.UndoMarkId markId;
-            markId = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "NX update");
+            theSession.Preferences.Modeling.UpdatePending = false;          
             try
             {
                 theSession.UpdateManager.DoUpdate(markId);
@@ -57,7 +55,7 @@ namespace Basic
             }
             finally
             {
-                theSession.DeleteUndoMark(markId, "NX update");
+                theSession.DeleteUndoMark(markId, name);
             }
 
         }

@@ -35,7 +35,6 @@ namespace MolexPlugin.Model
         /// Y向个数
         /// </summary>
         public int PitchYNum { get; set; } = 0;
-
         /// <summary>
         /// 设置属性
         /// </summary>
@@ -69,6 +68,7 @@ namespace MolexPlugin.Model
                 info.PitchXNum = AttributeUtils.GetAttrForInt(obj, "PitchXNum");
                 info.PitchY = AttributeUtils.GetAttrForDouble(obj, "PitchY");
                 info.PitchYNum = AttributeUtils.GetAttrForInt(obj, "PitchYNum");
+
                 return info;
             }
             catch (NXException ex)
@@ -107,5 +107,37 @@ namespace MolexPlugin.Model
                 return false;
             }
         }
+
+        /// <summary>
+        /// 通过属性获取
+        /// </summary>
+        /// <param name="bodys">一种齿（阵列）</param>
+        /// <returns></returns>
+        public  ElectrodeToolhInfo[,] GetToolhInfosForAttribute(List<Body> bodys, Matrix4 matr, CartesianCoordinateSystem csys)
+        {
+            ElectrodeToolhInfo[,] info = new ElectrodeToolhInfo[this.PitchXNum, this.PitchYNum];
+            var toolhNumList = bodys.GroupBy(a => AttributeUtils.GetAttrForInt(a, "ToolhNumber"));
+            List<BodyPitchClassify> bps = new List<BodyPitchClassify>();
+            foreach (var toolhNum in toolhNumList)
+            {
+                BodyPitchClassify bp = new BodyPitchClassify(toolhNum.ToList(), matr, csys, this.PitchXNum, this.PitchYNum);
+                bp.SetAttribute();
+                bps.Add(bp);
+            }
+            for (int i = 0; i < this.PitchXNum; i++)
+            {
+                for (int k = 0; k < this.PitchYNum; k++)
+                {
+                    List<Body> temp = new List<Body>();
+                    foreach (BodyPitchClassify by in bps)
+                    {
+                        temp.Add(by.ClassifyBodys[i, k]);
+                    }
+                    info[i, k] = ElectrodeToolhInfo.GetToolhInfoForAttribute(temp.ToArray());
+                }
+            }
+            return info;
+        }
+
     }
 }

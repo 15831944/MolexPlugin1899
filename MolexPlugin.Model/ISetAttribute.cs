@@ -14,5 +14,6 @@ namespace MolexPlugin.Model
         /// </summary>
         /// <param name="objs"></param>
         bool SetAttribute(params NXObject[] objs);
+
     }
 }

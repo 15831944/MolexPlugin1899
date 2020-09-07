@@ -20,14 +20,6 @@ namespace MolexPlugin.Model
     public class ElectrodePreparationInfo : ISetAttribute, ICloneable
     {
         /// <summary>
-        /// 基准台宽度
-        /// </summary>
-        public double DatumWidth { get; set; }
-        /// <summary>
-        /// 基准台高度
-        /// </summary>
-        public double DatumHeigth { get; set; }
-        /// <summary>
         /// 备料值
         /// </summary>
         public int[] Preparation { get; set; } = new int[3];
@@ -46,8 +38,6 @@ namespace MolexPlugin.Model
         {
             try
             {
-                AttributeUtils.AttributeOperation("DatumWidth", this.DatumWidth, obj);
-                AttributeUtils.AttributeOperation("DatumHeigth", this.DatumHeigth, obj);
                 AttributeUtils.AttributeOperation("IsPreparation", this.IsPreparation, obj);
                 AttributeUtils.AttributeOperation("Material", this.Material, obj);
                 AttributeUtils.AttributeOperation("Preparation", this.Preparation, obj);
@@ -69,8 +59,6 @@ namespace MolexPlugin.Model
             ElectrodePreparationInfo info = new ElectrodePreparationInfo();
             try
             {
-                info.DatumWidth = AttributeUtils.GetAttrForDouble(obj, "DatumWidth");
-                info.DatumHeigth = AttributeUtils.GetAttrForDouble(obj, "DatumHeigth");
                 info.IsPreparation = AttributeUtils.GetAttrForBool(obj, "IsPreparation");
                 info.Material = AttributeUtils.GetAttrForString(obj, "Material");
                 for (int i = 0; i < 3; i++)
@@ -103,8 +91,6 @@ namespace MolexPlugin.Model
         {
             try
             {
-                AttributeUtils.AttributeOperation("DatumWidth", this.DatumWidth, objs);
-                AttributeUtils.AttributeOperation("DatumHeigth", this.DatumHeigth, objs);
                 AttributeUtils.AttributeOperation("IsPreparation", this.IsPreparation, objs);
                 AttributeUtils.AttributeOperation("Material", this.Material, objs);
                 AttributeUtils.AttributeOperation("Preparation", this.Preparation, objs);

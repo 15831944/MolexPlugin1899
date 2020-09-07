@@ -91,7 +91,7 @@ namespace MolexPlugin.DAL
         /// <param name="pt"></param>
         /// <param name="face"></param>
         /// <returns></returns>
-        public Point3d GetPointToFaceDis(Point pt, Face face)
+        public static Point3d GetPointToFaceDis(Point pt, Face face)
         {
             FaceData faceData = FaceUtils.AskFaceData(face);
             Matrix4 mat = new Matrix4();

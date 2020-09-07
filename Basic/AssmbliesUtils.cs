@@ -459,14 +459,19 @@ namespace Basic
         /// <param name="parent"></param>
         /// <param name="part"></param>
         /// <returns></returns>
-        public static NXOpen.Assemblies.Component GetPartComp(Part parent, Part part)
+        public static List<NXOpen.Assemblies.Component> GetPartComp(Part parent, Part part)
         {
             Tag[] elePartOccsTag;
             NXOpen.UF.UFSession theUFSession = NXOpen.UF.UFSession.GetUFSession();
             try
             {
+                List<NXOpen.Assemblies.Component> ct = new List<NXOpen.Assemblies.Component>();
                 theUFSession.Assem.AskOccsOfPart(parent.Tag, part.Tag, out elePartOccsTag);
-                return NXOpen.Utilities.NXObjectManager.Get(elePartOccsTag[0]) as NXOpen.Assemblies.Component;
+                foreach (Tag tg in elePartOccsTag)
+                {
+                    ct.Add(NXOpen.Utilities.NXObjectManager.Get(tg) as NXOpen.Assemblies.Component);
+                }
+                return ct;
             }
             catch (NXException ex)
             {
@@ -489,7 +494,7 @@ namespace Basic
                 objOccTag = theUFSession.Assem.FindOccurrence(partOcc, obj);
                 return NXObjectManager.Get(objOccTag) as NXObject;
             }
-           catch(NXException ex)
+            catch (NXException ex)
             {
                 LogMgr.WriteLog("AssmbliesUtils:GetNXObjectOfOcc:         " + ex.Message);
                 throw ex;

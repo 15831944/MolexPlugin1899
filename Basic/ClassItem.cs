@@ -37,13 +37,17 @@ namespace Basic
         /// 输出到信息窗口
         /// </summary>
         /// <param name="msg"></param>
-        public static void Print(string msg)
+        public static void Print(params string[] msg)
         {
             if (!lw.IsOpen)
             {
                 lw.Open();
             }
-            lw.WriteLine(msg);
+            foreach (string st in msg)
+            {
+                lw.WriteLine(st);
+            }
+
         }
         /// <summary>
         /// 写入日志文件

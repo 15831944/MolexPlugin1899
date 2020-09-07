@@ -19,9 +19,9 @@ namespace MolexPlugin.Model
     public class ElectrodeAllInfo:ISetAttribute,ICloneable
     {
         /// <summary>
-        /// 其他属性信息
+        /// 备注信息
         /// </summary>
-        public ElectrodeAttributeInfo Attribute { get; set; }
+        public ElectrodeRemarksInfo Remarks { get; set; }
         /// <summary>
         /// 电极程序信息
         /// </summary>
@@ -35,11 +35,21 @@ namespace MolexPlugin.Model
         /// </summary>
         public ElectrodePitchInfo Pitch { get; set; }
         /// <summary>
-        /// 备料，基准台信息
+        /// 备料信息
         /// </summary>
         public ElectrodePreparationInfo Preparetion { get; set; }
-
-
+        /// <summary>
+        /// 电极名字信息
+        /// </summary>
+        public ElectrodeNameInfo Name { get; set; }
+        /// <summary>
+        /// 设定信息
+        /// </summary>
+        public ElectrodeSetValueInfo SetValue { get; set; }
+        /// <summary>
+        /// 基准台信息
+        /// </summary>
+        public ElectrodeDatumInfo Datum { get; set; }
         public object Clone()
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -53,8 +63,9 @@ namespace MolexPlugin.Model
         /// </summary>
         public bool SetAttribute(Part obj)
         {
-            return this.Attribute.SetAttribute(obj) && this.CAM.SetAttribute(obj) && this.GapValue.SetAttribute(obj)
-                  && this.Pitch.SetAttribute(obj) && this.Preparetion.SetAttribute(obj);
+            return this.Remarks.SetAttribute(obj) && this.CAM.SetAttribute(obj) && this.GapValue.SetAttribute(obj)
+                  && this.Pitch.SetAttribute(obj) && this.Preparetion.SetAttribute(obj) && this.Name.SetAttribute(obj)
+                  && this.SetValue.SetAttribute(obj) && this.Datum.SetAttribute(obj);
         }
         /// <summary>
         /// 读取属性
@@ -63,18 +74,24 @@ namespace MolexPlugin.Model
         {         
             try
             {
-                ElectrodeAttributeInfo att = ElectrodeAttributeInfo.GetAttribute(obj);
+                ElectrodeRemarksInfo rem = ElectrodeRemarksInfo.GetAttribute(obj);
                 ElectrodeCAMInfo cam = ElectrodeCAMInfo.GetAttribute(obj);
                 ElectrodeGapValueInfo gap = ElectrodeGapValueInfo.GetAttribute(obj);
                 ElectrodePitchInfo pitch = ElectrodePitchInfo.GetAttribute(obj);
                 ElectrodePreparationInfo pre = ElectrodePreparationInfo.GetAttribute(obj);
+                ElectrodeSetValueInfo sv = ElectrodeSetValueInfo.GetAttribute(obj);
+                ElectrodeNameInfo name = ElectrodeNameInfo.GetAttribute(obj);
+                ElectrodeDatumInfo da = ElectrodeDatumInfo.GetAttribute(obj);
                 return new ElectrodeAllInfo()
                 {
-                    Attribute = att,
+                    Remarks = rem,
                     CAM = cam,
-                    GapValue=gap,
-                    Pitch=pitch,
-                    Preparetion=pre
+                    GapValue = gap,
+                    Pitch = pitch,
+                    Preparetion = pre,
+                    SetValue = sv,
+                    Name = name,
+                    Datum=da
                 };
             }
             catch (NXException ex)
@@ -91,8 +108,9 @@ namespace MolexPlugin.Model
         /// <returns></returns>
         public bool SetAttribute(params NXObject[] objs)
         {
-            return this.Attribute.SetAttribute(objs) && this.CAM.SetAttribute(objs) && this.GapValue.SetAttribute(objs)
-               && this.Pitch.SetAttribute(objs) && this.Preparetion.SetAttribute(objs);
+            return this.Remarks.SetAttribute(objs) && this.CAM.SetAttribute(objs) && this.GapValue.SetAttribute(objs)
+                   && this.Pitch.SetAttribute(objs) && this.Preparetion.SetAttribute(objs) && this.Name.SetAttribute(objs)
+                   && this.SetValue.SetAttribute(objs) && this.Datum.SetAttribute(objs);
         }
     }
 }

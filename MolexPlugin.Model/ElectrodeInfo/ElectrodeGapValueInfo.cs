@@ -43,7 +43,14 @@ namespace MolexPlugin.Model
         /// 精放个数
         /// </summary>
         public int FineNum { get; set; } = 0;
-
+        /// <summary>
+        /// ER 个数
+        /// </summary>
+        public int[] ERNum { get; set; } = new int[2];
+        /// <summary>
+        /// EF个数
+        /// </summary>
+        public int[] EFNum { get; set; } = new int[2];
         /// <summary>
         /// 设置属性
         /// </summary>
@@ -57,6 +64,10 @@ namespace MolexPlugin.Model
                 AttributeUtils.AttributeOperation("DuringNum", this.DuringNum, obj);
                 AttributeUtils.AttributeOperation("FineInter", this.FineInter, obj);
                 AttributeUtils.AttributeOperation("FineNum", this.FineNum, obj);
+                if (this.ERNum[0] != 0 || this.ERNum[1] != 0)
+                    AttributeUtils.AttributeOperation("ERNum", this.ERNum, obj);
+                if (this.EFNum[0] != 0 || this.EFNum[1] != 0)
+                    AttributeUtils.AttributeOperation("EFNum", this.EFNum, obj);
                 return true;
             }
             catch (NXException ex)
@@ -81,6 +92,14 @@ namespace MolexPlugin.Model
                 info.DuringNum = AttributeUtils.GetAttrForInt(obj, "DuringNum");
                 info.FineInter = AttributeUtils.GetAttrForDouble(obj, "FineInter");
                 info.FineNum = AttributeUtils.GetAttrForInt(obj, "FineNum");
+                for (int i = 0; i < 2; i++)
+                {
+                    info.ERNum[i] = AttributeUtils.GetAttrForInt(obj, "ERNum", i);
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    info.EFNum[i] = AttributeUtils.GetAttrForInt(obj, "EFNum", i);
+                }
                 return info;
             }
             catch (NXException ex)
@@ -113,6 +132,10 @@ namespace MolexPlugin.Model
                 AttributeUtils.AttributeOperation("DuringNum", this.DuringNum, objs);
                 AttributeUtils.AttributeOperation("FineInter", this.FineInter, objs);
                 AttributeUtils.AttributeOperation("FineNum", this.FineNum, objs);
+                if (this.ERNum[0] != 0 || this.ERNum[1] != 0)
+                    AttributeUtils.AttributeOperation("ERNum", this.ERNum, objs);
+                if (this.EFNum[0] != 0 || this.EFNum[1] != 0)
+                    AttributeUtils.AttributeOperation("EFNum", this.EFNum, objs);
                 return true;
             }
             catch (NXException ex)
@@ -120,6 +143,42 @@ namespace MolexPlugin.Model
                 ClassItem.WriteLogFile("写入属性错误！" + ex.Message);
                 return false;
             }
+        }
+        /// <summary>
+        /// 设置ER属性
+        /// </summary>
+        /// <param name="bp"></param>
+        /// <returns></returns>
+        public bool SetERToolh(List<ElectrodeToolhInfo[,]> elfs)
+        {
+            if (this.ERNum[0] != 0 || this.ERNum[1] != 0)
+            {
+                foreach (ElectrodeToolhInfo[,] et in elfs)
+                {
+                    for (int i = 0; i < this.ERNum[0]; i++)
+                    {
+                        for (int k = 0; k < this.ERNum[1]; k++)
+                        {
+                            foreach (BodyInfo bi in et[i, k].BodyInfos)
+                            {
+                                bi.ER = true;
+                            }
+                        }
+                    }  //粗放个数
+                    for (int i = this.ERNum[0]; i < et.GetLength(0); i++)
+                    {
+                        for (int k = this.ERNum[1]; k < et.GetLength(1); k++)
+                        {
+                            foreach (BodyInfo bi in et[i, k].BodyInfos)
+                            {
+                                bi.EF = true;
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+            return false;
         }
     }
 }

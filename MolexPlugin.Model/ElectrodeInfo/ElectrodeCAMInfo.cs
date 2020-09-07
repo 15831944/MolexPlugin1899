@@ -27,6 +27,11 @@ namespace MolexPlugin.Model
         /// 电极单齿最小距离
         /// </summary>
         public double EleMinDim { get; set; } = 9999;
+
+        /// <summary>
+        /// 加工模板
+        /// </summary>
+        public string CamTemplate { get; set; }
         /// <summary>
         /// 设置属性
         /// </summary>
@@ -37,6 +42,7 @@ namespace MolexPlugin.Model
             {
                 AttributeUtils.AttributeOperation("EleHeadDis", this.EleHeadDis, obj);
                 AttributeUtils.AttributeOperation("EleMinDim", this.EleMinDim, obj);
+                AttributeUtils.AttributeOperation("CamTemplate", this.CamTemplate, obj);
                 return true;
             }
             catch (NXException ex)
@@ -54,6 +60,7 @@ namespace MolexPlugin.Model
             try
             {
                 info.EleMinDim = AttributeUtils.GetAttrForDouble(obj, "EleMinDim");
+                info.CamTemplate = AttributeUtils.GetAttrForString(obj, "CamTemplate");
                 for (int i = 0; i < 2; i++)
                 {
                     info.EleHeadDis[i] = AttributeUtils.GetAttrForDouble(obj, "EleHeadDis", i);
@@ -78,6 +85,7 @@ namespace MolexPlugin.Model
             {
                 AttributeUtils.AttributeOperation("EleHeadDis", this.EleHeadDis, objs);
                 AttributeUtils.AttributeOperation("EleMinDim", this.EleMinDim, objs);
+                AttributeUtils.AttributeOperation("CamTemplate", this.CamTemplate, objs);
                 return true;
             }
             catch (NXException ex)

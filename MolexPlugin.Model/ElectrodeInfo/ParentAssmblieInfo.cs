@@ -15,7 +15,7 @@ namespace MolexPlugin.Model
     /// 装配档信息父类
     /// </summary>
     [Serializable]
-    public  class ParentAssmblieInfo : ICloneable, ISetAttribute
+    public class ParentAssmblieInfo : ICloneable, ISetAttribute
     {
         /// <summary>
         /// 模具类型
@@ -49,8 +49,16 @@ namespace MolexPlugin.Model
         /// <returns></returns>
         public virtual bool SetAttribute(params NXObject[] objs)
         {
-            AttributeUtils.AttributeOperation("PartType", Enum.GetName(this.Type.GetType(), this.Type));
-            return MoldInfo.SetAttribute(objs) && UserModel.SetAttribute(objs);
+            try
+            {
+                AttributeUtils.AttributeOperation("PartType", Enum.GetName(this.Type.GetType(), this.Type), objs);
+                return MoldInfo.SetAttribute(objs) && UserModel.SetAttribute(objs);
+            }
+            catch
+            {
+                return false;
+            }
+
         }
         /// <summary>
         /// 以属性得到实体
@@ -61,11 +69,30 @@ namespace MolexPlugin.Model
         {
             try
             {
-                return new ParentAssmblieInfo(MoldInfo.GetAttribute(obj), UserModel.GetAttribute(obj));
+                string partType = AttributeUtils.GetAttrForString(obj, "PartType");
+                ParentAssmblieInfo info = new ParentAssmblieInfo(MoldInfo.GetAttribute(obj), UserModel.GetAttribute(obj));
+                info.Type = (PartType)Enum.Parse(typeof(PartType), partType);
+                return info;
             }
             catch (NXException ex)
             {
                 throw ex;
+            }
+        }
+
+        public static bool IsParent(NXObject obj)
+        {
+            try
+            {
+                string partType = AttributeUtils.GetAttrForString(obj, "PartType");
+                if (partType.Equals(""))
+                    return false;
+                else
+                    return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

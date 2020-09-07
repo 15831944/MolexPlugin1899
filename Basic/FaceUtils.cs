@@ -126,7 +126,35 @@ namespace Basic
 
             return 0;
         }
+        public static double GetFaceArea(params Face[] face)
+        {
+            NXOpen.Session theSession = NXOpen.Session.GetSession();
+            NXOpen.Part workPart = theSession.Parts.Work;
 
+            try
+            {
+                Unit unit1 = workPart.UnitCollection.FindObject("SquareMilliMeter");
+                Unit unit2 = workPart.UnitCollection.FindObject("MilliMeter");
+                double accuracy = workPart.Preferences.Modeling.AngleToleranceData;
+                List<IParameterizedSurface> objects1 = new List<IParameterizedSurface>();
+                foreach (Face fe in face)
+                {
+                    objects1.Add(fe as IParameterizedSurface);
+                }
+
+                MeasureFaces measureface = workPart.MeasureManager.NewFaceProperties(unit1, unit2, accuracy, objects1.ToArray());
+                return measureface.Area;
+            }
+            catch (Exception ex)
+            {
+                LogMgr.WriteLog("FaceUtils:GetFaceArea:" + ex.Message);
+            }
+            finally
+            {
+            }
+
+            return 0;
+        }
 
         /// <summary>
         /// 求面的法向
@@ -316,7 +344,7 @@ namespace Basic
     /// <summary>
     /// 面的数据（AskFaceData 函数的封装）
     /// </summary>
-    public class FaceData : IEquatable<FaceData>
+    public class FaceData
     {
         /// <summary>
         /// 面类型
@@ -347,36 +375,42 @@ namespace Basic
         {
             return new Point3d(0.5 * (BoxMinCorner.X + BoxMaxCorner.X), 0.5 * (BoxMinCorner.Y + BoxMaxCorner.Y), 0.5 * (BoxMinCorner.Z + BoxMaxCorner.Z));
         }
-
-        public bool Equals(FaceData other)
+        /// <summary>
+        /// 比较两面是否是求差面
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool EqualsForSutract(FaceData other)
         {
-            double[] ptOnObj1 = new double[3];
-            double[] ptOnObj2 = new double[3];
-
-            double minDis = AnalysisUtils.AskMinimumDist(this.Face.Tag, other.Face.Tag, out ptOnObj1, out ptOnObj2);
             double anlge = UMathUtils.Angle(this.Dir, other.Dir);
-            Point3d pt1 = new Point3d(ptOnObj1[0], ptOnObj1[1], ptOnObj1[2]);
-            Point3d pt2 = new Point3d(ptOnObj2[0], ptOnObj2[1], ptOnObj2[2]);
-            List<Edge> edges1 = GetPointOnEdge(this.Face, ptOnObj1);
-            List<Edge> edges2 = GetPointOnEdge(other.Face, ptOnObj2);
-            bool edgeBool = false;
-            if (edges1.Count > 0 && edges2.Count > 0)
+            if (this.FaceType == other.FaceType && UMathUtils.IsEqual(anlge, Math.PI) && this.IntNorm == -other.IntNorm)
             {
-                foreach (Edge ed in edges1)
+                double[] ptOnObj1 = new double[3];
+                double[] ptOnObj2 = new double[3];
+                double minDis = AnalysisUtils.AskMinimumDist(this.Face.Tag, other.Face.Tag, out ptOnObj1, out ptOnObj2);
+                Point3d pt1 = new Point3d(ptOnObj1[0], ptOnObj1[1], ptOnObj1[2]);
+                Point3d pt2 = new Point3d(ptOnObj2[0], ptOnObj2[1], ptOnObj2[2]);
+                List<Edge> edges1 = GetPointOnEdge(this.Face, ptOnObj1);
+                List<Edge> edges2 = GetPointOnEdge(other.Face, ptOnObj2);
+                bool edgeBool = false;
+                if (edges1.Count > 0 && edges2.Count > 0)
                 {
-                    foreach (Edge ed1 in edges2)
+                    foreach (Edge ed in edges1)
                     {
-                        if (ed.Tag == ed1.Tag)
-                            edgeBool = true;
+                        foreach (Edge ed1 in edges2)
+                        {
+                            if (ed.Tag == ed1.Tag)
+                                edgeBool = true;
+                        }
                     }
                 }
-            }
-            if ((this.FaceType == other.FaceType) && UMathUtils.IsEqual(anlge, Math.PI) && (this.IntNorm == -other.IntNorm) &&
-                UMathUtils.IsEqual(minDis, 0) && UMathUtils.IsEqual(pt1, pt2) && !edgeBool)
-                return true;
-            else
+                if (UMathUtils.IsEqual(minDis, 0) && UMathUtils.IsEqual(pt1, pt2) && !edgeBool)
+                    return true;
+            }          
                 return false;
         }
+
+
         private List<Edge> GetPointOnEdge(Face face, double[] pt)
         {
             UFSession theUFSession = UFSession.GetUFSession();

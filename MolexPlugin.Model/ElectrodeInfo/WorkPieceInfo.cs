@@ -27,7 +27,7 @@ namespace MolexPlugin.Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static ParentAssmblieInfo GetAttribute(NXObject obj)
+        public new static WorkPieceInfo GetAttribute(NXObject obj)
         {
             try
             {

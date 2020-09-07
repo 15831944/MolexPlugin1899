@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,13 +62,20 @@
     <Compile Include="BooleanUtils.cs" />
     <Compile Include="BoundingBoxUtils.cs" />
     <Compile Include="ClassItem.cs" />
+    <Compile Include="ExpressionUtils.cs" />
+    <Compile Include="ExtraetUtils.cs" />
     <Compile Include="CsysUtils.cs" />
     <Compile Include="DeleteObject.cs" />
     <Compile Include="EdgeUtils.cs" />
+    <Compile Include="ExtrudedUtils.cs" />
     <Compile Include="FaceLoopUtils.cs" />
     <Compile Include="FaceUtils.cs" />
+    <Compile Include="OpenFileUtils.cs" />
     <Compile Include="PartUtils.cs" />
+    <Compile Include="PatternUtils.cs" />
     <Compile Include="PlaneUtils.cs" />
+    <Compile Include="PointUtils.cs" />
+    <Compile Include="SynchronousUtils.cs" />
     <Compile Include="SelectionRule\AbstractSelectionRuleFactory.cs" />
     <Compile Include="SelectionRule\ISelectionRule.cs" />
     <Compile Include="LogMgr.cs" />
@@ -86,6 +94,7 @@
     <Compile Include="SelectionRule\SelectionRuleCurveFactory.cs" />
     <Compile Include="SelectionRule\SelectionRuleBuilder.cs" />
     <Compile Include="SelectionRule\SelectionRuleFactory.cs" />
+    <Compile Include="SketchUtils.cs" />
     <Compile Include="ToolingBoxFeature.cs" />
     <Compile Include="TraceARay.cs" />
     <Compile Include="TrimBodyUtils.cs" />
