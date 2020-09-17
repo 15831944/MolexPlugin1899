@@ -28,7 +28,7 @@ namespace MolexPlugin
             pitch.PitchY = double.Parse(this.textBox_pitchY.Text);
             pitch.PitchYNum = int.Parse(this.textBox_pitchYNum.Text);
             this.preveiw.UpdatePattern(pitch);
-            Point3d value = this.condition.ExpAndMatr.Matr.GetHeadSetValue(pitch, checkBox1.Checked);
+            Point3d value = this.condition.ExpAndMatr.Matr.GetHeadSetValue(GetElePitchInfo(), checkBox1.Checked);
             double[] pre = this.condition.ExpAndMatr.Matr.GetPreparation(pitch, checkBox1.Checked);
 
 
@@ -39,6 +39,7 @@ namespace MolexPlugin
             this.textBox_preparationX.Text = pre[0].ToString();
             this.textBox_preparationY.Text = pre[1].ToString();
             this.textBox_preparationZ.Text = pre[2].ToString();
+            Session.GetSession().Parts.Work.ModelingViews.WorkView.Regenerate();
         }
         /// <summary>
         /// 初始化对话框
@@ -145,6 +146,7 @@ namespace MolexPlugin
             setValue.EleSetValue[2] = double.Parse(this.textBox_eleZ.Text);
             setValue.ContactArea = condition.ToolhInfo[0].GetAllContactArea();
             setValue.ProjectedArea = condition.ToolhInfo[0].GetProjectedArea(work.Info.Matr);
+            setValue.Positioning = condition.ToolhInfo[0].ToolhName;
             return setValue;
         }
         /// <summary>
@@ -158,9 +160,13 @@ namespace MolexPlugin
             {
                 string cru = this.comboBox_crudeInter.Text;
                 string num = this.comboBox_crudeNum.Text;
-                if (cru != "" && num != "")
+                if (cru != "")
                 {
                     gapValue.CrudeInter = double.Parse(cru);
+
+                }
+                if (num != "")
+                {
                     gapValue.CrudeNum = int.Parse(num);
                 }
             }
@@ -168,9 +174,12 @@ namespace MolexPlugin
             {
                 string cru = this.comboBox_duringInter.Text;
                 string num = this.comboBox_duringNum.Text;
-                if (cru != "" && num != "")
+                if (cru != "")
                 {
                     gapValue.DuringInter = double.Parse(cru);
+                }
+                if (num == "")
+                {
                     gapValue.DuringNum = int.Parse(num);
                 }
             }
@@ -178,13 +187,16 @@ namespace MolexPlugin
             {
                 string cru = this.comboBox_fineInter.Text;
                 string num = this.comboBox_fineNum.Text;
-                if (cru != "" && num != "")
+                if (cru != "")
                 {
-
                     gapValue.FineInter = double.Parse(cru);
+                }
+                if (num != "")
+                {
                     gapValue.FineNum = int.Parse(num);
                 }
             }
+            gapValue.ERNum = er;
             return gapValue;
         }
         /// <summary>
@@ -282,6 +294,35 @@ namespace MolexPlugin
                 ElectrodeNameInfo nameInfo = (wc.Electrodes[wc.Electrodes.Count - 1].Info).AllInfo.Name;
                 string name = nameInfo.EleName.Substring(0, nameInfo.EleName.LastIndexOf("E"));
                 return name + "E" + (nameInfo.EleNumber + 1).ToString();
+            }
+
+        }
+        /// <summary>
+        /// 获取ER个数
+        /// </summary>
+        /// <returns></returns>
+        private void GetERNumber(ElectrodePitchInfo pitch)
+        {
+            ElectrodeERForm erForm = new ElectrodeERForm(er, pitch);
+            if (checkBox_crude.Checked)
+            {
+                string cru = this.comboBox_crudeInter.Text;
+                string num = this.comboBox_crudeNum.Text;
+                if (cru != "" && num == "")
+                {
+                    erForm.Name = "ER个数";
+                }
+                erForm.ShowDialog(this);
+            }
+            if (checkBox_during.Checked)
+            {
+                string cru = this.comboBox_duringInter.Text;
+                string num = this.comboBox_duringNum.Text;
+                if (cru != "" && num == "")
+                {
+                    erForm.Name = "DR个数";
+                }
+                erForm.ShowDialog(this);
             }
 
         }

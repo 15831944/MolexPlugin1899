@@ -17,6 +17,9 @@ namespace MolexPlugin
         public static void cs()
         {
             Part workPart = Session.GetSession().Parts.Work;
+            UFSession theUFSession = UFSession.GetUFSession();
+            Tag temp = (Tag)181258;
+            Tag[] k;
             /*AD
                string adPath = "LDAP://molex.com";
                DirectoryEntry de = new DirectoryEntry(adPath);
@@ -59,13 +62,8 @@ namespace MolexPlugin
                    oh.Highlight(true);
                }
                */
-            Tag sketch = SketchUtils.CreateShetch(-10);
-            Vector3d vecX = new Vector3d(1, 0, 0);
-            Vector3d vecY = new Vector3d(0, 1, 0);
-            Arc arc1 = workPart.Curves.CreateArc(new Point3d(0, 0, 0), vecX, vecY, 2.5, 0, Math.PI * 2);
-
-            SketchUtils.AddShetch(sketch, arc1);
-
+            // theUFSession.Assem.CountEntsInPartOcc(temp);
+         
         }
         public static bool IsAuthenticated(string username, string pwd)
         {

@@ -107,10 +107,13 @@ namespace MolexPlugin.Model
             {
                 info.Offset[i] = AttributeUtils.GetAttrForDouble(bodys[0], "Offset", i);
             }
+            int k = 1;
             foreach (Body by in bodys)
             {
                 BodyInfo byInfo = BodyInfo.GetAttribute(by);
-                info.BodyInfos.Add(byInfo);
+                byInfo.Number = k;
+                info.infos.Add(byInfo);
+                k++;
             }
             return info;
         }
@@ -127,6 +130,7 @@ namespace MolexPlugin.Model
 
         public bool SetToolhName(string name)
         {
+            this.ToolhName = name;
             try
             {
                 foreach (Body by in bodys)
@@ -161,7 +165,7 @@ namespace MolexPlugin.Model
         /// 获取全部投影面积
         /// </summary>
         /// <returns></returns>
-        public double GetProjectedArea( Matrix4 matr)
+        public double GetProjectedArea(Matrix4 matr)
         {
             double all = 0;
             Matrix4 inv = matr.GetInversMatrix();

@@ -991,7 +991,7 @@
             this.Name = "EleStandardSeatForm";
             this.ShowInTaskbar = false;
             this.Text = "电极基准座";
-            this.TopMost = true;
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.EleStandardSeatForm_KeyUp);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);

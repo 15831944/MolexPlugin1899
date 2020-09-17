@@ -22,15 +22,18 @@ namespace Basic
         {
             Matrix4 mat = new Matrix4();
             mat.Identity();
-            Point3d originAbs = new Point3d(0, 0, 0);
+            // Point3d originAbs = new Point3d(0, 0, 0);
             Part workPart = Session.GetSession().Parts.Work;
-            CoordinateSystem abs = workPart.CoordinateSystems.CreateCoordinateSystem(originAbs, mat.GetMatrix3(), false);
+            // CoordinateSystem abs = workPart.CoordinateSystems.CreateCoordinateSystem(originAbs, mat.GetMatrix3(), false);
+            CoordinateSystem abs = BoundingBoxUtils.CreateCoordinateSystem(mat, mat.GetInversMatrix());
             NXOpen.Features.MoveObject nullMoveObject = null;
             NXOpen.Features.MoveObjectBuilder moveObjectBuilder = workPart.BaseFeatures.CreateMoveObjectBuilder(nullMoveObject);
             bool added = moveObjectBuilder.ObjectToMoveObject.Add(objs);
             moveObjectBuilder.TransformMotion.Option = NXOpen.GeometricUtilities.ModlMotion.Options.CsysToCsys;
             moveObjectBuilder.TransformMotion.FromCsys = csys;
             moveObjectBuilder.TransformMotion.ToCsys = abs;
+            moveObjectBuilder.Associative = true;
+            moveObjectBuilder.MoveParents = false;
             try
             {
                 return moveObjectBuilder.Commit();

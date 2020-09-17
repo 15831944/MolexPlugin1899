@@ -42,7 +42,7 @@ namespace MolexPlugin.DAL
                 CreateChamfer(body1.Tag);
                 SetDatumAttr(body1);
                 Body body2 = ExtrudedUtils.CreateExtruded(dir, "DatumHeigth", "PreparationZ", null, sketch.WaiLine.ToArray()).GetBodies()[0];
-                BooleanUtils.CreateBooleanFeature(body1, false, false, NXOpen.Features.Feature.BooleanType.Unite, body2);
+                this.DatumBody = BooleanUtils.CreateBooleanFeature(body1, false, false, NXOpen.Features.Feature.BooleanType.Unite, body2).GetBodies()[0];
                 return true;
             }
             catch (NXException ex)

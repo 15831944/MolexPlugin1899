@@ -15,7 +15,7 @@ namespace MolexPlugin.Model
     {
         public string CreatorName { get; set; }
 
-        public string CreateDate { get; set; }
+        public string CreatedDate { get; set; }
 
         public UserModel()
         {
@@ -23,7 +23,7 @@ namespace MolexPlugin.Model
         }
         public UserModel(string name, string date)
         {
-            this.CreateDate = date;
+            this.CreatedDate = date;
             this.CreatorName = CreatorName;
         }
         /// <summary>
@@ -33,7 +33,7 @@ namespace MolexPlugin.Model
         public UserModel(NXObject obj)
         {
             this.CreatorName = AttributeUtils.GetAttrForString(obj, "CreatorName");
-            this.CreateDate = AttributeUtils.GetAttrForString(obj, "CreateDate");
+            this.CreatedDate = AttributeUtils.GetAttrForString(obj, "CreatedDate");
         }
 
         public static UserModel GetAttribute(NXObject obj)
@@ -42,7 +42,7 @@ namespace MolexPlugin.Model
             try
             {
                 model.CreatorName = AttributeUtils.GetAttrForString(obj, "CreatorName");
-                model.CreateDate = AttributeUtils.GetAttrForString(obj, "CreateDate");
+                model.CreatedDate = AttributeUtils.GetAttrForString(obj, "CreatedDate");
                 return model;
             }
             catch (NXException ex)
@@ -60,7 +60,7 @@ namespace MolexPlugin.Model
             try
             {
                 AttributeUtils.AttributeOperation("CreatorName", this.CreatorName, objs);
-                AttributeUtils.AttributeOperation("CreateDate", this.CreateDate, objs);
+                AttributeUtils.AttributeOperation("CreatedDate", this.CreatedDate, objs);
                 return true;
             }
             catch

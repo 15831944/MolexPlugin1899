@@ -139,7 +139,7 @@ namespace MolexPlugin.DAL
             theUFSession.Sket.UpdateSketch(sketchTag);
             theUFSession.Sket.TerminateSketch();
 
-            SetCenterPoint();
+           // SetCenterPoint();
             theUFSession.Obj.SetLayer(sketchTag, 254);
             theUFSession.Obj.SetLayer(Center.Tag, 254);
             DisplayableObject[] disp = workPart.Datums.ToArray();

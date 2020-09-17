@@ -313,7 +313,13 @@ namespace MolexPlugin
             }
             else
             {
-                feature = PatternUtils.CreatePattern(2, double_x.Value, 2, double_y.Value, this.matr, feature, bodys.ToArray());
+                int coutx = 1;
+                int conty = 1;
+                if (double_x.Value != 0)
+                    coutx = 2;
+                if (double_y.Value != 0)
+                    conty = 2;
+                feature = PatternUtils.CreatePattern(coutx, double_x.Value, conty, double_y.Value, this.matr, feature, bodys.ToArray());
             }
         }
         public void CreateAtrr()

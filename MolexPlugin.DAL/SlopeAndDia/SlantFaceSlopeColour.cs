@@ -20,7 +20,7 @@ namespace MolexPlugin.DAL
 
         public override int FaceColour()
         {
-            if ((analy.MaxSlope < Math.Round(Math.PI / 2, 3) && analy.MaxSlope > 0))
+            if ((Math.Round(analy.MaxSlope, 3) < Math.Round(Math.PI / 2, 3) && Math.Round(analy.MaxSlope, 3) > 0))
             {
                 return 36;
             }

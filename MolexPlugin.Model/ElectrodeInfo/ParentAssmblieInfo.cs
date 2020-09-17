@@ -102,6 +102,7 @@ namespace MolexPlugin.Model
         EDM = 2,
         Work = 3,
         ASM = 4,
-        Electrode = 5
+        Electrode = 5,
+        Drawing = 6
     }
 }

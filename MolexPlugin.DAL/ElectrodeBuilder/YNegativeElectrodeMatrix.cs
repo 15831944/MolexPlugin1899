@@ -33,12 +33,23 @@ namespace MolexPlugin.DAL
         }
         public override double[] GetPreparation(ElectrodePitchInfo pitch, bool zDatum)
         {
-            double preY = Math.Ceiling(2 * this.disPt.Z) + 6;
-            double preX = Math.Ceiling(2 * this.disPt.X + Math.Abs((pitch.PitchXNum - 1) * pitch.PitchX)) + 6;
+            double preY = Math.Ceiling(2 * this.disPt.Z);
+            double preX = Math.Ceiling(2 * this.disPt.X + Math.Abs((pitch.PitchXNum - 1) * pitch.PitchX)) ;
             double preZ = Math.Ceiling(2 * this.disPt.Y) + 45;
             if (zDatum)
             {
-                preX = Math.Ceiling(2 * this.disPt.X + Math.Abs((pitch.PitchXNum) * pitch.PitchX)) + 6;
+                preX = Math.Ceiling(2 * this.disPt.X + Math.Abs((pitch.PitchXNum) * pitch.PitchX));
+            }
+
+            if (preX > preY)
+            {
+                preX = preX + 6;
+                preY = preY + 2;
+            }
+            else
+            {
+                preX = preX + 2;
+                preY = preY + 6;
             }
             return new double[3] { preX, preY, preZ };
         }

@@ -123,8 +123,10 @@ namespace MolexPlugin.DAL
         {
             Matrix4 matr = new Matrix4();
             matr.Identity();
-            CartesianCoordinateSystem csys = Session.GetSession().Parts.Work.WCS.CoordinateSystem;
-            var toolhList = this.AllBodys.GroupBy(a => AttributeUtils.GetAttrForString(a, "ToolhName"));
+            Matrix4 inv = matr.GetInversMatrix();
+            CartesianCoordinateSystem csys = BoundingBoxUtils.CreateCoordinateSystem(matr, inv);
+            List<Body> bodys = Session.GetSession().Parts.Work.Bodies.ToArray().ToList();
+            var toolhList = bodys.GroupBy(a => AttributeUtils.GetAttrForString(a, "ToolhName"));
             List<ElectrodeToolhInfo[,]> toolhInfos = new List<ElectrodeToolhInfo[,]>();
             try
             {
@@ -133,7 +135,8 @@ namespace MolexPlugin.DAL
                     ElectrodeToolhInfo[,] toolhInfo = pitch.GetToolhInfosForAttribute(toolh.ToList(), matr, csys);
                     toolhInfos.Add(toolhInfo);
                 }
-                gapValue.SetERToolh(toolhInfos);
+                if (toolhInfos.Count != 0)
+                    gapValue.SetERToolh(toolhInfos);
             }
             catch (Exception ex)
             {

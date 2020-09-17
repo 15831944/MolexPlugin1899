@@ -23,6 +23,7 @@ namespace MolexPlugin
         private ParentAssmblieInfo parent;
         private WorkModel work;
         private ElectrodePreveiw preveiw;
+        private int[] er = new int[2];
 
 
         public EleStandardSeatForm(ElectrodeCreateCondition condition, WorkModel work, ParentAssmblieInfo parent)
@@ -202,12 +203,12 @@ namespace MolexPlugin
         private void SetPichContrShow()
         {
 
-            if (condition.ExpAndMatr.Exp is XElectrodeExpression)
+            if (condition.ExpAndMatr.Matr is XNegativeElectrodeMatrix || condition.ExpAndMatr.Matr is XPositiveElectrodeMatrix)
             {
                 this.textBox_pitchX.Enabled = false;
                 this.textBox_pitchXNum.Enabled = false;
             }
-            if (condition.ExpAndMatr.Exp is YElectrodeExpression)
+            if (condition.ExpAndMatr.Matr is YNegativeElectrodeMatrix || condition.ExpAndMatr.Matr is YPositiveElectrodeMatrix)
             {
                 this.textBox_pitchY.Enabled = false;
                 this.textBox_pitchYNum.Enabled = false;
@@ -241,8 +242,11 @@ namespace MolexPlugin
                 return;
             }
             ElectrodeAllInfo all = GetEleInfo();
+            GetERNumber(all.Pitch);
             CreateElectrode create = new CreateElectrode(all, parent, condition, this.checkBox1.Checked);
             create.CreateBuider();
+            condition.Work.SetInterference(false); 
+            Session.GetSession().Parts.Work.ModelingViews.WorkView.Regenerate();
             this.Close();
         }
 
@@ -323,6 +327,12 @@ namespace MolexPlugin
             this.textBox_preparationY.Text = temp[1].ToString();
         }
 
-
+        private void EleStandardSeatForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 27)
+            {
+                this.buttCancel_Click(sender, e);
+            }
+        }
     }
 }

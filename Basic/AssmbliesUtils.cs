@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NXOpen;
 using NXOpen.Utilities;
+using NXOpen.Drawings;
 
 namespace Basic
 {
@@ -113,8 +114,8 @@ namespace Basic
             extractFaceBuilder1.FaceOption = NXOpen.Features.ExtractFaceBuilder.FaceOptionType.FaceChain;
             extractFaceBuilder1.AngleTolerance = 45.0;
             extractFaceBuilder1.ParentPart = NXOpen.Features.ExtractFaceBuilder.ParentPartType.OtherPart;
-            extractFaceBuilder1.Associative = false;   //关联
-            extractFaceBuilder1.MakePositionIndependent = false;
+            extractFaceBuilder1.Associative = true;   //关联
+            extractFaceBuilder1.MakePositionIndependent = true;
             extractFaceBuilder1.FixAtCurrentTimestamp = false;
 
             extractFaceBuilder1.HideOriginal = false;
@@ -500,7 +501,27 @@ namespace Basic
                 throw ex;
             }
         }
-
+        /// <summary>
+        /// 获取obj的objOcc
+        /// </summary>
+        /// <param name="partOcc"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static NXObject GetOccOfInstance(Tag partOcc)
+        {
+            Tag objOccTag = Tag.Null;
+            NXOpen.UF.UFSession theUFSession = NXOpen.UF.UFSession.GetUFSession();
+            try
+            {
+                objOccTag = theUFSession.Assem.AskInstOfPartOcc(partOcc);
+                return NXObjectManager.Get(objOccTag) as NXObject;
+            }
+            catch (NXException ex)
+            {
+                LogMgr.WriteLog("AssmbliesUtils:GetNXObjectOfInstance:         " + ex.Message);
+                throw ex;
+            }
+        }
         /// <summary>
         /// 替换组件
         /// </summary>
@@ -543,6 +564,81 @@ namespace Basic
 
             }
 
+        }
+        /// <summary>
+        /// 隐藏工作视图组件
+        /// </summary>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public static bool HideComponent(DraftingView view = null, params NXOpen.Assemblies.Component[] ct)
+        {
+            Part workPart = theSession.Parts.Work;
+            NXOpen.Assemblies.HideComponentBuilder hideComponentBuilder1;
+            hideComponentBuilder1 = workPart.AssemblyManager.CreateHideComponentBuilder();
+
+            bool added1;
+            added1 = hideComponentBuilder1.Components.Add(ct);
+            if (view != null)
+                hideComponentBuilder1.Views.Add(view);
+            try
+            {
+                NXOpen.NXObject nXObject1;
+                nXObject1 = hideComponentBuilder1.Commit();
+                return true;
+            }
+            catch (NXException ex)
+            {
+
+                LogMgr.WriteLog("AssmbliesUtils:HideComponent:         " + ex.Message);
+                return false;
+            }
+
+            finally
+            {
+                hideComponentBuilder1.Destroy();
+
+            }
+
+
+        }
+        /// <summary>
+        /// 显示工作视图组件
+        /// </summary>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public static bool ShowComponent(DraftingView view = null, params NXOpen.Assemblies.Component[] ct)
+        {
+            Part workPart = theSession.Parts.Work;
+
+            NXOpen.Assemblies.ShowComponentBuilder showComponentBuilder1;
+            showComponentBuilder1 = workPart.AssemblyManager.CreateShowComponentBuilder();
+
+            NXOpen.SelectTaggedObjectList selectTaggedObjectList1;
+            selectTaggedObjectList1 = showComponentBuilder1.Components;
+
+            bool added1;
+            added1 = selectTaggedObjectList1.Add(ct);
+            if (view != null)
+                showComponentBuilder1.Views.Add(view);
+            showComponentBuilder1.MaintainComponentsShown = false;
+            try
+            {
+                NXOpen.NXObject nXObject1;
+                nXObject1 = showComponentBuilder1.Commit();
+                return true;
+            }
+            catch (NXException ex)
+            {
+
+                LogMgr.WriteLog("AssmbliesUtils:ShowComponent:         " + ex.Message);
+                return false;
+            }
+
+            finally
+            {
+                showComponentBuilder1.Destroy();
+
+            }
         }
     }
 }

@@ -31,7 +31,9 @@ namespace MolexPlugin.Model
         /// 电极编号
         /// </summary>
         public int EleNumber { get; set; }
-     
+
+        public string EleEditionNumber { get; set; } = "A";
+
         /// <summary>
         /// 设置属性
         /// </summary>
@@ -62,6 +64,7 @@ namespace MolexPlugin.Model
                 info.EleName = AttributeUtils.GetAttrForString(obj, "EleName");
                 info.BorrowName = AttributeUtils.GetAttrForString(obj, "BorrowName");
                 info.EleNumber = AttributeUtils.GetAttrForInt(obj, "EleNumber");
+                info.EleEditionNumber = AttributeUtils.GetAttrForString(obj, "EleEditionNumber");
                 return info;
             }
             catch(NXException ex)
@@ -83,6 +86,7 @@ namespace MolexPlugin.Model
                 AttributeUtils.AttributeOperation("EleName", this.EleName, objs);
                 AttributeUtils.AttributeOperation("BorrowName", this.BorrowName, objs);
                 AttributeUtils.AttributeOperation("EleNumber", this.EleNumber, objs);
+                AttributeUtils.AttributeOperation("EleEditionNumber", this.EleEditionNumber, objs);
                 return true;
             }
             catch (NXException ex)

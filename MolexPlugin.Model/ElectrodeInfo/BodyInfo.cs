@@ -82,7 +82,7 @@ namespace MolexPlugin.Model
             }
             set
             {
-                if (ER)
+                if (value)
                 {
                     AttributeUtils.AttributeOperation("ToolhGapValue", "ER", this.Body);
                     AttributeUtils.AttributeOperation("ToolhGapValue", "ER", this.Body.GetFaces());
@@ -104,7 +104,7 @@ namespace MolexPlugin.Model
             }
             set
             {
-                if (EF)
+                if (value)
                 {
                     AttributeUtils.AttributeOperation("ToolhGapValue", "EF", this.Body);
                     AttributeUtils.AttributeOperation("ToolhGapValue", "EF", this.Body.GetFaces());

@@ -33,7 +33,7 @@ namespace MolexPlugin.DAL
                 {
                     creatorUser = new UserModel()
                     {
-                        CreateDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                        CreatedDate = DateTime.Now.ToString("yyyy-MM-dd"),
                         CreatorName = info.UserName
                     };
                 }

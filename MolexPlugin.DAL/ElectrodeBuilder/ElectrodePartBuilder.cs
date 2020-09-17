@@ -41,6 +41,7 @@ namespace MolexPlugin.DAL
             try
             {
                 this.EleComp = this.EleModel.CreateCompPart(this.directoryPath);
+                // this.EleModel.Info.SetAttribute(this.EleComp);
                 return true;
             }
             catch (NXException ex)
@@ -61,9 +62,11 @@ namespace MolexPlugin.DAL
             try
             {
                 PartUtils.SetPartWork(this.EleComp);
-                List<Body> waveBodys = AssmbliesUtils.WaveAssociativeBodys(headBodys.ToArray()).GetBodies().ToList();             
-                PartUtils.SetPartDisplay(EleModel.PartTag);
-                return waveBodys;
+                List<Body> waveBodys = AssmbliesUtils.WaveBodys(headBodys.ToArray()).GetBodies().ToList();
+                Matrix4 inv = this.info.Matr.GetInversMatrix();
+                CoordinateSystem csys = BoundingBoxUtils.CreateCoordinateSystem(this.info.Matr, inv);
+                NXObject obj = MoveObject.MoveObjectOfCsys(csys, waveBodys.ToArray());
+                return waveBodys; ;
             }
             catch (NXException ex)
             {
@@ -105,6 +108,16 @@ namespace MolexPlugin.DAL
         public void MoveEleComp(Matrix4 workMat, Vector3d vec)
         {
             AssmbliesUtils.MoveCompPart(this.EleComp, vec, workMat); //移动装配
+        }
+
+        public Point3d GetSetValuePoint(bool zDatum)
+        {
+            double[] setValue = this.EleModel.Info.AllInfo.SetValue.EleSetValue;
+            Point3d temp = new Point3d(setValue[0], setValue[1], setValue[2]);
+            Vector3d vec = this.GetMove(zDatum);
+            temp.X = temp.X - vec.X;
+            temp.Y = temp.Y - vec.Y;
+            return temp; ;
         }
 
     }

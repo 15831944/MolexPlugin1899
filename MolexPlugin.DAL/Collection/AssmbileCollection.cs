@@ -28,6 +28,7 @@ namespace MolexPlugin.DAL
         {
             foreach (Part pt in Session.GetSession().Parts)
             {
+                string name = pt.Name;
                 if (ParentAssmblieInfo.IsParent(pt))
                 {
                     ParentAssmblieInfo parent = ParentAssmblieInfo.GetAttribute(pt);
@@ -41,8 +42,7 @@ namespace MolexPlugin.DAL
                             break;
                         case PartType.Electrode:
                             ElectrodeModel eleModel = new ElectrodeModel(pt);
-                            if (eleModel.Info.AllInfo.SetValue.Positioning == "")
-                                Electrode.Add(eleModel);
+                            Electrode.Add(eleModel);
                             break;
                         case PartType.Work:
                             Work.Add(new WorkModel(pt));
@@ -52,6 +52,8 @@ namespace MolexPlugin.DAL
                             break;
                     }
                 }
+                else
+                    Other.Add(pt);
             }
         }
     }

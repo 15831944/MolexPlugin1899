@@ -38,6 +38,7 @@ namespace MolexPlugin.DAL
             try
             {
                 this.FeelerBody = ExtrudedUtils.CreateExtruded(new Vector3d(0, 0, 1), "0", z.ToString(), null, sketch.Center).GetBodies()[0];
+                MoveObject.CreateMoveObjToXYZ("moveBoxX", "moveBoxY", "moveBoxZ", null, FeelerBody);
                 return true;
             }
             catch (NXException ex)
@@ -49,9 +50,14 @@ namespace MolexPlugin.DAL
         }
         public bool CreateBuilder()
         {
-            if (ParentBuilder != null && !ParentBuilder.IsCreateOk)
-                ParentBuilder.CreateBuilder();
-            if (!isok && ParentBuilder.IsCreateOk)
+            if (ParentBuilder != null)
+            {
+                if (!ParentBuilder.IsCreateOk)
+                    ParentBuilder.CreateBuilder();
+                if (!isok && ParentBuilder.IsCreateOk)
+                    isok = CreatFeeler();
+            }
+            else if (!isok)
                 isok = CreatFeeler();
             return isok;
         }

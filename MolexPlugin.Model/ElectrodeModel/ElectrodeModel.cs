@@ -98,7 +98,7 @@ namespace MolexPlugin.Model
         {
             this.WorkpieceDirectoryPath = directoryPath;
             this.WorkpiecePath = directoryPath + this.AssembleName + ".prt";
-
+            CsysUtils.SetWcsToAbs();
             CsysUtils.SetWcsOfCenteAndMatr(this.Info.Matr.GetCenter(), this.Info.Matr.GetMatrix3());
             try
             {
@@ -124,5 +124,55 @@ namespace MolexPlugin.Model
             return this.Info.SetAttribute(obj);
         }
 
+        /// <summary>
+        /// 获取电极中设定点
+        /// </summary>
+        /// <param name="part"></param>
+        /// <returns></returns>
+        public Point GetSetPoint()
+        {
+            if (this.PartTag == null)
+                return null;
+            foreach (Point k in this.PartTag.Points.ToArray())
+            {
+                if (k.Name.ToUpper().Equals(("SetValuePoint").ToUpper()))
+                    return k;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获取电极X中心线
+        /// </summary>
+        /// <param name="part"></param>
+        /// <returns></returns>
+        public Line GetXLine()
+        {
+            if (this.PartTag == null)
+                return null;
+            foreach (Line k in this.PartTag.Lines.ToArray())
+            {
+                if (k.Name.ToUpper().Equals(("XCenterLine").ToUpper()))
+                    return k;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获取电极Y中心线
+        /// </summary>
+        /// <param name="part"></param>
+        /// <returns></returns>
+        public Line GetYLine()
+        {
+            if (this.PartTag == null)
+                return null;
+            foreach (Line k in this.PartTag.Lines.ToArray())
+            {
+                if (k.Name.ToUpper().Equals(("YCenterLine").ToUpper()))
+                    return k;
+            }
+            return null;
+        }
     }
 }

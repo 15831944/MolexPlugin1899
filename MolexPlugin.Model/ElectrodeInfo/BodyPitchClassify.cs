@@ -14,7 +14,7 @@ namespace MolexPlugin.Model
     /// </summary>
     public class BodyPitchClassify
     {
-        private List<BodyBoundingBoxInfo> info;
+        private List<BodyBoundingBoxInfo> info = new List<BodyBoundingBoxInfo>();
         private int xNum;
         private int yNum;
         private Body[,] classifyBodys;
@@ -36,19 +36,20 @@ namespace MolexPlugin.Model
         {
             var xBody = info.GroupBy(a => a.CenterPt.X);
             xBody.OrderByDescending(a => a.Key);
-            int h = 0;
+
+            int i = 0;
             try
             {
                 foreach (IGrouping<double, BodyBoundingBoxInfo> k in xBody)
                 {
-                    k.OrderBy(a => a.CenterPt.X);
-                    int i = 0;
+                    k.OrderBy(a => a.CenterPt.Y);
+                    int h = 0;
                     foreach (BodyBoundingBoxInfo io in k)
                     {
                         classifyBodys[i, h] = io.Body;
-                        i++;
+                        h++;
                     }
-                    h++;
+                    i++;
                 }
             }
             catch (Exception ex)

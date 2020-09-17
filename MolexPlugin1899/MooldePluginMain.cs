@@ -31,7 +31,7 @@ namespace MolexPlugin
             catch (NXOpen.NXException ex)
             {
                 // ---- Enter your exception handling code here -----
-                // UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Error, ex.Message);
+                UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Error, ex.Message);
             }
         }
         public static int Main(string[] args)
@@ -119,64 +119,74 @@ namespace MolexPlugin
 
             if (args[0] == "MENU_EleStandardSeatZ+")
             {
-                ElectrodeCreateExpAndMatr expAndMatr = new ElectrodeCreateExpAndMatr(new ZElectrodeExpression(), new ZPositiveElectrodeMatrix());
+                ElectrodeCreateExpAndMatr expAndMatr = new ElectrodeCreateExpAndMatr(new ZPositiveElectrodeMatrix());
                 CreateEleStandardSeatForm form = new CreateEleStandardSeatForm(expAndMatr);
                 form.Show();
 
             }
             if (args[0] == "MENU_EleStandardSeatX+")
             {
-                ElectrodeCreateExpAndMatr expAndMatr = new ElectrodeCreateExpAndMatr(new XElectrodeExpression(), new XPositiveElectrodeMatrix());
+                ElectrodeCreateExpAndMatr expAndMatr = new ElectrodeCreateExpAndMatr(new XNegativeElectrodeMatrix());
                 CreateEleStandardSeatForm form = new CreateEleStandardSeatForm(expAndMatr);
                 form.Show();
 
             }
             if (args[0] == "MENU_EleStandardSeatY+")
             {
-                ElectrodeCreateExpAndMatr expAndMatr = new ElectrodeCreateExpAndMatr(new YElectrodeExpression(), new YPositiveElectrodeMatrix());
+                ElectrodeCreateExpAndMatr expAndMatr = new ElectrodeCreateExpAndMatr(new YPositiveElectrodeMatrix());
                 CreateEleStandardSeatForm form = new CreateEleStandardSeatForm(expAndMatr);
                 form.Show();
 
             }
             if (args[0] == "MENU_EleStandardSeatX-")
             {
-                ElectrodeCreateExpAndMatr expAndMatr = new ElectrodeCreateExpAndMatr(new XElectrodeExpression(), new XNegativeElectrodeMatrix());
+                ElectrodeCreateExpAndMatr expAndMatr = new ElectrodeCreateExpAndMatr(new XPositiveElectrodeMatrix());
                 CreateEleStandardSeatForm form = new CreateEleStandardSeatForm(expAndMatr);
                 form.Show();
 
             }
             if (args[0] == "MENU_EleStandardSeatY-")
             {
-                ElectrodeCreateExpAndMatr expAndMatr = new ElectrodeCreateExpAndMatr(new YElectrodeExpression(), new YNegativeElectrodeMatrix());
+                ElectrodeCreateExpAndMatr expAndMatr = new ElectrodeCreateExpAndMatr(new YNegativeElectrodeMatrix());
                 CreateEleStandardSeatForm form = new CreateEleStandardSeatForm(expAndMatr);
                 form.Show();
             }
-            /*
+
+            if (args[0] == "MENU_ElectrodeColor")
+            {
+                ElectrodeColor color = new ElectrodeColor();
+                color.Show();
+            }
+
             if (args[0] == "MENU_DeleteEle")
             {
 
                 DeleteEle delete = new DeleteEle();
                 delete.Show();
             }
+
             if (args[0] == "MENU_PositionEle")
             {
-
                 PositionEle posit = new PositionEle();
                 posit.Show();
             }
+
             if (args[0] == "MENU_Interference")
             {
                 Interference inter = new Interference();
                 inter.Show();
             }
+
             if (args[0] == "MENU_WorkpieceDrawing")
             {
                 new WorkpieceDrawingCreateForm().Show();
             }
+            
             if (args[0] == "MENU_ElectrodeDrawing")
             {
                 new ElectrodeDrawingCreateForm().Show();
             }
+            /*
             if (args[0] == "MENU_Bom")
             {
                 new BomCreateForm().Show();
@@ -204,8 +214,8 @@ namespace MolexPlugin
             }
             */
 
-          //   Test.cs();
-
+            //  Test.cs();
+           
             return 1;
         }
 

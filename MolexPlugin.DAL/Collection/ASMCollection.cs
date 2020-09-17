@@ -20,7 +20,7 @@ namespace MolexPlugin.DAL
         /// <summary>
         /// 件号组立
         /// </summary>     
-        protected static AssmbileCollection coll = new AssmbileCollection();
+        protected AssmbileCollection coll = new AssmbileCollection();
         public ASMCollection(ASMModel asm)
         {
             this.model = asm;
@@ -100,6 +100,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public static ASMModel GetAsmModel(Part part)
         {
+            AssmbileCollection coll = new AssmbileCollection();
             if (ASMModel.IsAsm(part))
                 return new ASMModel(part);
             foreach (ASMModel am in coll.Asm)

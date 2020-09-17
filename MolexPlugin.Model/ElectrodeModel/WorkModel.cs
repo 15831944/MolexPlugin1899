@@ -156,9 +156,61 @@ namespace MolexPlugin.Model
             }
             return null;
         }
+
+        /// <summary>
+        /// 获取全部工件
+        /// </summary>
+        /// <returns></returns>
+        public List<Part> GetAllWorkpiece()
+        {
+            List<Part> workpieces = new List<Part>();
+            try
+            {
+                foreach (Part pt in Session.GetSession().Parts)
+                {
+                    string partType = AttributeUtils.GetAttrForString(pt, "PartType");
+                    if (partType.Equals("Workpiece", StringComparison.CurrentCultureIgnoreCase) || partType.Equals("", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        List<NXOpen.Assemblies.Component> ct = AssmbliesUtils.GetPartComp(this.PartTag, pt);
+                        if (ct.Count > 0)
+                            workpieces.Add(pt);
+                    }
+
+                }
+            }
+            catch
+            {
+
+            }
+            return workpieces;
+        }
         public override bool SetAttribute(NXObject obj)
         {
             return this.Info.SetAttribute(obj);
+        }
+
+        /// <summary>
+        /// 创建中心点
+        /// </summary>
+        public Point CreateCenterPoint()
+        {
+            foreach (Point pt in PartTag.Points)
+            {
+                if (pt.Name.ToUpper().Equals("CenterPoint".ToUpper()))
+                {
+                    return pt;
+                }
+            }
+            Point3d temp = new Point3d(0, 0, 0);
+            Matrix4 inver = this.Info.Matr.GetInversMatrix();
+            inver.ApplyPos(ref temp);
+            Point originPoint = PointUtils.CreatePoint(temp);
+            UFSession theUFSession = UFSession.GetUFSession();
+
+            theUFSession.Obj.SetColor(originPoint.Tag, 186);
+            theUFSession.Obj.SetLayer(originPoint.Tag, 201);
+            theUFSession.Obj.SetName(originPoint.Tag, "CenterPoint");
+            return originPoint;
         }
     }
 }

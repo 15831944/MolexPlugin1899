@@ -14,14 +14,14 @@ namespace MolexPlugin.DAL
     /// </summary>
     public class ElectrodeCreateExpAndMatr
     {
-        public AbstractElectrodeExpression Exp { get; private set; }
+        public ElectrodeExpression Exp { get; private set; }
 
         public AbstractElectrodeMatrix Matr { get; private set; }
 
 
-        public ElectrodeCreateExpAndMatr(AbstractElectrodeExpression exp, AbstractElectrodeMatrix matr)
+        public ElectrodeCreateExpAndMatr(AbstractElectrodeMatrix matr)
         {
-            this.Exp = exp;
+            this.Exp = new ElectrodeExpression();
             this.Matr = matr;
         }
 

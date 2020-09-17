@@ -245,7 +245,7 @@ namespace Basic
             }
             catch
             {
-                LogMgr.WriteLog("获取" + title + "属性函数错误");
+              //  LogMgr.WriteLog("获取" + title + "属性函数错误");
             }
             finally
             {
@@ -264,7 +264,7 @@ namespace Basic
             }
             catch
             {
-                LogMgr.WriteLog("获取" + title + "属性函数错误");
+               // LogMgr.WriteLog("获取" + title + "属性函数错误");
                 return " ";
             }
 
@@ -285,7 +285,7 @@ namespace Basic
             }
             catch
             {
-                LogMgr.WriteLog("获取" + title + "属性函数错误");
+              //  LogMgr.WriteLog("获取" + title + "属性函数错误");
             }
             finally
             {
@@ -304,7 +304,7 @@ namespace Basic
             }
             catch
             {
-                LogMgr.WriteLog("获取" + title + "属性函数错误");
+               // LogMgr.WriteLog("获取" + title + "属性函数错误");
                 return 0;
             }
 
@@ -326,7 +326,7 @@ namespace Basic
             }
             catch
             {
-                LogMgr.WriteLog("获取" + title + "属性函数错误");
+              //  LogMgr.WriteLog("获取" + title + "属性函数错误");
             }
             finally
             {
@@ -345,7 +345,7 @@ namespace Basic
             }
             catch
             {
-                LogMgr.WriteLog("获取" + title + "属性函数错误");
+               // LogMgr.WriteLog("获取" + title + "属性函数错误");
                 return false;
             }
 
@@ -368,7 +368,7 @@ namespace Basic
             }
             catch
             {
-                LogMgr.WriteLog("获取" + title + "属性函数错误");
+               // LogMgr.WriteLog("获取" + title + "属性函数错误");
             }
             finally
             {
@@ -387,7 +387,7 @@ namespace Basic
             }
             catch
             {
-                LogMgr.WriteLog("获取" + title + "属性函数错误");
+               // LogMgr.WriteLog("获取" + title + "属性函数错误");
                 return 0;
             }
 

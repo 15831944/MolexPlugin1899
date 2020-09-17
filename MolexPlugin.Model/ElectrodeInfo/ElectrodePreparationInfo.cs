@@ -39,7 +39,7 @@ namespace MolexPlugin.Model
             try
             {
                 AttributeUtils.AttributeOperation("IsPreparation", this.IsPreparation, obj);
-                AttributeUtils.AttributeOperation("Material", this.Material, obj);
+                AttributeUtils.AttributeOperation("Material1", this.Material, obj);
                 AttributeUtils.AttributeOperation("Preparation", this.Preparation, obj);
                 return true;
             }
@@ -60,7 +60,7 @@ namespace MolexPlugin.Model
             try
             {
                 info.IsPreparation = AttributeUtils.GetAttrForBool(obj, "IsPreparation");
-                info.Material = AttributeUtils.GetAttrForString(obj, "Material");
+                info.Material = AttributeUtils.GetAttrForString(obj, "Material1");
                 for (int i = 0; i < 3; i++)
                 {
                     info.Preparation[i] = AttributeUtils.GetAttrForInt(obj, "Preparation", i);
@@ -92,7 +92,7 @@ namespace MolexPlugin.Model
             try
             {
                 AttributeUtils.AttributeOperation("IsPreparation", this.IsPreparation, objs);
-                AttributeUtils.AttributeOperation("Material", this.Material, objs);
+                AttributeUtils.AttributeOperation("Material1", this.Material, objs);
                 AttributeUtils.AttributeOperation("Preparation", this.Preparation, objs);
                 return true;
             }

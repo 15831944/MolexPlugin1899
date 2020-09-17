@@ -22,19 +22,29 @@ namespace MolexPlugin.DAL
 
         public override double[] GetPreparation(ElectrodePitchInfo pitch, bool zDatum)
         {
-            double preX = Math.Ceiling(2 * disPt.X + Math.Abs((pitch.PitchXNum - 1) * pitch.PitchX)) + 6;
-            double preY = Math.Ceiling(2 * disPt.Y + Math.Abs((pitch.PitchYNum - 1) * pitch.PitchY)) + 6;
-            double preZ = Math.Ceiling(Math.Abs(this.centerPt.Z - centerPt.Z)) + 20;
+            double preX = Math.Ceiling(2 * disPt.X + Math.Abs((pitch.PitchXNum - 1) * pitch.PitchX)) ;
+            double preY = Math.Ceiling(2 * disPt.Y + Math.Abs((pitch.PitchYNum - 1) * pitch.PitchY)) ;
+            double preZ = Math.Ceiling(Math.Abs(this.centerPt.Z - disPt.Z)) + 25;
             if (zDatum)
             {
                 if (preX >= preY)
                 {
-                    preX = Math.Ceiling(2 * disPt.X + Math.Abs((pitch.PitchXNum) * pitch.PitchX)) + 6;
+                    preX = Math.Ceiling(2 * disPt.X + Math.Abs((pitch.PitchXNum) * pitch.PitchX)) ;
                 }
                 else
                 {
-                    preY = Math.Ceiling(2 * disPt.Y + Math.Abs((pitch.PitchYNum) * pitch.PitchY)) + 6;
+                    preY = Math.Ceiling(2 * disPt.Y + Math.Abs((pitch.PitchYNum) * pitch.PitchY));
                 }
+            }
+            if(preX>preY)
+            {
+                preX = preX + 6;
+                preY = preY + 2;
+            }
+            else
+            {
+                preX = preX + 2;
+                preY = preY + 6;
             }
             return new double[3] { preX, preY, preZ };
         }

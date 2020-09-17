@@ -26,7 +26,7 @@ namespace MolexPlugin.Model
         public Matrix4 Matr { get; set; }
         public ElectrodeInfo(MoldInfo mold, UserModel user, ElectrodeAllInfo allInfo, Matrix4Info matInfo) : base(mold, user)
         {
-            this.Type = PartType.Work;
+            this.Type = PartType.Electrode;
             this.MatrInfo = matInfo;
             this.AllInfo = allInfo;
             this.Matr = matInfo.Matr;

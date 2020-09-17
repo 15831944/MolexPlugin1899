@@ -55,11 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BodyPitchClassify.cs" />
+    <Compile Include="ElectrodeInfo\BodyPitchClassify.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeColorInfo.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeInfo.cs" />
     <Compile Include="ElectrodeInfo\ElectrodeNameInfo.cs" />
-    <Compile Include="ElectrodeInfo\ElectrodePositioningInfo.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeSetValueInfo.cs" />
     <Compile Include="ElectrodeInfo\ElectrodeDatumInfo.cs" />
-    <Compile Include="ElectrodeToolhInfo.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeToolhInfo.cs" />
     <Compile Include="ElectrodeInfo\BodyInfo.cs" />
     <Compile Include="ElectrodeModel\ElectrodeModel.cs" />
     <Compile Include="ElectrodeModel\WorkpieceModel.cs" />
@@ -70,7 +72,7 @@
     <Compile Include="IDisplayObject.cs" />
     <Compile Include="ElectrodeInfo\ElectrodeAllInfo.cs" />
     <Compile Include="ElectrodeInfo\Matrix4Info.cs" />
-    <Compile Include="ElectrodeInfo\ElectrodeInfo.cs" />
+    <Compile Include="ElectrodeInfo\ElectrodeDrawingInfo.cs" />
     <Compile Include="ElectrodeInfo\WorkInfo.cs" />
     <Compile Include="ElectrodeInfo\EDMInfo.cs" />
     <Compile Include="ElectrodeInfo\ASMInfo.cs" />
@@ -89,6 +91,9 @@
     <Compile Include="DatabaseModel\Role.cs" />
     <Compile Include="DatabaseModel\UserInfo.cs" />
     <Compile Include="ElectrodeInfo\UserModel.cs" />
+    <Compile Include="ElectrodeModel\ElectrodeDrawingModel.cs" />
+    <Compile Include="ElectrodeModel\WorkDrawingModel.cs" />
+    <Compile Include="ElectrodeModel\WorkpieceDrawingModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Basic\Basic.csproj">

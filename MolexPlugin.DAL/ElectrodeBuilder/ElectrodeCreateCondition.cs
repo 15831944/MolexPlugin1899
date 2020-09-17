@@ -24,8 +24,6 @@ namespace MolexPlugin.DAL
         {
             get
             {
-                if (toolhInfo.Count == 0)
-                    toolhInfo = GetToolhInfo(HeadBodys);
                 return toolhInfo;
             }
         }
@@ -40,6 +38,7 @@ namespace MolexPlugin.DAL
             this.workpiece = workpiece;
             this.work = work;
             Initialize();
+            toolhInfo = GetToolhInfo(HeadBodys);
         }
 
         private void Initialize()
@@ -56,7 +55,7 @@ namespace MolexPlugin.DAL
         {
             List<ElectrodeToolhInfo> toolhs = new List<ElectrodeToolhInfo>();
             var toolhNameList = bodys.GroupBy(a => AttributeUtils.GetAttrForString(a, "ToolhName"));
-            toolhNameList.OrderBy(a => a.Key);
+            toolhNameList.OrderByDescending(a => a.Key);
             int num = 65;
             foreach (var toolhName in toolhNameList)
             {
@@ -64,6 +63,7 @@ namespace MolexPlugin.DAL
                 char k = (char)num;
                 toolh.SetToolhName(k.ToString());
                 toolhs.Add(toolh);
+                num++;
             }
             return toolhs;
         }

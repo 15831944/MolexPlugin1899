@@ -17,7 +17,7 @@ namespace MolexPlugin.DAL
         private List<WorkModel> workModel = new List<WorkModel>();
         private List<ElectrodeModel> electrodes = new List<ElectrodeModel>();
         private List<EDMModel> edmModel = new List<EDMModel>();
-        protected static AssmbileCollection coll = new AssmbileCollection();
+        protected AssmbileCollection coll;
         private MoldInfo info;
         /// <summary>
         /// 同件号下的Work
@@ -59,6 +59,7 @@ namespace MolexPlugin.DAL
         public WorkCollection(MoldInfo moldInfo)
         {
             this.info = moldInfo;
+            coll = new AssmbileCollection();
         }
         /// <summary>
         /// 获取同一个模号件号的电极
