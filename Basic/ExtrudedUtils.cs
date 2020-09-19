@@ -8,7 +8,7 @@ using NXOpen;
 
 namespace Basic
 {
-    public class ExtrudedUtils
+    public class ExtrudeUtils
     {
         /// <summary>
         /// 创建拉伸特征
@@ -19,7 +19,7 @@ namespace Basic
         /// <param name="extrude">lastez</param>
         /// <param name="line">线</param>
         /// <returns></returns>
-        public static NXOpen.Features.Feature CreateExtruded(Vector3d vec, string start, string end, NXOpen.Features.Feature extrude = null, params TaggedObject[] line)
+        public static NXOpen.Features.Feature CreateExtrude(Vector3d vec, string start, string end, NXOpen.Features.Feature extrude = null, params TaggedObject[] line)
         {
             Session theSession = Session.GetSession();
             Part workPart = theSession.Parts.Work;

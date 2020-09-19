@@ -30,19 +30,17 @@ namespace MolexPlugin.DAL
             {
                 PartUtils.SetPartDisplay(this.work.PartTag);
             }
-
-            this.workDra = new WorkDrawingModel(model);
+            this.workDra = new WorkDrawingModel(model);         
             hostDraw = workDra.GetHostWorkpieceDrawingModel();
             GetTemplate();
         }
         public void CreateDrawing()
         {
-            double scale = hostDraw.GetScale(120, 140);
+            double scale = hostDraw.GetScale(120, 160);
             this.originPoint = PointUtils.CreatePointFeature(this.work.Info.Matr.GetCenter());
-            this.workDra.CreateCenterLine(hostDraw.CenterPt, hostDraw.DisPt);
+            this.workDra.CreateCenterLine(hostDraw.CenterPt, hostDraw.DisPt);        
             HostWorkpieceDrawing(scale);
-            OtherWorkpieceDrawing(scale);
-            LayerUtils.SetLayerSelectable(false, 201);
+            OtherWorkpieceDrawing(scale);         
         }
         /// <summary> 
         /// 获取模板位置
@@ -72,7 +70,7 @@ namespace MolexPlugin.DAL
             {
                 sheet = Basic.DrawingUtils.DrawingSheet(workpieceDrawTemplate, 297, 420, workDra.HostComp.Name);
                 dra.CreateView(scale, GetFirstPoint(hostDraw, scale), this.workpieceTablePath);
-                double[] plistOrigin = { 20, 70, 0 };
+                double[] plistOrigin = { 204, 70, 0 };
                 Basic.DrawingUtils.CreatePlist(plistPath, plistOrigin);
                 Basic.DrawingUtils.UpdateViews(sheet);
             }

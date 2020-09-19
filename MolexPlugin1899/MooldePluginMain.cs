@@ -83,7 +83,7 @@ namespace MolexPlugin
 
             #endregion
 
-            // #region 电极设计
+            #region 电极设计
             if (args[0] == "MENU_SuperBox")
             {
                 SuperBox superBox = new SuperBox();
@@ -181,18 +181,18 @@ namespace MolexPlugin
             {
                 new WorkpieceDrawingCreateForm().Show();
             }
-            
+
             if (args[0] == "MENU_ElectrodeDrawing")
             {
                 new ElectrodeDrawingCreateForm().Show();
             }
-            /*
+
             if (args[0] == "MENU_Bom")
             {
                 new BomCreateForm().Show();
             }
             #endregion
-
+            /*
             if (args[0] == "MENU_EleProgram")
             {
                 EleProgram mode = new EleProgram();
@@ -215,7 +215,7 @@ namespace MolexPlugin
             */
 
             //  Test.cs();
-           
+
             return 1;
         }
 

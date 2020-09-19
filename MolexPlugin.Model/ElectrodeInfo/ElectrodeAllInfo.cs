@@ -16,7 +16,7 @@ namespace MolexPlugin.Model
     /// 电极全部信息
     /// </summary>
     [Serializable]
-    public class ElectrodeAllInfo:ISetAttribute,ICloneable
+    public class ElectrodeAllInfo : ISetAttribute, ICloneable
     {
         /// <summary>
         /// 备注信息
@@ -71,7 +71,7 @@ namespace MolexPlugin.Model
         /// 读取属性
         /// </summary>
         public static ElectrodeAllInfo GetAttribute(NXObject obj)
-        {         
+        {
             try
             {
                 ElectrodeRemarksInfo rem = ElectrodeRemarksInfo.GetAttribute(obj);
@@ -91,7 +91,7 @@ namespace MolexPlugin.Model
                     Preparetion = pre,
                     SetValue = sv,
                     Name = name,
-                    Datum=da
+                    Datum = da
                 };
             }
             catch (NXException ex)
@@ -112,5 +112,87 @@ namespace MolexPlugin.Model
                    && this.Pitch.SetAttribute(objs) && this.Preparetion.SetAttribute(objs) && this.Name.SetAttribute(objs)
                    && this.SetValue.SetAttribute(objs) && this.Datum.SetAttribute(objs);
         }
+
+        /// <summary>
+        /// 创建表头
+        /// </summary>
+        /// <param name="table"></param>   
+        public static DataTable CreateDataTable()
+        {
+            try
+            {
+                DataTable table = new DataTable();
+                ElectrodeCAMInfo.CreateDataTable(ref table);
+                ElectrodeDatumInfo.CreateDataTable(ref table);
+                ElectrodeGapValueInfo.CreateDataTable(ref table);
+                ElectrodeNameInfo.CreateDataTable(ref table);
+
+                ElectrodePitchInfo.CreateDataTable(ref table);
+                ElectrodePreparationInfo.CreateDataTable(ref table);
+                ElectrodeRemarksInfo.CreateDataTable(ref table);
+                ElectrodeSetValueInfo.CreateDataTable(ref table);
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        /// <summary>
+        ///创建行
+        /// </summary>
+        /// <param name="row"></param>
+        public DataRow CreateDataRow(ref DataTable table)
+        {
+            DataRow row = table.NewRow();
+            try
+            {
+                this.CAM.CreateDataRow(ref row);
+                this.Datum.CreateDataRow(ref row);
+                this.GapValue.CreateDataRow(ref row);
+                this.Name.CreateDataRow(ref row);
+
+                this.Pitch.CreateDataRow(ref row);
+                this.Preparetion.CreateDataRow(ref row);
+                this.Remarks.CreateDataRow(ref row);
+                this.SetValue.CreateDataRow(ref row);
+                table.Rows.Add(row);
+                return row;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 通过行获取数据
+        /// </summary>
+        /// <param name="row"></param>
+        public static ElectrodeAllInfo GetInfoForDataRow(DataRow row)
+        {
+
+            try
+            {
+                ElectrodeAllInfo info = new ElectrodeAllInfo()
+                {
+                    CAM = ElectrodeCAMInfo.GetInfoForDataRow(row),
+                    Datum = ElectrodeDatumInfo.GetInfoForDataRow(row),
+                    GapValue = ElectrodeGapValueInfo.GetInfoForDataRow(row),
+                    Name = ElectrodeNameInfo.GetInfoForDataRow(row),
+                    Pitch = ElectrodePitchInfo.GetInfoForDataRow(row),
+                    Preparetion = ElectrodePreparationInfo.GetInfoForDataRow(row),
+                    Remarks = ElectrodeRemarksInfo.GetInfoForDataRow(row),
+                    SetValue = ElectrodeSetValueInfo.GetInfoForDataRow(row)
+                };
+                return info;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

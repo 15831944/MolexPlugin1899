@@ -513,7 +513,7 @@ namespace Basic
             NXOpen.UF.UFSession theUFSession = NXOpen.UF.UFSession.GetUFSession();
             try
             {
-                objOccTag = theUFSession.Assem.AskInstOfPartOcc(partOcc);
+                objOccTag = theUFSession.Assem.AskInstOfPartOcc(partOcc);            
                 return NXObjectManager.Get(objOccTag) as NXObject;
             }
             catch (NXException ex)

@@ -17,7 +17,7 @@ namespace MolexPlugin.Model
     /// 电极CAM信息
     /// </summary>
     [Serializable]
-    public class ElectrodeNameInfo : ISetAttribute,ICloneable
+    public class ElectrodeNameInfo : ISetAttribute, ICloneable
     {
         /// <summary>
         /// 电极名
@@ -39,7 +39,7 @@ namespace MolexPlugin.Model
         /// </summary>
         public bool SetAttribute(Part obj)
         {
-           
+
             try
             {
                 AttributeUtils.AttributeOperation("EleName", this.EleName, obj);
@@ -67,13 +67,13 @@ namespace MolexPlugin.Model
                 info.EleEditionNumber = AttributeUtils.GetAttrForString(obj, "EleEditionNumber");
                 return info;
             }
-            catch(NXException ex)
+            catch (NXException ex)
             {
                 throw ex;
             }
-           
+
         }
- 
+
         /// <summary>
         /// 写入属性
         /// </summary>
@@ -100,7 +100,7 @@ namespace MolexPlugin.Model
         /// </summary>
         /// <returns></returns>
         public object Clone()
-        {           
+        {
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream ms = new MemoryStream();
             bf.Serialize(ms, this);
@@ -124,6 +124,66 @@ namespace MolexPlugin.Model
             return 0;
         }
 
+        /// <summary>
+        /// 创建表
+        /// </summary>
+        /// <param name="table"></param>   
+        public static void CreateDataTable(ref DataTable table)
+        {
+            foreach (PropertyInfo propertyInfo in typeof(ElectrodeNameInfo).GetProperties())  //以属性添加列
+            {
+                try
+                {
+                    table.Columns.Add(new DataColumn(propertyInfo.Name, propertyInfo.PropertyType));
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+        }
+        /// <summary>
+        ///创建行
+        /// </summary>
+        /// <param name="row"></param>
+        public void CreateDataRow(ref DataRow row)
+        {
+            ElectrodeNameInfo info = this.Clone() as ElectrodeNameInfo;
+            foreach (PropertyInfo propertyInfo in typeof(ElectrodeNameInfo).GetProperties())
+            {
+                try
+                {
+                    row[propertyInfo.Name] = propertyInfo.GetValue(info, null);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+        /// <summary>
+        /// 通过行获取数据
+        /// </summary>
+        /// <param name="row"></param>
+        public static ElectrodeNameInfo GetInfoForDataRow(DataRow row)
+        {
+            ElectrodeNameInfo info = new ElectrodeNameInfo();
+            for (int i = 0; i < row.Table.Columns.Count; i++)
+            {
+                try
+                {
+                    PropertyInfo propertyInfo = info.GetType().GetProperty(row.Table.Columns[i].ColumnName);
+                    if (propertyInfo != null && row[i] != DBNull.Value)
+                        propertyInfo.SetValue(info, row[i], null);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return info;
+        }
     }
 }
 

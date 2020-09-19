@@ -18,8 +18,7 @@ namespace MolexPlugin
         {
             Part workPart = Session.GetSession().Parts.Work;
             UFSession theUFSession = UFSession.GetUFSession();
-            Tag temp = (Tag)181258;
-            Tag[] k;
+            List<NXOpen.Features.Feature> ff = workPart.Features.ToArray().ToList();
             /*AD
                string adPath = "LDAP://molex.com";
                DirectoryEntry de = new DirectoryEntry(adPath);
@@ -63,7 +62,7 @@ namespace MolexPlugin
                }
                */
             // theUFSession.Assem.CountEntsInPartOcc(temp);
-         
+
         }
         public static bool IsAuthenticated(string username, string pwd)
         {

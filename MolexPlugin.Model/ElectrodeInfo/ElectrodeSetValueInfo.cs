@@ -92,7 +92,7 @@ namespace MolexPlugin.Model
                 AttributeUtils.AttributeOperation("EleSetValue", this.EleSetValue, objs);
                 AttributeUtils.AttributeOperation("ContactArea", this.ContactArea, objs);
                 AttributeUtils.AttributeOperation("ProjectedArea", this.ProjectedArea, objs);
-                  AttributeUtils.AttributeOperation("Positioning", this.Positioning, objs);    
+                AttributeUtils.AttributeOperation("Positioning", this.Positioning, objs);
                 return true;
             }
             catch (NXException ex)
@@ -112,6 +112,98 @@ namespace MolexPlugin.Model
             bf.Serialize(ms, this);
             ms.Seek(0, SeekOrigin.Begin);
             return bf.Deserialize(ms);
+        }
+
+        /// <summary>
+        /// 创建表
+        /// </summary>
+        /// <param name="table"></param>   
+        public static void CreateDataTable(ref DataTable table)
+        {
+            foreach (PropertyInfo propertyInfo in typeof(ElectrodeSetValueInfo).GetProperties())  //以属性添加列
+            {
+                try
+                {
+                    table.Columns.Add(new DataColumn(propertyInfo.Name, propertyInfo.PropertyType));
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            try
+            {
+                table.Columns.Add("EleSetValueX", Type.GetType("System.Double"));
+                table.Columns.Add("EleSetValueY", Type.GetType("System.Double"));
+                table.Columns.Add("EleSetValueZ", Type.GetType("System.Double"));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
+        /// <summary>
+        ///创建行
+        /// </summary>
+        /// <param name="row"></param>
+        public void CreateDataRow(ref DataRow row)
+        {
+            ElectrodeSetValueInfo info = this.Clone() as ElectrodeSetValueInfo;
+            foreach (PropertyInfo propertyInfo in typeof(ElectrodeSetValueInfo).GetProperties())
+            {
+                try
+                {
+                    row[propertyInfo.Name] = propertyInfo.GetValue(info, null);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            try
+            {
+                row["EleSetValueX"] = info.EleSetValue[0];
+                row["EleSetValueY"] = info.EleSetValue[1];
+                row["EleSetValueZ"] = info.EleSetValue[2];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 通过行获取数据
+        /// </summary>
+        /// <param name="row"></param>
+        public static ElectrodeSetValueInfo GetInfoForDataRow(DataRow row)
+        {
+            ElectrodeSetValueInfo info = new ElectrodeSetValueInfo();
+            for (int i = 0; i < row.Table.Columns.Count; i++)
+            {
+                try
+                {
+                    PropertyInfo propertyInfo = info.GetType().GetProperty(row.Table.Columns[i].ColumnName);
+                    if (propertyInfo != null && row[i] != DBNull.Value)
+                        propertyInfo.SetValue(info, row[i], null);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            try
+            {
+                info.EleSetValue[0] = Convert.ToDouble(row["EleSetValueX"]);
+                info.EleSetValue[1] = Convert.ToDouble(row["EleSetValueY"]);
+                info.EleSetValue[2] = Convert.ToDouble(row["EleSetValueZ"]);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return info;
         }
     }
 }

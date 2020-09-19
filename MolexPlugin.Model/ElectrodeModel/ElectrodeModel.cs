@@ -174,5 +174,34 @@ namespace MolexPlugin.Model
             }
             return null;
         }
+
+        /// <summary>
+        /// 获取work
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="asmPart"></param>
+        /// <returns></returns>
+        public WorkModel GetWorkModel(Part asm)
+        {
+            List<NXOpen.Assemblies.Component> eleComs = AssmbliesUtils.GetPartComp(asm, this.PartTag);
+            List<WorkModel> works = new List<WorkModel>();
+            foreach (NXOpen.Assemblies.Component ct in eleComs)
+            {
+                NXOpen.Assemblies.Component parent = ct.Parent;
+                if (parent != null)
+                {
+                    Part pt = parent.Prototype as Part;
+                    if (WorkModel.IsWork(pt) && !works.Exists(a => a.PartTag.Equals(pt)) && ParentAssmblieInfo.GetAttribute(pt).MoldInfo.Equals(this.Info.MoldInfo))
+                        works.Add(new WorkModel(pt));
+                }
+            }
+            works.Sort();
+            if (works.Count != 0)
+            {
+                return works[0];
+            }
+            else
+                return null;
+        }
     }
 }

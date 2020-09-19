@@ -46,7 +46,8 @@ namespace MolexPlugin.Model
         /// <summary>
         /// ER 个数
         /// </summary>
-        public int[] ERNum { get; set; } = new int[2];
+        public int[] ERNum { get;
+            set; } = new int[2];
         /// <summary>
         /// 设置属性
         /// </summary>
@@ -154,7 +155,7 @@ namespace MolexPlugin.Model
                         {
                             foreach (BodyInfo bi in et[i, k].BodyInfos)
                             {
-                                bi.ER = true;                             
+                                bi.ER = true;
                             }
                             ef.Remove(et[i, k]);
                         }
@@ -163,7 +164,7 @@ namespace MolexPlugin.Model
                     {
                         foreach (BodyInfo bi in ei.BodyInfos)
                         {
-                            bi.EF = true;                       
+                            bi.EF = true;
                         }
                     }
                     ef.Clear();
@@ -183,7 +184,104 @@ namespace MolexPlugin.Model
             }
             return false;
         }
+        /// <summary>
+        /// 创建表
+        /// </summary>
+        /// <param name="table"></param>   
+        public static void CreateDataTable(ref DataTable table)
+        {
+            foreach (PropertyInfo propertyInfo in typeof(ElectrodeGapValueInfo).GetProperties())  //以属性添加列
+            {
+                try
+                {
+                    table.Columns.Add(new DataColumn(propertyInfo.Name, propertyInfo.PropertyType));
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            try
+            {
+                table.Columns.Add("ER-X", Type.GetType("System.Int32"));
+                table.Columns.Add("ER-Y", Type.GetType("System.Int32"));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
-      
+
+        }
+        /// <summary>
+        ///创建行
+        /// </summary>
+        /// <param name="row"></param>
+        public void CreateDataRow(ref DataRow row)
+        {
+            ElectrodeGapValueInfo info = this.Clone() as ElectrodeGapValueInfo;
+            foreach (PropertyInfo propertyInfo in typeof(ElectrodeGapValueInfo).GetProperties())
+            {
+                try
+                {
+                    row[propertyInfo.Name] = propertyInfo.GetValue(info, null);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            try
+            {
+                row["ER-X"] = info.ERNum[0];
+                row["ER-Y"] = info.ERNum[1];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 通过行获取数据
+        /// </summary>
+        /// <param name="row"></param>
+        public static ElectrodeGapValueInfo GetInfoForDataRow(DataRow row)
+        {
+            ElectrodeGapValueInfo info = new ElectrodeGapValueInfo();
+            for (int i = 0; i < row.Table.Columns.Count; i++)
+            {
+                try
+                {
+                    PropertyInfo propertyInfo = info.GetType().GetProperty(row.Table.Columns[i].ColumnName);
+                    if (propertyInfo != null && row[i] != DBNull.Value)
+                        propertyInfo.SetValue(info, row[i], null);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            try
+            {
+                info.ERNum[0] = Convert.ToInt32(row["ER-X"]);
+                info.ERNum[0] = Convert.ToInt32(row["ER-X"]);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return info;
+        }
+        /// <summary>
+        /// 比较是否修改电极
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool IsEquals(ElectrodeGapValueInfo other)
+        {
+            return this.ERNum[0] == other.ERNum[0] &&
+                 this.ERNum[1] == other.ERNum[1];
+
+        }
     }
 }

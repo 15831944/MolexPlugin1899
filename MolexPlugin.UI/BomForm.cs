@@ -15,23 +15,35 @@ namespace MolexPlugin
 {
     public partial class BomForm : Form
     {
-        private AssembleModel assemble;
+        private ASMModel asm;
+        private ASMCollection asmColl;
+        private ElectrodeAllInfo oldEleInfo;
         private object oldValue;
         private DataGridViewTextBoxEditingControl CellEdit = null;
-        private List<ElectrodeBomBuilder> builders = new List<ElectrodeBomBuilder>();
-        private ElectrodeInfo oldInfo;
-        public BomForm(AssembleModel assemble)
+        private List<ElectrodeModel> eleModels = new List<ElectrodeModel>();
+        private List<ElectrodeModel> collEle = new List<ElectrodeModel>();
+
+        private List<ElectrodeAllInfo> newEleModel = new List<ElectrodeAllInfo>();
+        public BomForm(ASMModel asm, ASMCollection asmColl)
         {
             InitializeComponent();
-            this.assemble = assemble;
+            this.asm = asm;
+            this.asmColl = asmColl;
+            eleModels = GetEles();
             Initialize();
         }
 
         private void button_OK_Click(object sender, EventArgs e)
         {
-            foreach (ElectrodeBomBuilder bom in builders)
+            foreach (ElectrodeAllInfo info in newEleModel)
             {
-                bom.Alter();
+                List<ElectrodeModel> ems = collEle.FindAll(a => a.Info.AllInfo.Name.EleName.Equals(info.Name.EleName));
+                foreach (ElectrodeModel em in ems)
+                {
+                    ElectrodeUpdateBuilder update = new ElectrodeUpdateBuilder(em, info, asm.PartTag);
+                    update.UpdateEleBuilder();
+                    update.UpdateDrawing();
+                }
             }
             this.Close();
         }
@@ -42,78 +54,9 @@ namespace MolexPlugin
         }
         private void button_OutExcel_Click(object sender, EventArgs e)
         {
-            OutPutBom.CreateBomExecl(assemble);
+
         }
-        /// <summary>
-        /// 初始化
-        /// </summary>
-        private void Initialize()
-        {
-            this.textBox_MoldNumber.Text = assemble.Asm.MoldInfo.MoldNumber;
-            this.textBox_PartNumber.Text = assemble.Asm.MoldInfo.WorkpieceNumber;
-            this.textBox_EditionNumber.Text = assemble.Asm.MoldInfo.EditionNumber;
-            EleType.Items.AddRange(GetContr("EleType").ToArray());
-            Material.Items.AddRange(GetContr("Material").ToArray());
-            Condition.Items.AddRange(GetContr("Condition").ToArray());
-            dataGridView.Columns["EleX"].Visible = false; //隐藏列
-            dataGridView.Columns["EleY"].Visible = false;
-            dataGridView.Columns["EleZ"].Visible = false;
-            dataGridView.Columns["EleName"].ReadOnly = true;  //只读列
-            dataGridView.RowsDefaultCellStyle.BackColor = Color.Bisque;
-            dataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.Beige; //交替行不同颜色
-            dataGridView.Columns[1].Frozen = true; //冻结首列
-            dataGridView.AutoGenerateColumns = false;
-            assemble.Electrodes.Sort();
-            List<ElectrodeInfo> infos = new List<ElectrodeInfo>();
-            foreach (ElectrodeModel model in assemble.Electrodes)
-            {
-                if (model.EleInfo.Positioning == "")
-                    infos.Add(model.EleInfo);
-            }
-            DataTable table = ElectrodeInfo.GetDataTable(infos);
-            dataGridView.DataSource = table;
 
-            #region
-            //foreach (ElectrodeModel ele in assemble.Electrodes)
-            //{
-
-            //    ElectrodeInfo info = ele.EleInfo;
-            //    if (info.Positioning == "")
-            //    {
-            //        int index = dataGridView.Rows.Add();
-            //        dataGridView.Rows[index].Cells[0].Value = info.EleName;
-            //        dataGridView.Rows[index].Cells[1].Value = info.EleSetValue[0];
-            //        dataGridView.Rows[index].Cells[2].Value = info.EleSetValue[1];
-            //        dataGridView.Rows[index].Cells[3].Value = info.EleSetValue[2];
-
-            //        dataGridView.Rows[index].Cells[4].Value = info.PitchX;
-            //        dataGridView.Rows[index].Cells[5].Value = info.PitchXNum;
-            //        dataGridView.Rows[index].Cells[6].Value = info.PitchY;
-            //        dataGridView.Rows[index].Cells[7].Value = info.PitchYNum;
-
-
-            //        dataGridView.Rows[index].Cells[8].Value = info.CrudeInter.ToString("f3");
-            //        dataGridView.Rows[index].Cells[9].Value = info.CrudeNum;
-            //        dataGridView.Rows[index].Cells[10].Value = info.DuringInter.ToString("f3");
-            //        dataGridView.Rows[index].Cells[11].Value = info.DuringNum;
-            //        dataGridView.Rows[index].Cells[12].Value = info.FineInter.ToString("f3");
-            //        dataGridView.Rows[index].Cells[13].Value = info.FineNum;
-
-            //        dataGridView.Rows[index].Cells[14].Value = info.EleType;
-
-            //        dataGridView.Rows[index].Cells[15].Value = info.Ch;
-            //        dataGridView.Rows[index].Cells[16].Value = info.Material;
-            //        dataGridView.Rows[index].Cells[17].Value = info.Condition;
-
-            //        dataGridView.Rows[index].Cells[18].Value = info.Preparation[0];
-            //        dataGridView.Rows[index].Cells[19].Value = info.Preparation[1];
-            //        dataGridView.Rows[index].Cells[20].Value = info.Preparation[2];
-
-            //        dataGridView.Rows[index].Cells[21].Value = info.BorrowName;
-            //    }
-            //}
-            #endregion
-        }
 
         #region //控件过滤
         private void Cells_KeyPress1(object sender, KeyPressEventArgs e) //自定义事件
@@ -144,16 +87,16 @@ namespace MolexPlugin
         private void dataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
 
-            if (dataGridView.CurrentCellAddress.X == 4 || dataGridView.CurrentCellAddress.X == 6)
-            {
-                CellEdit = (DataGridViewTextBoxEditingControl)e.Control;
-                CellEdit.SelectAll();
-                CellEdit.KeyPress -= Cells_KeyPress1; //移除绑定事件
-                CellEdit.KeyPress -= Cells_KeyPress2;
-                CellEdit.KeyPress -= Cells_KeyPress3;
-                CellEdit.KeyPress += Cells_KeyPress3; //过滤只能输入double
-            }
-            int[] column = { 5, 7, 9, 11, 13, 15, 18, 19, 20 };
+            //if (dataGridView.CurrentCellAddress.X == 4 || dataGridView.CurrentCellAddress.X == 6)
+            //{
+            //    CellEdit = (DataGridViewTextBoxEditingControl)e.Control;
+            //    CellEdit.SelectAll();
+            //    CellEdit.KeyPress -= Cells_KeyPress1; //移除绑定事件
+            //    CellEdit.KeyPress -= Cells_KeyPress2;
+            //    CellEdit.KeyPress -= Cells_KeyPress3;
+            //    CellEdit.KeyPress += Cells_KeyPress3; //过滤只能输入double
+            //}
+            int[] column = { 5, 6, 8, 9, 11, 13, 15, 20, 21, 22 };
             if (Array.IndexOf(column, dataGridView.CurrentCellAddress.X) != -1)
             {
                 CellEdit = (DataGridViewTextBoxEditingControl)e.Control;
@@ -163,7 +106,8 @@ namespace MolexPlugin
                 CellEdit.KeyPress -= Cells_KeyPress3;
                 CellEdit.KeyPress += Cells_KeyPress3; //过滤只能输入正整数
             }
-            if (dataGridView.CurrentCellAddress.X == 8 || dataGridView.CurrentCellAddress.X == 10 || dataGridView.CurrentCellAddress.X == 12)
+            int[] column1 = { 4, 7, 10, 12, 14, 23, 24 };
+            if (Array.IndexOf(column1, dataGridView.CurrentCellAddress.X) != -1)
             {
                 CellEdit = (DataGridViewTextBoxEditingControl)e.Control;
                 CellEdit.SelectAll();
@@ -173,28 +117,8 @@ namespace MolexPlugin
                 CellEdit.KeyPress += Cells_KeyPress2; //绑定正double事件
             }
         }
-        #endregion 
-        /// <summary>
-        /// 获取数据控件类型
-        /// </summary>
-        /// <param name="controlType"></param>
-        /// <returns></returns>
-        private List<string> GetContr(string controlType)
-        {
-            List<string> control = new List<string>();
-            var temp = ControlValue.Controls.GroupBy(a => a.ControlType);
-            foreach (var i in temp)
-            {
-                if (i.Key == controlType)
-                {
-                    foreach (var k in i)
-                    {
-                        control.Add(k.EnumName);
-                    }
-                }
-            }
-            return control;
-        }
+        #endregion
+
         /// <summary>
         /// 开始事件
         /// </summary>
@@ -204,7 +128,17 @@ namespace MolexPlugin
         {
             oldValue = this.dataGridView.CurrentCell.Value;
             DataRow dr = (dataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row;
-            oldInfo = ElectrodeInfo.GetEleInfo(dr);
+            oldEleInfo = ElectrodeAllInfo.GetInfoForDataRow(dr);
+            if (((oldEleInfo.GapValue.CrudeInter != 0 && oldEleInfo.GapValue.CrudeNum == 0) || (oldEleInfo.GapValue.DuringInter != 0 && oldEleInfo.GapValue.DuringNum == 0))
+               && (oldEleInfo.GapValue.FineInter != 0 && oldEleInfo.GapValue.FineNum == 1))
+            {
+
+            }
+            else
+            {
+                if (e.ColumnIndex == 6 || e.ColumnIndex == 9)
+                    e.Cancel = true;
+            }
         }
         /// <summary>
         /// 结束事件
@@ -215,38 +149,32 @@ namespace MolexPlugin
         {
             if (oldValue != this.dataGridView.CurrentCell.Value)
             {
-                ElectrodeBomBuilder bom;
-                if (dataGridView.CurrentCellAddress.X == 4 || dataGridView.CurrentCellAddress.X == 5 || dataGridView.CurrentCellAddress.X == 6
-                 || dataGridView.CurrentCellAddress.X == 7)
+                DataRow dr = (dataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row;
+                ElectrodeAllInfo newInfo = ElectrodeAllInfo.GetInfoForDataRow(dr);
+                if (dataGridView.CurrentCellAddress.X == 4 || dataGridView.CurrentCellAddress.X == 5 || dataGridView.CurrentCellAddress.X == 7
+              || dataGridView.CurrentCellAddress.X == 8)
                 {
-                    double x = Convert.ToDouble(dataGridView.Rows[e.RowIndex].Cells[4].Value);
-                    int xNumber = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[5].Value);
-                    double y = Convert.ToDouble(dataGridView.Rows[e.RowIndex].Cells[6].Value);
-                    int yNumber = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[7].Value);
-                    string material = dataGridView.Rows[e.RowIndex].Cells[16].Value.ToString();
 
-                    Point3d setPt = ElectrodeBomBuilder.GetSetValue(x, xNumber, y, yNumber, oldInfo);
-                    dataGridView.Rows[e.RowIndex].Cells[1].Value = setPt.X.ToString("f3");
-                    dataGridView.Rows[e.RowIndex].Cells[2].Value = setPt.Y.ToString("f3");
+                    ElectrodePitchUpdate pitch = new ElectrodePitchUpdate(oldEleInfo.Pitch, newInfo.Pitch);
+                    double[] setValue = pitch.GetNewSetValue(oldEleInfo.SetValue.EleSetValue);
 
-                    int[] pre = ElectrodeBomBuilder.GetPreparation(x, xNumber, y, yNumber, material, oldInfo);
+                    dataGridView.Rows[e.RowIndex].Cells[1].Value = setValue[0].ToString("f3");
+                    dataGridView.Rows[e.RowIndex].Cells[2].Value = setValue[1].ToString("f3");
 
-                    dataGridView.Rows[e.RowIndex].Cells[18].Value = pre[0].ToString();
-                    dataGridView.Rows[e.RowIndex].Cells[19].Value = pre[1].ToString();
+                    int[] pre = pitch.GetNewPreparation(oldEleInfo.Preparetion.Preparation, newInfo.Preparetion.Material);
 
+                    dataGridView.Rows[e.RowIndex].Cells[20].Value = pre[0].ToString();
+                    dataGridView.Rows[e.RowIndex].Cells[21].Value = pre[1].ToString();
                 }
-
-                DataRow dr = (dataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row; //获取数据
-                ElectrodeInfo newInfo = ElectrodeInfo.GetEleInfo(dr);
-                bom = new ElectrodeBomBuilder(newInfo, this.assemble);
-                if (!builders.Exists(a => a.Model[0].EleInfo.EleName == newInfo.EleName))
-                    this.builders.Add(bom);
+                if (!newEleModel.Exists(a => a.Name.EleName.Equals(newInfo.Name.EleName, StringComparison.CurrentCultureIgnoreCase)))
+                    this.newEleModel.Add(newInfo);
                 else
                 {
-                    ElectrodeBomBuilder bu = builders.Find(a => a.Model[0].EleInfo.EleName == newInfo.EleName);
-                    this.builders.Remove(bu);
-                    this.builders.Add(bom);
+                    ElectrodeAllInfo bu = newEleModel.Find(a => a.Name.EleName.Equals(newInfo.Name.EleName, StringComparison.CurrentCultureIgnoreCase));
+                    this.newEleModel.Remove(bu);
+                    this.newEleModel.Add(newInfo);
                 }
+
             }
         }
     }

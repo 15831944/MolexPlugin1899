@@ -113,7 +113,7 @@ namespace MolexPlugin.Model
         /// </summary>
         /// <param name="bodys">一种齿（阵列）</param>
         /// <returns></returns>
-        public  ElectrodeToolhInfo[,] GetToolhInfosForAttribute(List<Body> bodys, Matrix4 matr, CartesianCoordinateSystem csys)
+        public ElectrodeToolhInfo[,] GetToolhInfosForAttribute(List<Body> bodys, Matrix4 matr, CartesianCoordinateSystem csys)
         {
             ElectrodeToolhInfo[,] info = new ElectrodeToolhInfo[this.PitchXNum, this.PitchYNum];
             var toolhNumList = bodys.GroupBy(a => AttributeUtils.GetAttrForInt(a, "ToolhNumber"));
@@ -139,5 +139,78 @@ namespace MolexPlugin.Model
             return info;
         }
 
+        /// <summary>
+        /// 创建表
+        /// </summary>
+        /// <param name="table"></param>   
+        public static void CreateDataTable(ref DataTable table)
+        {
+
+            foreach (PropertyInfo propertyInfo in typeof(ElectrodePitchInfo).GetProperties())  //以属性添加列
+            {
+                try
+                {
+                    table.Columns.Add(new DataColumn(propertyInfo.Name, propertyInfo.PropertyType));
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+        }
+        /// <summary>
+        ///创建行
+        /// </summary>
+        /// <param name="row"></param>
+        public void CreateDataRow(ref DataRow row)
+        {
+            ElectrodePitchInfo info = this.Clone() as ElectrodePitchInfo;
+            foreach (PropertyInfo propertyInfo in typeof(ElectrodePitchInfo).GetProperties())
+            {
+                try
+                {
+                    row[propertyInfo.Name] = propertyInfo.GetValue(info, null);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+        /// <summary>
+        /// 通过行获取数据
+        /// </summary>
+        /// <param name="row"></param>
+        public static ElectrodePitchInfo GetInfoForDataRow(DataRow row)
+        {
+            ElectrodePitchInfo info = new ElectrodePitchInfo();
+            for (int i = 0; i < row.Table.Columns.Count; i++)
+            {
+                try
+                {
+                    PropertyInfo propertyInfo = info.GetType().GetProperty(row.Table.Columns[i].ColumnName);
+                    if (propertyInfo != null && row[i] != DBNull.Value)
+                        propertyInfo.SetValue(info, row[i], null);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return info;
+        }
+        /// <summary>
+        /// 比较是否修改电极
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool IsEquals(ElectrodePitchInfo other)
+        {
+            return this.PitchX == other.PitchX && this.PitchXNum == other.PitchXNum &&
+                this.PitchY == other.PitchY && this.PitchYNum == other.PitchYNum;
+
+
+        }
     }
 }

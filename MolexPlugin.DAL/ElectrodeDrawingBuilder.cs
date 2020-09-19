@@ -51,7 +51,6 @@ namespace MolexPlugin.DAL
             PartUtils.SetPartDisplay(model.PartTag);
             model.GetBoundingBox(out centerPt, out disPt);
             model.GetHidden(out setValueHidden, out eleHidden);
-
         }
         /// <summary>
         /// 获取设定视图的中心点
@@ -62,9 +61,9 @@ namespace MolexPlugin.DAL
         {
 
             double higth = 2 * disPt.Y * scale + 2 * disPt.Z * scale;
-            double k = (230 - higth) / 2;
+            double k = (220 - higth) / 2;
             Point3d temp = new Point3d(0, 0, 0);
-            temp.X = 95;
+            temp.X = 90;
             temp.Y = 230 - (disPt.Y * scale);
             return temp;
         }
@@ -90,7 +89,7 @@ namespace MolexPlugin.DAL
             foreach (DraftingView dv in views)
             {
                 Basic.DrawingUtils.SetLayerHidden(dv);
-                Basic.DrawingUtils.SetLayerVisible(new int[] { 201 }, dv);
+                Basic.DrawingUtils.SetLayerVisible(new int[1] { 20 }, dv);
             }
         }
         /// <summary>
@@ -151,11 +150,9 @@ namespace MolexPlugin.DAL
         /// <summary>
         /// 创建设定图
         /// </summary>
-        public NXOpen.Drawings.DrawingSheet CreateSetValueView()
+        public void CreateSetValueView()
         {
-            Matrix4 inv = model.GetWorkMatr().GetInversMatrix();
-            inv.ApplyPos(ref centerPt);
-            double scale = model.GetScale(130.0, 170.0, disPt);
+            double scale = model.GetScale(130.0, 190.0, disPt);
             NXOpen.Drawings.DrawingSheet sheet = Basic.DrawingUtils.DrawingSheet(eleTemplate, 297, 420, model.AssembleName);
             Point3d origin = GetSetValueViewOriginPt(scale);
             Point3d projectedPt = new Point3d(0, 0, 0);
@@ -172,14 +169,10 @@ namespace MolexPlugin.DAL
             {
                 ClassItem.WriteLogFile(model.AssembleName + "视图创建错误！" + ex.Message);
             }
-            Point workPt = model.CreateCenterPoint();
-            List<Point> setPt = model.GetEleSetPoint();
-            if (topView != null || workPt == null || setPt.Count > 0)
-                TopDimension(topView, scale, origin, workPt, setPt);
-            if (proView != null || workPt == null || setPt.Count > 0)
-                ProViewDimension(proView, scale, projectedPt, workPt, setPt);
-            SetViewVisible(new DraftingView[] { topView, proView });
-            return sheet;
+            if (topView != null)
+                TopDimension(topView, origin, scale, model.GetWorkCompPoint(), model.GetEleSetPoint());
+            if (proView != null)
+                ProViewDimension(proView, projectedPt, scale, model.GetWorkCompPoint(), model.GetEleSetPoint());
         }
         /// <summary>
         /// 设定视图水平标注
@@ -189,22 +182,15 @@ namespace MolexPlugin.DAL
         /// <param name="scale"></param>
         /// <param name="workPoint"></param>
         /// <param name="elePoint"></param>
-        private void TopDimension(DraftingView topView, double scale, Point3d originPt, Point workPoint, List<Point> elePoint)
+        private void TopDimension(DraftingView topView, Point3d originPt, double scale, Point workPoint, List<Point> elePoint)
         {
             string err = "";
 
             Matrix4 mat = model.GetWorkMatr();
-            // Point3d originPt = topView.GetDrawingReferencePoint();
             PointSort(ref elePoint, mat, "X");
-            double xTemmp = 0;
-            int x = 0;
             for (int i = 0; i < elePoint.Count; i++)
             {
-                if (i == 0)
-                    xTemmp = elePoint[i].Coordinates.X;
-                if (UMathUtils.IsEqual(xTemmp, elePoint[i].Coordinates.X) && i != 0)
-                    continue;
-                Point3d dimPt = new Point3d(originPt.X + 10.0, originPt.Y + disPt.Y * scale + (10 * (x + 1)), 0);
+                Point3d dimPt = new Point3d(originPt.X + 10.0, originPt.Y + disPt.Y * scale + (10 * (i + 1)), 0);
                 try
                 {
                     NXOpen.Annotations.Dimension dim = Basic.DrawingUtils.DimensionHorizontal(topView, dimPt, workPoint, elePoint[i], ref err);
@@ -213,7 +199,6 @@ namespace MolexPlugin.DAL
                         Basic.DrawingUtils.AppendedTextDim(dim, "EDM SETTING");
                         SetDimColor(dim);
                     }
-                    x++;
                 }
                 catch (NXException ex)
                 {
@@ -222,15 +207,9 @@ namespace MolexPlugin.DAL
 
             }
             PointSort(ref elePoint, mat, "Y");
-            double yTemmp = 0;
-            int y = 0;
             for (int i = 0; i < elePoint.Count; i++)
             {
-                if (i == 0)
-                    yTemmp = elePoint[i].Coordinates.Y;
-                if (UMathUtils.IsEqual(yTemmp, elePoint[i].Coordinates.Y) && i != 0)
-                    continue;
-                Point3d dimPt = new Point3d(originPt.X - (this.disPt.X * scale + 8 * (y + 1)), originPt.Y + 10, 0);
+                Point3d dimPt = new Point3d(originPt.X - (this.disPt.X * scale + 8 * (i + 1)), originPt.Y + 10, 0);
                 try
                 {
                     NXOpen.Annotations.Dimension dim = Basic.DrawingUtils.DimensionVertical(topView, dimPt, workPoint, elePoint[i], ref err);
@@ -239,7 +218,6 @@ namespace MolexPlugin.DAL
                         Basic.DrawingUtils.AppendedTextDim(dim, "EDM SETTING");
                         SetDimColor(dim);
                     }
-                    y++;
                 }
                 catch (NXException ex)
                 {
@@ -257,54 +235,39 @@ namespace MolexPlugin.DAL
         /// <param name="scale"></param>
         /// <param name="workPoint"></param>
         /// <param name="elePoint"></param>
-        private void ProViewDimension(DraftingView topView, double scale, Point3d originPt, Point workPoint, List<Point> elePoint)
+        private void ProViewDimension(DraftingView topView, Point3d originPt, double scale, Point workPoint, List<Point> elePoint)
         {
             string err = "";
-            Matrix4 mat = model.GetWorkMatr();
-            // Point3d originPt = topView.GetDrawingReferencePoint();
-            PointSort(ref elePoint, mat, "Z");
-            double zTemmp = 0;
-            int z = 0;
-            for (int i = 0; i < elePoint.Count; i++)
+            Point3d dimPt = new Point3d(originPt.X - (disPt.X * scale + 10), originPt.Y + (disPt.X * scale), 0);
+            try
             {
-                if (i == 0)
-                    zTemmp = elePoint[i].Coordinates.Z;
-                if (UMathUtils.IsEqual(zTemmp, elePoint[i].Coordinates.Z) && i != 0)
-                    continue;
-                Point3d dimPt = new Point3d(originPt.X - (disPt.X * scale + 8 * (z + 1)), originPt.Y + 10, 0);
-                try
+                NXOpen.Annotations.Dimension dim = Basic.DrawingUtils.DimensionVertical(topView, dimPt, workPoint, elePoint[0], ref err);
+                if (dim != null)
                 {
-                    NXOpen.Annotations.Dimension dim = Basic.DrawingUtils.DimensionVertical(topView, dimPt, workPoint, elePoint[0], ref err);
-                    if (dim != null)
-                    {
-                        Basic.DrawingUtils.AppendedTextDim(dim, "EDM SETTING");
-                        SetDimColor(dim);
-                    }
-                    z++;
-                }
-
-                catch (NXException ex)
-                {
-                    ClassItem.WriteLogFile(model.AssembleName + "设定视图竖直标注错误！" + ex.Message);
+                    Basic.DrawingUtils.AppendedTextDim(dim, "EDM SETTING");
+                    SetDimColor(dim);
                 }
             }
+            catch (NXException ex)
+            {
+                ClassItem.WriteLogFile(model.AssembleName + "设定视图竖直标注错误！" + ex.Message);
+            }
+
         }
         /// <summary>
         /// 创建电极视图
         /// </summary>
         public void CreateEleView()
         {
-            double eleScale = model.GetEleScale(90, 150.0);
+            double eleScale = model.GetEleScale(130.0, 150.0);
             int[] pre = model.Info.AllInfo.Preparetion.Preparation;
             Point3d eleOrigin = GetEleOrigin(eleScale);
             Point3d projectedElePt1 = new Point3d(eleOrigin.X, eleOrigin.Y + (pre[1] * eleScale / 2 + pre[2] * eleScale / 2 + 30), 0);
             Point3d projectedElePt2 = new Point3d(projectedElePt1.X - (pre[0] * eleScale / 2 + pre[1] * eleScale / 2 + 30), projectedElePt1.Y, 0);
-            Point3d projectedElePt3 = new Point3d(projectedElePt2.X - pre[1] - 10, projectedElePt2.Y, 0);
             DraftingView topEleView = null;
             try
             {
                 topEleView = Basic.DrawingUtils.CreateView("TOP", eleOrigin, eleScale, model.GetEleMatr(), eleHidden.ToArray());
-
             }
             catch (NXException ex)
             {
@@ -318,15 +281,14 @@ namespace MolexPlugin.DAL
             {
                 proEleView1 = Basic.DrawingUtils.CreateProjectedView(topEleView, projectedElePt1, eleScale);
                 proEleView2 = Basic.DrawingUtils.CreateProjectedView(proEleView1, projectedElePt2, eleScale);
-
             }
             catch (NXException ex)
             {
                 ClassItem.WriteLogFile(model.AssembleName + "电极视图创建错误！" + ex.Message);
                 return;
             }
+            EleProViewDimension(proEleView2, projectedElePt2, eleScale);
 
-            EleProViewDimension(proEleView2, eleScale, projectedElePt2);
             Matrix4 mat = model.GetEleMatr();
             mat.RolateWithX(-2 * Math.PI / 5);
             mat.RolateWithY(Math.PI / 10);
@@ -335,7 +297,6 @@ namespace MolexPlugin.DAL
             try
             {
                 topEleView2 = Basic.DrawingUtils.CreateView("Trimetric", new Point3d(240, 120, 0), eleScale, mat, eleHidden.ToArray());
-
             }
             catch (NXException ex)
             {
@@ -351,15 +312,14 @@ namespace MolexPlugin.DAL
         /// <param name="topView"></param>
         /// <param name="originPt"></param>
         /// <param name="scale"></param>
-        private void EleProViewDimension(DraftingView topView, double scale, Point3d originPt)
+        private void EleProViewDimension(DraftingView topView, Point3d originPt, double scale)
         {
             string err = "";
             int[] pre = model.Info.AllInfo.Preparetion.Preparation;
             List<Edge> xEdge = new List<Edge>();
             Point centerPt;
             model.GetEdge(out xEdge, out centerPt);
-            // Point3d originPt = topView.GetDrawingReferencePoint();
-            Point3d dimPt = new Point3d(originPt.X - (pre[1] * scale / 2 + 10), originPt.Y, 0);
+            Point3d dimPt = new Point3d(originPt.X, originPt.Y - (pre[1] * scale / 2 + 10), 0);
             if (xEdge.Count == 0 || centerPt == null)
                 return;
             try
@@ -373,48 +333,14 @@ namespace MolexPlugin.DAL
                 ClassItem.WriteLogFile(model.AssembleName + "电极视图竖直标注错误！" + ex.Message);
             }
         }
-
-        private void SetLayer(int layer)
-        {
-            List<Body> eleBy = model.GetEleBody();
-            if (eleBy.Count > 0)
-                LayerUtils.MoveDisplayableObject(layer, eleBy.ToArray());
-            List<Body> workpieceBody = model.GetWorkpieceBody();
-            if (workpieceBody.Count > 0)
-                LayerUtils.MoveDisplayableObject(layer, workpieceBody.ToArray());
-            List<Line> xLine = model.GetXLine();
-            if (xLine.Count > 0)
-                LayerUtils.MoveDisplayableObject(layer, xLine.ToArray());
-            List<Line> yLine = model.GetYLine();
-            if (yLine.Count > 0)
-                LayerUtils.MoveDisplayableObject(layer, yLine.ToArray());
-
-        }
-        private void SetNode()
-        {
-            if (this.model.Info.AllInfo.Preparetion.IsPreparation)
-            {
-                Basic.DrawingUtils.SetNote(new Point3d(130, 20, 0), 6, "标准铜料");
-            }
-            else if (!this.model.Info.AllInfo.Preparetion.IsPreparation)
-            {
-                Basic.DrawingUtils.SetNote(new Point3d(130, 20, 0), 6, "非标准铜料");
-            }
-            Basic.DrawingUtils.SetNote(new Point3d(130, 30, 0), 4, this.model.Info.AllInfo.Remarks.ElePresentation);
-        }
         /// <summary>
         /// 创建特征
         /// </summary>
         public void CreateBulider()
         {
             CreatDwgPart();
-            NXOpen.Drawings.DrawingSheet sheet = CreateSetValueView();
+            CreateSetValueView();
             CreateEleView();
-            SetLayer(201);
-            SetNode();
-            Basic.DrawingUtils.UpdateViews(sheet);
-            Session.GetSession().ApplicationSwitchImmediate("UG_APP_DRAFTING");
-            model.PartTag.Save(BasePart.SaveComponents.False, BasePart.CloseAfterSave.False);
         }
     }
 }

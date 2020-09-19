@@ -63,6 +63,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BomCreateForm.cs" />
+    <Compile Include="BomForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BomForm.Designer.cs">
+      <DependentUpon>BomForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Electrode\AddEdmAsm.cs" />
     <Compile Include="Electrode\DeleteEle.cs" />
     <Compile Include="Electrode\ElectrodeColor.cs" />
@@ -85,6 +92,9 @@
     <Compile Include="Electrode\AddWorkInternal.cs" />
     <Compile Include="Electrode\AddWork.cs" />
     <Compile Include="Electrode\AddWorkpiece.cs" />
+    <Compile Include="BomFormInternal.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Tool\AnalyzeBodyAndFace.cs" />
     <Compile Include="Electrode\CheckElectrode.cs" />
     <Compile Include="Electrode\CreateEleStandardSeatForm.cs" />
@@ -126,6 +136,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BomForm.resx">
+      <DependentUpon>BomForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Electrode\ElectrodeDrawingForm.resx">
       <DependentUpon>ElectrodeDrawingForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -101,6 +101,8 @@
     <Compile Include="ElectrodeBuilder\ElectrodeSketchBuilder.cs" />
     <Compile Include="ElectrodeBuilder\EletrodePreparation.cs" />
     <Compile Include="ElectrodeBuilder\ElectrodeDrawingBuilder.cs" />
+    <Compile Include="ElectrodePitchUpdate.cs" />
+    <Compile Include="ElectrodeUpdateBuilder.cs" />
     <Compile Include="Hole\StepBuilder.cs" />
     <Compile Include="Hole\HoleBuilder.cs" />
     <Compile Include="Hole\StepBlindHoleFeature.cs" />

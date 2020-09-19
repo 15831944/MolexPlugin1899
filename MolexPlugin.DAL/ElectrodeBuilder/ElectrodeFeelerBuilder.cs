@@ -37,7 +37,7 @@ namespace MolexPlugin.DAL
             double z = this.datum.EleHeight;
             try
             {
-                this.FeelerBody = ExtrudedUtils.CreateExtruded(new Vector3d(0, 0, 1), "0", z.ToString(), null, sketch.Center).GetBodies()[0];
+                this.FeelerBody = ExtrudeUtils.CreateExtrude(new Vector3d(0, 0, 1), "0", z.ToString(), null, sketch.Center).GetBodies()[0];
                 MoveObject.CreateMoveObjToXYZ("moveBoxX", "moveBoxY", "moveBoxZ", null, FeelerBody);
                 return true;
             }
