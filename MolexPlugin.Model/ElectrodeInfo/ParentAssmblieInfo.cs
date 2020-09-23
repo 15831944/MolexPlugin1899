@@ -95,6 +95,126 @@ namespace MolexPlugin.Model
                 return false;
             }
         }
+        /// <summary>
+        /// 判断是否电极
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsElectrode(NXObject obj)
+        {
+            try
+            {
+                string partType = AttributeUtils.GetAttrForString(obj, "PartType");
+                if (partType.Equals("Electrode"))
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 判断是否Workpiece
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsWorkpiece(NXObject obj)
+        {
+            try
+            {
+                string partType = AttributeUtils.GetAttrForString(obj, "PartType");
+                if (partType.Equals("Workpiece"))
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 判断是否EDM
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsEDM(NXObject obj)
+        {
+            try
+            {
+                string partType = AttributeUtils.GetAttrForString(obj, "PartType");
+                if (partType.Equals("EDM"))
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 判断是否Work
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsWork(NXObject obj)
+        {
+            try
+            {
+                string partType = AttributeUtils.GetAttrForString(obj, "PartType");
+                if (partType.Equals("Work"))
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 判断是否ASM
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsASM(NXObject obj)
+        {
+            try
+            {
+                string partType = AttributeUtils.GetAttrForString(obj, "PartType");
+                if (partType.Equals("ASM"))
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 判断是否Drawing
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsDrawing(NXObject obj)
+        {
+            try
+            {
+                string partType = AttributeUtils.GetAttrForString(obj, "PartType");
+                if (partType.Equals("Drawing"))
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
     public enum PartType
     {

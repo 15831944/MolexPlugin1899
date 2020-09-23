@@ -61,10 +61,16 @@ namespace MolexPlugin.Model
             Point3d disPt = new Point3d();
             Part workPart = Session.GetSession().Parts.Work;
             List<Body> bodys = new List<Body>();
-            NXOpen.Assemblies.Component ct = AssmbliesUtils.GetPartComp(workPart, part)[0];
-            foreach (Body body in this.part.Bodies.ToArray())
+            //  NXOpen.Assemblies.Component ct = AssmbliesUtils.GetPartComp(workPart, part)[0];
+            foreach (NXOpen.Assemblies.Component ct in AssmbliesUtils.GetPartComp(workPart, part))
             {
-                bodys.Add(AssmbliesUtils.GetNXObjectOfOcc(ct.Tag, body.Tag) as Body);
+                if (!ct.IsSuppressed)
+                {
+                    foreach (Body body in this.part.Bodies.ToArray())
+                    {
+                        bodys.Add(AssmbliesUtils.GetNXObjectOfOcc(ct.Tag, body.Tag) as Body);
+                    }
+                }
             }
             Matrix4 invers = workMatr.GetInversMatrix();
             CartesianCoordinateSystem csys = BoundingBoxUtils.CreateCoordinateSystem(workMatr, invers);//坐标

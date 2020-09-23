@@ -948,7 +948,7 @@ namespace Basic
             NXOpen.Annotations.DraftingNoteBuilder draftingNoteBuilder1;
             draftingNoteBuilder1 = workPart.Annotations.CreateDraftingNoteBuilder(nullNXOpen_Annotations_SimpleDraftingAid);
             int fontIndex1;
-            fontIndex1 = workPart.Fonts.AddFont("SimSun", NXOpen.FontCollection.Type.Standard);
+            fontIndex1 = workPart.Fonts.AddFont("宋体", NXOpen.FontCollection.Type.Standard);
             draftingNoteBuilder1.Style.LetteringStyle.GeneralTextSize = size;
             draftingNoteBuilder1.Style.LetteringStyle.AppendedTextFont = fontIndex1;
             draftingNoteBuilder1.Style.LetteringStyle.GeneralTextColor = workPart.Colors.Find(6);

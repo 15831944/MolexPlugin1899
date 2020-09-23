@@ -87,7 +87,11 @@ namespace MolexPlugin.Model
                     AttributeUtils.AttributeOperation("ToolhGapValue", "ER", this.Body);
                     AttributeUtils.AttributeOperation("ToolhGapValue", "ER", this.Body.GetFaces());
                 }
-
+                else
+                {
+                    AttributeUtils.AttributeOperation("ToolhGapValue", "", this.Body);
+                    AttributeUtils.AttributeOperation("ToolhGapValue", "", this.Body.GetFaces());
+                }
             }
         }
 
@@ -108,6 +112,11 @@ namespace MolexPlugin.Model
                 {
                     AttributeUtils.AttributeOperation("ToolhGapValue", "EF", this.Body);
                     AttributeUtils.AttributeOperation("ToolhGapValue", "EF", this.Body.GetFaces());
+                }
+                else
+                {
+                    AttributeUtils.AttributeOperation("ToolhGapValue", "", this.Body);
+                    AttributeUtils.AttributeOperation("ToolhGapValue", "", this.Body.GetFaces());
                 }
 
             }

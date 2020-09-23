@@ -75,7 +75,8 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public bool isBackOffFace()
         {
-            if (Math.Round(this.MaxSlope, 3) > Math.Round(Math.PI / 2, 3))
+
+            if (Math.Floor(this.MaxSlope * 100) / 100.00 > Math.Round(Math.PI / 2, 2))
             {
                 return true;
             }

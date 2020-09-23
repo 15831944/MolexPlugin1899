@@ -61,9 +61,10 @@ namespace Basic
         /// <param name="body1"></param>
         /// <param name="body2"></param>
         /// <returns></returns>
-        public static List<Face> SetInterferenceOutFace(Body body1, Body body2)
+        public static void SetInterferenceOutFace(Body body1, Body body2, out List<Face> faces, out List<Body> bodys)
         {
-            List<Face> faces = new List<Face>();
+            faces = new List<Face>();
+            bodys = new List<Body>();
             Part workPart = Session.GetSession().Parts.Work;
             NXOpen.GeometricAnalysis.SimpleInterference simpleInterference1;
             simpleInterference1 = workPart.AnalysisManager.CreateSimpleInterferenceObject();
@@ -71,7 +72,8 @@ namespace Basic
             simpleInterference1.FaceInterferenceType = NXOpen.GeometricAnalysis.SimpleInterference.FaceInterferenceMethod.AllPairs;
             simpleInterference1.FirstBody.Value = body1;
             simpleInterference1.SecondBody.Value = body2;
-            simpleInterference1.PerformCheck();
+            NXOpen.GeometricAnalysis.SimpleInterference.Result result1;
+            result1 = simpleInterference1.PerformCheck();
             try
             {
                 NXObject[] objs = simpleInterference1.GetInterferenceResults();
@@ -79,7 +81,18 @@ namespace Basic
                 {
                     faces.Add(obj as Face);
                 }
-                return faces;
+
+                simpleInterference1.InterferenceType = NXOpen.GeometricAnalysis.SimpleInterference.InterferenceMethod.InterferenceSolid;
+                NXOpen.GeometricAnalysis.SimpleInterference.Result result2 = simpleInterference1.PerformCheck();
+                if (result2 == NXOpen.GeometricAnalysis.SimpleInterference.Result.InterferenceExists)
+                {
+                    NXObject[] by = simpleInterference1.GetInterferenceResults();
+                    foreach (NXObject obj in by)
+                    {
+                        bodys.Add(obj as Body);
+                    }
+                }
+
             }
             catch (NXException ex)
             {
@@ -89,7 +102,7 @@ namespace Basic
             finally
             {
                 simpleInterference1.Destroy();
-            }                              
+            }
         }
         /// <summary>
         /// 分析最小距离

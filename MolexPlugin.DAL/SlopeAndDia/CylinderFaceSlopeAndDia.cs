@@ -25,7 +25,7 @@ namespace MolexPlugin.DAL
             dia[0] = dia[1] = 2 * Data.Radius;
             if (UMathUtils.IsEqual(anlge, 0) || UMathUtils.IsEqual(anlge, Math.PI))
             {
-                slope[0] = slope[1] = anlge;
+                slope[0] = slope[1] = 0;
             }
             else
             {

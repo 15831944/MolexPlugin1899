@@ -46,8 +46,11 @@ namespace MolexPlugin.Model
         /// <summary>
         /// ER 个数
         /// </summary>
-        public int[] ERNum { get;
-            set; } = new int[2];
+        public int[] ERNum
+        {
+            get;
+            set;
+        } = new int[2];
         /// <summary>
         /// 设置属性
         /// </summary>
@@ -181,6 +184,19 @@ namespace MolexPlugin.Model
                      }*/
                 }
                 return true;
+            }
+            else
+            {
+                foreach (ElectrodeToolhInfo[,] et in elfs)
+                {
+                    foreach (ElectrodeToolhInfo ei in et)
+                    {
+                        foreach (BodyInfo bi in ei.BodyInfos)
+                        {
+                            bi.EF = false;
+                        }
+                    }
+                }
             }
             return false;
         }

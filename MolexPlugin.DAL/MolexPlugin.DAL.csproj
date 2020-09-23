@@ -115,6 +115,7 @@
     <Compile Include="ElectrodeBuilder\IElectrodeBuilder.cs" />
     <Compile Include="ElectrodeBuilder\InterferenceElectrodeBuilder.cs" />
     <Compile Include="ElectrodeBuilder\PositionElectrodeBuilder.cs" />
+    <Compile Include="Move\MoveCompCsysBuilde.cs" />
     <Compile Include="SlopeAndDia\AnalysisBodySlopeAndMinDia.cs" />
     <Compile Include="SlopeAndDia\FaceSlopeColourBuilder.cs" />
     <Compile Include="SlopeAndDia\BackOffFaceSlopeColour.cs" />

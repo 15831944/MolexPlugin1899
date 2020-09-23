@@ -391,6 +391,58 @@ namespace Basic
         }
 
         /// <summary>
+        /// 移动部件
+        /// </summary>
+        /// <param name="compObj"></param>
+        /// <param name="endPt"></param>
+        /// <param name="mat"></param>
+        /// <returns></returns>
+        public static void MoveCompPartForCsys( Matrix4 mat,params NXOpen.Assemblies.Component[] compObj)
+        {
+            Part workPart = theSession.Parts.Work;
+            Vector3d translation = UMathUtils.GetVector(new Point3d(), mat.GetCenter());
+            NXOpen.Positioning.ComponentPositioner componentPositioner1;
+            componentPositioner1 = workPart.ComponentAssembly.Positioner; //组件定位
+            componentPositioner1.ClearNetwork();  //删除定位器
+            NXOpen.Assemblies.Arrangement arrangement1 = (NXOpen.Assemblies.Arrangement)workPart.ComponentAssembly.Arrangements.FindObject("Arrangement 1");  //布局
+            componentPositioner1.PrimaryArrangement = arrangement1; //主要布局
+            componentPositioner1.BeginMoveComponent();//开始移动组件
+            bool allowInterpartPositioning1;
+            allowInterpartPositioning1 = theSession.Preferences.Assemblies.InterpartPositioning; //首选项的部件间的定位
+            NXOpen.Positioning.Network network1;
+            network1 = componentPositioner1.EstablishNetwork(); //建立
+            NXOpen.Positioning.ComponentNetwork componentNetwork1 = (NXOpen.Positioning.ComponentNetwork)network1;
+            componentNetwork1.MoveObjectsState = true; //移动对象状态
+            NXOpen.Assemblies.Component nullNXOpen_Assemblies_Component = null;
+            componentNetwork1.DisplayComponent = nullNXOpen_Assemblies_Component; //显示组件
+            componentNetwork1.NetworkArrangementsMode = NXOpen.Positioning.ComponentNetwork.ArrangementsMode.Existing; //现有安排模式
+            componentNetwork1.RemoveAllConstraints(); //删除约束
+
+            componentNetwork1.SetMovingGroup(compObj); //设置移动组件
+            componentNetwork1.Solve(); //解除约束
+            bool loaded1;
+            loaded1 = componentNetwork1.IsReferencedGeometryLoaded(); //参考几何加载
+            componentNetwork1.BeginDrag();  //操作即将开始
+
+            componentNetwork1.DragByTransform(translation, mat.GetMatrix3()); //移动
+            componentNetwork1.EndDrag(); //操作结束
+            componentNetwork1.ResetDisplay(); //返回到模型上
+            componentNetwork1.ApplyToModel();//应该到当前模型
+            componentNetwork1.Solve(); //解除约束
+            componentPositioner1.ClearNetwork();  //清空
+            int nErrs1;
+            nErrs1 = theSession.UpdateManager.AddToDeleteList(componentNetwork1); //更新
+
+            componentPositioner1.ClearNetwork();
+            componentPositioner1.DeleteNonPersistentConstraints();
+            componentPositioner1.EndMoveComponent();
+
+            NXOpen.Assemblies.Arrangement nullNXOpen_Assemblies_Arrangement = null;
+            componentPositioner1.PrimaryArrangement = nullNXOpen_Assemblies_Arrangement;
+
+
+        }
+        /// <summary>
         /// 删除部件
         /// </summary>
         /// <param name="comp">部件</param>
@@ -513,7 +565,7 @@ namespace Basic
             NXOpen.UF.UFSession theUFSession = NXOpen.UF.UFSession.GetUFSession();
             try
             {
-                objOccTag = theUFSession.Assem.AskInstOfPartOcc(partOcc);            
+                objOccTag = theUFSession.Assem.AskInstOfPartOcc(partOcc);
                 return NXObjectManager.Get(objOccTag) as NXObject;
             }
             catch (NXException ex)

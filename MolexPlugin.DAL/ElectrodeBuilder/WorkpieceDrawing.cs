@@ -230,17 +230,17 @@ namespace MolexPlugin.DAL
             projectedPt.Y = originPt.Y - this.drawModel.DisPt.Y * scale - this.drawModel.DisPt.Z * scale - 30;
             double[] tableOrigin = new double[3] { originPt.X - 35, projectedPt.Y - this.drawModel.DisPt.Z * scale - 15, 0 };
             List<NXOpen.Assemblies.Component> allComp = new List<NXOpen.Assemblies.Component>();
-            allComp.Add(workDra.HostComp);
+            allComp.AddRange(workDra.HostComp);
             allComp.AddRange(workDra.OtherComp);
             List<NXOpen.Assemblies.Component> hiddenComd = this.drawModel.GetHiddenObjects(allComp);
             hiddenComd.AddRange(workDra.GetEleComp());
             try
             {
-              
+
                 DraftingView topView = Basic.DrawingUtils.CreateView("top", originPt, scale, this.workModel.Info.Matr, hiddenComd.ToArray());
-                
+
                 DraftingView proView = Basic.DrawingUtils.CreateProjectedView(topView, projectedPt, scale);
-               
+
                 SetViewVisibleLayer(topView);
                 SetViewVisibleLayer(proView);
                 TopDimension(topView, originPt, scale);

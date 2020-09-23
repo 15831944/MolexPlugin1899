@@ -189,8 +189,12 @@ namespace MolexPlugin
                         Body toBody = t0 as Body;
                         if (toBody.Prototype != null)
                             toBody = toBody.Prototype as Body;
-                        ComputeDischargeFace cf = new ComputeDischargeFace(toBody, ttBody, mat, csys);
-                        cf.GetBodyInfoForInterference(true);
+                        if (!toBody.Equals(ttBody))
+                        {
+                            ComputeDischargeFace cf = new ComputeDischargeFace(toBody, ttBody, mat, csys);
+                            cf.GetBodyInfoForInterference(true); 
+                        }
+
                     }
                 }
 

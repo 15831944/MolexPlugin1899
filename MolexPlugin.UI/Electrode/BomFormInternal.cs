@@ -103,6 +103,39 @@ namespace MolexPlugin
             dataGridView.DataSource = table;
 
         }
+        /// <summary>
+        /// 修改版本
+        /// </summary>
+        /// <param name="editionNumber"></param>
+        private void UpdateEditionNumber(string editionNumber)
+        {
+            MoldInfo mf = asm.Info.MoldInfo;
+            mf.EditionNumber = editionNumber;
+            mf.SetAttribute(asm.PartTag);
+            foreach (ElectrodeModel em in asmColl.GetElectrodes())
+            {
+                MoldInfo mi = em.Info.MoldInfo;
+                mi.EditionNumber = editionNumber;
+                mi.SetAttribute(em.PartTag);
+            }
+            foreach (MoldInfo mi in asmColl.MoldInfo)
+            {
+                WorkCollection wkColl = asmColl.GetWorkCollection(mi);
+                foreach (WorkModel wm in wkColl.Work)
+                {
+                    MoldInfo wmMold = wm.Info.MoldInfo;
+                    wmMold.EditionNumber = editionNumber;
+                    wmMold.SetAttribute(wm.PartTag);
+                }
+                foreach(EDMModel em in wkColl.EdmModel)
+                {
+                    MoldInfo wmMold = em.Info.MoldInfo;
+                    wmMold.EditionNumber = editionNumber;
+                    wmMold.SetAttribute(em.PartTag);
+                }
+            }
+
+        }
 
     }
 }

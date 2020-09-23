@@ -212,5 +212,55 @@ namespace MolexPlugin.Model
             theUFSession.Obj.SetName(originPoint.Tag, "CenterPoint");
             return originPoint;
         }
+        /// <summary>
+        /// 修改设定值
+        /// </summary>
+        /// <param name="asm"></param>
+        /// <returns></returns>
+        public bool AlterEleSetValue()
+        {
+            List<ElectrodeModel> eleModels = new List<ElectrodeModel>();
+            try
+            {
+                foreach (Part pt in Session.GetSession().Parts)
+                {
+                    List<NXOpen.Assemblies.Component> ct = AssmbliesUtils.GetPartComp(this.PartTag, pt);
+                    if (ct.Count > 0 && ElectrodeModel.IsElectrode(pt))
+                    {
+                        eleModels.Add(new ElectrodeModel(pt));
+                    }
+                }
+                foreach (ElectrodeModel em in eleModels)
+                {
+                    List<Component> eleCt = AssmbliesUtils.GetPartComp(this.PartTag, em.PartTag);
+                    Point pt = em.GetSetPoint();
+                    foreach (Component ct in eleCt)
+                    {
+                        Point ptOcc = AssmbliesUtils.GetNXObjectOfOcc(ct.Tag, pt.Tag) as Point;
+                        Point3d value = ptOcc.Coordinates;
+                        this.Info.Matr.ApplyPos(ref value);
+                        ElectrodeSetValueInfo setValue = ElectrodeSetValueInfo.GetAttribute(ct);
+                        ElectrodeSetValueInfo newSetValue = setValue.Clone() as ElectrodeSetValueInfo;
+                        newSetValue.EleSetValue = new double[] { value.X, value.Y, value.Z };
+                        if (setValue.Positioning == "" || setValue.Positioning.Equals("A", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            newSetValue.SetAttribute(em.PartTag);
+                        }
+                        else
+                        {
+                            NXObject obj = AssmbliesUtils.GetOccOfInstance(ct.Tag);
+                            newSetValue.SetAttribute(obj);
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (NXException ex)
+            {
+                ClassItem.WriteLogFile("修改电极设定值错误！" + ex.Message);
+                return false;
+            }
+        }
     }
 }

@@ -190,6 +190,10 @@ namespace MolexPlugin
                     theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "错误！");
                     ClassItem.Print(err.ToArray());
                 }
+                else
+                {
+                    theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Error, "电极正确！");
+                }
                 AttributeUtils.AttributeOperation("Interference", true, work.PartTag);
             }
             catch (Exception ex)

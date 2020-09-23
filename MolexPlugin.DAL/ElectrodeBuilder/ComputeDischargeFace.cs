@@ -33,7 +33,18 @@ namespace MolexPlugin.DAL
         public BodyInfo GetBodyInfoForInterference(bool extract)
         {
             List<Face> dischargeFace = new List<Face>();
-            List<Face> temp = AnalysisUtils.SetInterferenceOutFace(this.eleBody, this.toolBody);
+            List<Face> temp = new List<Face>();
+            List<Body> bodys = new List<Body>();
+            try
+            {
+                AnalysisUtils.SetInterferenceOutFace(this.eleBody, this.toolBody, out temp, out bodys);
+            }
+            catch (NXException ex)
+            {
+                ClassItem.WriteLogFile("干涉检查错误！" + ex.Message);
+            }
+            if (bodys.Count > 0)
+                LayerUtils.MoveDisplayableObject(252, bodys.ToArray());
             dischargeFace = temp.Where(a => a.GetBody().Equals((this.eleBody))).Distinct().ToList(); //过滤电极面
             List<Face> tt = temp.Where(a => a.GetBody().Equals((this.toolBody))).Distinct().ToList();
             List<Face> faces = new List<Face>();

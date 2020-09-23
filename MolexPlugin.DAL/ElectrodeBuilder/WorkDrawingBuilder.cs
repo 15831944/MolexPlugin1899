@@ -63,14 +63,14 @@ namespace MolexPlugin.DAL
         {
 
             WorkpieceDrawing dra = new WorkpieceDrawing(hostDraw, work, workDra, this.originPoint);
-            NXOpen.Drawings.DrawingSheet sheet = Basic.DrawingUtils.DrawingSheetByName(workDra.HostComp.Name);
+            NXOpen.Drawings.DrawingSheet sheet = Basic.DrawingUtils.DrawingSheetByName(workDra.HostComp[0].Name);
             if (sheet != null)
             {
                 DeleteObject.Delete(sheet);
             }
             try
             {
-                sheet = Basic.DrawingUtils.DrawingSheet(workpieceDrawTemplate, 297, 420, workDra.HostComp.Name);
+                sheet = Basic.DrawingUtils.DrawingSheet(workpieceDrawTemplate, 297, 420, workDra.HostComp[0].Name);
                 dra.CreateView(scale, GetFirstPoint(hostDraw, scale), this.workpieceTablePath);
                 double[] plistOrigin = { 20, 70, 0 };
                 Basic.DrawingUtils.CreatePlist(plistPath, plistOrigin);

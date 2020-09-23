@@ -54,8 +54,48 @@ namespace MolexPlugin
             return err;
         }
 
+        private List<string> CreateNewWork1(NXOpen.Assemblies.Component ct, WorkpieceModel workpiece, Matrix4 mat, UserModel user)
+        {
+            List<string> err = new List<string>();
+            MoldInfo moldInfo = workpiece.Info.MoldInfo;
+            int num = asmColl.GetWorkCollection(moldInfo).Work.Count;
+            WorkInfo workInfo = new WorkInfo(workpiece.Info.MoldInfo, user, num + 1, mat);
+            string workName = workInfo.MoldInfo.MoldNumber + "-" + workInfo.MoldInfo.WorkpieceNumber + "-" + "WORK" + workInfo.WorkNumber.ToString();
+            EDMModel edm = GetEdm(ct);
+            if (edm == null)
+            {
+                err.Add("获取EDM错误");
+                return err;
+            }
+            NXOpen.Assemblies.Component comp = AssmbliesUtils.MoveCompCopyPart(ct.Parent.Parent, new Vector3d(0, 0, 0), mat);
+            AssmbliesUtils.MakeUnique(comp, edm.WorkpieceDirectoryPath + workName + ".prt");
+            workInfo.SetAttribute(comp.Prototype as Part);
+            WorkModel wm = new WorkModel(comp.Prototype as Part);
+            if (wm != null)
+                wm.SaveCsys(workPart);
+            if (!edm.Info.MoldInfo.Equals(workInfo.MoldInfo))
+            {
+                EDMInfo edmInfo = new EDMInfo(workInfo.MoldInfo, workInfo.UserModel);
+                string edmName = edmInfo.MoldInfo.MoldNumber + "-" + edmInfo.MoldInfo.WorkpieceNumber + "-" + "EDM";
+                foreach (NXOpen.Assemblies.Component cp in comp.GetChildren())
+                {
+                    if (ParentAssmblieInfo.IsEDM(cp))
+                    {
+                        AssmbliesUtils.MakeUnique(cp, edm.WorkpieceDirectoryPath + edmName + ".prt");
+                        edmInfo.SetAttribute(cp.Prototype as Part);
+                        foreach (NXOpen.Assemblies.Component co in cp.GetChildren())
+                        {
+                            if (!(co.Prototype as Part).Equals(workpiece.PartTag))
+                                AssmbliesUtils.DeleteComponent(co);
+                        }
+                    }
+                }
+
+            }
+            return err;
+        }
         /// <summary>
-        /// 创建Work
+        /// 修改Work
         /// </summary>
         /// <param name="workpiece"></param>
         /// <param name="mat"></param>
@@ -66,7 +106,8 @@ namespace MolexPlugin
             Matrix4Info info = new Matrix4Info(mat);
             bool isSet = info.SetAttribute(work.PartTag);
             bool isSave = work.SaveCsys(workPart);
-            if (isSave && isSet)
+            bool setValue = work.AlterEleSetValue();
+            if (isSave && isSet && setValue)
                 return true;
             else
                 return false;
@@ -89,6 +130,19 @@ namespace MolexPlugin
                 return null;
             }
         }
+        private WorkModel GetWork(NXOpen.Assemblies.Component partCt)
+        {
+            try
+            {
+                Part workPart = (partCt.Parent.Parent.Prototype) as Part;
+                return new WorkModel(workPart);
+            }
+            catch (NXException ex)
+            {
+                ClassItem.WriteLogFile("获取work错误" + ex.Message);
+                return null;
+            }
+        }
         /// <summary>
         /// 获取主工件
         /// </summary>
@@ -98,8 +152,154 @@ namespace MolexPlugin
         {
             return asmColl.GetWorkCollection(work.Info.MoldInfo).GetHostWorkpiece();
         }
+        /// <summary>
+        /// 获取工件名字
+        /// </summary>
+        /// <param name="work"></param>
+        /// <returns></returns>
+        private List<string> GetWorkpieceName(WorkModel work)
+        {
+            List<Part> otherWorkpeces = work.GetAllWorkpiece();
+            List<string> name = new List<string>();
+            foreach (Part pt in otherWorkpeces)
+            {
+                name.Add(pt.Name);
+            }
+            name.Sort();
+            return name;
+        }
+        /// <summary>
+        /// 复制work
+        /// </summary>
+        /// <param name="ct"></param>
+        /// <param name="work"></param>
+        /// <param name="workpieceNumber"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        private bool CopyWork(NXOpen.Assemblies.Component ct, WorkModel work, string workpieceNumber, UserModel user)
+        {
+            Matrix4 mat = new Matrix4();
+            mat.Identity();
+            MoldInfo mold = work.Info.MoldInfo.Clone() as MoldInfo;
+            NXOpen.Assemblies.Component moveCt = null;
+            try
+            {
+                moveCt = AssmbliesUtils.MoveCompCopyPart(ct, new Vector3d(), mat);
+            }
+            catch (NXException ex)
+            {
+                ClassItem.WriteLogFile("无法移动工件！" + ex.Message);
+                return false;
+            }
+            mold.WorkpieceNumber = workpieceNumber;
+            string name = work.WorkpieceDirectoryPath + mold.MoldNumber + "-" + mold.WorkpieceNumber + "-";
+            if (moveCt != null)
+            {
+                foreach (NXOpen.Assemblies.Component com in moveCt.GetChildren())
+                {
+                    if (ParentAssmblieInfo.IsParent(com))
+                    {
+                        ParentAssmblieInfo info1 = ParentAssmblieInfo.GetAttribute(com);
+                        if (info1.Type == PartType.EDM)
+                        {
+                            EDMInfo edm = new EDMInfo(mold, user);
+                            AssmbliesUtils.MakeUnique(com, name + "EDM.prt");
+                            edm.SetAttribute(com.Prototype as Part);
+                        }
 
+                    }
 
+                }
+                AssmbliesUtils.MakeUnique(moveCt, name + "WORK" + work.Info.WorkNumber.ToString() + ".prt");
+                WorkInfo wk = new WorkInfo(mold, user, work.Info.WorkNumber, work.Info.Matr);
+                wk.SetAttribute(moveCt.Prototype as Part);
+                return true;
+            }
+
+            return false;
+
+        }
+
+        private bool CopWork(NXOpen.Assemblies.Component ct, WorkModel work, UserModel user)
+        {
+            Matrix4 mat = new Matrix4();
+            mat.Identity();
+
+            MoldInfo mold = work.Info.MoldInfo.Clone() as MoldInfo;
+            WorkCollection workColl = new WorkCollection(mold);
+
+            NXOpen.Assemblies.Component moveCt = null;
+            try
+            {
+                moveCt = AssmbliesUtils.MoveCompCopyPart(ct, new Vector3d(), mat);
+            }
+            catch (NXException ex)
+            {
+                ClassItem.WriteLogFile("无法移动工件！" + ex.Message);
+                return false;
+            }
+            string name = work.WorkpieceDirectoryPath + mold.MoldNumber + "-" + mold.WorkpieceNumber + "-";
+            if (moveCt != null)
+            {
+                AssmbliesUtils.MakeUnique(moveCt, name + "WORK" + (workColl.Work[workColl.Work.Count - 1].Info.WorkNumber + 1).ToString() + ".prt");
+                WorkInfo wk = new WorkInfo(mold, user, work.Info.WorkNumber, work.Info.Matr);
+                wk.SetAttribute(moveCt.Prototype as Part);
+                return true;
+            }
+
+            return false;
+        }
+        /// <summary>
+        /// 获取件号名
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="work"></param>
+        /// <returns></returns>
+        private string GetWorkpieceNumber(string name, WorkModel work)
+        {
+            foreach (Part pt in work.GetAllWorkpiece())
+            {
+                if (pt.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    if (WorkpieceModel.IsWorkpiece(pt))
+                    {
+                        WorkpieceModel wk = new WorkpieceModel(pt);
+                        return wk.Info.MoldInfo.WorkpieceNumber;
+                    }
+                    else
+                        return pt.Name;
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// 获取工件实体在装配下的体
+        /// </summary>
+        /// <param name="ct"></param>
+        /// <param name="pt"></param>
+        /// <returns></returns>
+        private List<Body> GetCompBodys(NXOpen.Assemblies.Component ct, Part pt)
+        {
+            List<Body> bodys = new List<Body>();
+            foreach (Body by in pt.Bodies.ToArray())
+            {
+                Body bo = AssmbliesUtils.GetNXObjectOfOcc(this.seleCt.Tag, by.Tag) as Body;
+                if (bo != null)
+                    bodys.Add(bo);
+            }
+            return bodys;
+        }
+        /// <summary>
+        /// 获得选择工件work副本的矩阵
+        /// </summary>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        private Matrix4 GetParentWorkMatr(NXOpen.Assemblies.Component ct)
+        {
+            NXOpen.Assemblies.Component workComp = ct.Parent.Parent;
+            WorkModel work = new WorkModel(workComp.Prototype as Part);
+            return work.Info.Matr;
+        }
 
     }
 }

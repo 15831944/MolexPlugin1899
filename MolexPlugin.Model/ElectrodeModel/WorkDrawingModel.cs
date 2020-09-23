@@ -15,7 +15,7 @@ namespace MolexPlugin.Model
         private Part workPart;
         public WorkModel Work { get; private set; }
 
-        public NXOpen.Assemblies.Component HostComp { get; private set; }
+        public List<NXOpen.Assemblies.Component> HostComp { get; private set; } = new List<NXOpen.Assemblies.Component>();
 
         public List<NXOpen.Assemblies.Component> OtherComp { get; private set; } = new List<NXOpen.Assemblies.Component>();
         public WorkDrawingModel(WorkModel work)
@@ -29,12 +29,25 @@ namespace MolexPlugin.Model
         {
 
             Part host = Work.GetHostWorkpiece();
-            this.HostComp = AssmbliesUtils.GetPartComp(workPart, host)[0];
+            foreach (NXOpen.Assemblies.Component ct in AssmbliesUtils.GetPartComp(workPart, host))
+            {
+                if (!ct.IsSuppressed)
+                {
+                    ct.Unblank();
+                    this.HostComp.Add(ct);
+                }
+
+            }
             foreach (Part pt in Work.GetAllWorkpiece())
             {
                 if (!host.Equals(pt))
                 {
-                    OtherComp.Add(AssmbliesUtils.GetPartComp(workPart, pt)[0]);
+                    foreach (NXOpen.Assemblies.Component ct in AssmbliesUtils.GetPartComp(workPart, pt))
+                    {
+                        ct.Unblank();
+                        OtherComp.Add(ct);
+                    }
+
                 }
             }
             this.OtherComp.Sort(delegate (NXOpen.Assemblies.Component a, NXOpen.Assemblies.Component b)
@@ -51,7 +64,7 @@ namespace MolexPlugin.Model
             UFSession theUFSession = UFSession.GetUFSession();
             List<NXOpen.Assemblies.Component> allComt = new List<NXOpen.Assemblies.Component>();
             List<NXOpen.Assemblies.Component> show = new List<NXOpen.Assemblies.Component>();
-            show.Add(HostComp);
+            show.AddRange(HostComp);
             show.AddRange(OtherComp);
             foreach (NXOpen.Assemblies.Component ct in workPart.ComponentAssembly.RootComponent.GetChildren())
             {
@@ -192,7 +205,7 @@ namespace MolexPlugin.Model
         /// <returns></returns>
         public WorkpieceDrawingModel GetHostWorkpieceDrawingModel()
         {
-            return new WorkpieceDrawingModel(this.HostComp.Prototype as Part, this.Work.Info.Matr);
+            return new WorkpieceDrawingModel(this.HostComp[0].Prototype as Part, this.Work.Info.Matr);
         }
     }
 }

@@ -45,10 +45,12 @@ namespace MolexPlugin.Model
             Part workpiecePart = this.work.GetHostWorkpiece();
             foreach (Body body in workpiecePart.Bodies.ToArray())
             {
-                Component workpieceCom = AssmbliesUtils.GetPartComp(this.PartTag, workpiecePart)[0];
-                Body by = AssmbliesUtils.GetNXObjectOfOcc(workpieceCom.Tag, body.Tag) as Body;
-                if (by != null)
-                    bodys.Add(by);
+                foreach (NXOpen.Assemblies.Component ct in AssmbliesUtils.GetPartComp(this.PartTag, workpiecePart))
+                {
+                    Body by = AssmbliesUtils.GetNXObjectOfOcc(ct.Tag, body.Tag) as Body;
+                    if (by != null)
+                        bodys.Add(by);
+                }
             }
             foreach (ElectrodeModel em in eleModels)
             {
@@ -177,7 +179,7 @@ namespace MolexPlugin.Model
             if (x > y)
             {
                 if (y > 1)
-                    return Math.Floor(y) ;
+                    return Math.Floor(y);
                 else
                     return Math.Round(y, 1);
             }
@@ -308,8 +310,11 @@ namespace MolexPlugin.Model
                 }
             }
             Part workpiecePart = this.work.GetHostWorkpiece();
-            Component workpieceCom = AssmbliesUtils.GetPartComp(this.PartTag, workpiecePart)[0];
-            setValueHidden.Remove(workpieceCom);
+            foreach (Component ct in AssmbliesUtils.GetPartComp(this.PartTag, workpiecePart))
+            {
+                setValueHidden.Remove(ct);
+            }
+
         }
 
         /// <summary>

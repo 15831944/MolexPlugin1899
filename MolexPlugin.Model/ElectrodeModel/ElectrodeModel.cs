@@ -26,12 +26,6 @@ namespace MolexPlugin.Model
         {
             this.Info = info;
         }
-
-        public int CompareTo(ElectrodeModel other)
-        {
-            return this.Info.AllInfo.Name.EleNumber.CompareTo(other.Info.AllInfo.Name.EleNumber);
-        }
-
         public override string GetAssembleName()
         {
             return this.Info.AllInfo.Name.EleName;
@@ -202,6 +196,11 @@ namespace MolexPlugin.Model
             }
             else
                 return null;
+        }
+
+        public int CompareTo(ElectrodeModel other)
+        {
+            return this.Info.AllInfo.Name.EleNumber.CompareTo(other.Info.AllInfo.Name.EleNumber);
         }
     }
 }

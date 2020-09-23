@@ -45,6 +45,10 @@ namespace MolexPlugin
                     update.UpdateDrawing();
                 }
             }
+            if (!asm.Info.MoldInfo.EditionNumber.Equals(this.textBox_EditionNumber.Text))
+            {
+                UpdateEditionNumber(this.textBox_EditionNumber.Text);
+            }
             this.Close();
         }
 

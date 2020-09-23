@@ -35,7 +35,15 @@ namespace MolexPlugin
             }
             eleModels.Sort(delegate (ElectrodeModel a, ElectrodeModel b)
             {
-                return a.Info.AllInfo.Name.EleName.CompareTo(b.Info.AllInfo.Name.EleName);
+                if (a.Info.AllInfo.Name.EleNumber == b.Info.AllInfo.Name.EleNumber)
+                {
+                    return a.Info.MoldInfo.WorkpieceNumber.CompareTo(b.Info.MoldInfo.WorkpieceNumber);
+                }
+                else
+                {
+                    return a.Info.AllInfo.Name.EleNumber.CompareTo(b.Info.AllInfo.Name.EleNumber);
+                }
+
             });
             foreach (ElectrodeModel em in eleModels)
             {

@@ -61,17 +61,17 @@ namespace MolexPlugin
         private string theDlxFileName;
         private Part workPart;
         private NXOpen.BlockStyler.BlockDialog theDialog;
-        private NXOpen.BlockStyler.Group group;// Block type: Group
         private NXOpen.BlockStyler.Group groupPart;// Block type: Group
         private NXOpen.BlockStyler.SelectObject selePart;// Block type: Selection
+        private NXOpen.BlockStyler.Group group;// Block type: Group
+        private NXOpen.BlockStyler.Toggle addOrModify;// Block type: Toggle
+        private NXOpen.BlockStyler.Enumeration workNumber;// Block type: Enumeration
+        private NXOpen.BlockStyler.Group group2;// Block type: Group
         private NXOpen.BlockStyler.SelectObject selePoint;// Block type: Selection
         private NXOpen.BlockStyler.Group group1;// Block type: Group
         private NXOpen.BlockStyler.Button button_X;// Block type: Button
         private NXOpen.BlockStyler.Button button_Z;// Block type: Button
         private NXOpen.BlockStyler.Button button_Y;// Block type: Button
-        private NXOpen.BlockStyler.Group group0;// Block type: Group
-        private NXOpen.BlockStyler.Toggle addOrModify;// Block type: Toggle
-        private NXOpen.BlockStyler.Enumeration workNumber;// Block type: Enumeration
 
         private NXOpen.Assemblies.Component seleCt;
         private ASMModel asmModel = null;
@@ -171,15 +171,17 @@ namespace MolexPlugin
         {
             try
             {
-                group = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group");
                 groupPart = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("groupPart");
                 selePart = (NXOpen.BlockStyler.SelectObject)theDialog.TopBlock.FindBlock("selePart");
+                group = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group");
+                addOrModify = (NXOpen.BlockStyler.Toggle)theDialog.TopBlock.FindBlock("addOrModify");
+                workNumber = (NXOpen.BlockStyler.Enumeration)theDialog.TopBlock.FindBlock("workNumber");
+                group2 = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group2");
                 selePoint = (NXOpen.BlockStyler.SelectObject)theDialog.TopBlock.FindBlock("selePoint");
                 group1 = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group1");
                 button_X = (NXOpen.BlockStyler.Button)theDialog.TopBlock.FindBlock("button_X");
                 button_Z = (NXOpen.BlockStyler.Button)theDialog.TopBlock.FindBlock("button_Z");
                 button_Y = (NXOpen.BlockStyler.Button)theDialog.TopBlock.FindBlock("button_Y");
-                group0 = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group0");
                 addOrModify = (NXOpen.BlockStyler.Toggle)theDialog.TopBlock.FindBlock("addOrModify");
                 workNumber = (NXOpen.BlockStyler.Enumeration)theDialog.TopBlock.FindBlock("workNumber");
 
@@ -227,7 +229,8 @@ namespace MolexPlugin
             try
             {
                 //---- Enter your callback code here -----
-                this.group0.Show = false;
+                // this.group.Show = false;
+                this.workNumber.Show = false;
                 this.selePoint.Enable = false;
             }
             catch (Exception ex)
@@ -252,27 +255,54 @@ namespace MolexPlugin
                     CoordinateSystem wcs = workPart.WCS.CoordinateSystem;
                     Matrix4 matr = new Matrix4();
                     matr.Identity();
-                    matr.TransformToCsys(wcs, ref matr);
+
                     Part temp = this.seleCt.Prototype as Part;
                     if (WorkModel.IsWork(temp))
                     {
-
                         WorkModel wm = new WorkModel(temp);
-                        if (!this.AlterWork(wm, matr))
-                            theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "修改设定坐标错误！");
+                        if (!this.addOrModify.Value)
+                        {
+                            if (!this.AlterWork(wm, matr))
+                                theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "修改设定坐标错误！");
+                        }
+                        else
+                        {
+                            string workpieceName = this.GetWorkpieceNumber(this.workNumber.ValueAsString, wm);
+                            if (wm.Info.MoldInfo.WorkpieceNumber.Equals(workNumber))
+                            {
+                                if (!this.CopyWork(seleCt, wm, workpieceName, user.CreatorUser))
+                                    theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "复制WORK错误！");
+                            }
+                            else
+                            {
+                                if (!CopWork(seleCt, wm, user.CreatorUser))
+                                    theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "复制WORK错误！");
+                            }
+
+                        }
                     }
                     else
                     {
+                        if (!this.addOrModify.Value)
+                        {
+                            matr.TransformToCsys(wcs, ref matr);
+                        }
+                        else
+                        {
+                            matr = GetParentWorkMatr(seleCt);
+                        }
                         WorkpieceModel wm = new WorkpieceModel(this.selectPart);
-                        this.CreateNewWork(this.seleCt, wm, matr, user.CreatorUser);
+                        List<string> err = this.CreateNewWork1(this.seleCt, wm, matr, user.CreatorUser);
+                        if (err != null)
+                            ClassItem.Print(err.ToArray());
                     }
                 }
                 if (points.Count != 0)
                     DeleteObject.Delete(this.points.ToArray());
                 CsysUtils.SetWcsToAbs();
-                bool anyPartsModified1;
-                NXOpen.PartSaveStatus partSaveStatus1;
-                Session.GetSession().Parts.SaveAll(out anyPartsModified1, out partSaveStatus1);
+                //bool anyPartsModified1;
+                //NXOpen.PartSaveStatus partSaveStatus1;
+                //Session.GetSession().Parts.SaveAll(out anyPartsModified1, out partSaveStatus1);
             }
             catch (Exception ex)
             {
@@ -297,19 +327,27 @@ namespace MolexPlugin
                     if (obj.Length > 0)
                     {
                         this.seleCt = obj[0] as NXOpen.Assemblies.Component;
+
                         Part temp = (this.seleCt).Prototype as Part;
                         if (WorkModel.IsWork(temp))
                         {
-                            selectPart = GetWorkPieceForWork(new WorkModel(temp));
+                            WorkModel wk = new WorkModel(temp);
+                            this.workNumber.Show = true;
+                            this.workNumber.SetEnumMembers(GetWorkpieceName(wk).ToArray());
+                            selectPart = GetWorkPieceForWork(wk);
                         }
                         else
-                            selectPart = temp;
-                        this.addOrModify.Enable = true;
-                        this.workNumber.Enable = true;
-                        Body[] bodys = selectPart.Bodies.ToArray();
-                        if (bodys.Length > 0)
                         {
-                            aoo = new NXObjectAooearancePoint(bodys);
+                            selectPart = temp;
+                            // this.group.Show = true;
+                            this.workNumber.Show = false;
+                            this.group1.Show = true;
+                            this.group2.Show = true;
+                        }
+                        List<Body> bodys = GetCompBodys(this.seleCt, temp);
+                        if (bodys.Count > 0)
+                        {
+                            aoo = new NXObjectAooearancePoint(bodys.ToArray());
                             this.points = aoo.CreatePoint();
                         }
                         this.selePoint.Enable = true;
@@ -325,6 +363,44 @@ namespace MolexPlugin
                         this.selectFace = null;
                         CsysUtils.SetWcsToAbs();
                     }
+                }
+                else if (block == addOrModify)
+                {
+                    //---------Enter your code here-----------
+                    if (this.addOrModify.Value)
+                    {
+                        this.workNumber.Show = true;
+                        if (this.points.Count > 0)
+                        {
+                            DeleteObject.Delete(this.points.ToArray());
+                            this.points.Clear();
+                        }
+
+                        this.group2.Show = false;
+                        this.group1.Show = false;
+                    }
+                    else
+                    {
+                        if (selectPart != null)
+                        {
+                            List<Body> bodys = GetCompBodys(this.seleCt, this.selectPart);
+                            if (bodys.Count > 0)
+                            {
+                                aoo = new NXObjectAooearancePoint(bodys.ToArray());
+                                this.points = aoo.CreatePoint();
+                            }
+                        }
+                        //  this.workNumber.Show = false;
+                        this.group1.Show = true;
+                        this.group2.Show = true;
+
+                    }
+
+
+                }
+                else if (block == workNumber)
+                {
+                    //---------Enter your code here-----------
                 }
                 else if (block == selePoint)
                 {
@@ -377,14 +453,7 @@ namespace MolexPlugin
                     //---------Enter your code here-----------
                     CsysUtils.RotateWcs(WCS.Axis.ZAxis, 90);
                 }
-                else if (block == addOrModify)
-                {
-                    //---------Enter your code here-----------
-                }
-                else if (block == workNumber)
-                {
-                    //---------Enter your code here-----------
-                }
+
             }
             catch (Exception ex)
             {

@@ -73,12 +73,12 @@ namespace MolexPlugin.DAL
         /// <param name="part"></param>
         /// <returns></returns>
         private Point GetSetPoint(Part part)
-        {        
+        {
             foreach (Point k in part.Points.ToArray())
             {
                 if (k.Name.ToUpper().Equals(("SetValuePoint").ToUpper()))
                     return k;
-            }          
+            }
             return null;
         }
         /// <summary>
@@ -189,7 +189,7 @@ namespace MolexPlugin.DAL
             foreach (Part pt in work.GetAllWorkpiece())
             {
                 Component ptCoo = GetPartInOcc(pt);
-                if (ptCoo != null)
+                if (ptCoo != null && !ptCoo.IsSuppressed)
                 {
                     Body by = GetOccsInBods(ptCoo);
                     List<Body> bodys = new List<Body>();
@@ -223,11 +223,7 @@ namespace MolexPlugin.DAL
                         err.Add(pt.Name + "                   无法找到工件体，请检查引用集！");
                     }
 
-                }
-                else
-                {
-                    err.Add(pt.Name + "                   无法找到组件，请检查引用集！");
-                }
+                }             
             }
         }
 
