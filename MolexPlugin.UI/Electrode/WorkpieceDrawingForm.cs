@@ -67,6 +67,7 @@ namespace MolexPlugin
         private void buttOk_Click(object sender, EventArgs e)
         {
             Part workPart = Session.GetSession().Parts.Work;
+            List<string> err = new List<string>();
             for (int i = 0; i < listView.Items.Count; i++)
             {
                 if (listView.Items[i].Checked)
@@ -76,14 +77,24 @@ namespace MolexPlugin
                     {
                         if (wm.AssembleName.Equals(workName, StringComparison.CurrentCultureIgnoreCase))
                         {
-                            WorkDrawingBuilder builder = new WorkDrawingBuilder(wm);
-                            builder.CreateDrawing();
+                            try
+                            {
+                                WorkDrawingBuilder builder = new WorkDrawingBuilder(wm);
+                                builder.CreateDrawing();
+                            }
+                            catch (Exception ex)
+                            {
+                                err.Add(workName + ex.Message + "    无法找到主工件，请检查工件属性！");
+                            }
+
                         }
                     }
                 }
             }
-            ClassItem.theSession.ApplicationSwitchImmediate("UG_APP_MODELING"); 
+            ClassItem.theSession.ApplicationSwitchImmediate("UG_APP_MODELING");
             PartUtils.SetPartDisplay(workPart);
+            if (err.Count > 0)
+                ClassItem.Print(err.ToArray());
             this.Close();
         }
     }

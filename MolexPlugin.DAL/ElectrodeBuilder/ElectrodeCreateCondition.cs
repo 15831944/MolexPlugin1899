@@ -74,6 +74,7 @@ namespace MolexPlugin.DAL
         /// <param name="workpiece"></param>
         private void AskComputeDischargeFace(List<Body> bodys, Part workpiece)
         {
+            List<string> err = new List<string>();
             Body workpieceBody = workpiece.Bodies.ToArray()[0];
             Matrix4 inv = this.work.Info.Matr.GetInversMatrix();
             CartesianCoordinateSystem csys = BoundingBoxUtils.CreateCoordinateSystem(this.work.Info.Matr, inv);
@@ -82,7 +83,7 @@ namespace MolexPlugin.DAL
                 if (!BodyInfo.IsContactArea(by))
                 {
                     ComputeDischargeFace cdf = new ComputeDischargeFace(by, workpieceBody, this.work.Info.Matr, csys);
-                    cdf.GetBodyInfoForInterference(false);
+                    cdf.GetBodyInfoForInterference(false, out err);
                 }
             }
         }

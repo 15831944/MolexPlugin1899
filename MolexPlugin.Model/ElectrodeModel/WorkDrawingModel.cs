@@ -29,6 +29,8 @@ namespace MolexPlugin.Model
         {
 
             Part host = Work.GetHostWorkpiece();
+            if (host == null)
+                throw new Exception("无法找到主工件！");
             foreach (NXOpen.Assemblies.Component ct in AssmbliesUtils.GetPartComp(workPart, host))
             {
                 if (!ct.IsSuppressed)
@@ -136,9 +138,11 @@ namespace MolexPlugin.Model
                 NXOpen.Assemblies.Component[] des = ct.GetChildren();
                 if (des.Length == 0)
                 {
+                    ct.Blank();
                     eleComp.Add(ct);
-
                 }
+                else
+                    ct.Unblank();
             }
             return eleComp;
 

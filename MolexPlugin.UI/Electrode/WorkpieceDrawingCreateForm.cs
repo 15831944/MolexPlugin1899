@@ -33,7 +33,7 @@ namespace MolexPlugin
                 asm = ASMCollection.GetAsmModel(workPart);
                 if (asm == null)
                 {
-                    UI.GetUI().NXMessageBox.Show("提示", NXMessageBox.DialogType.Error, "无法通过工作部件找到ASM");
+                    NXOpen.UI.GetUI().NXMessageBox.Show("提示", NXMessageBox.DialogType.Error, "无法通过工作部件找到ASM");
                     return false;
                 }
                 PartUtils.SetPartDisplay(asm.PartTag);
@@ -48,7 +48,7 @@ namespace MolexPlugin
                 bool isInter = AttributeUtils.GetAttrForBool(wk.PartTag, "Interference");
                 if (!isInter)
                 {
-                    UI.GetUI().NXMessageBox.Show("提示", NXMessageBox.DialogType.Error, wk.AssembleName + "没有检查电极");
+                    NXOpen.UI.GetUI().NXMessageBox.Show("提示", NXMessageBox.DialogType.Error, wk.AssembleName + "没有检查电极");
                     return false;
                 }
 

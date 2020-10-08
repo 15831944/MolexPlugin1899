@@ -58,7 +58,7 @@ namespace MolexPlugin
     {
         //class members
         private static Session theSession = null;
-        private static UI theUI = null;
+        private static NXOpen.UI theUI = null;
         private string theDlxFileName;
         private NXOpen.BlockStyler.BlockDialog theDialog;
         private NXOpen.BlockStyler.Group group0;// Block type: Group
@@ -67,6 +67,8 @@ namespace MolexPlugin
         private NXOpen.BlockStyler.StringBlock EditionNumber;// Block type: String
         private NXOpen.BlockStyler.StringBlock MoldType;// Block type: String
         private NXOpen.BlockStyler.StringBlock ClientNumber;// Block type: String
+        private NXOpen.BlockStyler.Group group;// Block type: Group
+        private NXOpen.BlockStyler.StringBlock MachineType;// Block type: String
         private Part workPart;
         //------------------------------------------------------------------------------
         //Constructor for NX Styler class
@@ -76,7 +78,7 @@ namespace MolexPlugin
             try
             {
                 theSession = Session.GetSession();
-                theUI = UI.GetUI();
+                theUI = NXOpen.UI.GetUI();
                 workPart = theSession.Parts.Work;
                 theDlxFileName = "AddEdmAsm.dlx";
                 theDialog = theUI.CreateDialog(theDlxFileName);
@@ -85,6 +87,7 @@ namespace MolexPlugin
                 theDialog.AddUpdateHandler(new NXOpen.BlockStyler.BlockDialog.Update(update_cb));
                 theDialog.AddInitializeHandler(new NXOpen.BlockStyler.BlockDialog.Initialize(initialize_cb));
                 theDialog.AddDialogShownHandler(new NXOpen.BlockStyler.BlockDialog.DialogShown(dialogShown_cb));
+
             }
             catch (Exception ex)
             {
@@ -151,6 +154,8 @@ namespace MolexPlugin
                 EditionNumber = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("EditionNumber");
                 MoldType = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("MoldType");
                 ClientNumber = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("ClientNumber");
+                group = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group");
+                MachineType = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("MachineType");
             }
             catch (Exception ex)
             {
@@ -193,7 +198,8 @@ namespace MolexPlugin
                     WorkpieceNumber = this.PartNumber.WideValue.ToUpper(),
                     EditionNumber = this.EditionNumber.WideValue.ToUpper(),
                     ClientName = this.ClientNumber.WideValue,
-                    MoldType = this.MoldType.WideValue.ToUpper()
+                    MoldType = this.MoldType.WideValue.ToUpper(),
+                    MachineType=this.MachineType.WideValue.ToUpper()
                 };
                 string directoryPath = GetDirectoryPath(info);
                 if (!Directory.Exists(directoryPath))

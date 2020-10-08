@@ -63,8 +63,49 @@ namespace MolexPlugin.DAL
                 newSetValue.EleSetValue[1] = setValue.EleSetValue[1] + vec.Y;
                 newSetValue.EleSetValue[2] = setValue.EleSetValue[2] + vec.Z;
                 newSetValue.Positioning = GetPositionName();
-                newSetValue.ContactArea = info.ContactArea;
-                newSetValue.ProjectedArea = info.GetProjectedArea(csys, this.work.Info.Matr);
+                if (info != null)
+                {
+                    newSetValue.ContactArea = info.ContactArea;
+                    newSetValue.ProjectedArea = info.GetProjectedArea(csys, this.work.Info.Matr);
+                }
+
+                newSetValue.SetAttribute(instance);
+                return true;
+            }
+            catch (NXException ex)
+            {
+                ClassItem.WriteLogFile("电极跑位错误！" + ex.Message);
+                return false;
+
+            }
+        }
+        /// <summary>
+        /// 移动
+        /// </summary>
+        /// <param name="vec"></param>
+        /// <returns></returns>
+        public bool MovePositionBuilder(Vector3d vec)
+        {
+            try
+            {
+                Matrix4 inv = this.work.Info.Matr.GetInversMatrix();
+                CartesianCoordinateSystem csys = BoundingBoxUtils.CreateCoordinateSystem(this.work.Info.Matr, inv);
+                ElectrodeSetValueInfo setValue = ElectrodeSetValueInfo.GetAttribute(eleComp);
+                ElectrodeSetValueInfo newSetValue = setValue.Clone() as ElectrodeSetValueInfo;
+
+                AssmbliesUtils.MoveCompPart(eleComp, vec, work.Info.Matr);
+                NXObject instance = AssmbliesUtils.GetOccOfInstance(eleComp.Tag);
+                BodyInfo info = GetDischargeFace(csys, eleComp);
+                newSetValue.EleSetValue[0] = setValue.EleSetValue[0] + vec.X;
+                newSetValue.EleSetValue[1] = setValue.EleSetValue[1] + vec.Y;
+                newSetValue.EleSetValue[2] = setValue.EleSetValue[2] + vec.Z;
+                newSetValue.Positioning = GetPositionName();
+                newSetValue.PositioningRemark = "设定值改变";
+                if (info != null)
+                {
+                    newSetValue.ContactArea = info.ContactArea;
+                    newSetValue.ProjectedArea = info.GetProjectedArea(csys, this.work.Info.Matr);
+                }
                 newSetValue.SetAttribute(instance);
                 return true;
             }
@@ -95,12 +136,15 @@ namespace MolexPlugin.DAL
 
         private BodyInfo GetDischargeFace(CartesianCoordinateSystem csys, Component ct)
         {
-            Body workBody = work.GetHostWorkpiece().Bodies.ToArray()[0];
+            List<string> err = new List<string>();
+            Part host = work.GetHostWorkpiece();
+            if (host == null)
+                return null;
+            Body workBody = host.Bodies.ToArray()[0];
             Body eleBody = elePart.Bodies.ToArray()[0];
             Body comBody = AssmbliesUtils.GetNXObjectOfOcc(ct.Tag, eleBody.Tag) as Body;
-
             ComputeDischargeFace cp = new ComputeDischargeFace(comBody, workBody, work.Info.Matr, csys);
-            return cp.GetBodyInfoForInterference(false);
+            return cp.GetBodyInfoForInterference(false, out err);
         }
     }
 }

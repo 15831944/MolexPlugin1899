@@ -57,16 +57,19 @@ namespace MolexPlugin
     {
         //class members
         private static Session theSession = null;
-        private static UI theUI = null;
+        private static NXOpen.UI theUI = null;
         private string theDlxFileName;
         private NXOpen.BlockStyler.BlockDialog theDialog;
-        private NXOpen.BlockStyler.Group group0;// Block type: Group
-        private NXOpen.BlockStyler.Group group;// Block type: Group
+        private NXOpen.BlockStyler.Group group2;// Block type: Group
         private NXOpen.BlockStyler.SelectObject seleEdm;// Block type: Selection
-        private NXOpen.BlockStyler.Group group1;// Block type: Group
+        private NXOpen.BlockStyler.Group group0;// Block type: Group
+        private NXOpen.BlockStyler.StringBlock strMoldNumber;// Block type: String
+        private NXOpen.BlockStyler.StringBlock strEditionNumber;// Block type: String
+        private NXOpen.BlockStyler.Group group3;// Block type: Group
         private NXOpen.BlockStyler.Button buttFile;// Block type: Button
         private List<string> partPaths = new List<string>();
         private UserSingleton user = UserSingleton.Instance();
+        private EDMModel edm;
         //------------------------------------------------------------------------------
         //Constructor for NX Styler class
         //------------------------------------------------------------------------------
@@ -75,7 +78,7 @@ namespace MolexPlugin
             try
             {
                 theSession = Session.GetSession();
-                theUI = UI.GetUI();
+                theUI = NXOpen.UI.GetUI();
                 theDlxFileName = "AddWorkpiece.dlx";
                 theDialog = theUI.CreateDialog(theDlxFileName);
                 theDialog.AddApplyHandler(new NXOpen.BlockStyler.BlockDialog.Apply(apply_cb));
@@ -136,10 +139,12 @@ namespace MolexPlugin
         {
             try
             {
-                group0 = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group0");
-                group = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group");
+                group2 = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group2");
                 seleEdm = (NXOpen.BlockStyler.SelectObject)theDialog.TopBlock.FindBlock("seleEdm");
-                group1 = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group1");
+                group0 = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group0");
+                strMoldNumber = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("strMoldNumber");
+                strEditionNumber = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("strEditionNumber");
+                group3 = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group3");
                 buttFile = (NXOpen.BlockStyler.Button)theDialog.TopBlock.FindBlock("buttFile");
                 Selection.MaskTriple maskComp = new Selection.MaskTriple()
                 {
@@ -227,8 +232,24 @@ namespace MolexPlugin
                 if (block == seleEdm)
                 {
                     //---------Enter your code here-----------
-                    if (seleEdm.GetSelectedObjects().Length > 0)
+                    TaggedObject[] tg = seleEdm.GetSelectedObjects();
+                    if (tg.Length > 0)
+                    {
                         this.buttFile.Enable = true;
+                        NXOpen.Assemblies.Component ct = tg[0] as NXOpen.Assemblies.Component;
+                        edm = new EDMModel(ct.Prototype as Part);
+                        this.strMoldNumber.Value = edm.Info.MoldInfo.MoldNumber;
+                        this.strEditionNumber.Value = edm.Info.MoldInfo.EditionNumber;
+                    }
+
+                }
+                else if (block == strMoldNumber)
+                {
+                    //---------Enter your code here-----------
+                }
+                else if (block == strEditionNumber)
+                {
+                    //---------Enter your code here-----------
                 }
                 else if (block == buttFile)
                 {
@@ -301,7 +322,9 @@ namespace MolexPlugin
             List<WorkpieceModel> workpiece = new List<WorkpieceModel>();
             err = new List<string>();
             EDMModel edm = new EDMModel(edmPart);
-            MoldInfo moldInfo = edm.Info.MoldInfo;
+            MoldInfo moldInfo = edm.Info.MoldInfo.Clone() as MoldInfo;
+            moldInfo.MoldNumber = this.strMoldNumber.Value.ToUpper();
+            moldInfo.EditionNumber = this.strEditionNumber.Value.ToUpper();
             WorkPieceInfo info = new WorkPieceInfo(edm.Info.MoldInfo, user.CreatorUser);
             foreach (string st in openFiles)
             {

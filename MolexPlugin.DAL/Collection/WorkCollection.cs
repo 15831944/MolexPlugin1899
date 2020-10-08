@@ -111,7 +111,10 @@ namespace MolexPlugin.DAL
                     emms.Add(em);
                 }
             }
-            emms.Sort();
+            emms.Sort(delegate (EDMModel a, EDMModel b)
+                {
+                    return a.AssembleName.CompareTo(b.AssembleName);
+                });
             return emms;
         }
         /// <summary>

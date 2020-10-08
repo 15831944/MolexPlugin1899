@@ -47,7 +47,7 @@ namespace MolexPlugin
                 bool isInter = AttributeUtils.GetAttrForBool(wk.PartTag, "Interference");
                 if (!isInter)
                 {
-                    UI.GetUI().NXMessageBox.Show("提示", NXMessageBox.DialogType.Error, wk.AssembleName + "没有检查电极");
+                    NXOpen.UI.GetUI().NXMessageBox.Show("提示", NXMessageBox.DialogType.Error, wk.AssembleName + "没有检查电极");
                     return false;
                 }
 

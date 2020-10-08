@@ -101,7 +101,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         private BodyInfo GetDischargeFace(CartesianCoordinateSystem csys, Body eleCtBody)
         {
-
+            List<string> err = new List<string>();
             Component hostComp = GetPartInOcc(hostPart);
             if (hostComp != null)
             {
@@ -109,7 +109,7 @@ namespace MolexPlugin.DAL
                 if (workBody != null)
                 {
                     ComputeDischargeFace cp = new ComputeDischargeFace(eleCtBody, workBody, work.Info.Matr, csys);
-                    return cp.GetBodyInfoForInterference(false);
+                    return cp.GetBodyInfoForInterference(false, out err);
                 }
             }
 
@@ -223,7 +223,7 @@ namespace MolexPlugin.DAL
                         err.Add(pt.Name + "                   无法找到工件体，请检查引用集！");
                     }
 
-                }             
+                }
             }
         }
 

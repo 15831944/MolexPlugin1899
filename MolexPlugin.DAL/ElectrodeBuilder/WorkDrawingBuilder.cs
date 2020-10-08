@@ -7,6 +7,7 @@ using NXOpen;
 using Basic;
 using MolexPlugin.Model;
 using NXOpen.UF;
+using NXOpen.Drawings;
 
 namespace MolexPlugin.DAL
 {
@@ -30,15 +31,21 @@ namespace MolexPlugin.DAL
             {
                 PartUtils.SetPartDisplay(this.work.PartTag);
             }
-
-            this.workDra = new WorkDrawingModel(model);
+            try
+            {
+                this.workDra = new WorkDrawingModel(model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             hostDraw = workDra.GetHostWorkpieceDrawingModel();
             GetTemplate();
+          
         }
         public void CreateDrawing()
         {
-            double scale = hostDraw.GetScale(120, 140);
-            this.originPoint = PointUtils.CreatePointFeature(this.work.Info.Matr.GetCenter());
+            double scale = hostDraw.GetScale(120, 140);         
             this.workDra.CreateCenterLine(hostDraw.CenterPt, hostDraw.DisPt);
             HostWorkpieceDrawing(scale);
             OtherWorkpieceDrawing(scale);
@@ -61,16 +68,22 @@ namespace MolexPlugin.DAL
         /// <param name="workpiecePart"></param>
         private void HostWorkpieceDrawing(double scale)
         {
-
+            Part workPart = Session.GetSession().Parts.Work;
+          
+            //NXOpen.Drawings.DrawingSheet sheet = Basic.DrawingUtils.DrawingSheetByName(workDra.HostComp[0].Name);
+            //if (sheet != null)
+            //{
+            //    DeleteObject.Delete(sheet);
+            //    this.originPoint = PointUtils.CreatePointFeature(this.work.Info.Matr.GetCenter());
+            //}
+            DrawingSheet[] st = workPart.DrawingSheets.ToArray();
+            if (st.Length > 0)
+                DeleteObject.Delete(st);
+            this.originPoint = PointUtils.CreatePointFeature(this.work.Info.Matr.GetCenter());
             WorkpieceDrawing dra = new WorkpieceDrawing(hostDraw, work, workDra, this.originPoint);
-            NXOpen.Drawings.DrawingSheet sheet = Basic.DrawingUtils.DrawingSheetByName(workDra.HostComp[0].Name);
-            if (sheet != null)
-            {
-                DeleteObject.Delete(sheet);
-            }
             try
             {
-                sheet = Basic.DrawingUtils.DrawingSheet(workpieceDrawTemplate, 297, 420, workDra.HostComp[0].Name);
+                NXOpen.Drawings.DrawingSheet sheet = Basic.DrawingUtils.DrawingSheet(workpieceDrawTemplate, 297, 420, workDra.HostComp[0].Name);
                 dra.CreateView(scale, GetFirstPoint(hostDraw, scale), this.workpieceTablePath);
                 double[] plistOrigin = { 20, 70, 0 };
                 Basic.DrawingUtils.CreatePlist(plistPath, plistOrigin);
@@ -98,11 +111,12 @@ namespace MolexPlugin.DAL
             {
                 length += 2 * wk.DisPt.X * scale;
             }
-            NXOpen.Drawings.DrawingSheet sheet = Basic.DrawingUtils.DrawingSheetByName(other[0].WorkpiecePart.Name);
-            if (sheet != null)
-            {
-                DeleteObject.Delete(sheet);
-            }
+            //NXOpen.Drawings.DrawingSheet sheet = Basic.DrawingUtils.DrawingSheetByName(other[0].WorkpiecePart.Name);
+            //if (sheet != null)
+            //{
+            //    DeleteObject.Delete(sheet);
+            //    this.originPoint = PointUtils.CreatePointFeature(this.work.Info.Matr.GetCenter());
+            //}
             int k = 0;
             if (other.Count == 1)
             {
@@ -112,7 +126,7 @@ namespace MolexPlugin.DAL
             {
                 k = (int)Math.Floor(300 - length) / (other.Count - 1);
             }
-            sheet = Basic.DrawingUtils.DrawingSheet(workpieceDrawTemplate, 297, 420, other[0].WorkpiecePart.Name);
+            NXOpen.Drawings.DrawingSheet sheet = Basic.DrawingUtils.DrawingSheet(workpieceDrawTemplate, 297, 420, other[0].WorkpiecePart.Name);
             for (int i = 0; i < other.Count; i++)
             {
                 Point3d temp;

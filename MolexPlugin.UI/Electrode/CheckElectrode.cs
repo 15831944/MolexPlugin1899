@@ -54,7 +54,7 @@ namespace MolexPlugin
     {
         //class members
         private static Session theSession = null;
-        private static UI theUI = null;
+        private static NXOpen.UI theUI = null;
         private string theDlxFileName;
         private NXOpen.BlockStyler.BlockDialog theDialog;
         private NXOpen.BlockStyler.Group Group;// Block type: Group
@@ -70,7 +70,7 @@ namespace MolexPlugin
             try
             {
                 theSession = Session.GetSession();
-                theUI = UI.GetUI();
+                theUI = NXOpen.UI.GetUI();
                 theDlxFileName = "CheckElectrode.dlx";
                 theDialog = theUI.CreateDialog(theDlxFileName);
                 theDialog.AddApplyHandler(new NXOpen.BlockStyler.BlockDialog.Apply(apply_cb));
@@ -179,6 +179,7 @@ namespace MolexPlugin
                 mat.Identity();
                 Matrix4 inv = mat.GetInversMatrix();
                 CartesianCoordinateSystem csys = BoundingBoxUtils.CreateCoordinateSystem(mat, inv);
+                List<string> errs = new List<string>();
                 foreach (TaggedObject tt in this.Selection.GetSelectedObjects())
                 {
                     Body ttBody = tt as Body;
@@ -191,12 +192,16 @@ namespace MolexPlugin
                             toBody = toBody.Prototype as Body;
                         if (!toBody.Equals(ttBody))
                         {
+                            List<string> err = new List<string>();
                             ComputeDischargeFace cf = new ComputeDischargeFace(toBody, ttBody, mat, csys);
-                            cf.GetBodyInfoForInterference(true); 
+                            cf.GetBodyInfoForInterference(true, out err);
+                            errs.AddRange(err);
                         }
 
                     }
                 }
+                if (errs.Count > 0)
+                    ClassItem.Print(errs.ToArray());
 
 
             }

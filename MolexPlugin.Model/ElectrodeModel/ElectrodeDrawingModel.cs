@@ -393,10 +393,12 @@ namespace MolexPlugin.Model
             Part workpiecePart = this.work.GetHostWorkpiece();
             foreach (Body body in workpiecePart.Bodies.ToArray())
             {
-                Component workpieceCom = AssmbliesUtils.GetPartComp(this.PartTag, workpiecePart)[0];
-                Body by = AssmbliesUtils.GetNXObjectOfOcc(workpieceCom.Tag, body.Tag) as Body;
-                if (by != null)
-                    bodys.Add(by);
+                foreach (Component workpieceCom in AssmbliesUtils.GetPartComp(this.PartTag, workpiecePart))
+                {
+                    Body by = AssmbliesUtils.GetNXObjectOfOcc(workpieceCom.Tag, body.Tag) as Body;
+                    if (by != null)
+                        bodys.Add(by);
+                }
             }
             return bodys;
         }

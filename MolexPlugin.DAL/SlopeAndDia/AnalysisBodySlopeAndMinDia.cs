@@ -31,7 +31,20 @@ namespace MolexPlugin.DAL
                 return min;
             }
         }
-
+        /// <summary>
+        /// 分析的面
+        /// </summary>
+        public List<AnalysisFaceSlopeAndDia> AnaFaces
+        {
+            get
+            {
+                if (this.anaFace.Count == 0)
+                {
+                    Analysis();
+                }
+                return anaFace;
+            }
+        }
         public AnalysisBodySlopeAndMinDia(Vector3d vec, Body body)
         {
             this.body = body;

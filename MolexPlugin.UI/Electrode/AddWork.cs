@@ -57,7 +57,7 @@ namespace MolexPlugin
     {
         //class members
         private static Session theSession = null;
-        private static UI theUI = null;
+        private static NXOpen.UI theUI = null;
         private string theDlxFileName;
         private Part workPart;
         private NXOpen.BlockStyler.BlockDialog theDialog;
@@ -90,7 +90,7 @@ namespace MolexPlugin
             try
             {
                 theSession = Session.GetSession();
-                theUI = UI.GetUI();
+                theUI = NXOpen.UI.GetUI();
                 workPart = theSession.Parts.Work;
                 theDlxFileName = "AddWork.dlx";
                 theDialog = theUI.CreateDialog(theDlxFileName);
@@ -230,7 +230,7 @@ namespace MolexPlugin
             {
                 //---- Enter your callback code here -----
                 // this.group.Show = false;
-                this.workNumber.Show = false;
+                this.group.Show = false;
                 this.selePoint.Enable = false;
             }
             catch (Exception ex)
@@ -268,15 +268,17 @@ namespace MolexPlugin
                         else
                         {
                             string workpieceName = this.GetWorkpieceNumber(this.workNumber.ValueAsString, wm);
-                            if (wm.Info.MoldInfo.WorkpieceNumber.Equals(workNumber))
+                            if (!wm.Info.MoldInfo.WorkpieceNumber.Equals(workpieceName, StringComparison.CurrentCultureIgnoreCase))
                             {
-                                if (!this.CopyWork(seleCt, wm, workpieceName, user.CreatorUser))
-                                    theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "复制WORK错误！");
+                                List<string> err = this.CopyWork(seleCt, wm, workpieceName, user.CreatorUser);
+                                if (err.Count > 0)
+                                    ClassItem.Print(err.ToArray());
                             }
                             else
                             {
-                                if (!CopWork(seleCt, wm, user.CreatorUser))
-                                    theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "复制WORK错误！");
+                                List<string> err = CopWork(seleCt, wm, user.CreatorUser);
+                                if (err.Count > 0)
+                                    ClassItem.Print(err.ToArray());
                             }
 
                         }
@@ -292,7 +294,7 @@ namespace MolexPlugin
                             matr = GetParentWorkMatr(seleCt);
                         }
                         WorkpieceModel wm = new WorkpieceModel(this.selectPart);
-                        List<string> err = this.CreateNewWork1(this.seleCt, wm, matr, user.CreatorUser);
+                        List<string> err = this.CreateNewWork(this.seleCt, wm, matr, user.CreatorUser);
                         if (err != null)
                             ClassItem.Print(err.ToArray());
                     }
@@ -300,9 +302,9 @@ namespace MolexPlugin
                 if (points.Count != 0)
                     DeleteObject.Delete(this.points.ToArray());
                 CsysUtils.SetWcsToAbs();
-                //bool anyPartsModified1;
-                //NXOpen.PartSaveStatus partSaveStatus1;
-                //Session.GetSession().Parts.SaveAll(out anyPartsModified1, out partSaveStatus1);
+                bool anyPartsModified1;
+                NXOpen.PartSaveStatus partSaveStatus1;
+                Session.GetSession().Parts.SaveAll(out anyPartsModified1, out partSaveStatus1);
             }
             catch (Exception ex)
             {
@@ -332,19 +334,18 @@ namespace MolexPlugin
                         if (WorkModel.IsWork(temp))
                         {
                             WorkModel wk = new WorkModel(temp);
-                            this.workNumber.Show = true;
+                            this.group.Show = true;
                             this.workNumber.SetEnumMembers(GetWorkpieceName(wk).ToArray());
                             selectPart = GetWorkPieceForWork(wk);
                         }
                         else
                         {
                             selectPart = temp;
-                            // this.group.Show = true;
-                            this.workNumber.Show = false;
+                            this.group.Show = false;
                             this.group1.Show = true;
                             this.group2.Show = true;
                         }
-                        List<Body> bodys = GetCompBodys(this.seleCt, temp);
+                        List<Body> bodys = GetCompBodys(this.seleCt, selectPart);
                         if (bodys.Count > 0)
                         {
                             aoo = new NXObjectAooearancePoint(bodys.ToArray());

@@ -85,6 +85,7 @@ namespace MolexPlugin
         private void buttOk_Click(object sender, EventArgs e)
         {
             UserSingleton user = UserSingleton.Instance();
+            List<string> err = new List<string>();
             if (user.UserSucceed && user.Jurisd.GetElectrodeJurisd())
             {
                 List<ElectrodeModel> eleModels = asmColl.GetElectrodes();
@@ -104,13 +105,15 @@ namespace MolexPlugin
                             }
                             catch (NXException ex)
                             {
-                                ClassItem.WriteLogFile(eleName + "电极出图错误！" + ex.Message);
+                                err.Add(eleName + "电极出图错误！" + ex.Message);
                             }
                         }
                     }
                 }
                 PartUtils.SetPartDisplay(asm.PartTag);
                 Session.GetSession().ApplicationSwitchImmediate("UG_APP_MODELING");
+                if (err.Count > 0)
+                    ClassItem.Print(err.ToArray());
             }
             this.Close();
         }

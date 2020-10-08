@@ -53,7 +53,7 @@ namespace MolexPlugin
     {
         //class members
         private static Session theSession = null;
-        private static UI theUI = null;
+        private static NXOpen.UI theUI = null;
         private string theDlxFileName;
         private NXOpen.BlockStyler.BlockDialog theDialog;
         private NXOpen.BlockStyler.Group group0;// Block type: Group
@@ -67,7 +67,7 @@ namespace MolexPlugin
             try
             {
                 theSession = Session.GetSession();
-                theUI = UI.GetUI();
+                theUI = NXOpen.UI.GetUI();
                 theDlxFileName = "Interference.dlx";
                 theDialog = theUI.CreateDialog(theDlxFileName);
                 theDialog.AddApplyHandler(new NXOpen.BlockStyler.BlockDialog.Apply(apply_cb));

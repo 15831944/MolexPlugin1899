@@ -52,7 +52,7 @@ namespace MolexPlugin
     {
         //class members
         private static Session theSession = null;
-        private static UI theUI = null;
+        private static NXOpen.UI theUI = null;
         private string theDlxFileName;
         private Part workPart;
         private NXOpen.BlockStyler.BlockDialog theDialog;
@@ -72,7 +72,7 @@ namespace MolexPlugin
             try
             {
                 theSession = Session.GetSession();
-                theUI = UI.GetUI();
+                theUI = NXOpen.UI.GetUI();
                 workPart = theSession.Parts.Work;
                 theDlxFileName = "ElectrodeColor.dlx";
                 theDialog = theUI.CreateDialog(theDlxFileName);

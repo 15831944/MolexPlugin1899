@@ -61,6 +61,7 @@
     <Compile Include="AttributeUtils.cs" />
     <Compile Include="BooleanUtils.cs" />
     <Compile Include="BoundingBoxUtils.cs" />
+    <Compile Include="CAMUtils.cs" />
     <Compile Include="ClassItem.cs" />
     <Compile Include="DrawingUtils.cs" />
     <Compile Include="ExpressionUtils.cs" />
@@ -71,6 +72,8 @@
     <Compile Include="ExtrudedUtils.cs" />
     <Compile Include="FaceLoopUtils.cs" />
     <Compile Include="FaceUtils.cs" />
+    <Compile Include="OffsetRegionUtils.cs" />
+    <Compile Include="OperationUtils.cs" />
     <Compile Include="ViewUtils.cs" />
     <Compile Include="LayerUtils.cs" />
     <Compile Include="OpenFileUtils.cs" />

@@ -53,7 +53,7 @@ namespace MolexPlugin
                 markId = Session.GetSession().SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "基准台");
                 if (!WorkModel.IsWork(workPart))
                 {
-                    UI.GetUI().NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "请设置WORK为工作部件");
+                    NXOpen.UI.GetUI().NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "请设置WORK为工作部件");
                     return;
                 }
                 WorkModel work = new WorkModel(workPart);
@@ -61,7 +61,7 @@ namespace MolexPlugin
                 Part workpiece = work.GetHostWorkpiece();
                 if (workpiece == null)
                 {
-                    UI.GetUI().NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "无法找到主件");
+                    NXOpen.UI.GetUI().NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "无法找到主件");
                     return;
                 }
                 List<Body> headBodys = SelectObject();
@@ -70,7 +70,7 @@ namespace MolexPlugin
                 ElectrodeCreateCondition condition = new ElectrodeCreateCondition(expAndMatr, headBodys, work, workpiece);
                 if (expAndMatr.Matr.AnalyeBackOffFace())
                 {
-                    int ok = UI.GetUI().NXMessageBox.Show("错误", NXMessageBox.DialogType.Question, "电极有倒扣！");
+                    int ok = NXOpen.UI.GetUI().NXMessageBox.Show("错误", NXMessageBox.DialogType.Question, "电极有倒扣！");
                     if (ok != 1)
                         return;
                 }

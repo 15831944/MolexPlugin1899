@@ -56,6 +56,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CAM\AbstractElectrodeCAM.cs" />
+    <Compile Include="CAM\Template\AbstractElectrodeTemplate.cs" />
+    <Compile Include="CAM\Operation\BaseFaceCreateOperation.cs" />
+    <Compile Include="CAM\ElectrodeCAMTemplateModel.cs" />
+    <Compile Include="CAM\Operation\SurfaceContourCreateOperation.cs" />
+    <Compile Include="CAM\Operation\ZLevelMillingCreateOperation.cs" />
+    <Compile Include="CAM\Template\ElectrodeTemplateFactory.cs" />
+    <Compile Include="CAM\ManyInterElectrodeCAM.cs" />
+    <Compile Include="CAM\OnlyInterElectrodeCAM.cs" />
+    <Compile Include="CAM\ErAndEfElectrodeCAM.cs" />
+    <Compile Include="CAM\NonStandardElectrodeCAM.cs" />
+    <Compile Include="CAM\OffsetBodyGapVaule.cs" />
+    <Compile Include="CAM\AnalysisElectrodeBody.cs" />
+    <Compile Include="CAM\Operation\AbstractCreateOperation.cs" />
+    <Compile Include="CAM\Operation\TwiceRoughCreateOperation.cs" />
+    <Compile Include="CAM\Operation\RoughCreateOperation.cs" />
+    <Compile Include="CAM\Operation\PlanarMillingCreateOperation.cs" />
+    <Compile Include="CAM\Operation\FlowCutCreateOperation.cs" />
+    <Compile Include="CAM\Operation\FaceMillingCreateOperation.cs" />
+    <Compile Include="CAM\Operation\BaseStationCreateOperation.cs" />
+    <Compile Include="CreateElectrodeCAMBuilder.cs" />
     <Compile Include="ElectrodeBuilder\DeleteElectrodeBuilder.cs" />
     <Compile Include="ElectrodeBuilder\CreateElectrode.cs" />
     <Compile Include="ElectrodeBuilder\AbstractCreateAssmbile.cs" />
@@ -101,8 +122,12 @@
     <Compile Include="ElectrodeBuilder\ElectrodeSketchBuilder.cs" />
     <Compile Include="ElectrodeBuilder\EletrodePreparation.cs" />
     <Compile Include="ElectrodeBuilder\ElectrodeDrawingBuilder.cs" />
-    <Compile Include="ElectrodePitchUpdate.cs" />
-    <Compile Include="ElectrodeUpdateBuilder.cs" />
+    <Compile Include="ElectrodeBuilder\ElectrodePitchUpdate.cs" />
+    <Compile Include="ElectrodeBuilder\ElectrodeUpdateBuilder.cs" />
+    <Compile Include="CAM\ElectrodeCAMNameTemplate.cs" />
+    <Compile Include="CAM\ElectrodeOperationTemplate.cs" />
+    <Compile Include="CAM\ElectrodeCAMFactory.cs" />
+    <Compile Include="ElectrodeCAMFile.cs" />
     <Compile Include="Hole\StepBuilder.cs" />
     <Compile Include="Hole\HoleBuilder.cs" />
     <Compile Include="Hole\StepBlindHoleFeature.cs" />
@@ -111,11 +136,22 @@
     <Compile Include="Hole\OnlyThroughHoleFeature.cs" />
     <Compile Include="Hole\OnlyBlindHoleFeature.cs" />
     <Compile Include="Hole\AbstractHoleFeater.cs" />
-    <Compile Include="IDisplayObject.cs" />
+    <Compile Include="ElectrodeBuilder\IDisplayObject.cs" />
     <Compile Include="ElectrodeBuilder\IElectrodeBuilder.cs" />
     <Compile Include="ElectrodeBuilder\InterferenceElectrodeBuilder.cs" />
     <Compile Include="ElectrodeBuilder\PositionElectrodeBuilder.cs" />
     <Compile Include="Move\MoveCompCsysBuilde.cs" />
+    <Compile Include="ElectrodeBuilder\ReplaceOther.cs" />
+    <Compile Include="ElectrodeBuilder\ReplaceElectrode.cs" />
+    <Compile Include="ElectrodeBuilder\ReplacePart.cs" />
+    <Compile Include="CAM\Template\UserEleTemplate.cs" />
+    <Compile Include="CAM\Template\ZleveEleTemplate.cs" />
+    <Compile Include="CAM\Template\ZleveAndSufaceEleTemplate.cs" />
+    <Compile Include="CAM\Template\PlanarAndZleveAndSufaceEleTemplate.cs" />
+    <Compile Include="CAM\Template\PlanarAndZleveEleTemplate.cs" />
+    <Compile Include="CAM\ProgramOperationName.cs" />
+    <Compile Include="CAM\Template\PlanarAndSufaceEleTemplate.cs" />
+    <Compile Include="CAM\Template\SimplenessVerticalEleTemplate.cs" />
     <Compile Include="SlopeAndDia\AnalysisBodySlopeAndMinDia.cs" />
     <Compile Include="SlopeAndDia\FaceSlopeColourBuilder.cs" />
     <Compile Include="SlopeAndDia\BackOffFaceSlopeColour.cs" />
@@ -148,6 +184,7 @@
     <Compile Include="BOX\SuperBoxBlock.cs" />
     <Compile Include="ElectrodeBuilder\WorkpieceDrawing.cs" />
     <Compile Include="ElectrodeBuilder\WorkDrawingBuilder.cs" />
+    <Compile Include="CAM\CompterToolName.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Basic\Basic.csproj">

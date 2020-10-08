@@ -20,11 +20,11 @@ namespace MolexPlugin.Model
         /// <summary>
         /// 模具类型
         /// </summary>
-        public MoldInfo MoldInfo { get; protected set; }
+        public MoldInfo MoldInfo { get;  set; }
         /// <summary>
         /// 创建者
         /// </summary>
-        public UserModel UserModel { get; protected set; }
+        public UserModel UserModel { get;  set; }
         /// <summary>
         /// 文档类型
         /// </summary>

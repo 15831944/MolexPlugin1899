@@ -176,8 +176,9 @@ namespace MolexPlugin
         /// <param name="workpieceNumber"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        private bool CopyWork(NXOpen.Assemblies.Component ct, WorkModel work, string workpieceNumber, UserModel user)
+        private List<string> CopyWork(NXOpen.Assemblies.Component ct, WorkModel work, string workpieceNumber, UserModel user)
         {
+            List<string> err = new List<string>();
             Matrix4 mat = new Matrix4();
             mat.Identity();
             MoldInfo mold = work.Info.MoldInfo.Clone() as MoldInfo;
@@ -188,8 +189,8 @@ namespace MolexPlugin
             }
             catch (NXException ex)
             {
-                ClassItem.WriteLogFile("无法移动工件！" + ex.Message);
-                return false;
+                err.Add("无法移动工件！" + ex.Message);
+                return err;
             }
             mold.WorkpieceNumber = workpieceNumber;
             string name = work.WorkpieceDirectoryPath + mold.MoldNumber + "-" + mold.WorkpieceNumber + "-";
@@ -203,25 +204,39 @@ namespace MolexPlugin
                         if (info1.Type == PartType.EDM)
                         {
                             EDMInfo edm = new EDMInfo(mold, user);
-                            AssmbliesUtils.MakeUnique(com, name + "EDM.prt");
-                            edm.SetAttribute(com.Prototype as Part);
+                            try
+                            {
+                                NXObject make = AssmbliesUtils.MakeUnique(com, name + "EDM.prt");
+                                edm.SetAttribute(com.Prototype as Part);
+                            }
+                            catch (NXException ex)
+                            {
+                                err.Add(name + "EDM.prt" + ex.Message + "无法创建唯一");
+                            }
                         }
 
                     }
 
                 }
-                AssmbliesUtils.MakeUnique(moveCt, name + "WORK" + work.Info.WorkNumber.ToString() + ".prt");
-                WorkInfo wk = new WorkInfo(mold, user, work.Info.WorkNumber, work.Info.Matr);
-                wk.SetAttribute(moveCt.Prototype as Part);
-                return true;
+                try
+                {
+                    NXObject make1 = AssmbliesUtils.MakeUnique(moveCt, name + "WORK" + work.Info.WorkNumber.ToString() + ".prt");
+                    WorkInfo wk = new WorkInfo(mold, user, work.Info.WorkNumber, work.Info.Matr);
+                    wk.SetAttribute(moveCt.Prototype as Part);
+                }
+                catch (NXException ex)
+                {
+                    err.Add(name + "WORK" + work.Info.WorkNumber.ToString() + ".prt" + ex.Message + "无法创建唯一");
+                }
             }
 
-            return false;
+            return err;
 
         }
 
-        private bool CopWork(NXOpen.Assemblies.Component ct, WorkModel work, UserModel user)
+        private List<string> CopWork(NXOpen.Assemblies.Component ct, WorkModel work, UserModel user)
         {
+            List<string> err = new List<string>();
             Matrix4 mat = new Matrix4();
             mat.Identity();
 
@@ -235,19 +250,27 @@ namespace MolexPlugin
             }
             catch (NXException ex)
             {
-                ClassItem.WriteLogFile("无法移动工件！" + ex.Message);
-                return false;
+                err.Add("无法移动工件！" + ex.Message);
+                return err;
             }
             string name = work.WorkpieceDirectoryPath + mold.MoldNumber + "-" + mold.WorkpieceNumber + "-";
             if (moveCt != null)
             {
-                AssmbliesUtils.MakeUnique(moveCt, name + "WORK" + (workColl.Work[workColl.Work.Count - 1].Info.WorkNumber + 1).ToString() + ".prt");
                 WorkInfo wk = new WorkInfo(mold, user, work.Info.WorkNumber, work.Info.Matr);
-                wk.SetAttribute(moveCt.Prototype as Part);
-                return true;
+                try
+                {
+                    NXObject make1 = AssmbliesUtils.MakeUnique(moveCt, name + "WORK" + (workColl.Work[workColl.Work.Count - 1].Info.WorkNumber + 1).ToString() + ".prt");
+                    wk.WorkNumber = (workColl.Work[workColl.Work.Count - 1].Info.WorkNumber + 1);
+                    wk.SetAttribute(moveCt.Prototype as Part);
+                }
+                catch (NXException ex)
+                {
+                    err.Add(name + "WORK" + (workColl.Work[workColl.Work.Count - 1].Info.WorkNumber + 1).ToString() + ".prt" + ex.Message + "无法创建唯一");
+                }
+
             }
 
-            return false;
+            return err;
         }
         /// <summary>
         /// 获取件号名
@@ -281,12 +304,31 @@ namespace MolexPlugin
         private List<Body> GetCompBodys(NXOpen.Assemblies.Component ct, Part pt)
         {
             List<Body> bodys = new List<Body>();
-            foreach (Body by in pt.Bodies.ToArray())
+            if ((ct.Prototype as Part).Equals(pt))
             {
-                Body bo = AssmbliesUtils.GetNXObjectOfOcc(this.seleCt.Tag, by.Tag) as Body;
-                if (bo != null)
-                    bodys.Add(bo);
+                foreach (Body by in pt.Bodies.ToArray())
+                {
+                    Body bo = AssmbliesUtils.GetNXObjectOfOcc(ct.Tag, by.Tag) as Body;
+                    if (bo != null)
+                        bodys.Add(bo);
+                }
             }
+            else
+            {
+                foreach (NXOpen.Assemblies.Component co in AssmbliesUtils.GetPartComp(workPart, pt))
+                {
+                    if (!co.IsSuppressed)
+                    {
+                        foreach (Body by in pt.Bodies.ToArray())
+                        {
+                            Body bo = AssmbliesUtils.GetNXObjectOfOcc(co.Tag, by.Tag) as Body;
+                            if (bo != null)
+                                bodys.Add(bo);
+                        }
+                    }
+                }
+            }
+
             return bodys;
         }
         /// <summary>

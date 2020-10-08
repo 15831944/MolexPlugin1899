@@ -39,6 +39,10 @@ namespace MolexPlugin.Model
         /// </summary>
         public string ClientName { get; set; }
         /// <summary>
+        /// 加工类型
+        /// </summary>
+        public string MachineType { get; set; }
+        /// <summary>
         /// 设置模具信息属性
         /// </summary>
         /// <param name="part"></param>
@@ -51,6 +55,7 @@ namespace MolexPlugin.Model
                 AttributeUtils.AttributeOperation("EditionNumber", this.EditionNumber, obj);
                 AttributeUtils.AttributeOperation("MoldType", this.MoldType, obj);
                 AttributeUtils.AttributeOperation("ClientName", this.ClientName, obj);
+                AttributeUtils.AttributeOperation("MachineType", this.MachineType, obj);
                 return true;
             }
             catch (NXException ex)
@@ -74,6 +79,7 @@ namespace MolexPlugin.Model
                 info.EditionNumber = AttributeUtils.GetAttrForString(obj, "EditionNumber");
                 info.MoldType = AttributeUtils.GetAttrForString(obj, "MoldType");
                 info.ClientName = AttributeUtils.GetAttrForString(obj, "ClientName");
+                info.MachineType = AttributeUtils.GetAttrForString(obj, "MachineType");
                 return info;
             }
             catch (NXException ex)
@@ -91,6 +97,7 @@ namespace MolexPlugin.Model
                 AttributeUtils.AttributeOperation("EditionNumber", this.EditionNumber, objs);
                 AttributeUtils.AttributeOperation("MoldType", this.MoldType, objs);
                 AttributeUtils.AttributeOperation("ClientName", this.ClientName, objs);
+                AttributeUtils.AttributeOperation("MachineType", this.MachineType, objs);
                 return true;
             }
             catch (NXException ex)

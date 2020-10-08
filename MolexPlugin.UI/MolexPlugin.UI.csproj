@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ListViewPrinter, Version=2.7.1.31255, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.2.7.1.5\lib\ListViewPrinter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NXOpen, Version=1903.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Managed\NXOpen.dll</HintPath>
@@ -49,6 +53,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Managed\NXOpenUI.dll</HintPath>
     </Reference>
+    <Reference Include="ObjectListView, Version=2.7.1.31255, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.2.7.1.5\lib\ObjectListView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SparkleLibrary, Version=2.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.2.7.1.5\lib\SparkleLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
@@ -63,6 +75,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EleProgramFormInternal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EleProgramCreateForm.cs" />
+    <Compile Include="Electrode\CopyAsmInternal.cs" />
+    <Compile Include="Electrode\AlterComponentInternal.cs" />
+    <Compile Include="Electrode\AlterComponent.cs" />
     <Compile Include="Electrode\BomCreateForm.cs" />
     <Compile Include="Electrode\BomForm.cs">
       <SubType>Form</SubType>
@@ -71,6 +90,7 @@
       <DependentUpon>BomForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Electrode\AddEdmAsm.cs" />
+    <Compile Include="Electrode\CopyAsm.cs" />
     <Compile Include="Electrode\DeleteEle.cs" />
     <Compile Include="Electrode\ElectrodeColor.cs" />
     <Compile Include="Electrode\ElectrodeDrawingCreateForm.cs" />
@@ -95,6 +115,18 @@
     <Compile Include="Electrode\BomFormInternal.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Electrode\MoovElectrode.cs" />
+    <Compile Include="EleProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EleProgramForm.Designer.cs">
+      <DependentUpon>EleProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tool\AnalyzeBodyAndFace.cs" />
     <Compile Include="Electrode\CheckElectrode.cs" />
     <Compile Include="Electrode\CreateEleStandardSeatForm.cs" />
@@ -106,10 +138,12 @@
     </Compile>
     <Compile Include="Electrode\Interference.cs" />
     <Compile Include="Electrode\MoveBody.cs" />
+    <Compile Include="Tool\MoveComponent.cs" />
     <Compile Include="Tool\MoveObject.cs" />
     <Compile Include="Electrode\PositionEle.cs" />
     <Compile Include="Tool\SuperBox.cs" />
     <Compile Include="Electrode\AddEdmAsmInternal.cs" />
+    <Compile Include="Tool\MoveComponentInternal.cs" />
     <Compile Include="Tool\SuperBoxInternal.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -151,8 +185,17 @@
     <EmbeddedResource Include="Electrode\WorkpieceDrawingForm.resx">
       <DependentUpon>WorkpieceDrawingForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EleProgramForm.resx">
+      <DependentUpon>EleProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

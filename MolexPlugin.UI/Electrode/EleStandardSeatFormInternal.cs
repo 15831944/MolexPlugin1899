@@ -311,8 +311,8 @@ namespace MolexPlugin
                 if (cru != "" && num == "")
                 {
                     erForm.Name = "ER个数";
-                }
-                erForm.ShowDialog(this);
+                    erForm.ShowDialog(this);
+                }              
             }
             if (checkBox_during.Checked)
             {
@@ -321,8 +321,9 @@ namespace MolexPlugin
                 if (cru != "" && num == "")
                 {
                     erForm.Name = "DR个数";
+                    erForm.ShowDialog(this);
                 }
-                erForm.ShowDialog(this);
+               
             }
 
         }

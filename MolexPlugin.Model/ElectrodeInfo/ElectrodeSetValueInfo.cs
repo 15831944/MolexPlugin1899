@@ -36,6 +36,8 @@ namespace MolexPlugin.Model
         /// 跑位
         /// </summary>
         public string Positioning { get; set; }
+
+        public string PositioningRemark { get; set; } = "";
         /// <summary>
         /// 设置属性
         /// </summary>
@@ -67,6 +69,7 @@ namespace MolexPlugin.Model
                 info.ContactArea = AttributeUtils.GetAttrForDouble(obj, "ContactArea");
                 info.ProjectedArea = AttributeUtils.GetAttrForDouble(obj, "ProjectedArea");
                 info.Positioning = AttributeUtils.GetAttrForString(obj, "Positioning");
+                info.PositioningRemark = AttributeUtils.GetAttrForString(obj, "PositioningRemark");
                 for (int i = 0; i < 3; i++)
                 {
                     info.EleSetValue[i] = AttributeUtils.GetAttrForDouble(obj, "EleSetValue", i);
@@ -93,6 +96,7 @@ namespace MolexPlugin.Model
                 AttributeUtils.AttributeOperation("ContactArea", this.ContactArea, objs);
                 AttributeUtils.AttributeOperation("ProjectedArea", this.ProjectedArea, objs);
                 AttributeUtils.AttributeOperation("Positioning", this.Positioning, objs);
+                AttributeUtils.AttributeOperation("PositioningRemark", this.PositioningRemark, objs);
                 return true;
             }
             catch (NXException ex)

@@ -238,7 +238,7 @@ namespace MolexPlugin
             preveiw.DelePattern();
             if (comboBox_eleType.Text == null || comboBox_eleType.Text == "")
             {
-                UI.GetUI().NXMessageBox.Show("错误！", NXMessageBox.DialogType.Error, "请选择电极类型！");
+                NXOpen.UI.GetUI().NXMessageBox.Show("错误！", NXMessageBox.DialogType.Error, "请选择电极类型！");
                 return;
             }
             ElectrodeAllInfo all = GetEleInfo();

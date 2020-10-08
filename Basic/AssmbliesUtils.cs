@@ -397,10 +397,12 @@ namespace Basic
         /// <param name="endPt"></param>
         /// <param name="mat"></param>
         /// <returns></returns>
-        public static void MoveCompPartForCsys( Matrix4 mat,params NXOpen.Assemblies.Component[] compObj)
+        public static void MoveCompPartForCsys(Matrix4 mat, params NXOpen.Assemblies.Component[] compObj)
         {
             Part workPart = theSession.Parts.Work;
-            Vector3d translation = UMathUtils.GetVector(new Point3d(), mat.GetCenter());
+            Point3d absPt = new Point3d();
+            mat.ApplyPos(ref absPt);
+            Vector3d translation = new Vector3d(absPt.X, absPt.Y, absPt.Z);
             NXOpen.Positioning.ComponentPositioner componentPositioner1;
             componentPositioner1 = workPart.ComponentAssembly.Positioner; //组件定位
             componentPositioner1.ClearNetwork();  //删除定位器

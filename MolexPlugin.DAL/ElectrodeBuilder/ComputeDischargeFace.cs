@@ -30,8 +30,9 @@ namespace MolexPlugin.DAL
         ///检查体
         /// </summary>
         /// <returns></returns>
-        public BodyInfo GetBodyInfoForInterference(bool extract)
+        public BodyInfo GetBodyInfoForInterference(bool extract, out List<string> err)
         {
+            err = new List<string>();
             List<Face> dischargeFace = new List<Face>();
             List<Face> temp = new List<Face>();
             List<Body> bodys = new List<Body>();
@@ -41,10 +42,13 @@ namespace MolexPlugin.DAL
             }
             catch (NXException ex)
             {
-                ClassItem.WriteLogFile("干涉检查错误！" + ex.Message);
+                err.Add("干涉检查错误！" + ex.Message);
             }
             if (bodys.Count > 0)
+            {
                 LayerUtils.MoveDisplayableObject(252, bodys.ToArray());
+                err.Add("电极头有过切，请检查！");
+            }
             dischargeFace = temp.Where(a => a.GetBody().Equals((this.eleBody))).Distinct().ToList(); //过滤电极面
             List<Face> tt = temp.Where(a => a.GetBody().Equals((this.toolBody))).Distinct().ToList();
             List<Face> faces = new List<Face>();
@@ -97,9 +101,14 @@ namespace MolexPlugin.DAL
             {
                 try
                 {
-                    by.Color = 6;
-                    by.Layer = 251;
-                    DeleteObject.DeleteParms(BooleanUtils.CreateBooleanFeature(by, false, true, NXOpen.Features.Feature.BooleanType.Intersect, toolBody).GetBodies());
+                    Body[] bos = BooleanUtils.CreateBooleanFeature(by, false, true, NXOpen.Features.Feature.BooleanType.Intersect, toolBody).GetBodies();
+                    foreach (Body bd in bos)
+                    {
+
+                        bd.Color = 6;
+                        bd.Layer = 251;
+                    }
+                    DeleteObject.DeleteParms(bos);
                 }
                 catch
                 {

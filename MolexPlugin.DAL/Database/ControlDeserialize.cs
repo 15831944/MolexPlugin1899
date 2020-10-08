@@ -45,7 +45,7 @@ namespace MolexPlugin.DAL
             string contrPath = dllPath.Replace("application\\", "Cofigure\\SerializeContr.dat");
             if (File.Exists(contrPath))
             {
-                FileStream fs = new FileStream(contrPath, FileMode.Open, FileAccess.Read);
+                FileStream fs = new FileStream(contrPath, FileMode.Open, FileAccess.Read);             
                 BinaryFormatter bf = new BinaryFormatter();
                 List<ControlEnum> control = bf.Deserialize(fs) as List<ControlEnum>;
                 fs.Close();

@@ -51,12 +51,13 @@ namespace Basic
         /// <summary>
         /// 选择文件夹
         /// </summary>
+        /// <param name="rootFolder">预览根目录</param>
         /// <returns></returns>
         public static string OpenFolderBrowser()
         {
             FolderBrowserDialog folder = new FolderBrowserDialog();
-
             folder.Description = "选择目录";
+            folder.RootFolder = Environment.SpecialFolder.Desktop;
             if (folder.ShowDialog() == DialogResult.OK)
             {
                 //文件夹路径

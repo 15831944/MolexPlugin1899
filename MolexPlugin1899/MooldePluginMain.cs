@@ -14,7 +14,7 @@ namespace MolexPlugin
     public class MooldePluginMain
     {
         private static Session theSession;
-        private static UI theUI;
+        private static NXOpen.UI theUI;
         private static UFSession theUfSession;
         public static MooldePluginMain theMooldePluginMain;
         public static bool isDisposeCalled;
@@ -24,14 +24,14 @@ namespace MolexPlugin
             try
             {
                 theSession = Session.GetSession();
-                theUI = UI.GetUI();
+                theUI = NXOpen.UI.GetUI();
                 theUfSession = UFSession.GetUFSession();
                 isDisposeCalled = false;
             }
             catch (NXOpen.NXException ex)
             {
                 // ---- Enter your exception handling code here -----
-                UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Error, ex.Message);
+                NXOpen.UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Error, ex.Message);
             }
         }
         public static int Main(string[] args)
@@ -43,6 +43,12 @@ namespace MolexPlugin
                 MoveObject move = new MoveObject();
                 move.Show();
             }
+            if (args[0] == "MENU_MoveComponent")
+            {
+                MoveComponent move = new MoveComponent();
+                move.Show();
+            }
+
             if (args[0] == "MENU_MoveObjectMin")
             {
                 VisibleObjects vis = new VisibleObjects();
@@ -170,6 +176,10 @@ namespace MolexPlugin
                 PositionEle posit = new PositionEle();
                 posit.Show();
             }
+            if (args[0] == "MENU_MoovElectrode")
+            {
+                new MoovElectrode().Show();
+            }
 
             if (args[0] == "MENU_Interference")
             {
@@ -191,13 +201,22 @@ namespace MolexPlugin
             {
                 new BomCreateForm().Show();
             }
+            if (args[0] == "MENU_AlterComponent")
+            {
+                new AlterComponent().Show();
+            }
+            if (args[0] == "MENU_CopyAsm")
+            {
+                new CopyAsm().Show();
+            }
             #endregion
-            /*
+            
             if (args[0] == "MENU_EleProgram")
             {
-                EleProgram mode = new EleProgram();
+                EleProgramCreateForm mode = new EleProgramCreateForm();
                 mode.Show();
             }
+            /*
             if (args[0] == "MENU_Program")
             {
                 CrateUserDefinedOperation.Create();
