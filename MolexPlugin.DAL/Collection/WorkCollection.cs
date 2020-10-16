@@ -160,7 +160,7 @@ namespace MolexPlugin.DAL
             string name = info.MoldNumber + info.WorkpieceNumber + info.EditionNumber;
             foreach (Part pt in coll.Other)
             {
-                if (name.Equals(pt.Name.Replace("-", ""), StringComparison.CurrentCultureIgnoreCase))
+                if (name.Replace("-", "").Equals(pt.Name.Replace("-", ""), StringComparison.CurrentCultureIgnoreCase))
                 {
                     return pt;
                 }

@@ -29,7 +29,7 @@ namespace MolexPlugin.DAL
         /// <param name="model"></param>
         public void AddProgram(ProgramOperationName program, int count)
         {
-            Programs.IndexOf(program, count);
+            Programs.Insert(count, program);
             UpdateOperationNameModel();
         }
         /// <summary>

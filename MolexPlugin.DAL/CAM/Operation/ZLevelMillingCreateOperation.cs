@@ -129,22 +129,24 @@ namespace MolexPlugin.DAL
         public void SetSteep(bool steep, bool isAll)
         {
             this.steep = steep;
+            this.isAll = isAll;
         }
         public override void SetOperationData(AbstractElectrodeCAM eleCam)
         {
             Dictionary<double, Face[]> slope = new Dictionary<double, Face[]>();
-            if (steep && isAll)
+            if ((steep && isAll) || (!steep && isAll))
             {
                 slope = eleCam.GetAllFaces();
             }
-            else if (steep)
-            {
-                slope = eleCam.GetSlopeFaces();
-            }
-            else
+            else if (steep && !isAll)
             {
                 slope = eleCam.GetSteepFaces();
             }
+            else if (!steep && !isAll)
+            {
+                slope = eleCam.GetSlopeFaces();
+            }
+
             slope.OrderBy(a => a.Key);
             for (int k = 0; k < slope.Count; k++)
             {
@@ -162,6 +164,16 @@ namespace MolexPlugin.DAL
                     (oper as ZLevelMillingCreateOperation).SetCutLevel(eleCam.Analysis.BaseFace.BoxMinCorner);
                 }
             }
+        }
+
+        public override List<string> GetAllToolName()
+        {
+            return GetToolDat("FinishZLevelTool");
+        }
+
+        public override List<string> GetRefToolName()
+        {
+            return new List<string>();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +14,7 @@ namespace MolexPlugin.DAL
     public class ProgramOperationName
     {
         private string program;
-        private string tool;
+        private string tool = "";
 
         public List<AbstractCreateOperation> Oper { get; private set; } = new List<AbstractCreateOperation>();
 
@@ -42,8 +44,24 @@ namespace MolexPlugin.DAL
             }
             set
             {
-                program = value;
+                tool = value;
                 SetTool(value);
+            }
+        }
+
+        public int Site
+        {
+            get
+            {
+                int k = program.LastIndexOf("0");
+                string temp = "1";
+                if (k != -1)
+                {
+                    temp = program.Substring(k + 1);
+                    return Int32.Parse(temp);
+                }
+                else
+                    throw new Exception("程序组错误！");
             }
         }
 
@@ -59,6 +77,10 @@ namespace MolexPlugin.DAL
             this.Oper = oper.ToList();
             this.tool = oper[0].NameModel.ToolName;
         }
+        public ProgramOperationName(string program)
+        {
+            this.program = program;
+        }
         /// <summary>
         /// 添加刀路名
         /// </summary>
@@ -67,7 +89,17 @@ namespace MolexPlugin.DAL
         {
             if (model.ToolName.Equals(this.tool, StringComparison.CurrentCultureIgnoreCase))
             {
-                Oper.IndexOf(model, count);
+                Oper.Insert(count, model);
+                UpdateProgramName();
+                return true;
+            }
+            return false;
+        }
+        public bool AddOperationNameModel(AbstractCreateOperation model)
+        {
+            if (model.ToolName.Equals(this.tool, StringComparison.CurrentCultureIgnoreCase))
+            {
+                Oper.Add(model);
                 UpdateProgramName();
                 return true;
             }
@@ -145,7 +177,7 @@ namespace MolexPlugin.DAL
             foreach (AbstractCreateOperation ao in Oper)
             {
                 ao.SetOperationData(eleCam);
-            }            
+            }
             foreach (AbstractCreateOperation ao in Oper)
             {
                 try
@@ -162,7 +194,7 @@ namespace MolexPlugin.DAL
 
         public List<string> CreateOperation()
         {
-            List<string> err = new List<string>();           
+            List<string> err = new List<string>();
             UpdateProgramName();
             foreach (AbstractCreateOperation ao in Oper)
             {

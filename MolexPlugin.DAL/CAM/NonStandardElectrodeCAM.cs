@@ -26,11 +26,11 @@ namespace MolexPlugin.DAL
             UFSession theUFSession = UFSession.GetUFSession();
             string name = pt.Name;
             string ptPath = pt.FullPath;
-            string newPath = filePath + name + "//";
-            string newPtPath = newPath + pt.Name + ".part";
+            string newPath = filePath + name + "\\";
+            string newPtPath = newPath + pt.Name + ".prt";
             if (Directory.Exists(newPath))
             {
-                Directory.Delete(newPath);
+                Directory.Delete(newPath, true);
             }
             Directory.CreateDirectory(newPath);
             this.pt.Close(BasePart.CloseWholeTree.False, BasePart.CloseModified.CloseModified, null);

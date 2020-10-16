@@ -18,11 +18,11 @@ namespace MolexPlugin.DAL
         private AbstractElectrodeCAM cam = null;
         private AbstractElectrodeTemplate template = null;
         private Part pt = null;
-
+        public Part Pt { get { return pt; } }
         public AbstractElectrodeTemplate Template { get { return template; } }
         public CreateElectrodeCAMBuilder(Part pt, UserModel user, ElectrodeTemplate type)
         {
-            this.pt = pt;
+            this.pt = pt;         
             try
             {
                 cam = ElectrodeCAMFactory.CreateCAM(pt, user);
@@ -31,7 +31,16 @@ namespace MolexPlugin.DAL
             {
                 throw ex;
             }
-            template = ElectrodeTemplateFactory.CreateOperation(type, cam.GetTool());
+            try
+            {
+                CompterToolName tool = cam.GetTool();
+                template = ElectrodeTemplateFactory.CreateOperation(type, tool);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
         /// <summary>
         /// 计算刀路
@@ -72,6 +81,9 @@ namespace MolexPlugin.DAL
         public List<string> CreateOperation()
         {
             List<string> err = new List<string>();
+            Session theSession = Session.GetSession();
+            PartUtils.SetPartDisplay(pt);
+            theSession.ApplicationSwitchImmediate("UG_APP_MODELING");
             cam.CreateOffsetInter();
             try
             {
@@ -122,6 +134,28 @@ namespace MolexPlugin.DAL
         private void SetWorkpiece()
         {
             CAMUtils.SetFeatureGeometry("WORKPIECE", this.pt.Bodies.ToArray());
+        }
+
+        public List<string> ExportFile(string filePath)
+        {
+            List<string> err = new List<string>();
+            string name = pt.Name;
+            try
+            {
+                if (cam.CreateNewFile(filePath + "\\"))
+                    err.Add(name + "        电极程序创建成功");
+                else
+                {
+                    err.Add(name + "        电极创建失败");
+                }
+            }
+            catch (Exception ex)
+            {
+                err.Add(name + "              " + ex.Message);
+                err.Add(name + "        电极创建失败");
+            }
+
+            return err;
         }
     }
 }

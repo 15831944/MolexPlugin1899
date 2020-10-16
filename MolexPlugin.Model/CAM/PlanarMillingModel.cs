@@ -53,16 +53,13 @@ namespace MolexPlugin.Model
             {
                 try
                 {
-                    boundarySet.Add(OperationUtils.CreateBoundaryPlanarMill(bc.ToolSide, bc.Types,
-            bc.BouudaryPt, boundary, bc.Curves.ToArray()));
+                    BoundarySetPlanarMill bm = OperationUtils.CreateBoundaryPlanarMill(bc.ToolSide, bc.Types,
+            bc.BouudaryPt, boundary, bc.Curves.ToArray());
+                    boundarySet.Add(bm);
                 }
                 catch (NXException ex)
                 {
                     throw ex;
-                }
-                finally
-                {
-                    planarMillingBuilder1.Destroy();
                 }
             }
             list.Append(boundarySet.ToArray());
@@ -125,15 +122,56 @@ namespace MolexPlugin.Model
             {
                 operBuilder = workPart.CAMSetup.CAMOperationCollection.CreatePlanarMillingBuilder(this.Oper);
             }
-           catch(NXException ex)
+            catch (NXException ex)
             {
                 throw ex;
             }
-            double dep = operBuilder.CutLevel.CommonDepth.Value;
-            operBuilder.CutLevel.CommonDepth.Value = dep * 5;
-            NXOpen.NXObject nXObject1;
-            nXObject1 = operBuilder.Commit();
-            operBuilder.Destroy();
+            try
+            {
+                double dep = operBuilder.CutLevel.CommonDepth.Value;
+                operBuilder.CutLevel.CommonDepth.Value = dep * 3;
+                NXOpen.NXObject nXObject1;
+                nXObject1 = operBuilder.Commit();
+            }
+            catch(NXException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                operBuilder.Destroy();
+            }
+          
+        }
+        /// <summary>
+        /// 设置下刀量
+        /// </summary>
+        public void SetDepth(double dep)
+        {
+            NXOpen.CAM.PlanarMillingBuilder operBuilder;
+            try
+            {
+                operBuilder = workPart.CAMSetup.CAMOperationCollection.CreatePlanarMillingBuilder(this.Oper);
+            }
+            catch (NXException ex)
+            {
+                throw ex;
+            }
+            try
+            {
+                operBuilder.CutLevel.CommonDepth.Value = dep;
+                NXOpen.NXObject nXObject1;
+                nXObject1 = operBuilder.Commit();
+            }
+            catch (NXException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                operBuilder.Destroy();
+            }
+          
         }
         public override void SetRegionStartPoints(params Point3d[] pt)
         {

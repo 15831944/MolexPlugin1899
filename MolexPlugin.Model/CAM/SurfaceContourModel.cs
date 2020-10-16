@@ -139,12 +139,13 @@ namespace MolexPlugin.Model
             try
             {
                 builder1 = workPart.CAMSetup.CAMOperationCollection.CreateSurfaceContourBuilder(this.Oper);
+              
             }
             catch (NXException ex)
             {
                 throw ex;
             }
-            //  builder1.SetDriveMethod(types);
+            builder1.DriveMethod = types;
             builder1.Commit();
             builder1.Destroy();
         }

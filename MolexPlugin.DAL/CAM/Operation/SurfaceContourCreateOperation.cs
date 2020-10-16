@@ -38,7 +38,8 @@ namespace MolexPlugin.DAL
             }
             try
             {
-                this.operModel.Create(this.operModel.OperName);
+                this.operModel.Create(this.nameModel.OperName);
+
             }
             catch (NXException ex)
             {
@@ -49,20 +50,24 @@ namespace MolexPlugin.DAL
                 try
                 {
                     (this.operModel as SurfaceContourModel).SetGeometry(Faces.ToArray());
+                    (this.operModel as SurfaceContourModel).SetDriveMethod(SurfaceContourBuilder.DriveMethodTypes.AreaMilling);
                 }
                 catch (NXException ex)
                 {
                     err.Add("设置加工错误！           " + ex.Message);
                 }
             }
-            try
+            if(this.flat)
             {
-                (this.operModel as SurfaceContourModel).SetSteep(60.0);
-            }
-            catch (NXException ex)
-            {
-                err.Add("设置加工错误！           " + ex.Message);
-            }
+                try
+                {
+                    (this.operModel as SurfaceContourModel).SetSteep(60.0);
+                }
+                catch (NXException ex)
+                {
+                    err.Add("设置陡峭角错误！           " + ex.Message);
+                }
+            }         
             try
             {
                 this.operModel.SetStock(-this.Inter, -this.Inter);
@@ -136,6 +141,16 @@ namespace MolexPlugin.DAL
                     (oper as FlowCutCreateOperation).SetFaces(slope[this.Inter]);
                 }
             }
+        }
+
+        public override List<string> GetAllToolName()
+        {
+            return GetToolDat("FinishBallTool");
+        }
+
+        public override List<string> GetRefToolName()
+        {
+            return new List<string>();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace MolexPlugin.Model
     /// <summary>
     ///电极加工模板数据
     /// </summary>
+    [Serializable]
     public class ElectrodeCAMTemplateModel
     {
         private List<NCGroup> program = new List<NCGroup>();

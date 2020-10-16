@@ -11,14 +11,14 @@ using MolexPlugin.Model;
 namespace MolexPlugin.DAL
 {
     /// <summary>
-    /// 光平面
+    /// 固定轮廓铣
     /// </summary>
-    public class FaceMillingCreateOperation : AbstractCreateOperation
+    public class RounghSurfaceCreateOperation : AbstractCreateOperation
     {
-        private List<Face> Conditions = new List<Face>();
-        public FaceMillingCreateOperation(int site, string tool) : base(site, tool)
+        private List<Face> Faces = new List<Face>();
+        public RounghSurfaceCreateOperation(int site, string tool) : base(site, tool)
         {
-            this.Type = ElectrodeOperationType.FaceMilling;
+            this.Type = ElectrodeOperationType.RounghSurface;
         }
         public override List<string> CreateOperation()
         {
@@ -28,7 +28,7 @@ namespace MolexPlugin.DAL
                 throw new Exception("请现创建刀具路径所需要的路径！");
             try
             {
-                this.operModel = ElectrodeOperationTemplate.CreateOperationOfFaceMilling(this.nameModel, template);
+                this.operModel = ElectrodeOperationTemplate.CreateOperationOfSurfaceContour(this.nameModel, template);
             }
             catch (Exception ex)
             {
@@ -37,32 +37,49 @@ namespace MolexPlugin.DAL
             try
             {
                 this.operModel.Create(this.nameModel.OperName);
+
             }
             catch (NXException ex)
             {
                 throw ex;
             }
-
-            if (Conditions.Count != 0)
+            if (Faces.Count > 0)
             {
                 try
                 {
-                    (this.operModel as FaceMillingModel).SetBoundary(Conditions.ToArray());
+                    (this.operModel as SurfaceContourModel).SetGeometry(Faces.ToArray());
+                    (this.operModel as SurfaceContourModel).SetDriveMethod(SurfaceContourBuilder.DriveMethodTypes.AreaMilling);
                 }
                 catch (NXException ex)
                 {
-                    err.Add("设置边界错误！           " + ex.Message);
+                    err.Add("设置加工面错误！           " + ex.Message);
                 }
-
             }
             try
             {
-                this.operModel.SetStock(0.05, -this.Inter);
+                (this.operModel as SurfaceContourModel).SetDmarea(0.15);
+            }
+            catch (NXException ex)
+            {
+                err.Add("设置部距错误！           " + ex.Message);
+            }
+            try
+            {
+                if ((0.05 - this.Inter) > 0)
+                {
+
+                    this.operModel.SetStock(0.05 - this.Inter, 0.05 - this.Inter);
+                }
+                else
+                {
+                    this.operModel.SetStock(0, 0);
+                }
             }
             catch (NXException ex)
             {
                 err.Add("设置余量错误！            " + ex.Message);
             }
+
             return err;
         }
         /// <summary>
@@ -70,48 +87,34 @@ namespace MolexPlugin.DAL
         /// </summary>
         /// <param name="floorPt"></param>
         /// <param name="conditions"></param>
-        public void SetBoundary(params Face[] conditions)
+        public void SetFaces(params Face[] faces)
         {
-            this.Conditions.Clear();
-            this.Conditions = conditions.ToList();
+            this.Faces.Clear();
+            this.Faces = faces.ToList();
         }
-
         public override void CreateOperationName(int programNumber)
         {
             string preName = "O" + string.Format("{0:D4}", site);
-            this.nameModel = ElectrodeCAMNameTemplate.AskOperationNameModelOfFaceMilling(preName, this.toolName, programNumber);
+            this.nameModel = ElectrodeCAMNameTemplate.AskOperationNameModelOfSurfaceContour(preName, this.toolName, programNumber);
         }
 
         public override AbstractCreateOperation CopyOperation(int programNumber)
         {
-            FaceMillingCreateOperation fo = new FaceMillingCreateOperation(this.site, this.toolName);
+            FlowCutCreateOperation fo = new FlowCutCreateOperation(this.site, this.toolName);
             fo.CreateOperationName(programNumber);
             return fo;
         }
 
         public override void SetOperationData(AbstractElectrodeCAM eleCam)
         {
-            Dictionary<double, Face[]> plane = eleCam.GetPlaneFaces();
-            plane.OrderBy(a => a.Key);
-            for (int k = 0; k < plane.Count; k++)
-            {
-                if (k == 0)
-                {
-                    this.Inter = plane.Keys.ToArray()[k];
-                    this.SetBoundary(plane[this.Inter]);
-                }
-                else
-                {
-                    AbstractCreateOperation oper = this.CopyOperation(99);
-                    oper.Inter = plane.Keys.ToArray()[k];
-                    (oper as FaceMillingCreateOperation).SetBoundary(plane[this.Inter]);
-                }
-            }
+            double minDia;
+            this.Inter = eleCam.Inter;
+            eleCam.Analysis.GetFlatFaces(out this.Faces, out minDia);
         }
 
         public override List<string> GetAllToolName()
         {
-            return this.GetToolDat("FinishPlaneTool");
+            return GetToolDat("RoughPlaneTool");
         }
 
         public override List<string> GetRefToolName()

@@ -27,6 +27,10 @@ namespace MolexPlugin.DAL
         {
             get
             {
+                if (analysisBody == null)
+                {
+                    AnalysisElectrode();
+                }
                 if (baseFace == null)
                 {
                     FaceData fd = GetDatumFace();
@@ -67,7 +71,7 @@ namespace MolexPlugin.DAL
         private void AnalysisElectrode()
         {
             this.analysisBody = new AnalysisBodySlopeAndMinDia(new Vector3d(0, 0, 1), eleBody);
-            if (this.analysisBody.AnaFaces.Count >= 13)
+            if (this.analysisBody.AnaFaces.Count <= 13)
                 throw new Exception("分析体错误！");
             this.analysisBody.AnaFaces.RemoveRange(0, 4);
             this.analysisBody.AnaFaces.RemoveRange(1, 5);
@@ -182,7 +186,7 @@ namespace MolexPlugin.DAL
             }
             foreach (AnalysisFaceSlopeAndDia ar in analysisBody.AnaFaces)
             {
-                if (ar.MaxSlope < Math.Round(Math.PI / 2, 3) && ar.MinSlope > 0)
+                if (Math.Round(ar.MaxSlope, 3) < Math.Round(Math.PI / 2, 3) && Math.Round(ar.MinSlope, 3) > 0)
                 {
                     // ar.face.Color = 100;
                     slopeFaces.Add(ar.Face);
@@ -215,7 +219,7 @@ namespace MolexPlugin.DAL
             }
             foreach (AnalysisFaceSlopeAndDia ar in analysisBody.AnaFaces)
             {
-                if (ar.MaxSlope < Math.Round(Math.PI / 2, 3) && ar.MinSlope > Math.Round(Math.PI / 4, 1))
+                if (Math.Round(ar.MaxSlope, 3) < Math.Round(Math.PI / 2, 3) && Math.Round(ar.MinSlope, 3) > Math.Round(Math.PI / 4, 1))
                 {
                     // ar.face.Color = 100;
                     slopeFaces.Add(ar.Face);
@@ -241,7 +245,7 @@ namespace MolexPlugin.DAL
             }
             foreach (AnalysisFaceSlopeAndDia ar in analysisBody.AnaFaces)
             {
-                if (ar.MaxSlope < Math.Round(Math.PI / 2, 3) && ar.MinSlope > 0)
+                if (Math.Round(ar.MaxSlope, 3) < Math.Round(Math.PI / 2, 3) && Math.Round(ar.MinSlope, 3) > 0)
                 {
                     // ar.face.Color = 100;
                     slopeFaces.Add(ar.Face);
@@ -269,7 +273,8 @@ namespace MolexPlugin.DAL
             foreach (AnalysisFaceSlopeAndDia ar in analysisBody.AnaFaces)
             {
 
-                if (ar.Face.SolidFaceType == Face.FaceType.Planar && UMathUtils.IsEqual(ar.Data.BoxMinCorner.Z, ar.Data.BoxMaxCorner.Z) &&
+                if (!ar.Face.Equals(baseFace.Face) && ar.Face.SolidFaceType == Face.FaceType.Planar &&
+                    UMathUtils.IsEqual(ar.Data.BoxMinCorner.Z, ar.Data.BoxMaxCorner.Z) &&
                     UMathUtils.IsEqual(baseFace.BoxMaxCorner.Z, ar.Data.BoxMaxCorner.Z))
                     faces.Add(ar.Data);
             }

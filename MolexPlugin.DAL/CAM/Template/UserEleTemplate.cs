@@ -14,7 +14,7 @@ namespace MolexPlugin.DAL
         public UserEleTemplate(CompterToolName tool) : base(tool)
         {
             this.Type = ElectrodeTemplate.User;
-                
+
         }
 
         public override void CreateProgramName()
@@ -26,14 +26,17 @@ namespace MolexPlugin.DAL
             Programs.Add(new ProgramOperationName(count, ro));
             count++;
 
-            AbstractCreateOperation to = new TwiceRoughCreateOperation(count, "EM3");
-            ro.CreateOperationName(1);
-            Programs.Add(new ProgramOperationName(count, to));
+            TwiceRoughCreateOperation to = new TwiceRoughCreateOperation(count, "EM3");
+            to.CreateOperationName(1);
+            to.SetReferencetool("EM8");
+            RounghSurfaceCreateOperation rso = new RounghSurfaceCreateOperation(count, "EM3");
+            rso.CreateOperationName(2);
+            Programs.Add(new ProgramOperationName(count, new AbstractCreateOperation[] { to, rso }));    
             count++;
 
-            AbstractCreateOperation fo1 = new FaceMillingCreateOperation(count, "EM3"); //光平面
+            AbstractCreateOperation fo1 = new FaceMillingCreateOperation(count, "EM2.98"); //光平面
             fo1.CreateOperationName(1);
-            AbstractCreateOperation po1 = new PlanarMillingCreateOperation(count,"EM3"); //光侧面
+            AbstractCreateOperation po1 = new PlanarMillingCreateOperation(count, "EM2.98"); //光侧面
             po1.CreateOperationName(2);
             Programs.Add(new ProgramOperationName(count, new AbstractCreateOperation[] { fo1, po1 }));
             count++;

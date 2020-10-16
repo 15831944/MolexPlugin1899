@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Formatters.Binary;
 using NXOpen;
 using NXOpen.CAM;
 using Basic;
 using MolexPlugin.Model;
+using System.IO;
 
 namespace MolexPlugin.DAL
 {
     /// <summary>
     /// 创建刀路抽象类
     /// </summary>
+
     public abstract class AbstractCreateOperation
     {
         protected int site;
@@ -116,6 +119,11 @@ namespace MolexPlugin.DAL
         public void SetProgramName(string program)
         {
             this.nameModel.ProgramName = program;
+            int k = program.LastIndexOf("0");
+            if (k != -1)
+            {
+                this.site = Int32.Parse(program.Substring(k + 1));
+            }
             if (operModel != null)
             {
                 if (template == null)
@@ -138,6 +146,39 @@ namespace MolexPlugin.DAL
         {
             return this.site.CompareTo(other.site);
 
+        }
+        /// <summary>
+        /// 获取全部刀具
+        /// </summary>
+        /// <returns></returns>
+        public abstract List<string> GetAllToolName();
+        /// <summary>
+        /// 获取参考刀具
+        /// </summary>
+        /// <returns></returns>
+        public abstract List<string> GetRefToolName();
+        /// <summary>
+        /// 获得刀具名
+        /// </summary>
+        /// <param name="toolTemplate"></param>
+        /// <returns></returns>
+        protected List<string> GetToolDat(string toolTemplate)
+        {
+            string dllPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+            string template = dllPath.Replace("application\\", "Cofigure\\") + toolTemplate + ".dat";
+            List<string> toolName = new List<string>();
+            if (File.Exists(template))
+            {
+                StreamReader sr = new StreamReader(template, Encoding.Default);
+
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    toolName.Add(line);
+                }
+            }
+
+            return toolName;
         }
     }
 
@@ -179,5 +220,9 @@ namespace MolexPlugin.DAL
         /// 基准框
         /// </summary>
         BaseStation,
+        /// <summary>
+        /// 刮面
+        /// </summary>
+        RounghSurface,
     }
 }

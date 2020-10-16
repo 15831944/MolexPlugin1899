@@ -55,8 +55,16 @@ namespace Basic
         /// <param name="str"></param>
         public static void WriteLogFile(string str)
         {
-            str += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:  ");
-            lf.WriteLine(str);
+            string temp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:           ");
+            lf.WriteLine(temp + str);
+        }
+        /// <summary>
+        /// 设置状态栏消息
+        /// </summary>
+        /// <param name="messge"></param>
+        public static void StatusMessge(string messge)
+        {
+            theUFSession.Ui.SetStatus(messge);
         }
     }
 }

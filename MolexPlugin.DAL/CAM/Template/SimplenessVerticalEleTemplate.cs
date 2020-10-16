@@ -20,17 +20,22 @@ namespace MolexPlugin.DAL
         {
             int count = 1;
 
-            AbstractCreateOperation ro = new RoughCreateOperation(count, tool.GetRoughTool());  //开粗
+            string rough = tool.GetRoughTool();
+            AbstractCreateOperation ro = new RoughCreateOperation(count, rough);  //开粗
             ro.CreateOperationName(1);
             Programs.Add(new ProgramOperationName(count, ro));
             count++;
+            string twice = rough;
             foreach (string tl in tool.GetTwiceRoughTool()) //二次开粗
             {
-                AbstractCreateOperation to = new TwiceRoughCreateOperation(count, tl);
-                ro.CreateOperationName(1);
+                TwiceRoughCreateOperation to = new TwiceRoughCreateOperation(count, tl);
+                to.CreateOperationName(1);
+                to.SetReferencetool(twice);
                 Programs.Add(new ProgramOperationName(count, to));
+                twice = tl;
                 count++;
             }
+
 
             AbstractCreateOperation fo1 = new FaceMillingCreateOperation(count, tool.GetFinishFlatTool()); //光平面
             fo1.CreateOperationName(1);

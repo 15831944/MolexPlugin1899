@@ -25,22 +25,22 @@ namespace MolexPlugin.DAL
 
         public override bool CreateNewFile(string filePath)
         {
-            if (model.Info.AllInfo.Name.EleName.Equals(this.pt.Name, StringComparison.CurrentCultureIgnoreCase))
+            if (!model.Info.AllInfo.Name.EleName.Equals(this.pt.Name, StringComparison.CurrentCultureIgnoreCase))
                 throw new Exception("电极名与属性名不一样。");
             UFSession theUFSession = UFSession.GetUFSession();
             string name = pt.Name;
             string moldName = model.Info.MoldInfo.MoldNumber;
             string ptPath = pt.FullPath;
-            string moldPath = filePath + moldName + "//";
-            string newPath = moldPath + name + "//";
-            string newPtPath = newPath + pt.Name + ".part";
+            string moldPath = filePath + moldName + "\\";
+            string newPath = moldPath + name + "\\";
+            string newPtPath = newPath + pt.Name + ".prt";
             if (!Directory.Exists(moldPath)) //模号文件夹
             {
                 Directory.CreateDirectory(moldPath);
             }
             if (Directory.Exists(newPath)) //电极号文件夹
             {
-                Directory.Delete(newPath);
+                Directory.Delete(newPath, true);
             }
             Directory.CreateDirectory(newPath);
             this.pt.Save(BasePart.SaveComponents.False, BasePart.CloseAfterSave.False);
@@ -175,17 +175,15 @@ namespace MolexPlugin.DAL
             Part workPart = Session.GetSession().Parts.Work;
             Point3d minPt = analysis.BaseFace.BoxMinCorner;
             double length = analysis.BaseFace.BoxMaxCorner.X - analysis.BaseFace.BoxMinCorner.X;
-            double width = analysis.BaseFace.BoxMinCorner.Y - analysis.BaseFace.BoxMinCorner.Y;
+            double width = analysis.BaseFace.BoxMaxCorner.Y - analysis.BaseFace.BoxMinCorner.Y;
             double z = analysis.BaseFace.BoxMinCorner.Z;
 
             Line line1 = workPart.Curves.CreateLine(new Point3d(minPt.X + 3.5, minPt.Y - 1, z), new Point3d(minPt.X - 1, minPt.Y + 3.5, z));
             line1.Layer = 254;
             Line line2 = workPart.Curves.CreateLine(new Point3d(minPt.X - 1, minPt.Y + width - 3.5, z), new Point3d(minPt.X + 3.5, minPt.Y + width + 1, z));
             line2.Layer = 254;
-            Line line3 = workPart.Curves.CreateLine(new Point3d(minPt.X + length - 1, minPt.Y + 3.5, z), new Point3d(minPt.X + length - 3.5, minPt.Y - 1, z));
+            Line line3 = workPart.Curves.CreateLine(new Point3d(minPt.X + length + 1, minPt.Y + 3.5, z), new Point3d(minPt.X + length - 3.5, minPt.Y - 1, z));
             line3.Layer = 254;
-
-
             return new Line[3] { line1, line2, line3 };
         }
 
@@ -207,10 +205,8 @@ namespace MolexPlugin.DAL
 
         public override Dictionary<double, Face[]> GetPlaneFaces()
         {
-            double min;
             List<Face> plane = analysis.GetPlaneFaces();
             Dictionary<double, Face[]> dic = new Dictionary<double, Face[]>();
-            analysis.GetFlatFaces(out plane, out min);
             if (plane.Count > 0)
             {
                 GetEFanERFace(plane, out dic);

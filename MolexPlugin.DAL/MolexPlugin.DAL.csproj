@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CAM\AbstractElectrodeCAM.cs" />
+    <Compile Include="CAM\Operation\RounghSurfaceCreateOperation.cs" />
     <Compile Include="CAM\Template\AbstractElectrodeTemplate.cs" />
     <Compile Include="CAM\Operation\BaseFaceCreateOperation.cs" />
     <Compile Include="CAM\ElectrodeCAMTemplateModel.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="CAM\ElectrodeOperationTemplate.cs" />
     <Compile Include="CAM\ElectrodeCAMFactory.cs" />
     <Compile Include="ElectrodeCAMFile.cs" />
+    <Compile Include="ElectrodeCAMTreeInfo.cs" />
     <Compile Include="Hole\StepBuilder.cs" />
     <Compile Include="Hole\HoleBuilder.cs" />
     <Compile Include="Hole\StepBlindHoleFeature.cs" />
@@ -152,6 +154,7 @@
     <Compile Include="CAM\ProgramOperationName.cs" />
     <Compile Include="CAM\Template\PlanarAndSufaceEleTemplate.cs" />
     <Compile Include="CAM\Template\SimplenessVerticalEleTemplate.cs" />
+    <Compile Include="OperationTreeListViewInfo.cs" />
     <Compile Include="SlopeAndDia\AnalysisBodySlopeAndMinDia.cs" />
     <Compile Include="SlopeAndDia\FaceSlopeColourBuilder.cs" />
     <Compile Include="SlopeAndDia\BackOffFaceSlopeColour.cs" />

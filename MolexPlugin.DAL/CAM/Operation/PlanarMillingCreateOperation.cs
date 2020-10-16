@@ -109,7 +109,7 @@ namespace MolexPlugin.DAL
             po.CreateOperationName(programNumber);
             return po;
         }
-       
+
         public override void SetOperationData(AbstractElectrodeCAM eleCam)
         {
             Dictionary<double, BoundaryModel[]> boun = eleCam.GetBaseFaceBoundary();
@@ -119,15 +119,25 @@ namespace MolexPlugin.DAL
                 if (k == 0)
                 {
                     this.Inter = boun.Keys.ToArray()[k];
-                    this.SetBoundary(eleCam.Analysis.BaseSubfaceFace.BoxMinCorner, boun[this.Inter]);
+                    this.SetBoundary(eleCam.Analysis.BaseFace.BoxMinCorner, boun[this.Inter]);
                 }
                 else
                 {
                     AbstractCreateOperation oper = this.CopyOperation(99);
                     oper.Inter = boun.Keys.ToArray()[k];
-                    (oper as PlanarMillingCreateOperation).SetBoundary(eleCam.Analysis.BaseSubfaceFace.BoxMinCorner,boun[this.Inter]);
+                    (oper as PlanarMillingCreateOperation).SetBoundary(eleCam.Analysis.BaseFace.BoxMinCorner, boun[this.Inter]);
                 }
             }
+        }
+
+        public override List<string> GetAllToolName()
+        {
+            return this.GetToolDat("FinishPlaneTool");
+        }
+
+        public override List<string> GetRefToolName()
+        {
+            return new List<string>();
         }
     }
 }

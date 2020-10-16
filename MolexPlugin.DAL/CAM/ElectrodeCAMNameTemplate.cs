@@ -27,7 +27,7 @@ namespace MolexPlugin.DAL
             string temp = "1";
             if (k != -1)
             {
-                temp = program.Substring((k + 1), (program.Length - 1));
+                temp = program.Substring(k + 1);
             }
             OperationNameModel model = new OperationNameModel()
             {
@@ -54,7 +54,7 @@ namespace MolexPlugin.DAL
             string temp = "1";
             if (k != -1)
             {
-                temp = program.Substring((k + 1), (program.Length - 1));
+                temp = program.Substring(k + 1);
             }
             OperationNameModel model = new OperationNameModel()
             {
@@ -81,7 +81,7 @@ namespace MolexPlugin.DAL
             string temp = "1";
             if (k != -1)
             {
-                temp = program.Substring((k + 1), (program.Length - 1));
+                temp = program.Substring(k + 1);
             }
             OperationNameModel model = new OperationNameModel()
             {
@@ -107,7 +107,7 @@ namespace MolexPlugin.DAL
             string temp = "1";
             if (k != -1)
             {
-                temp = program.Substring((k + 1), (program.Length - 1));
+                temp = program.Substring(k + 1);
             }
             OperationNameModel model = new OperationNameModel()
             {
@@ -133,7 +133,7 @@ namespace MolexPlugin.DAL
             string temp = "1";
             if (k != -1)
             {
-                temp = program.Substring((k + 1), (program.Length - 1));
+                temp = program.Substring(k + 1);
             }
             OperationNameModel model = new OperationNameModel()
             {
@@ -159,7 +159,7 @@ namespace MolexPlugin.DAL
             string temp = "1";
             if (k != -1)
             {
-                temp = program.Substring((k + 1), (program.Length - 1));
+                temp = program.Substring(k + 1);
             }
             OperationNameModel model = new OperationNameModel()
             {
@@ -185,12 +185,12 @@ namespace MolexPlugin.DAL
             string temp = "1";
             if (k != -1)
             {
-                temp = program.Substring((k + 1), (program.Length - 1));
+                temp = program.Substring(k + 1);
             }
             OperationNameModel model = new OperationNameModel()
             {
                 templateName = "electrode",
-                templateOperName = "C1",
+                templateOperName = "CQG",
                 ProgramName = program,
                 OperName = tool + "-F-" + temp + "-" + operNumber.ToString(),
                 PngName = "210.bmp",
@@ -211,7 +211,7 @@ namespace MolexPlugin.DAL
             string temp = "1";
             if (k != -1)
             {
-                temp = program.Substring((k + 1), (program.Length - 1));
+                temp = program.Substring(k + 1);
             }
             OperationNameModel model = new OperationNameModel()
             {
@@ -237,7 +237,7 @@ namespace MolexPlugin.DAL
             string temp = "1";
             if (k != -1)
             {
-                temp = program.Substring((k + 1), (program.Length - 1));
+                temp = program.Substring(k + 1);
             }
             OperationNameModel model = new OperationNameModel()
             {

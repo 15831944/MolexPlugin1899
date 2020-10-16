@@ -80,5 +80,15 @@ namespace MolexPlugin.DAL
         {
             this.Inter = eleCam.Inter;
         }
+
+        public override List<string> GetAllToolName()
+        {
+            return this.GetToolDat("RoughPlaneTool");
+        }
+
+        public override List<string> GetRefToolName()
+        {
+            return new List<string>();
+        }
     }
 }

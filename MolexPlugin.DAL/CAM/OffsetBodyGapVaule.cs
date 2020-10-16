@@ -60,10 +60,10 @@ namespace MolexPlugin.DAL
             theUFSession.Modl.CreateSetOfFeature("电极特征", featureTags.ToArray(), featureTags.Count, 1, out groupTag);
             try
             {
-                NXObject obj = OffsetRegionUtils.Offset(side, out isok, faces.ToArray());
+                NXObject obj = OffsetRegionUtils.Offset(-side, out isok, faces.ToArray());
                 if (isok)
                 {
-                    obj.SetName(side.ToString());
+                    obj.SetName((-side).ToString());
 
                 }
                 this.SetAttribute(isok);

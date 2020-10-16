@@ -78,11 +78,15 @@ namespace MolexPlugin.DAL
 
             if (minDis >= 6.0)
                 return twice;
-            double min = 3;
+            double min = 4;
             foreach (double k in this.twice)
             {
                 if ((k) <= minDis)
+                {
                     min = k;
+                    break;
+                }
+
             }
             if (min >= 0.8)
             {

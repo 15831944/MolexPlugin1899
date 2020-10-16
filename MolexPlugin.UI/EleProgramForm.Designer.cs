@@ -29,34 +29,34 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle56 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle51 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle53 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle54 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle55 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EleProgramForm));
             this.groupInfo = new System.Windows.Forms.GroupBox();
             this.dataGridViewEle = new System.Windows.Forms.DataGridView();
@@ -76,9 +76,9 @@
             this.DuringNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FineInter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FineNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EleType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.EleType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Material = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Material = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Condition = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.PreparationX = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PreparationY = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,10 +86,28 @@
             this.DatumWidth = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DatumHeigth = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BorrowEle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ToolAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.Tooldelete2 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupOper = new System.Windows.Forms.GroupBox();
             this.treeListViewOper = new BrightIdeasSoftware.TreeListView();
             this.olvProgram = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvToolName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolUp = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolDown = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolSkick = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolUpdate = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.groupBut = new System.Windows.Forms.GroupBox();
+            this.butUpdate = new System.Windows.Forms.Button();
+            this.butDelete = new System.Windows.Forms.Button();
+            this.butSkick = new System.Windows.Forms.Button();
+            this.butCopy = new System.Windows.Forms.Button();
+            this.butDown = new System.Windows.Forms.Button();
+            this.butUp = new System.Windows.Forms.Button();
             this.listBoxTemplate = new System.Windows.Forms.ListBox();
             this.groupTemplate = new System.Windows.Forms.GroupBox();
             this.butTemplate = new System.Windows.Forms.Button();
@@ -99,8 +117,8 @@
             this.comboBoxRefTool = new System.Windows.Forms.ComboBox();
             this.comboBoxTool = new System.Windows.Forms.ComboBox();
             this.comboBoxProgram = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.labelRefTool = new System.Windows.Forms.Label();
+            this.label = new System.Windows.Forms.Label();
             this.butAdd = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -112,7 +130,6 @@
             this.butZlevel = new System.Windows.Forms.Button();
             this.butTwicRough = new System.Windows.Forms.Button();
             this.groupSet = new System.Windows.Forms.GroupBox();
-            this.checkBoxPost = new System.Windows.Forms.CheckBox();
             this.checkBoxIsGenerate = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.butSave = new System.Windows.Forms.Button();
@@ -123,8 +140,11 @@
             this.but_Close = new System.Windows.Forms.Button();
             this.groupInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEle)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.groupOper.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeListViewOper)).BeginInit();
+            this.contextMenuStrip.SuspendLayout();
+            this.groupBut.SuspendLayout();
             this.groupTemplate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.png)).BeginInit();
             this.groupParameter.SuspendLayout();
@@ -139,7 +159,7 @@
             this.groupInfo.Controls.Add(this.dataGridViewEle);
             this.groupInfo.Location = new System.Drawing.Point(8, 6);
             this.groupInfo.Name = "groupInfo";
-            this.groupInfo.Size = new System.Drawing.Size(553, 290);
+            this.groupInfo.Size = new System.Drawing.Size(612, 290);
             this.groupInfo.TabIndex = 1;
             this.groupInfo.TabStop = false;
             this.groupInfo.Text = "电极信息";
@@ -149,14 +169,14 @@
             this.dataGridViewEle.AllowUserToAddRows = false;
             this.dataGridViewEle.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridViewEle.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle29.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewEle.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEle.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewEle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewEle.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EleName,
@@ -185,28 +205,33 @@
             this.DatumWidth,
             this.DatumHeigth,
             this.BorrowEle});
+            this.dataGridViewEle.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridViewEle.Location = new System.Drawing.Point(4, 23);
+            this.dataGridViewEle.MultiSelect = false;
             this.dataGridViewEle.Name = "dataGridViewEle";
-            dataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle56.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewEle.RowsDefaultCellStyle = dataGridViewCellStyle56;
-            this.dataGridViewEle.Size = new System.Drawing.Size(544, 261);
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewEle.RowsDefaultCellStyle = dataGridViewCellStyle28;
+            this.dataGridViewEle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewEle.Size = new System.Drawing.Size(602, 261);
             this.dataGridViewEle.TabIndex = 5;
+            this.dataGridViewEle.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewEle_CellMouseClick);
             // 
             // EleName
             // 
             this.EleName.DataPropertyName = "EleName";
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.EleName.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.EleName.DefaultCellStyle = dataGridViewCellStyle2;
             this.EleName.HeaderText = "电极名";
             this.EleName.Name = "EleName";
             this.EleName.ReadOnly = true;
+            this.EleName.Width = 159;
             // 
             // EleX
             // 
             this.EleX.DataPropertyName = "EleSetValueX";
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.EleX.DefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.EleX.DefaultCellStyle = dataGridViewCellStyle3;
             this.EleX.HeaderText = "X";
             this.EleX.Name = "EleX";
             this.EleX.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -216,8 +241,8 @@
             // EleY
             // 
             this.EleY.DataPropertyName = "EleSetValueY";
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.EleY.DefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.EleY.DefaultCellStyle = dataGridViewCellStyle4;
             this.EleY.HeaderText = "Y";
             this.EleY.Name = "EleY";
             this.EleY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -227,8 +252,8 @@
             // EleZ
             // 
             this.EleZ.DataPropertyName = "EleSetValueZ";
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.EleZ.DefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.EleZ.DefaultCellStyle = dataGridViewCellStyle5;
             this.EleZ.HeaderText = "Z";
             this.EleZ.Name = "EleZ";
             this.EleZ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -238,8 +263,8 @@
             // PithX
             // 
             this.PithX.DataPropertyName = "PitchX";
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PithX.DefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PithX.DefaultCellStyle = dataGridViewCellStyle6;
             this.PithX.HeaderText = "PH-X";
             this.PithX.Name = "PithX";
             this.PithX.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -249,8 +274,8 @@
             // PitchNumber
             // 
             this.PitchNumber.DataPropertyName = "PitchXNum";
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PitchNumber.DefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PitchNumber.DefaultCellStyle = dataGridViewCellStyle7;
             this.PitchNumber.HeaderText = "X个数";
             this.PitchNumber.Name = "PitchNumber";
             this.PitchNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -260,8 +285,8 @@
             // ERX
             // 
             this.ERX.DataPropertyName = "ER-X";
-            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ERX.DefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ERX.DefaultCellStyle = dataGridViewCellStyle8;
             this.ERX.HeaderText = "ER-X";
             this.ERX.Name = "ERX";
             this.ERX.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -271,8 +296,8 @@
             // PitchY
             // 
             this.PitchY.DataPropertyName = "PitchY";
-            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PitchY.DefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PitchY.DefaultCellStyle = dataGridViewCellStyle9;
             this.PitchY.HeaderText = "PH-Y";
             this.PitchY.Name = "PitchY";
             this.PitchY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -282,8 +307,8 @@
             // PitchYNumber
             // 
             this.PitchYNumber.DataPropertyName = "PitchYNum";
-            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PitchYNumber.DefaultCellStyle = dataGridViewCellStyle38;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PitchYNumber.DefaultCellStyle = dataGridViewCellStyle10;
             this.PitchYNumber.HeaderText = "Y个数";
             this.PitchYNumber.Name = "PitchYNumber";
             this.PitchYNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -293,8 +318,8 @@
             // ERY
             // 
             this.ERY.DataPropertyName = "ER-Y";
-            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ERY.DefaultCellStyle = dataGridViewCellStyle39;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ERY.DefaultCellStyle = dataGridViewCellStyle11;
             this.ERY.HeaderText = "ER-Y";
             this.ERY.Name = "ERY";
             this.ERY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -304,8 +329,8 @@
             // CrudeInter
             // 
             this.CrudeInter.DataPropertyName = "CrudeInter";
-            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.CrudeInter.DefaultCellStyle = dataGridViewCellStyle40;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.CrudeInter.DefaultCellStyle = dataGridViewCellStyle12;
             this.CrudeInter.HeaderText = "粗间隙";
             this.CrudeInter.Name = "CrudeInter";
             this.CrudeInter.ReadOnly = true;
@@ -315,8 +340,8 @@
             // CrudeNumber
             // 
             this.CrudeNumber.DataPropertyName = "CrudeNum";
-            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.CrudeNumber.DefaultCellStyle = dataGridViewCellStyle41;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.CrudeNumber.DefaultCellStyle = dataGridViewCellStyle13;
             this.CrudeNumber.HeaderText = "粗个数";
             this.CrudeNumber.Name = "CrudeNumber";
             this.CrudeNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -326,8 +351,8 @@
             // DuringInter
             // 
             this.DuringInter.DataPropertyName = "DuringInter";
-            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DuringInter.DefaultCellStyle = dataGridViewCellStyle42;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DuringInter.DefaultCellStyle = dataGridViewCellStyle14;
             this.DuringInter.HeaderText = "中间隙";
             this.DuringInter.Name = "DuringInter";
             this.DuringInter.ReadOnly = true;
@@ -337,8 +362,8 @@
             // DuringNum
             // 
             this.DuringNum.DataPropertyName = "DuringNum";
-            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DuringNum.DefaultCellStyle = dataGridViewCellStyle43;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DuringNum.DefaultCellStyle = dataGridViewCellStyle15;
             this.DuringNum.HeaderText = "中个数";
             this.DuringNum.Name = "DuringNum";
             this.DuringNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -348,8 +373,8 @@
             // FineInter
             // 
             this.FineInter.DataPropertyName = "FineInter";
-            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.FineInter.DefaultCellStyle = dataGridViewCellStyle44;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.FineInter.DefaultCellStyle = dataGridViewCellStyle16;
             this.FineInter.HeaderText = "精间隙";
             this.FineInter.Name = "FineInter";
             this.FineInter.ReadOnly = true;
@@ -359,8 +384,8 @@
             // FineNum
             // 
             this.FineNum.DataPropertyName = "FineNum";
-            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.FineNum.DefaultCellStyle = dataGridViewCellStyle45;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.FineNum.DefaultCellStyle = dataGridViewCellStyle17;
             this.FineNum.HeaderText = "精个数";
             this.FineNum.Name = "FineNum";
             this.FineNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -370,19 +395,20 @@
             // EleType
             // 
             this.EleType.DataPropertyName = "EleType";
-            dataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.EleType.DefaultCellStyle = dataGridViewCellStyle46;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.EleType.DefaultCellStyle = dataGridViewCellStyle18;
             this.EleType.HeaderText = "电极类型";
             this.EleType.Name = "EleType";
             this.EleType.ReadOnly = true;
             this.EleType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.EleType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.EleType.Width = 120;
             // 
             // CH
             // 
             this.CH.DataPropertyName = "Ch";
-            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.CH.DefaultCellStyle = dataGridViewCellStyle47;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.CH.DefaultCellStyle = dataGridViewCellStyle19;
             this.CH.HeaderText = "CH";
             this.CH.Name = "CH";
             this.CH.ReadOnly = true;
@@ -392,21 +418,23 @@
             // Material
             // 
             this.Material.DataPropertyName = "Material";
-            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Material.DefaultCellStyle = dataGridViewCellStyle48;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Material.DefaultCellStyle = dataGridViewCellStyle20;
             this.Material.HeaderText = "材料";
             this.Material.Name = "Material";
             this.Material.ReadOnly = true;
             this.Material.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Material.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Material.Width = 50;
             // 
             // Condition
             // 
             this.Condition.DataPropertyName = "Condition";
-            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Condition.DefaultCellStyle = dataGridViewCellStyle49;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Condition.DefaultCellStyle = dataGridViewCellStyle21;
             this.Condition.HeaderText = "放电条件";
             this.Condition.Name = "Condition";
+            this.Condition.ReadOnly = true;
             this.Condition.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Condition.Visible = false;
             this.Condition.Width = 70;
@@ -414,8 +442,8 @@
             // PreparationX
             // 
             this.PreparationX.DataPropertyName = "PreparationX";
-            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PreparationX.DefaultCellStyle = dataGridViewCellStyle50;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PreparationX.DefaultCellStyle = dataGridViewCellStyle22;
             this.PreparationX.HeaderText = "备料长";
             this.PreparationX.Name = "PreparationX";
             this.PreparationX.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -425,8 +453,8 @@
             // PreparationY
             // 
             this.PreparationY.DataPropertyName = "PreparationY";
-            dataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PreparationY.DefaultCellStyle = dataGridViewCellStyle51;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PreparationY.DefaultCellStyle = dataGridViewCellStyle23;
             this.PreparationY.HeaderText = "备料宽";
             this.PreparationY.Name = "PreparationY";
             this.PreparationY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -436,8 +464,8 @@
             // PreparationZ
             // 
             this.PreparationZ.DataPropertyName = "PreparationZ";
-            dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PreparationZ.DefaultCellStyle = dataGridViewCellStyle52;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PreparationZ.DefaultCellStyle = dataGridViewCellStyle24;
             this.PreparationZ.HeaderText = "备料高";
             this.PreparationZ.Name = "PreparationZ";
             this.PreparationZ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -447,8 +475,8 @@
             // DatumWidth
             // 
             this.DatumWidth.DataPropertyName = "DatumWidth";
-            dataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DatumWidth.DefaultCellStyle = dataGridViewCellStyle53;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DatumWidth.DefaultCellStyle = dataGridViewCellStyle25;
             this.DatumWidth.HeaderText = "宽度";
             this.DatumWidth.Name = "DatumWidth";
             this.DatumWidth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -458,8 +486,8 @@
             // DatumHeigth
             // 
             this.DatumHeigth.DataPropertyName = "DatumHeigth";
-            dataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DatumHeigth.DefaultCellStyle = dataGridViewCellStyle54;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DatumHeigth.DefaultCellStyle = dataGridViewCellStyle26;
             this.DatumHeigth.HeaderText = "高度";
             this.DatumHeigth.Name = "DatumHeigth";
             this.DatumHeigth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -469,21 +497,46 @@
             // BorrowEle
             // 
             this.BorrowEle.DataPropertyName = "BorrowName";
-            dataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.BorrowEle.DefaultCellStyle = dataGridViewCellStyle55;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.BorrowEle.DefaultCellStyle = dataGridViewCellStyle27;
             this.BorrowEle.HeaderText = "借用电极";
             this.BorrowEle.Name = "BorrowEle";
             this.BorrowEle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.BorrowEle.Visible = false;
             this.BorrowEle.Width = 160;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolAdd,
+            this.Tooldelete2});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 48);
+            // 
+            // ToolAdd
+            // 
+            this.ToolAdd.Image = ((System.Drawing.Image)(resources.GetObject("ToolAdd.Image")));
+            this.ToolAdd.Name = "ToolAdd";
+            this.ToolAdd.Size = new System.Drawing.Size(100, 22);
+            this.ToolAdd.Text = "添加";
+            this.ToolAdd.Click += new System.EventHandler(this.ToolAdd_Click);
+            // 
+            // Tooldelete2
+            // 
+            this.Tooldelete2.Image = ((System.Drawing.Image)(resources.GetObject("Tooldelete2.Image")));
+            this.Tooldelete2.Name = "Tooldelete2";
+            this.Tooldelete2.Size = new System.Drawing.Size(100, 22);
+            this.Tooldelete2.Text = "删除";
+            this.Tooldelete2.Click += new System.EventHandler(this.Tooldelete2_Click);
+            // 
             // groupOper
             // 
             this.groupOper.BackColor = System.Drawing.Color.White;
             this.groupOper.Controls.Add(this.treeListViewOper);
-            this.groupOper.Location = new System.Drawing.Point(8, 302);
+            this.groupOper.Controls.Add(this.groupBut);
+            this.groupOper.Location = new System.Drawing.Point(8, 300);
             this.groupOper.Name = "groupOper";
-            this.groupOper.Size = new System.Drawing.Size(553, 489);
+            this.groupOper.Size = new System.Drawing.Size(614, 488);
             this.groupOper.TabIndex = 2;
             this.groupOper.TabStop = false;
             this.groupOper.Text = "刀具路径";
@@ -492,32 +545,217 @@
             // 
             this.treeListViewOper.AllColumns.Add(this.olvProgram);
             this.treeListViewOper.AllColumns.Add(this.olvToolName);
+            this.treeListViewOper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.treeListViewOper.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvProgram,
             this.olvToolName});
-            this.treeListViewOper.Location = new System.Drawing.Point(6, 23);
+            this.treeListViewOper.ContextMenuStrip = this.contextMenuStrip;
+            this.treeListViewOper.FullRowSelect = true;
+            this.treeListViewOper.GridLines = true;
+            this.treeListViewOper.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.treeListViewOper.LargeImageList = this.imageList1;
+            this.treeListViewOper.Location = new System.Drawing.Point(0, 20);
+            this.treeListViewOper.MultiSelect = false;
             this.treeListViewOper.Name = "treeListViewOper";
             this.treeListViewOper.OwnerDraw = true;
             this.treeListViewOper.ShowGroups = false;
-            this.treeListViewOper.Size = new System.Drawing.Size(542, 460);
+            this.treeListViewOper.ShowImagesOnSubItems = true;
+            this.treeListViewOper.Size = new System.Drawing.Size(561, 462);
+            this.treeListViewOper.SmallImageList = this.imageList1;
+            this.treeListViewOper.StateImageList = this.imageList1;
             this.treeListViewOper.TabIndex = 0;
             this.treeListViewOper.UseCompatibleStateImageBehavior = false;
             this.treeListViewOper.View = System.Windows.Forms.View.Details;
             this.treeListViewOper.VirtualMode = true;
+            this.treeListViewOper.CellClick += new System.EventHandler<BrightIdeasSoftware.CellClickEventArgs>(this.treeListViewOper_CellClick);
+            this.treeListViewOper.CellRightClick += new System.EventHandler<BrightIdeasSoftware.CellRightClickEventArgs>(this.treeListViewOper_CellRightClick);
             // 
             // olvProgram
             // 
+            this.olvProgram.AspectName = "ProgramName";
             this.olvProgram.CellPadding = null;
             this.olvProgram.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.olvProgram.Hideable = false;
+            this.olvProgram.ImageAspectName = "";
             this.olvProgram.Text = "程序名";
-            this.olvProgram.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.olvProgram.Width = 160;
+            this.olvProgram.Width = 200;
             // 
             // olvToolName
             // 
+            this.olvToolName.AspectName = "ToolName";
             this.olvToolName.CellPadding = null;
+            this.olvToolName.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvToolName.Text = "刀具名";
+            this.olvToolName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvToolName.Width = 100;
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolUp,
+            this.toolDown,
+            this.toolCopy,
+            this.toolSkick,
+            this.toolDelete,
+            this.toolUpdate});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(125, 136);
+            // 
+            // toolUp
+            // 
+            this.toolUp.Image = ((System.Drawing.Image)(resources.GetObject("toolUp.Image")));
+            this.toolUp.Name = "toolUp";
+            this.toolUp.Size = new System.Drawing.Size(124, 22);
+            this.toolUp.Text = "向上移动";
+            this.toolUp.Click += new System.EventHandler(this.toolUp_Click);
+            // 
+            // toolDown
+            // 
+            this.toolDown.Image = ((System.Drawing.Image)(resources.GetObject("toolDown.Image")));
+            this.toolDown.Name = "toolDown";
+            this.toolDown.Size = new System.Drawing.Size(124, 22);
+            this.toolDown.Text = "向下移动";
+            this.toolDown.Click += new System.EventHandler(this.toolDown_Click);
+            // 
+            // toolCopy
+            // 
+            this.toolCopy.Image = ((System.Drawing.Image)(resources.GetObject("toolCopy.Image")));
+            this.toolCopy.Name = "toolCopy";
+            this.toolCopy.Size = new System.Drawing.Size(124, 22);
+            this.toolCopy.Text = "复制";
+            this.toolCopy.Click += new System.EventHandler(this.toolCopy_Click);
+            // 
+            // toolSkick
+            // 
+            this.toolSkick.Image = ((System.Drawing.Image)(resources.GetObject("toolSkick.Image")));
+            this.toolSkick.Name = "toolSkick";
+            this.toolSkick.Size = new System.Drawing.Size(124, 22);
+            this.toolSkick.Text = "粘贴";
+            this.toolSkick.Click += new System.EventHandler(this.toolSkick_Click);
+            // 
+            // toolDelete
+            // 
+            this.toolDelete.Image = ((System.Drawing.Image)(resources.GetObject("toolDelete.Image")));
+            this.toolDelete.Name = "toolDelete";
+            this.toolDelete.Size = new System.Drawing.Size(124, 22);
+            this.toolDelete.Text = "删除";
+            this.toolDelete.Click += new System.EventHandler(this.toolDelete_Click);
+            // 
+            // toolUpdate
+            // 
+            this.toolUpdate.Image = ((System.Drawing.Image)(resources.GetObject("toolUpdate.Image")));
+            this.toolUpdate.Name = "toolUpdate";
+            this.toolUpdate.Size = new System.Drawing.Size(124, 22);
+            this.toolUpdate.Text = "更新";
+            this.toolUpdate.Click += new System.EventHandler(this.toolUpdate_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "110.bmp");
+            this.imageList1.Images.SetKeyName(1, "210.bmp");
+            this.imageList1.Images.SetKeyName(2, "260.bmp");
+            this.imageList1.Images.SetKeyName(3, "261.bmp");
+            this.imageList1.Images.SetKeyName(4, "263.bmp");
+            this.imageList1.Images.SetKeyName(5, "265.bmp");
+            this.imageList1.Images.SetKeyName(6, "450.bmp");
+            this.imageList1.Images.SetKeyName(7, "800.bmp");
+            this.imageList1.Images.SetKeyName(8, "1100.bmp");
+            // 
+            // groupBut
+            // 
+            this.groupBut.BackColor = System.Drawing.Color.White;
+            this.groupBut.Controls.Add(this.butUpdate);
+            this.groupBut.Controls.Add(this.butDelete);
+            this.groupBut.Controls.Add(this.butSkick);
+            this.groupBut.Controls.Add(this.butCopy);
+            this.groupBut.Controls.Add(this.butDown);
+            this.groupBut.Controls.Add(this.butUp);
+            this.groupBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBut.Location = new System.Drawing.Point(567, 20);
+            this.groupBut.Name = "groupBut";
+            this.groupBut.Size = new System.Drawing.Size(39, 462);
+            this.groupBut.TabIndex = 8;
+            this.groupBut.TabStop = false;
+            // 
+            // butUpdate
+            // 
+            this.butUpdate.BackColor = System.Drawing.Color.White;
+            this.butUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butUpdate.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.butUpdate.Image = ((System.Drawing.Image)(resources.GetObject("butUpdate.Image")));
+            this.butUpdate.Location = new System.Drawing.Point(5, 222);
+            this.butUpdate.Name = "butUpdate";
+            this.butUpdate.Size = new System.Drawing.Size(28, 38);
+            this.butUpdate.TabIndex = 8;
+            this.butUpdate.UseVisualStyleBackColor = false;
+            this.butUpdate.Click += new System.EventHandler(this.butUpdate_Click);
+            // 
+            // butDelete
+            // 
+            this.butDelete.BackColor = System.Drawing.Color.White;
+            this.butDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butDelete.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.butDelete.Image = ((System.Drawing.Image)(resources.GetObject("butDelete.Image")));
+            this.butDelete.Location = new System.Drawing.Point(5, 178);
+            this.butDelete.Name = "butDelete";
+            this.butDelete.Size = new System.Drawing.Size(28, 38);
+            this.butDelete.TabIndex = 8;
+            this.butDelete.UseVisualStyleBackColor = false;
+            this.butDelete.Click += new System.EventHandler(this.butDelete_Click);
+            // 
+            // butSkick
+            // 
+            this.butSkick.BackColor = System.Drawing.Color.White;
+            this.butSkick.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butSkick.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.butSkick.Image = ((System.Drawing.Image)(resources.GetObject("butSkick.Image")));
+            this.butSkick.Location = new System.Drawing.Point(5, 137);
+            this.butSkick.Name = "butSkick";
+            this.butSkick.Size = new System.Drawing.Size(28, 38);
+            this.butSkick.TabIndex = 8;
+            this.butSkick.UseVisualStyleBackColor = false;
+            this.butSkick.Click += new System.EventHandler(this.butSkick_Click);
+            // 
+            // butCopy
+            // 
+            this.butCopy.BackColor = System.Drawing.Color.White;
+            this.butCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butCopy.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.butCopy.Image = ((System.Drawing.Image)(resources.GetObject("butCopy.Image")));
+            this.butCopy.Location = new System.Drawing.Point(5, 93);
+            this.butCopy.Name = "butCopy";
+            this.butCopy.Size = new System.Drawing.Size(28, 38);
+            this.butCopy.TabIndex = 8;
+            this.butCopy.UseVisualStyleBackColor = false;
+            this.butCopy.Click += new System.EventHandler(this.butCopy_Click);
+            // 
+            // butDown
+            // 
+            this.butDown.BackColor = System.Drawing.Color.White;
+            this.butDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butDown.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.butDown.Image = ((System.Drawing.Image)(resources.GetObject("butDown.Image")));
+            this.butDown.Location = new System.Drawing.Point(5, 14);
+            this.butDown.Name = "butDown";
+            this.butDown.Size = new System.Drawing.Size(28, 38);
+            this.butDown.TabIndex = 8;
+            this.butDown.UseVisualStyleBackColor = false;
+            this.butDown.Click += new System.EventHandler(this.butDown_Click);
+            // 
+            // butUp
+            // 
+            this.butUp.BackColor = System.Drawing.Color.White;
+            this.butUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butUp.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.butUp.Image = ((System.Drawing.Image)(resources.GetObject("butUp.Image")));
+            this.butUp.Location = new System.Drawing.Point(5, 49);
+            this.butUp.Name = "butUp";
+            this.butUp.Size = new System.Drawing.Size(28, 38);
+            this.butUp.TabIndex = 8;
+            this.butUp.UseVisualStyleBackColor = false;
+            this.butUp.Click += new System.EventHandler(this.butUp_Click);
             // 
             // listBoxTemplate
             // 
@@ -529,13 +767,14 @@
             "直+等高",
             "直+等宽",
             "直+等高+等宽",
-            "等高+等宽",
-            "等高",
+            "等宽+等高",
+            "等高电极",
             "模板"});
             this.listBoxTemplate.Location = new System.Drawing.Point(6, 23);
             this.listBoxTemplate.Name = "listBoxTemplate";
             this.listBoxTemplate.Size = new System.Drawing.Size(91, 135);
             this.listBoxTemplate.TabIndex = 4;
+            this.listBoxTemplate.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxTemplate_MouseClick);
             // 
             // groupTemplate
             // 
@@ -544,7 +783,7 @@
             this.groupTemplate.Controls.Add(this.label1);
             this.groupTemplate.Controls.Add(this.png);
             this.groupTemplate.Controls.Add(this.listBoxTemplate);
-            this.groupTemplate.Location = new System.Drawing.Point(567, 76);
+            this.groupTemplate.Location = new System.Drawing.Point(626, 74);
             this.groupTemplate.Name = "groupTemplate";
             this.groupTemplate.Size = new System.Drawing.Size(251, 220);
             this.groupTemplate.TabIndex = 5;
@@ -554,22 +793,22 @@
             // butTemplate
             // 
             this.butTemplate.BackColor = System.Drawing.Color.White;
-            this.butTemplate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.butTemplate.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.butTemplate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butTemplate.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.butTemplate.Image = ((System.Drawing.Image)(resources.GetObject("butTemplate.Image")));
-            this.butTemplate.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.butTemplate.Location = new System.Drawing.Point(190, 173);
             this.butTemplate.Name = "butTemplate";
             this.butTemplate.Size = new System.Drawing.Size(42, 41);
             this.butTemplate.TabIndex = 7;
             this.butTemplate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.butTemplate.UseVisualStyleBackColor = false;
+            this.butTemplate.Click += new System.EventHandler(this.butTemplate_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(6, 182);
+            this.label1.Location = new System.Drawing.Point(6, 183);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 20);
             this.label1.TabIndex = 7;
@@ -591,12 +830,12 @@
             this.groupParameter.Controls.Add(this.comboBoxRefTool);
             this.groupParameter.Controls.Add(this.comboBoxTool);
             this.groupParameter.Controls.Add(this.comboBoxProgram);
-            this.groupParameter.Controls.Add(this.label6);
-            this.groupParameter.Controls.Add(this.label7);
+            this.groupParameter.Controls.Add(this.labelRefTool);
+            this.groupParameter.Controls.Add(this.label);
             this.groupParameter.Controls.Add(this.butAdd);
             this.groupParameter.Controls.Add(this.label5);
             this.groupParameter.Controls.Add(this.label4);
-            this.groupParameter.Location = new System.Drawing.Point(567, 399);
+            this.groupParameter.Location = new System.Drawing.Point(626, 397);
             this.groupParameter.Name = "groupParameter";
             this.groupParameter.Size = new System.Drawing.Size(251, 184);
             this.groupParameter.TabIndex = 6;
@@ -607,48 +846,48 @@
             // 
             this.comboBoxRefTool.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxRefTool.FormattingEnabled = true;
-            this.comboBoxRefTool.Location = new System.Drawing.Point(166, 104);
+            this.comboBoxRefTool.Location = new System.Drawing.Point(103, 104);
             this.comboBoxRefTool.Name = "comboBoxRefTool";
-            this.comboBoxRefTool.Size = new System.Drawing.Size(71, 27);
+            this.comboBoxRefTool.Size = new System.Drawing.Size(134, 27);
             this.comboBoxRefTool.TabIndex = 8;
             // 
             // comboBoxTool
             // 
             this.comboBoxTool.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTool.FormattingEnabled = true;
-            this.comboBoxTool.Location = new System.Drawing.Point(166, 66);
+            this.comboBoxTool.Location = new System.Drawing.Point(103, 66);
             this.comboBoxTool.Name = "comboBoxTool";
-            this.comboBoxTool.Size = new System.Drawing.Size(71, 27);
+            this.comboBoxTool.Size = new System.Drawing.Size(134, 27);
             this.comboBoxTool.TabIndex = 8;
             // 
             // comboBoxProgram
             // 
             this.comboBoxProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxProgram.FormattingEnabled = true;
-            this.comboBoxProgram.Location = new System.Drawing.Point(166, 33);
+            this.comboBoxProgram.Location = new System.Drawing.Point(103, 33);
             this.comboBoxProgram.Name = "comboBoxProgram";
-            this.comboBoxProgram.Size = new System.Drawing.Size(71, 27);
+            this.comboBoxProgram.Size = new System.Drawing.Size(134, 27);
             this.comboBoxProgram.TabIndex = 8;
             // 
-            // label6
+            // labelRefTool
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(19, 104);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(48, 19);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "参考刀";
+            this.labelRefTool.AutoSize = true;
+            this.labelRefTool.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelRefTool.Location = new System.Drawing.Point(19, 104);
+            this.labelRefTool.Name = "labelRefTool";
+            this.labelRefTool.Size = new System.Drawing.Size(48, 19);
+            this.labelRefTool.TabIndex = 7;
+            this.labelRefTool.Text = "参考刀";
             // 
-            // label7
+            // label
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(19, 150);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 19);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "添加";
+            this.label.AutoSize = true;
+            this.label.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label.Location = new System.Drawing.Point(19, 150);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(35, 19);
+            this.label.TabIndex = 7;
+            this.label.Text = "添加";
             // 
             // butAdd
             // 
@@ -661,6 +900,7 @@
             this.butAdd.Size = new System.Drawing.Size(52, 44);
             this.butAdd.TabIndex = 7;
             this.butAdd.UseVisualStyleBackColor = false;
+            this.butAdd.Click += new System.EventHandler(this.butAdd_Click);
             // 
             // label5
             // 
@@ -694,7 +934,7 @@
             this.groupAddOper.Controls.Add(this.butZlevel);
             this.groupAddOper.Controls.Add(this.butTwicRough);
             this.groupAddOper.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupAddOper.Location = new System.Drawing.Point(567, 302);
+            this.groupAddOper.Location = new System.Drawing.Point(626, 300);
             this.groupAddOper.Name = "groupAddOper";
             this.groupAddOper.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.groupAddOper.Size = new System.Drawing.Size(251, 91);
@@ -707,12 +947,13 @@
             this.butFace.BackColor = System.Drawing.Color.White;
             this.butFace.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butFace.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.butFace.Location = new System.Drawing.Point(166, 23);
+            this.butFace.Location = new System.Drawing.Point(173, 23);
             this.butFace.Name = "butFace";
             this.butFace.Size = new System.Drawing.Size(72, 28);
             this.butFace.TabIndex = 7;
             this.butFace.Text = "2D光顶";
             this.butFace.UseVisualStyleBackColor = false;
+            this.butFace.Click += new System.EventHandler(this.butFace_Click);
             // 
             // butSurface
             // 
@@ -725,18 +966,20 @@
             this.butSurface.TabIndex = 7;
             this.butSurface.Text = "等宽";
             this.butSurface.UseVisualStyleBackColor = false;
+            this.butSurface.Click += new System.EventHandler(this.butSurface_Click);
             // 
             // butFolw
             // 
             this.butFolw.BackColor = System.Drawing.Color.White;
             this.butFolw.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butFolw.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.butFolw.Location = new System.Drawing.Point(166, 57);
+            this.butFolw.Location = new System.Drawing.Point(173, 57);
             this.butFolw.Name = "butFolw";
             this.butFolw.Size = new System.Drawing.Size(72, 28);
             this.butFolw.TabIndex = 7;
             this.butFolw.Text = "清根";
             this.butFolw.UseVisualStyleBackColor = false;
+            this.butFolw.Click += new System.EventHandler(this.butFolw_Click);
             // 
             // butPlanar
             // 
@@ -749,55 +992,47 @@
             this.butPlanar.TabIndex = 7;
             this.butPlanar.Text = "2D光侧";
             this.butPlanar.UseVisualStyleBackColor = false;
+            this.butPlanar.Click += new System.EventHandler(this.butPlanar_Click);
             // 
             // butZlevel
             // 
             this.butZlevel.BackColor = System.Drawing.Color.White;
             this.butZlevel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butZlevel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.butZlevel.Location = new System.Drawing.Point(10, 57);
+            this.butZlevel.Location = new System.Drawing.Point(6, 57);
             this.butZlevel.Name = "butZlevel";
             this.butZlevel.Size = new System.Drawing.Size(72, 28);
             this.butZlevel.TabIndex = 7;
             this.butZlevel.Text = "等高";
             this.butZlevel.UseVisualStyleBackColor = false;
+            this.butZlevel.Click += new System.EventHandler(this.butZlevel_Click);
             // 
             // butTwicRough
             // 
             this.butTwicRough.BackColor = System.Drawing.Color.White;
             this.butTwicRough.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butTwicRough.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.butTwicRough.Location = new System.Drawing.Point(10, 23);
+            this.butTwicRough.Location = new System.Drawing.Point(6, 23);
             this.butTwicRough.Name = "butTwicRough";
             this.butTwicRough.Size = new System.Drawing.Size(72, 28);
             this.butTwicRough.TabIndex = 7;
             this.butTwicRough.Text = "二次开粗";
             this.butTwicRough.UseVisualStyleBackColor = false;
+            this.butTwicRough.Click += new System.EventHandler(this.butTwicRough_Click);
             // 
             // groupSet
             // 
             this.groupSet.BackColor = System.Drawing.Color.White;
-            this.groupSet.Controls.Add(this.checkBoxPost);
             this.groupSet.Controls.Add(this.checkBoxIsGenerate);
             this.groupSet.Controls.Add(this.label3);
             this.groupSet.Controls.Add(this.butSave);
             this.groupSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupSet.Location = new System.Drawing.Point(567, 589);
+            this.groupSet.Location = new System.Drawing.Point(626, 587);
             this.groupSet.Name = "groupSet";
             this.groupSet.Size = new System.Drawing.Size(251, 118);
             this.groupSet.TabIndex = 6;
             this.groupSet.TabStop = false;
             this.groupSet.Text = "设置";
-            // 
-            // checkBoxPost
-            // 
-            this.checkBoxPost.AutoSize = true;
-            this.checkBoxPost.Location = new System.Drawing.Point(6, 52);
-            this.checkBoxPost.Name = "checkBoxPost";
-            this.checkBoxPost.Size = new System.Drawing.Size(67, 23);
-            this.checkBoxPost.TabIndex = 8;
-            this.checkBoxPost.Text = "后处理";
-            this.checkBoxPost.UseVisualStyleBackColor = true;
             // 
             // checkBoxIsGenerate
             // 
@@ -830,6 +1065,7 @@
             this.butSave.Size = new System.Drawing.Size(52, 44);
             this.butSave.TabIndex = 7;
             this.butSave.UseVisualStyleBackColor = false;
+            this.butSave.Click += new System.EventHandler(this.butSave_Click);
             // 
             // groupBoxOpen
             // 
@@ -839,7 +1075,7 @@
             this.groupBoxOpen.Controls.Add(this.label2);
             this.groupBoxOpen.Controls.Add(this.butOpen);
             this.groupBoxOpen.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBoxOpen.Location = new System.Drawing.Point(567, 6);
+            this.groupBoxOpen.Location = new System.Drawing.Point(626, 4);
             this.groupBoxOpen.Name = "groupBoxOpen";
             this.groupBoxOpen.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.groupBoxOpen.Size = new System.Drawing.Size(249, 64);
@@ -875,12 +1111,13 @@
             this.butOK.BackColor = System.Drawing.Color.PaleTurquoise;
             this.butOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butOK.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.butOK.Location = new System.Drawing.Point(599, 726);
+            this.butOK.Location = new System.Drawing.Point(651, 734);
             this.butOK.Name = "butOK";
             this.butOK.Size = new System.Drawing.Size(81, 38);
             this.butOK.TabIndex = 7;
             this.butOK.Text = "确定";
             this.butOK.UseVisualStyleBackColor = false;
+            this.butOK.Click += new System.EventHandler(this.butOK_Click);
             // 
             // but_Close
             // 
@@ -888,7 +1125,7 @@
             this.but_Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.but_Close.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.but_Close.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.but_Close.Location = new System.Drawing.Point(731, 726);
+            this.but_Close.Location = new System.Drawing.Point(783, 734);
             this.but_Close.Name = "but_Close";
             this.but_Close.Size = new System.Drawing.Size(81, 38);
             this.but_Close.TabIndex = 7;
@@ -902,7 +1139,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.CancelButton = this.but_Close;
-            this.ClientSize = new System.Drawing.Size(828, 802);
+            this.ClientSize = new System.Drawing.Size(889, 802);
+            this.Controls.Add(this.groupOper);
             this.Controls.Add(this.groupBoxOpen);
             this.Controls.Add(this.groupAddOper);
             this.Controls.Add(this.groupTemplate);
@@ -910,7 +1148,6 @@
             this.Controls.Add(this.groupParameter);
             this.Controls.Add(this.but_Close);
             this.Controls.Add(this.butOK);
-            this.Controls.Add(this.groupOper);
             this.Controls.Add(this.groupInfo);
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -920,10 +1157,14 @@
             this.Name = "EleProgramForm";
             this.ShowInTaskbar = false;
             this.Text = "批量电极程序";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EleProgramForm_FormClosing);
             this.groupInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEle)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.groupOper.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.treeListViewOper)).EndInit();
+            this.contextMenuStrip.ResumeLayout(false);
+            this.groupBut.ResumeLayout(false);
             this.groupTemplate.ResumeLayout(false);
             this.groupTemplate.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.png)).EndInit();
@@ -962,9 +1203,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button butSave;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBoxPost;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label labelRefTool;
+        private System.Windows.Forms.Label label;
         private System.Windows.Forms.Button butAdd;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -973,9 +1213,24 @@
         private System.Windows.Forms.ComboBox comboBoxRefTool;
         private System.Windows.Forms.ComboBox comboBoxTool;
         private System.Windows.Forms.ComboBox comboBoxProgram;
-        private BrightIdeasSoftware.TreeListView treeListViewOper;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem toolUp;
+        private System.Windows.Forms.ToolStripMenuItem toolDown;
+        private System.Windows.Forms.ToolStripMenuItem toolCopy;
+        private System.Windows.Forms.ToolStripMenuItem toolSkick;
+        private System.Windows.Forms.ToolStripMenuItem toolDelete;
+        private System.Windows.Forms.ToolStripMenuItem toolUpdate;
+        public BrightIdeasSoftware.TreeListView treeListViewOper;
         private BrightIdeasSoftware.OLVColumn olvProgram;
         private BrightIdeasSoftware.OLVColumn olvToolName;
+        private System.Windows.Forms.GroupBox groupBut;
+        private System.Windows.Forms.Button butUp;
+        private System.Windows.Forms.Button butUpdate;
+        private System.Windows.Forms.Button butDelete;
+        private System.Windows.Forms.Button butSkick;
+        private System.Windows.Forms.Button butCopy;
+        private System.Windows.Forms.Button butDown;
         private System.Windows.Forms.DataGridViewTextBoxColumn EleName;
         private System.Windows.Forms.DataGridViewTextBoxColumn EleX;
         private System.Windows.Forms.DataGridViewTextBoxColumn EleY;
@@ -992,9 +1247,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DuringNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn FineInter;
         private System.Windows.Forms.DataGridViewTextBoxColumn FineNum;
-        private System.Windows.Forms.DataGridViewComboBoxColumn EleType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EleType;
         private System.Windows.Forms.DataGridViewTextBoxColumn CH;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Material;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Material;
         private System.Windows.Forms.DataGridViewComboBoxColumn Condition;
         private System.Windows.Forms.DataGridViewTextBoxColumn PreparationX;
         private System.Windows.Forms.DataGridViewTextBoxColumn PreparationY;
@@ -1002,5 +1257,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DatumWidth;
         private System.Windows.Forms.DataGridViewTextBoxColumn DatumHeigth;
         private System.Windows.Forms.DataGridViewTextBoxColumn BorrowEle;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem ToolAdd;
+        private System.Windows.Forms.ToolStripMenuItem Tooldelete2;
     }
 }

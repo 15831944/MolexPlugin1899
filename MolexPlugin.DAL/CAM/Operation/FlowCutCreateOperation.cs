@@ -137,5 +137,15 @@ namespace MolexPlugin.DAL
                 }
             }
         }
+
+        public override List<string> GetAllToolName()
+        {
+            return this.GetToolDat("FinishBallTool");
+        }
+
+        public override List<string> GetRefToolName()
+        {
+            return this.GetToolDat("FinishBallTool");
+        }
     }
 }

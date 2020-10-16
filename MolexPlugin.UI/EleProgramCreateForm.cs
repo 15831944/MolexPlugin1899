@@ -22,12 +22,17 @@ namespace MolexPlugin
         private ASMModel asm = null;
         private void ShowForm()
         {
-            EleProgramForm form = new EleProgramForm();
-            IntPtr intPtr = NXOpenUI.FormUtilities.GetDefaultParentWindowHandle();
-            NXOpenUI.FormUtilities.ReparentForm(form);
-            NXOpenUI.FormUtilities.SetApplicationIcon(form);
-            Application.Run(form);
-            form.Dispose();
+            UserSingleton user = UserSingleton.Instance();
+            if (user.UserSucceed && user.Jurisd.GetCAMJurisd())
+            {
+                EleProgramForm form = new EleProgramForm(user.CreatorUser);
+                IntPtr intPtr = NXOpenUI.FormUtilities.GetDefaultParentWindowHandle();
+                NXOpenUI.FormUtilities.ReparentForm(form);
+                NXOpenUI.FormUtilities.SetApplicationIcon(form);
+                Application.Run(form);
+                form.Dispose();
+            }
+
         }
 
         public void Show()

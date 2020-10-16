@@ -20,17 +20,31 @@ namespace MolexPlugin.DAL
         {
             int count = 1;
 
-            AbstractCreateOperation ro = new RoughCreateOperation(count, tool.GetRoughTool());  //开粗
+            string rough = tool.GetRoughTool();
+            AbstractCreateOperation ro = new RoughCreateOperation(count, rough);  //开粗
             ro.CreateOperationName(1);
             Programs.Add(new ProgramOperationName(count, ro));
             count++;
+            string twice = rough;
             foreach (string tl in tool.GetTwiceRoughTool()) //二次开粗
             {
-                AbstractCreateOperation to = new TwiceRoughCreateOperation(count, tl);
-                ro.CreateOperationName(1);
+                TwiceRoughCreateOperation to = new TwiceRoughCreateOperation(count, tl);
+                to.CreateOperationName(1);
+                to.SetReferencetool(twice);
+                if (twice.Equals(rough, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    RounghSurfaceCreateOperation rso = new RounghSurfaceCreateOperation(count, tl);
+                    rso.CreateOperationName(2);
+                    Programs.Add(new ProgramOperationName(count, new AbstractCreateOperation[] { to, rso }));
+                    twice = tl;
+                    count++;
+                    continue;
+                }
                 Programs.Add(new ProgramOperationName(count, to));
+                twice = tl;
                 count++;
             }
+
 
             string toolName = tool.GetFinishBallTool();
             ZLevelMillingCreateOperation zo = new ZLevelMillingCreateOperation(count, toolName); //等高

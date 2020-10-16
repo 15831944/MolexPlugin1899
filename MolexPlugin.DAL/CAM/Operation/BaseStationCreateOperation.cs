@@ -95,5 +95,15 @@ namespace MolexPlugin.DAL
             eleCam.GetBaseStationBoundary(out conditions, out floorPt);
             SetBoundary(floorPt, conditions);
         }
+
+        public override List<string> GetAllToolName()
+        {
+            return this.GetToolDat("FinishPlaneTool");
+        }
+
+        public override List<string> GetRefToolName()
+        {
+            return new List<string>();
+        }
     }
 }

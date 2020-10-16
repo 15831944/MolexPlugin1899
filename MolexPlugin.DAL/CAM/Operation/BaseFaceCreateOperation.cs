@@ -56,7 +56,8 @@ namespace MolexPlugin.DAL
             }
             try
             {
-                this.operModel.SetStock(-this.Inter, 0.05);
+                (this.operModel as PlanarMillingModel).SetDepth(0);
+                this.operModel.SetStock(-this.Inter, 0);
             }
             catch (NXException ex)
             {
@@ -81,7 +82,7 @@ namespace MolexPlugin.DAL
                 {
                     BouudaryPt = le.StartPoint,
                     Curves = line,
-                    PlaneTypes = BoundarySet.PlaneTypes.Automatic,
+                    PlaneTypes = BoundarySet.PlaneTypes.UserDefined,
                     ToolSide = BoundarySet.ToolSideTypes.InsideOrLeft,
                     Types = BoundarySet.BoundaryTypes.Open
                 };
@@ -112,6 +113,24 @@ namespace MolexPlugin.DAL
             }
             else
                 SetBoundary(lines);
+        }
+
+        public object Clone()
+        {
+            AbstractCreateOperation ao = new BaseFaceCreateOperation(this.site, this.toolName);
+            ao.CreateOperationName(1);
+            return ao;
+
+        }
+
+        public override List<string> GetAllToolName()
+        {
+            return this.GetToolDat("FinishPlaneTool");
+        }
+
+        public override List<string> GetRefToolName()
+        {
+            return new List<string>();
         }
     }
 }

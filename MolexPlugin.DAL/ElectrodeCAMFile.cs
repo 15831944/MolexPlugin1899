@@ -14,6 +14,9 @@ namespace MolexPlugin.DAL
     public class ElectrodeCAMFile
     {
         private string camFile;
+        private string eleFile = "";
+
+        public string EleFile { get { return eleFile; } }
         public ElectrodeCAMFile()
         {
             camFile = "C:\\temp\\Electrode\\";
@@ -32,7 +35,7 @@ namespace MolexPlugin.DAL
             List<string> oldPath = OpenFileUtils.OpenFiles("添加工件", "部件文件(*.prt*)|");
             if (oldPath.Count > 0)
             {
-                string eleFile = camFile + GetTimeStamp() + "\\";
+                eleFile = camFile + GetTimeStamp() + "\\";
                 if (!Directory.Exists(eleFile))
                 {
                     Directory.CreateDirectory(eleFile);
@@ -42,6 +45,30 @@ namespace MolexPlugin.DAL
                     string temp = Path.GetFileName(st);
                     File.Copy(st, eleFile + temp);
                     filePath.Add(eleFile + temp);
+                }
+            }
+            return filePath;
+        }
+        /// <summary>
+        /// 添加文件
+        /// </summary>
+        /// <param name="filePh"></param>
+        /// <returns></returns>
+        public List<string> AddFile(string filePh)
+        {
+            List<string> filePath = new List<string>();
+            List<string> oldPath = OpenFileUtils.OpenFiles("添加工件", "部件文件(*.prt*)|");
+            if (oldPath.Count > 0)
+            {
+                if (!Directory.Exists(filePh))
+                {
+                    return filePath;
+                }
+                foreach (string st in oldPath)
+                {
+                    string temp = Path.GetFileName(st);
+                    File.Copy(st, filePh + temp);
+                    filePath.Add(filePh + temp);
                 }
             }
             return filePath;
@@ -77,7 +104,25 @@ namespace MolexPlugin.DAL
             }
             return null;
         }
+        /// <summary>
+        /// 删除文件
+        /// </summary>
+        /// <param name="filePath"></param>
+        public void DeleteFile()
+        {
+                   
+            if (Directory.Exists(this.eleFile))
+            {
+                try
+                {
+                    Directory.Delete(this.eleFile, true);
+                }
+                catch
+                {
 
+                }
+            }
+        }
         /// <summary>
         /// 获取时间戳
         /// </summary>

@@ -73,7 +73,8 @@ namespace MolexPlugin.DAL
             PlanarBoundary pl = new PlanarBoundary(analysis.BaseFace);
             pl.GetPeripheralBoundary(out boundary, out blank);
             boundary.ToolSide = NXOpen.CAM.BoundarySet.ToolSideTypes.OutsideOrRight;
-            boundary.PlaneTypes = NXOpen.CAM.BoundarySet.PlaneTypes.Automatic;
+            boundary.BouudaryPt = analysis.BaseFace.BoxMinCorner;
+          //  boundary.PlaneTypes = NXOpen.CAM.BoundarySet.PlaneTypes.Automatic;
             floorPt = this.analysis.BaseSubfaceFace.BoxMinCorner;
         }
 
