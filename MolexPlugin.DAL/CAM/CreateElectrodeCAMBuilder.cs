@@ -22,7 +22,7 @@ namespace MolexPlugin.DAL
         public AbstractElectrodeTemplate Template { get { return template; } }
         public CreateElectrodeCAMBuilder(Part pt, UserModel user, ElectrodeTemplate type)
         {
-            this.pt = pt;         
+            this.pt = pt;
             try
             {
                 cam = ElectrodeCAMFactory.CreateCAM(pt, user);
@@ -110,23 +110,72 @@ namespace MolexPlugin.DAL
 
         }
         /// <summary>
+        /// 创建用户定义刀路
+        /// </summary>
+        /// <returns></returns>
+        public List<string> CreateUserOperation()
+        {
+            List<string> err = new List<string>();
+            Session theSession = Session.GetSession();
+            PartUtils.SetPartDisplay(pt);
+            theSession.ApplicationSwitchImmediate("UG_APP_MODELING");
+            cam.CreateOffsetInter();
+            theSession.ApplicationSwitchImmediate("UG_APP_MANUFACTURING");
+            if (!this.isProgram())
+            {
+                try
+                {
+                    CreateCamSetup();
+                }
+                catch (NXException ex)
+                {
+                    err.Add("进入加工环境错误！请检查！                     " + ex.Message);
+                    return err;
+                }
+                try
+                {
+                    SetWorkpiece();
+                }
+                catch (NXException ex)
+                {
+                    err.Add("自动选择加工体错误！请检查加工体！                     " + ex.Message);
+                }
+                foreach (ProgramOperationName pm in this.template.Programs)
+                {
+                    err.AddRange(pm.CreateUserOperation(cam));
+                }
+            }
+            return err;
+
+        }
+        /// <summary>
         /// 设置加工环境
         /// </summary>
         private void CreateCamSetup()
         {
             Session theSession = Session.GetSession();
             Part workPart = theSession.Parts.Work;
-
-            theSession.ApplicationSwitchImmediate("UG_APP_MANUFACTURING");
-
             bool result1;
             result1 = theSession.IsCamSessionInitialized();
-
             theSession.CreateCamSession();
-
             NXOpen.CAM.CAMSetup cAMSetup1;
             cAMSetup1 = workPart.CreateCamSetup("electrode");
 
+        }
+
+        private bool isProgram()
+        {
+            try
+            {
+                if (this.pt.CAMSetup != null)
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
         /// <summary>
         /// 设置加工体

@@ -18,8 +18,6 @@ namespace MolexPlugin
     public partial class EleProgramCreateForm
     {
 
-        private ASMCollection asmColl;
-        private ASMModel asm = null;
         private void ShowForm()
         {
             UserSingleton user = UserSingleton.Instance();

@@ -75,6 +75,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddProgram.cs" />
     <Compile Include="EleProgramFormInternal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +123,14 @@
     <Compile Include="EleProgramForm.Designer.cs">
       <DependentUpon>EleProgramForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OffsetBodyGapVauleUi.cs" />
+    <Compile Include="PostShopdoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PostShopdoc.Designer.cs">
+      <DependentUpon>PostShopdoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PostShopdocCreateForm.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -154,6 +163,7 @@
     <Compile Include="Electrode\WorkpieceDrawingForm.Designer.cs">
       <DependentUpon>WorkpieceDrawingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserOperation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Basic\Basic.csproj">
@@ -187,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EleProgramForm.resx">
       <DependentUpon>EleProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostShopdoc.resx">
+      <DependentUpon>PostShopdoc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

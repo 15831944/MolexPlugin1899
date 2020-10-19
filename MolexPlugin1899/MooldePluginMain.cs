@@ -210,28 +210,31 @@ namespace MolexPlugin
                 new CopyAsm().Show();
             }
             #endregion
-            
+
             if (args[0] == "MENU_EleProgram")
             {
                 EleProgramCreateForm mode = new EleProgramCreateForm();
                 mode.Show();
-            }
-            /*
-            if (args[0] == "MENU_Program")
-            {
-                CrateUserDefinedOperation.Create();
-            }
-            if (args[0] == "MENU_ExportElectrode")
-            {
-                ExportElectrode ele = new ExportElectrode();
-                ele.Show();
             }
             if (args[0] == "MENU_AddProgram")
             {
                 AddProgram ele = new AddProgram();
                 ele.Show();
             }
-            */
+
+            if (args[0] == "MENU_Program")
+            {
+                UserOperation.CreateUserOper();
+            }
+            if (args[0] == "MENU_OffsetBodyGapVauleUi")
+            {
+                new OffsetBodyGapVauleUi().Show();
+            }
+
+            if (args[0] == "MENU_PostShopdoc")
+            {
+                PostShopdocCreateForm.Show();
+            }
 
             //  Test.cs();
 

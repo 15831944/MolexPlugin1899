@@ -191,11 +191,22 @@ namespace MolexPlugin.DAL
             }
             return err;
         }
-
-        public List<string> CreateOperation()
+        /// <summary>
+        /// 创建用户定义操作
+        /// </summary>
+        /// <param name="eleCam"></param>
+        /// <returns></returns>
+        public List<string> CreateUserOperation(AbstractElectrodeCAM eleCam)
         {
             List<string> err = new List<string>();
             UpdateProgramName();
+            foreach (AbstractCreateOperation ao in Oper)
+            {
+                if (ao is BaseFaceCreateOperation)
+                    ao.SetOperationData(eleCam);
+                if (ao is BaseStationCreateOperation)
+                    ao.SetOperationData(eleCam);
+            }
             foreach (AbstractCreateOperation ao in Oper)
             {
                 try

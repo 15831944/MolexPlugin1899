@@ -104,9 +104,6 @@ namespace MolexPlugin.Model
             data.Oper = this.Oper;
             data.Check = this.Oper.GougeCheckStatus;
             string name = this.Oper.Name;
-            //if (name.Length >= 10)
-            //    data.OperName = this.Oper.Name.Substring(0, 10);
-            //else
             data.OperName = this.Oper.Name;
             data.ToolNCGroup = this.Oper.GetParent(NXOpen.CAM.CAMSetup.View.MachineTool);
             data.OperGroup = this.Oper.GetParent(NXOpen.CAM.CAMSetup.View.ProgramOrder).Name;
