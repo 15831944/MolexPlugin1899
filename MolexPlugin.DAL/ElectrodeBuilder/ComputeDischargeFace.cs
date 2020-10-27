@@ -47,6 +47,8 @@ namespace MolexPlugin.DAL
             if (bodys.Count > 0)
             {
                 LayerUtils.MoveDisplayableObject(252, bodys.ToArray());
+                if (extract)
+                    this.eleBody.Color = 186;
                 err.Add("电极头有过切，请检查！");
             }
             dischargeFace = temp.Where(a => a.GetBody().Equals((this.eleBody))).Distinct().ToList(); //过滤电极面

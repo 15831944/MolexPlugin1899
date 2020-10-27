@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddProgram.cs" />
+    <Compile Include="Electrode\CopyElectrode.cs" />
+    <Compile Include="ExportEleCamCreateForm.cs" />
     <Compile Include="EleProgramFormInternal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +124,12 @@
     </Compile>
     <Compile Include="EleProgramForm.Designer.cs">
       <DependentUpon>EleProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportEleCamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportEleCamForm.Designer.cs">
+      <DependentUpon>ExportEleCamForm.cs</DependentUpon>
     </Compile>
     <Compile Include="OffsetBodyGapVauleUi.cs" />
     <Compile Include="PostShopdoc.cs">
@@ -197,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EleProgramForm.resx">
       <DependentUpon>EleProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportEleCamForm.resx">
+      <DependentUpon>ExportEleCamForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PostShopdoc.resx">
       <DependentUpon>PostShopdoc.cs</DependentUpon>

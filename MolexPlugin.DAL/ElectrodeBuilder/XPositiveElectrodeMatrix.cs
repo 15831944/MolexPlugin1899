@@ -29,7 +29,10 @@ namespace MolexPlugin.DAL
 
         public override void SetMatrixOrigin(int[] pre, Point3d originPt)
         {
+            Matrix4 inv = workMatr.GetInversMatrix();
+            workMatr.ApplyPos(ref originPt);
             originPt.Z = originPt.Z + (pre[0] / 2 - 1.2);
+            inv.ApplyPos(ref originPt);
             base.SetMatrixOrigin(pre, originPt);
         }
         public override double[] GetPreparation(ElectrodePitchInfo pitch, bool zDatum)

@@ -69,7 +69,7 @@ namespace MolexPlugin
             textBox_pitchX.Text = "0";
             textBox_pitchY.Text = "0";
             textBox_CH.Text = "18";
-            textBox_Ext.Text = "1";
+            textBox_Ext.Text = "1.3";
             this.textBox_name.Text = GetDefEleName(this.parent.MoldInfo);
             SetPichContrShow();
             CreatePreview();
@@ -178,7 +178,7 @@ namespace MolexPlugin
                 {
                     gapValue.DuringInter = double.Parse(cru);
                 }
-                if (num == "")
+                if (num != "")
                 {
                     gapValue.DuringNum = int.Parse(num);
                 }

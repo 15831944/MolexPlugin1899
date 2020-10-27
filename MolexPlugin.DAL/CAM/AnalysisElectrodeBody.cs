@@ -122,18 +122,31 @@ namespace MolexPlugin.DAL
         {
             double zMax = Math.Round(faceData.BoxMaxCorner.Z, 3);
             double faceZ = zMax;
-            foreach (Edge eg in faceData.Face.GetEdges())
+            Edge[] egs = null;
+            try
             {
-                foreach (Face fa in eg.GetFaces())
+                egs = faceData.Face.GetEdges();
+            }
+            catch
+            {
+                return 0;
+            }
+            if (egs != null)
+            {
+                foreach (Edge eg in egs)
                 {
-                    if (fa.Tag != faceData.Face.Tag)
+                    foreach (Face fa in eg.GetFaces())
                     {
-                        FaceData data = FaceUtils.AskFaceData(fa);
-                        double z = Math.Round(data.BoxMaxCorner.Z, 3);
-                        if (z > zMax)
-                            zMax = z;
+                        if (fa.Tag != faceData.Face.Tag)
+                        {
+                            FaceData data = FaceUtils.AskFaceData(fa);
+                            double z = Math.Round(data.BoxMaxCorner.Z, 3);
+                            if (z > zMax)
+                                zMax = z;
+                        }
                     }
                 }
+
             }
             return zMax - faceZ;
         }
@@ -193,13 +206,20 @@ namespace MolexPlugin.DAL
                     if (ar.MinDia != 0 && ar.Data.IntNorm == -1 && minDia > ar.MinDia)
                         minDia = ar.MinDia;
                 }
-                if ((ar.Face.SolidFaceType == Face.FaceType.Cylindrical ||
-                    ar.Face.SolidFaceType == Face.FaceType.Conical) &&
-                    !UMathUtils.IsEqual(ar.MaxSlope, ar.MinSlope))
+                try
                 {
-                    slopeFaces.Add(ar.Face);
-                    if (ar.MinDia != 0 && ar.Data.IntNorm == -1 && minDia > ar.MinDia)
-                        minDia = ar.MinDia;
+                    if ((ar.Face.SolidFaceType == Face.FaceType.Cylindrical ||
+                        ar.Face.SolidFaceType == Face.FaceType.Conical) &&
+                        !UMathUtils.IsEqual(ar.MaxSlope, ar.MinSlope))
+                    {
+                        slopeFaces.Add(ar.Face);
+                        if (ar.MinDia != 0 && ar.Data.IntNorm == -1 && minDia > ar.MinDia)
+                            minDia = ar.MinDia;
+                    }
+                }
+                catch
+                {
+
                 }
             }
 
@@ -252,13 +272,20 @@ namespace MolexPlugin.DAL
                     if (ar.MinDia != 0 && ar.Data.IntNorm == -1 && minDia > ar.MinDia)
                         minDia = ar.MinDia;
                 }
-                if ((ar.Face.SolidFaceType == Face.FaceType.Cylindrical ||
-                    ar.Face.SolidFaceType == Face.FaceType.Conical) &&
-                    !UMathUtils.IsEqual(ar.MaxSlope, ar.MinSlope))
+                try
                 {
-                    slopeFaces.Add(ar.Face);
-                    if (ar.MinDia != 0 && ar.Data.IntNorm == -1 && minDia > ar.MinDia)
-                        minDia = ar.MinDia;
+                    if ((ar.Face.SolidFaceType == Face.FaceType.Cylindrical ||
+                        ar.Face.SolidFaceType == Face.FaceType.Conical) &&
+                        !UMathUtils.IsEqual(ar.MaxSlope, ar.MinSlope))
+                    {
+                        slopeFaces.Add(ar.Face);
+                        if (ar.MinDia != 0 && ar.Data.IntNorm == -1 && minDia > ar.MinDia)
+                            minDia = ar.MinDia;
+                    }
+                }
+                catch
+                {
+
                 }
             }
 
@@ -272,11 +299,17 @@ namespace MolexPlugin.DAL
             List<FaceData> faces = new List<FaceData>();
             foreach (AnalysisFaceSlopeAndDia ar in analysisBody.AnaFaces)
             {
+                try
+                {
+                    if (!ar.Face.Equals(baseFace.Face) && ar.Face.SolidFaceType == Face.FaceType.Planar &&
+                  UMathUtils.IsEqual(ar.Data.BoxMinCorner.Z, ar.Data.BoxMaxCorner.Z) &&
+                  UMathUtils.IsEqual(baseFace.BoxMaxCorner.Z, ar.Data.BoxMaxCorner.Z))
+                        faces.Add(ar.Data);
+                }
+                catch
+                {
 
-                if (!ar.Face.Equals(baseFace.Face) && ar.Face.SolidFaceType == Face.FaceType.Planar &&
-                    UMathUtils.IsEqual(ar.Data.BoxMinCorner.Z, ar.Data.BoxMaxCorner.Z) &&
-                    UMathUtils.IsEqual(baseFace.BoxMaxCorner.Z, ar.Data.BoxMaxCorner.Z))
-                    faces.Add(ar.Data);
+                }
             }
             return faces;
         }
@@ -294,7 +327,10 @@ namespace MolexPlugin.DAL
             foreach (AnalysisFaceSlopeAndDia ar in analysisBody.AnaFaces)
             {
                 if (UMathUtils.IsEqual(ar.MaxSlope, 0) && UMathUtils.IsEqual(ar.MinSlope, 0) && UMathUtils.IsEqual(GetFaceIsHighst(ar.Data), 0))
+                {                   
                     plane.Add(ar.Face);
+                }
+
             }
             // plane.Remove(this.BaseFace.Face);
             // plane.Remove(this.BaseSubfaceFace.Face);

@@ -163,14 +163,18 @@ namespace MolexPlugin
                 ElectrodeColor color = new ElectrodeColor();
                 color.Show();
             }
-
+            
             if (args[0] == "MENU_DeleteEle")
             {
 
                 DeleteEle delete = new DeleteEle();
                 delete.Show();
             }
-
+            if (args[0] == "MENU_CopyElectrode")
+            {
+                CopyElectrode copy = new CopyElectrode();
+                copy.Show();
+            }
             if (args[0] == "MENU_PositionEle")
             {
                 PositionEle posit = new PositionEle();
@@ -236,7 +240,7 @@ namespace MolexPlugin
                 PostShopdocCreateForm.Show();
             }
 
-            //  Test.cs();
+           // Test.User();
 
             return 1;
         }

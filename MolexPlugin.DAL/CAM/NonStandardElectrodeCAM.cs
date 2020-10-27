@@ -21,7 +21,7 @@ namespace MolexPlugin.DAL
             this.IsOffsetInter = false;
         }
 
-        public override bool CreateNewFile(string filePath)
+        public override bool CreateNewFile(string filePath, bool open)
         {
             UFSession theUFSession = UFSession.GetUFSession();
             string name = pt.Name;
@@ -37,9 +37,12 @@ namespace MolexPlugin.DAL
             try
             {
                 File.Move(ptPath, newPtPath);
-                Tag partTag;
-                UFPart.LoadStatus err;
-                theUFSession.Part.Open(newPtPath, out partTag, out err);
+                if (open)
+                {
+                    Tag partTag;
+                    UFPart.LoadStatus err;
+                    theUFSession.Part.Open(newPtPath, out partTag, out err);
+                }
                 return true;
             }
             catch

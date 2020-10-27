@@ -244,15 +244,23 @@ namespace MolexPlugin
             ElectrodeAllInfo all = GetEleInfo();
             GetERNumber(all.Pitch);
             CreateElectrode create = new CreateElectrode(all, parent, condition, this.checkBox1.Checked);
-            create.CreateBuider();
-            condition.Work.SetInterference(false); 
+            List<string> err = create.CreateBuider();
+            condition.Work.SetInterference(false);
             Session.GetSession().Parts.Work.ModelingViews.WorkView.Regenerate();
             this.Close();
+            if (err.Count > 0)
+            {
+                ClassItem.Print(err.ToArray());
+            }
         }
 
         private void buttCancel_Click(object sender, EventArgs e)
         {
             preveiw.DelePattern();
+            Session theSession = Session.GetSession();
+            bool marksRecycled1;
+            bool undoUnavailable1;
+            theSession.UndoLastNVisibleMarks(1, out marksRecycled1, out undoUnavailable1);
             this.Close();
         }
 
@@ -334,5 +342,6 @@ namespace MolexPlugin
                 this.buttCancel_Click(sender, e);
             }
         }
+
     }
 }

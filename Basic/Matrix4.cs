@@ -7,6 +7,7 @@ using NXOpen;
 
 namespace Basic
 {
+    [Serializable]
     public class Matrix4
     {
         public double[,] matrix = new double[4, 4];

@@ -45,7 +45,7 @@ namespace MolexPlugin.DAL
             }
         }
 
-        public override bool CreateNewFile(string filePath)
+        public override bool CreateNewFile(string filePath, bool open)
         {
             if (!model.Info.AllInfo.Name.EleName.Equals(this.pt.Name, StringComparison.CurrentCultureIgnoreCase))
                 throw new Exception("电极名与属性名不一样。");
@@ -76,9 +76,12 @@ namespace MolexPlugin.DAL
             try
             {
                 File.Move(ptPath, newPtPath);
-                Tag partTag;
-                UFPart.LoadStatus err;
-                theUFSession.Part.Open(newPtPath, out partTag, out err);
+                if (open)
+                {
+                    Tag partTag;
+                    UFPart.LoadStatus err;
+                    theUFSession.Part.Open(newPtPath, out partTag, out err);
+                }
                 return true;
             }
             catch

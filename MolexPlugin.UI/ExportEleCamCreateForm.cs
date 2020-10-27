@@ -11,11 +11,8 @@ using MolexPlugin.DAL;
 
 namespace MolexPlugin
 {
-    /// <summary>
-    /// 程序扩展类
-    /// 
-    /// </summary>
-    public  class EleProgramCreateForm
+   
+    public  class ExportEleCamCreateForm
     {
 
         private void ShowForm()

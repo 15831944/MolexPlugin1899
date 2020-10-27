@@ -15,9 +15,9 @@ namespace MolexPlugin.Model
     /// </summary>
     public abstract class AbstractAssmbileModel : IEquatable<AbstractAssmbileModel>, IDisplayObject
     {
-        private string name = "";
+        protected string name = "";
         protected AbstractAssmbileModel parentModel = null;
-  
+
         /// <summary>
         /// 工件
         /// </summary>
@@ -62,14 +62,14 @@ namespace MolexPlugin.Model
 
         public AbstractAssmbileModel()
         {
-           
+
         }
         /// <summary>
         /// 设置属性
         /// </summary>
         /// <returns></returns>
         public abstract bool SetAttribute(NXObject obj);
-       
+
         /// <summary>
         /// 以属性获取实体
         /// </summary>

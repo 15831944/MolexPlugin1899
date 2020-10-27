@@ -43,12 +43,20 @@ namespace MolexPlugin.DAL
             {
                 throw ex;
             }
+            try
+            {
+                (this.operModel as SurfaceContourModel).SetDriveMethod(SurfaceContourBuilder.DriveMethodTypes.AreaMilling);
+            }
+            catch (NXException ex)
+            {
+                err.Add("设置加工驱动方式错误！           " + ex.Message);
+            }
             if (Faces.Count > 0)
             {
                 try
                 {
                     (this.operModel as SurfaceContourModel).SetGeometry(Faces.ToArray());
-                    (this.operModel as SurfaceContourModel).SetDriveMethod(SurfaceContourBuilder.DriveMethodTypes.AreaMilling);
+                   
                 }
                 catch (NXException ex)
                 {

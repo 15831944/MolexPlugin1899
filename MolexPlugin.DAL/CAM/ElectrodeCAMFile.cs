@@ -86,6 +86,7 @@ namespace MolexPlugin.DAL
             }
             return filePath;
         }
+
         /// <summary>
         /// 获得记事本地址位置
         /// </summary>
@@ -102,7 +103,7 @@ namespace MolexPlugin.DAL
                     return line;
                 }
             }
-            return null;
+            return "";
         }
         /// <summary>
         /// 删除文件
@@ -110,7 +111,7 @@ namespace MolexPlugin.DAL
         /// <param name="filePath"></param>
         public void DeleteFile()
         {
-                   
+
             if (Directory.Exists(this.eleFile))
             {
                 try

@@ -96,7 +96,7 @@ namespace MolexPlugin.DAL
         public void Serialize(string name)
         {
             string dllPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-            string userPath = dllPath.Replace("application\\", "Cofigure\\" + name + "dat");
+            string userPath = dllPath.Replace("application\\", "Cofigure\\" + name + ".dat");
             if (File.Exists(userPath))
                 File.Delete(userPath);
             List<UserInfo> users = new UserInfoDll().GetList();

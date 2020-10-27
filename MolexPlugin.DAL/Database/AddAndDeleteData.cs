@@ -15,7 +15,6 @@ namespace MolexPlugin.DAL
         private UserSingleton users;
         private bool auth;
 
-        private OperationData oper = new OperationData();
         public AddAndDeleteData()
         {
             this.users = UserSingleton.Instance();
@@ -30,6 +29,7 @@ namespace MolexPlugin.DAL
         {
             if (users.UserSucceed && auth && users.Jurisd.GetAdminJurisd())
             {
+                OperationData oper = new OperationData();
                 bool isok = oper.DeleteDatabaseToUser(user);
                 if (isok)
                 {
@@ -49,6 +49,7 @@ namespace MolexPlugin.DAL
         {
             if (users.UserSucceed && auth && users.Jurisd.GetAdminJurisd())
             {
+                OperationData oper = new OperationData();
                 bool isok = oper.AddDatabaseToUser(user);
                 if (isok)
                 {
@@ -60,21 +61,14 @@ namespace MolexPlugin.DAL
                 return false;
         }
         /// <summary>
-        /// 序列化用户
+        /// 序列化控件
         /// </summary>
         public void SerializeUserToData()
         {
             if (users.UserSucceed && auth && users.Jurisd.GetAdminJurisd())
             {
-                string dllPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-                string contrPath = dllPath.Replace("application\\", "Cofigure\\SerializeContr.dat");
-                if (File.Exists(contrPath))
-                    File.Delete(contrPath);
-                List<ControlEnum> users = new ControlEnumNameDll().GetList();
-                FileStream fs = new FileStream(contrPath, FileMode.Create);
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(fs, users);
-                fs.Close();
+                OperationData oper = new OperationData();
+                oper.Serialize("SerializeUser");
             }
         }
         /// <summary>
@@ -86,10 +80,11 @@ namespace MolexPlugin.DAL
         {
             if (users.UserSucceed && auth && users.Jurisd.GetAdminJurisd())
             {
+                OperationData oper = new OperationData();
                 bool isok = oper.DeleteDatabaseToControl(ce);
                 if (isok)
                 {
-                    oper.Serialize("SerializeUser");
+                    SerializeControlToData();
                 }
                 return isok;
             }
@@ -105,16 +100,34 @@ namespace MolexPlugin.DAL
         {
             if (users.UserSucceed && auth && users.Jurisd.GetAdminJurisd())
             {
+                OperationData oper = new OperationData();
                 bool isok = oper.AddDatabaseToControl(ce);
                 if (isok)
                 {
-                    oper.Serialize("SerializeUser");
+                    SerializeControlToData();
                 }
                 return isok;
             }
             else
                 return false;
         }
-
+        /// <summary>
+        /// 序列化控件
+        /// </summary>
+        public void SerializeControlToData()
+        {
+            if (users.UserSucceed && auth && users.Jurisd.GetAdminJurisd())
+            {
+                string dllPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+                string contrPath = dllPath.Replace("application\\", "Cofigure\\SerializeContr.dat");
+                if (File.Exists(contrPath))
+                    File.Delete(contrPath);
+                List<ControlEnum> users = new ControlEnumNameDll().GetList();
+                FileStream fs = new FileStream(contrPath, FileMode.Create);
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(fs, users);
+                fs.Close();
+            }
+        }
     }
 }

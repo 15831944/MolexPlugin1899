@@ -61,7 +61,7 @@ namespace MolexPlugin.DAL
         /// 创建文件夹
         /// </summary>
         /// <returns></returns>
-        public abstract bool CreateNewFile(string filePath);
+        public abstract bool CreateNewFile(string filePath,bool open);
 
         /// <summary>
         /// 获取基准框边界和地面点

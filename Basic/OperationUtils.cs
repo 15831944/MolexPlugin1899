@@ -33,11 +33,11 @@ namespace Basic
             boundarySetPlanarMill = boundary.CreateBoundarySetPlanarMill();
             Vector3d normal = new NXOpen.Vector3d(0.0, 0.0, 1.0);
             Plane plane = workPart.Planes.CreatePlane(pt, normal, NXOpen.SmartObject.UpdateOption.AfterModeling);
-            boundarySetPlanarMill.Plane = plane;
             boundarySetPlanarMill.ToolSide = toolside;
-            boundarySetPlanarMill.PlaneType = NXOpen.CAM.BoundarySet.PlaneTypes.UserDefined;
             boundarySetPlanarMill.AppendCurves(edges, pt, mat.GetMatrix3());
             boundarySetPlanarMill.BoundaryType = types;
+            boundarySetPlanarMill.Plane = plane;
+            boundarySetPlanarMill.PlaneType = NXOpen.CAM.BoundarySet.PlaneTypes.UserDefined;
             return boundarySetPlanarMill;
         }
         /// <summary>

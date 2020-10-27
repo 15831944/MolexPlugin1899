@@ -100,15 +100,19 @@ namespace MolexPlugin
         {
             try
             {
-                Part workPart = theSession.Parts.Work;
-                if (!WorkModel.IsWork(workPart))
+                UserSingleton user = UserSingleton.Instance();
+                if (user.UserSucceed && user.Jurisd.GetElectrodeJurisd())
                 {
-                    theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "请切换到WORK为显示部件！");
-                    return 0;
+                    Part workPart = theSession.Parts.Work;
+                    if (!ParentAssmblieInfo.IsWork(workPart))
+                    {
+                        theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "请切换到WORK为显示部件！");
+                        return 0;
+                    }
+                    WorkModel model = new WorkModel(workPart);
+                    this.matr = model.Info.Matr;
+                    theDialog.Show();
                 }
-                WorkModel model = new WorkModel(workPart);
-                this.matr = model.Info.Matr;
-                theDialog.Show();
             }
             catch (Exception ex)
             {
@@ -156,6 +160,8 @@ namespace MolexPlugin
                 };
                 Selection.MaskTriple[] masks = { maskBody };
                 this.SeleElePart.SetSelectionFilter(Selection.SelectionAction.ClearAndEnableSpecific, masks);
+                this.bodys.Clear();
+                this.feature = null;
             }
             catch (Exception ex)
             {
@@ -226,7 +232,6 @@ namespace MolexPlugin
                 else if (block == double_x)
                 {
                     //---------Enter your code here-----------
-                    this.double_y.Value = 0;
                     CreatePatter();
                 }
                 else if (block == butt_x)
@@ -239,7 +244,6 @@ namespace MolexPlugin
                 else if (block == double_y)
                 {
                     //---------Enter your code here-----------
-                    this.double_x.Value = 0;
                     CreatePatter();
                 }
                 else if (block == butt_y)
@@ -328,7 +332,7 @@ namespace MolexPlugin
                 return;
             double[] offse = { this.double_x.Value, this.double_y.Value };
             Matrix4 inv = matr.GetInversMatrix();
-            CartesianCoordinateSystem csys = BoundingBoxUtils.CreateCoordinateSystem(matr, inv);
+          //  CartesianCoordinateSystem csys = BoundingBoxUtils.CreateCoordinateSystem(matr, inv);
             ElectrodeToolhInfo info = new ElectrodeToolhInfo(offse, bodys.ToArray());
             if (!info.IsInfoOk)
                 theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "请先计算放电面积！");

@@ -69,20 +69,39 @@ namespace MolexPlugin.DAL
             return new ElectrodeInfo(parent.MoldInfo, parent.UserModel, allInfo, matInfo);
         }
 
-        public bool CreateBuider()
+        public List<string> CreateBuider()
         {
+            List<string> err = new List<string>();
             ElectrodePartBuilder part = new ElectrodePartBuilder(GetEleInfo(), condition.Work.WorkpieceDirectoryPath);
-            if (part.CreatPart())
+            bool ptOk = part.CreatPart();
+            if (ptOk)
             {
+                List<Body> bodys = new List<Body>();
+                List<Body> headBodys = new List<Body>();
+                bool isok = false;
+                ElectrodeDatumBuilder datum = null;
                 try
                 {
-                    List<Body> bodys = new List<Body>();
-                    List<Body> headBodys = part.WaveEleHeadBody(condition.HeadBodys);
-                    bool isok = condition.ExpAndMatr.Exp.CreateExp(zDatum, allInfo.Preparetion.Preparation);
-                    if (headBodys.Count == 0 || !isok)
-                        return false;
+                    headBodys = part.WaveEleHeadBody(condition.HeadBodys);
+                }
+                catch (NXException ex)
+                {
+                    err.Add("连接体错！             " + ex.Message);
+                    return err;
+                }
+                try
+                {
+                    isok = condition.ExpAndMatr.Exp.CreateExp(zDatum, allInfo.Preparetion.Preparation);
+                }
+                catch (NXException ex)
+                {
+                    err.Add("创建表达式错误！         " + ex.Message);
+                    return err;
+                }
+                try
+                {
                     ElectrodeSketchBuilder sketch = new ElectrodeSketchBuilder(allInfo.Preparetion.Preparation[0], allInfo.Preparetion.Preparation[1], -allInfo.Datum.EleHeight);
-                    ElectrodeDatumBuilder datum = new ElectrodeDatumBuilder(sketch);
+                    datum = new ElectrodeDatumBuilder(sketch);
                     ElectrodeMoveBuilder move = new ElectrodeMoveBuilder(headBodys, allInfo.Datum, allInfo.GapValue, allInfo.Pitch);
                     datum.SetParentBuilder(sketch);
                     sketch.SetParentBuilder(move);
@@ -96,21 +115,38 @@ namespace MolexPlugin.DAL
                         feeler.CreateBuilder();
                         bodys.Add(feeler.FeelerBody);
                     }
-                    Body by = CreateUnite(datum.DatumBody, bodys);
-                    CreateCenterPoint(part, zDatum);
-                    SetEleColor(by);
                 }
                 catch (NXException ex)
                 {
-                    ClassItem.WriteLogFile("创建特征失败！" + ex.Message);
+                    err.Add("创建电极特征错误！          " + ex.Message);
+                    return err;
                 }
+                try
+                {
+                    string errs;
+                    Body by = CreateUnite(datum.DatumBody, bodys, out errs);
+                    SetEleColor(by);
+                    if (errs != "")
+                    {
+                        err.Add(errs);
+                    }
+                }
+                catch (NXException ex)
+                {
+                    err.Add("电极求和错误！          " + ex.Message);
+                }
+                CreateCenterPoint(part, zDatum);
                 PartUtils.SetPartWork(null);
                 part.MoveEleComp(condition.Work.Info.Matr, part.GetMove(zDatum));
                 MoveHeadTolayer();
                 MoveEleComp(part.EleComp);
-                return true;
             }
-            return false;
+            else
+            {
+                err.Add("创建电极档错误！");
+            }
+
+            return err;
 
         }
         /// <summary>
@@ -118,9 +154,33 @@ namespace MolexPlugin.DAL
         /// </summary>
         /// <param name="body1"></param>
         /// <param name="bodys"></param>
-        public Body CreateUnite(Body body1, List<Body> bodys)
+        public Body CreateUnite(Body body1, List<Body> bodys, out string errs)
         {
-            return BooleanUtils.CreateBooleanFeature(body1, false, false, NXOpen.Features.Feature.BooleanType.Unite, bodys.ToArray()).GetBodies()[0];
+            errs = "";
+            string[] err = null;
+            NXOpen.Features.BooleanFeature bf = null;
+            try
+            {
+                bf = BooleanUtils.CreateBooleanFeature(body1, false, false, NXOpen.Features.Feature.BooleanType.Unite, bodys.ToArray());
+                err = bf.GetFeatureWarningMessages();
+            }
+            catch (NXException ex)
+            {
+                throw ex;
+            }
+            if (err != null)
+            {
+                foreach (string str in err)
+                {
+                    if (str.Equals("One or more tools did not intersect the target.", StringComparison.CurrentCultureIgnoreCase))
+                    {
+
+                        errs = ("一个或多个工具与目标不相交。");
+                    }
+
+                }
+            }
+            return bf.GetBodies()[0];
         }
         /// <summary>
         /// 移动层
@@ -129,7 +189,16 @@ namespace MolexPlugin.DAL
         {
             foreach (Body by in condition.HeadBodys)
             {
-                by.Layer = allInfo.Name.EleNumber + 100;
+                if (allInfo.Name.EleNumber >= 100)
+                {
+                    int temp = allInfo.Name.EleNumber - allInfo.Name.EleNumber / 100 * 100;
+                    by.Layer = 100 + temp;
+                }
+                else
+                {
+                    by.Layer = allInfo.Name.EleNumber + 100;
+                }
+
             }
         }
         /// <summary>

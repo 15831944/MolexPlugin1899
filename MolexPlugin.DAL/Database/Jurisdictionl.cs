@@ -44,22 +44,22 @@ namespace MolexPlugin.DAL
             bool admin = info.Role.Exists(a => a.RoleName.Equals("Admin", StringComparison.CurrentCultureIgnoreCase));
             if (admin)
             {
-                jd = Jurisd.Admin;
-
+                return  Jurisd.Admin;
+               
             }
             if (ele && cam)
             {
-                jd = Jurisd.ElectrodeAndCAM;
+                return  Jurisd.ElectrodeAndCAM;
 
             }
             if (ele)
             {
-                jd = Jurisd.Electrode;
+                return  Jurisd.Electrode;
 
             }
             if (cam)
             {
-                jd = Jurisd.CAM;
+              return  Jurisd.CAM;
 
             }
             return jd;
@@ -113,7 +113,7 @@ namespace MolexPlugin.DAL
                 LogMgr.WriteLog("没有管理员权限!");
                 return false;
             }
-              
+
         }
         /// <summary>
         /// 获取公共工具权限
@@ -121,7 +121,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public bool GetComm()
         {
-            if ((this.Jus == Jurisd.Electrode) || (this.Jus == Jurisd.ElectrodeAndCAM) || (this.Jus == Jurisd.Admin) )
+            if ((this.Jus == Jurisd.Electrode) || this.Jus == Jurisd.CAM || (this.Jus == Jurisd.ElectrodeAndCAM) || (this.Jus == Jurisd.Admin))
             {
                 return true;
             }
@@ -130,7 +130,7 @@ namespace MolexPlugin.DAL
                 LogMgr.WriteLog("没有公共工件权限!");
                 return false;
             }
-               
+
         }
     }
     public enum Jurisd

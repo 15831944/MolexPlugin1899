@@ -100,6 +100,7 @@ namespace MolexPlugin.Model
         {
             try
             {
+          
                 AttributeUtils.AttributeOperation("EleType", this.EleType, objs);
                 AttributeUtils.AttributeOperation("Condition", this.Condition, objs);
                 AttributeUtils.AttributeOperation("CH", this.Ch, objs);

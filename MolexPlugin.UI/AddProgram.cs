@@ -90,24 +90,28 @@ namespace MolexPlugin
         {
             try
             {
-                Part workPart = theSession.Parts.Work;
-                if (!theSession.ApplicationName.Equals("UG_APP_MANUFACTURING", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "请切换到加工模块");
-                    return 0;
-                }
-                try
-                {
-                    NXOpen.CAM.NCGroup parent = (NXOpen.CAM.NCGroup)workPart.CAMSetup.CAMGroupCollection.FindObject("AAA");
-                    program = new CreateProgramBuilder(parent);
-                    theDialog.Show();
-                }
-               catch
+                UserSingleton user = UserSingleton.Instance();
+                if (user.UserSucceed && user.Jurisd.GetCAMJurisd())
                 {
 
+                    Part workPart = theSession.Parts.Work;
+                    if (!theSession.ApplicationName.Equals("UG_APP_MANUFACTURING", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "请切换到加工模块");
+                        return 0;
+                    }
+                    try
+                    {
+                        NXOpen.CAM.NCGroup parent = (NXOpen.CAM.NCGroup)workPart.CAMSetup.CAMGroupCollection.FindObject("AAA");
+                        program = new CreateProgramBuilder(parent);
+                        theDialog.Show();
+                    }
+                    catch
+                    {
+
+                    }
                 }
-                             
-             
+
             }
             catch (Exception ex)
             {

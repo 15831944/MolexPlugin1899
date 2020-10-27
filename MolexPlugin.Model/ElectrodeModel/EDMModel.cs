@@ -67,5 +67,10 @@ namespace MolexPlugin.Model
         {
             return this.Info.SetAttribute(obj);
         }
+
+        public void SetAssembleName(string name)
+        {
+            this.name = name;
+        }
     }
 }

@@ -49,6 +49,7 @@ namespace MolexPlugin.DAL
             model.CreatePart(asm.WorkpieceDirectoryPath);
             model.LoadWork();
             PartUtils.SetPartDisplay(model.PartTag);
+            model.PartTag.Layers.SetState(201, NXOpen.Layer.State.Selectable);
             model.GetBoundingBox(out centerPt, out disPt);
             model.GetHidden(out setValueHidden, out eleHidden);
 

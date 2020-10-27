@@ -94,7 +94,7 @@ namespace MolexPlugin
             List<NCGroup> postGroup = new List<NCGroup>();
             if (buttonShopdoc.Text.Equals("产生工单"))
             {
-                CreatePostExcelBuilder excel = new CreatePostExcelBuilder(groups, workPart);
+                CreatePostExcelBuilder excel = new CreatePostExcelBuilder(this.models, workPart);
                 excel.CreateExcel();
             }
             if (buttonPost.Text == "后处理")

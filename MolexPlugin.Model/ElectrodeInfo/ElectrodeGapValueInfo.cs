@@ -170,18 +170,7 @@ namespace MolexPlugin.Model
                             bi.EF = true;
                         }
                     }
-                    ef.Clear();
-                    /* for (int i = this.ERNum[0]; i < et.GetLength(0); i++)
-                     {
-                         for (int k = this.ERNum[1]; k < et.GetLength(1); k++)
-                         {
-                             foreach (BodyInfo bi in et[i, k].BodyInfos)
-                             {
-                                 bi.EF = true;
-                                 bi.Body.Color = 108;
-                             }
-                         }
-                     }*/
+                    ef.Clear();               
                 }
                 return true;
             }

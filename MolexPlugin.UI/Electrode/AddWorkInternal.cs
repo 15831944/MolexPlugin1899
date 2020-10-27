@@ -104,6 +104,8 @@ namespace MolexPlugin
         private bool AlterWork(WorkModel work, Matrix4 mat)
         {
             Matrix4Info info = new Matrix4Info(mat);
+            work.Info.Matr = mat;
+            work.Info.MatrInfo = info;
             bool isSet = info.SetAttribute(work.PartTag);
             bool isSave = work.SaveCsys(workPart);
             bool setValue = work.AlterEleSetValue();
@@ -203,11 +205,17 @@ namespace MolexPlugin
                         ParentAssmblieInfo info1 = ParentAssmblieInfo.GetAttribute(com);
                         if (info1.Type == PartType.EDM)
                         {
+                            string edmName = name + "EDM";
+                            if (File.Exists(edmName + ".prt"))
+                            {
+                                edmName = edmName + "5";
+                            }
                             EDMInfo edm = new EDMInfo(mold, user);
                             try
                             {
-                                NXObject make = AssmbliesUtils.MakeUnique(com, name + "EDM.prt");
+                                NXObject make = AssmbliesUtils.MakeUnique(com, edmName + ".prt");
                                 edm.SetAttribute(com.Prototype as Part);
+                                break;
                             }
                             catch (NXException ex)
                             {

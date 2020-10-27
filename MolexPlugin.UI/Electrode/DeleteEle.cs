@@ -90,7 +90,9 @@ namespace MolexPlugin
         {
             try
             {
-                theDialog.Show();
+                UserSingleton user = UserSingleton.Instance();
+                if (user.UserSucceed && user.Jurisd.GetElectrodeJurisd())
+                    theDialog.Show();
             }
             catch (Exception ex)
             {

@@ -124,8 +124,8 @@ namespace MolexPlugin
                     }
                     else
                         asmColl = new ASMCollection(new ASMModel(disPart));
+                    theDialog.Show();
                 }
-                theDialog.Show();
             }
             catch (Exception ex)
             {

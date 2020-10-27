@@ -98,8 +98,15 @@ namespace MolexPlugin.Model
             List<BoundarySet> boundarySet = new List<BoundarySet>();
             foreach (Face face in conditions)
             {
-                BoundarySet[] set = boundary.AppendFaceBoundary(face, true, false, false, NXOpen.CAM.BoundarySet.ToolSideTypes.InsideOrLeft);
-                boundarySet.AddRange(set);
+                try
+                {
+                    BoundarySet[] set = boundary.AppendFaceBoundary(face, true, false, false, NXOpen.CAM.BoundarySet.ToolSideTypes.InsideOrLeft);
+                    boundarySet.AddRange(set);
+                }
+                catch
+                {
+
+                }
             }
 
             list.Append(boundarySet.ToArray());
@@ -210,7 +217,7 @@ namespace MolexPlugin.Model
             {
                 builder1 = workPart.CAMSetup.CAMOperationCollection.CreateFaceMillingBuilder(this.Oper);
             }
-            catch(NXException ex)
+            catch (NXException ex)
             {
                 throw ex;
             }

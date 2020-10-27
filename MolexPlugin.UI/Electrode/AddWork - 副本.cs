@@ -255,28 +255,30 @@ namespace MolexPlugin
                     CoordinateSystem wcs = workPart.WCS.CoordinateSystem;
                     Matrix4 matr = new Matrix4();
                     matr.Identity();
+
                     Part temp = this.seleCt.Prototype as Part;
-                    List<string> err = new List<string>();
                     if (WorkModel.IsWork(temp))
                     {
                         WorkModel wm = new WorkModel(temp);
                         if (!this.addOrModify.Value)
                         {
-                            matr.TransformToCsys(wcs, ref matr);
                             if (!this.AlterWork(wm, matr))
                                 theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "修改设定坐标错误！");
                         }
                         else
                         {
-                            AddWorkBuilder add = new AddWorkBuilder(asmModel, this.seleCt);
                             string workpieceName = this.GetWorkpieceNumber(this.workNumber.ValueAsString, wm);
-                            if (wm.Info.MoldInfo.WorkpieceNumber.Equals(workpieceName, StringComparison.CurrentCultureIgnoreCase))
+                            if (!wm.Info.MoldInfo.WorkpieceNumber.Equals(workpieceName, StringComparison.CurrentCultureIgnoreCase))
                             {
-                                err.AddRange(add.CopWork(user.CreatorUser));
+                                List<string> err = this.CopyWork(seleCt, wm, workpieceName, user.CreatorUser);
+                                if (err.Count > 0)
+                                    ClassItem.Print(err.ToArray());
                             }
                             else
                             {
-                                err.AddRange(add.CopOtherWork(user.CreatorUser, this.workNumber.ValueAsString));
+                                List<string> err = CopWork(seleCt, wm, user.CreatorUser);
+                                if (err.Count > 0)
+                                    ClassItem.Print(err.ToArray());
                             }
 
                         }
@@ -291,21 +293,18 @@ namespace MolexPlugin
                         {
                             matr = GetParentWorkMatr(seleCt);
                         }
-                       
-                        AddWorkBuilder add = new AddWorkBuilder(asmModel, this.seleCt.Parent.Parent);
-                        err.AddRange(add.CreateWork(user.CreatorUser, this.seleCt, matr));
+                        WorkpieceModel wm = new WorkpieceModel(this.selectPart);
+                        List<string> err = this.CreateNewWork(this.seleCt, wm, matr, user.CreatorUser);
+                        if (err != null)
+                            ClassItem.Print(err.ToArray());
                     }
-                    if (err.Count > 0)
-                        ClassItem.Print(err.ToArray());
-                    if (points.Count != 0)
-                        DeleteObject.Delete(this.points.ToArray());
-                    CsysUtils.SetWcsToAbs();
-                    bool anyPartsModified1;
-                    NXOpen.PartSaveStatus partSaveStatus1;
-                    Session.GetSession().Parts.SaveAll(out anyPartsModified1, out partSaveStatus1);
                 }
-
-
+                if (points.Count != 0)
+                    DeleteObject.Delete(this.points.ToArray());
+                CsysUtils.SetWcsToAbs();
+                bool anyPartsModified1;
+                NXOpen.PartSaveStatus partSaveStatus1;
+                Session.GetSession().Parts.SaveAll(out anyPartsModified1, out partSaveStatus1);
             }
             catch (Exception ex)
             {
@@ -332,7 +331,7 @@ namespace MolexPlugin
                         this.seleCt = obj[0] as NXOpen.Assemblies.Component;
 
                         Part temp = (this.seleCt).Prototype as Part;
-                        if (ParentAssmblieInfo.IsWork(temp))
+                        if (WorkModel.IsWork(temp))
                         {
                             WorkModel wk = new WorkModel(temp);
                             this.group.Show = true;
@@ -505,15 +504,11 @@ namespace MolexPlugin
                 {
                     Face seleFace = selectedObject as Face;
                     Part selePart = (seleFace.Prototype as Face).OwningPart as Part;
-                    if (selePart.Tag == part.Tag)
-                        return UFConstants.UF_UI_SEL_ACCEPT;
-                }
-                else if(selectedObject is Point)
-                {
-                    return UFConstants.UF_UI_SEL_ACCEPT;
+                    if (selePart.Tag != part.Tag)
+                        return UFConstants.UF_UI_SEL_REJECT;
                 }
             }
-            return (NXOpen.UF.UFConstants.UF_UI_SEL_REJECT);
+            return (NXOpen.UF.UFConstants.UF_UI_SEL_ACCEPT);
         }
 
         //------------------------------------------------------------------------------

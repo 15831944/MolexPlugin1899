@@ -58,10 +58,19 @@ namespace MolexPlugin.DAL
             try
             {
                 this.operModel.SetStock(0.05, -this.Inter);
+                 
             }
             catch (NXException ex)
             {
                 err.Add("设置余量错误！            " + ex.Message);
+            }
+            try
+            {
+                this.operModel.SetFeeds(600);
+            }
+            catch (NXException ex)
+            {
+                err.Add("设置切削进给错误！            " + ex.Message);
             }
             return err;
         }

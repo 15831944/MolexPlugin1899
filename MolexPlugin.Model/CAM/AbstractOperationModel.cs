@@ -249,6 +249,28 @@ namespace MolexPlugin.Model
                 theSession.CAMSession.PathDisplay.ShowToolPath(this.Oper);
 
         }
+        /// <summary>
+        /// 设置切削进给
+        /// </summary>
+        /// <param name="feeds"></param>
+        public void SetFeeds(int feeds)
+        {
+            try
+            {
+                NXOpen.CAM.CAMObject[] params1 = new CAMObject[1] { this.Oper };
+                NXOpen.CAM.ObjectsFeedsBuilder objectsFeedsBuilder1;
+                objectsFeedsBuilder1 = workPart.CAMSetup.CreateFeedsBuilder(params1);
+                objectsFeedsBuilder1.FeedsBuilder.FeedCutBuilder.Value = feeds;
+                objectsFeedsBuilder1.FeedsBuilder.RecalculateData(NXOpen.CAM.FeedsBuilder.RecalcuateBasedOn.SurfaceSpeed);
+                NXOpen.NXObject nXObject1;
+                nXObject1 = objectsFeedsBuilder1.Commit();
+                objectsFeedsBuilder1.Destroy();
+            }
+            catch(NXException ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }

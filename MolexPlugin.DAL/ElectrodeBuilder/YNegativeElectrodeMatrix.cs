@@ -18,7 +18,7 @@ namespace MolexPlugin.DAL
         private Point3d workpieceDisPt = new Point3d();
         public YNegativeElectrodeMatrix()
         {
-            
+
         }
         public override void Initialinze(Matrix4 workMatr, List<Body> eleHead, Part workpiecePart = null)
         {
@@ -28,13 +28,16 @@ namespace MolexPlugin.DAL
         }
         public override void SetMatrixOrigin(int[] pre, Point3d originPt)
         {
+            Matrix4 inv = workMatr.GetInversMatrix();
+            workMatr.ApplyPos(ref originPt);
             originPt.Z = originPt.Z + (pre[1] / 2 - 1.2);
+            inv.ApplyPos(ref originPt);
             base.SetMatrixOrigin(pre, originPt);
         }
         public override double[] GetPreparation(ElectrodePitchInfo pitch, bool zDatum)
         {
             double preY = Math.Ceiling(2 * this.disPt.Z);
-            double preX = Math.Ceiling(2 * this.disPt.X + Math.Abs((pitch.PitchXNum - 1) * pitch.PitchX)) ;
+            double preX = Math.Ceiling(2 * this.disPt.X + Math.Abs((pitch.PitchXNum - 1) * pitch.PitchX));
             double preZ = Math.Ceiling(2 * this.disPt.Y) + 45;
             if (zDatum)
             {

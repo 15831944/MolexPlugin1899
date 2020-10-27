@@ -44,7 +44,9 @@ namespace MolexPlugin.DAL
             {
                 FileStream fs = new FileStream(userPath, FileMode.Open, FileAccess.Read);
                 BinaryFormatter bf = new BinaryFormatter();
-                return bf.Deserialize(fs) as List<UserInfo>;
+                List<UserInfo> infos= bf.Deserialize(fs) as List<UserInfo>;
+                fs.Close();
+                return infos;
             }
             return null;
         }

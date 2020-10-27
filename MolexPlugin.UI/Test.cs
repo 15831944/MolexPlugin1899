@@ -64,6 +64,15 @@ namespace MolexPlugin
             // theUFSession.Assem.CountEntsInPartOcc(temp);
 
         }
+
+        public static void User()
+        {
+            AddAndDeleteData data = new AddAndDeleteData();
+            data.SerializeControlToData();
+            data.SerializeUserToData();
+
+
+        }
         public static bool IsAuthenticated(string username, string pwd)
         {
             string adPath = "LDAP://molex.com";

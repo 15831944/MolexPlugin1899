@@ -508,9 +508,17 @@ namespace MolexPlugin
             }
             foreach (CreateElectrodeCAMBuilder cb in this.camBd)
             {
-                err.AddRange(cb.CreateOperation());
+                if(cb.Template.Type==ElectrodeTemplate.User)
+                {
+                    err.AddRange(cb.CreateUserOperation());
+                }
+                else
+                {
+                    err.AddRange(cb.CreateOperation());
+                }
+               
                 cb.SetGenerateToolPath(this.checkBoxIsGenerate.Checked);
-                err.AddRange(cb.ExportFile(this.fileSave));
+                err.AddRange(cb.ExportFile(this.fileSave, true));
                 elePart.Remove(cb.Pt);
             }
             if (err.Count > 0)

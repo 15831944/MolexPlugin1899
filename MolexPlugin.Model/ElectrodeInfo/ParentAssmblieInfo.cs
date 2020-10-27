@@ -180,7 +180,7 @@ namespace MolexPlugin.Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static bool IsASM(NXObject obj)
+        public static bool IsAsm(NXObject obj)
         {
             try
             {

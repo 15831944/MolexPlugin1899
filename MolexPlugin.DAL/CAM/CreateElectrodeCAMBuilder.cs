@@ -185,13 +185,13 @@ namespace MolexPlugin.DAL
             CAMUtils.SetFeatureGeometry("WORKPIECE", this.pt.Bodies.ToArray());
         }
 
-        public List<string> ExportFile(string filePath)
+        public List<string> ExportFile(string filePath, bool open)
         {
             List<string> err = new List<string>();
             string name = pt.Name;
             try
             {
-                if (cam.CreateNewFile(filePath + "\\"))
+                if (cam.CreateNewFile(filePath + "\\", open))
                     err.Add(name + "        电极程序创建成功");
                 else
                 {

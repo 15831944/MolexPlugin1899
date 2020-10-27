@@ -90,20 +90,24 @@ namespace MolexPlugin
         {
             try
             {
-                Part workPart = theSession.Parts.Work;
-                if (!ASMModel.IsAsm(workPart))
+                UserSingleton user = UserSingleton.Instance();
+                if (user.UserSucceed && user.Jurisd.GetElectrodeJurisd())
                 {
-                    ASMModel asm = ASMCollection.GetAsmModel(workPart);
-                    if (asm != null)
-                        PartUtils.SetPartDisplay(asm.PartTag);
-                    else
+                    Part workPart = theSession.Parts.Work;
+                    if (!ParentAssmblieInfo.IsAsm(workPart))
                     {
-                        theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "工作部件无法找到ASM档！");
-                        return 0;
-                    }
+                        ASMModel asm = ASMCollection.GetAsmModel(workPart);
+                        if (asm != null)
+                            PartUtils.SetPartDisplay(asm.PartTag);
+                        else
+                        {
+                            theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "工作部件无法找到ASM档！");
+                            return 0;
+                        }
 
+                    }
+                    theDialog.Show();
                 }
-                theDialog.Show();
             }
             catch (Exception ex)
             {

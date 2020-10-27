@@ -79,15 +79,15 @@ namespace MolexPlugin.Model
 
         private void SetAttribute()
         {
-            string time = GetTimeStamp();
+          //  string time = GetTimeStamp();
             int i = 1;
             foreach (Body by in bodys)
             {
-                AttributeUtils.AttributeOperation("ToolhName", time, by);
+               // AttributeUtils.AttributeOperation("ToolhName", time, by);
                 AttributeUtils.AttributeOperation("ToolhNumber", i, by);
                 AttributeUtils.AttributeOperation("Offset", Offset, by);
 
-                AttributeUtils.AttributeOperation("ToolhName", time, by.GetFaces());
+              //  AttributeUtils.AttributeOperation("ToolhName", time, by.GetFaces());
                 AttributeUtils.AttributeOperation("ToolhNumber", i, by.GetFaces());
                 AttributeUtils.AttributeOperation("Offset", Offset, by.GetFaces());
 

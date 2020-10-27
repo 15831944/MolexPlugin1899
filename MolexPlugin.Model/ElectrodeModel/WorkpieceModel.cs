@@ -18,14 +18,14 @@ namespace MolexPlugin.Model
     {
         public WorkPieceInfo Info { get; private set; } = null;
 
-        public WorkpieceModel(WorkPieceInfo info, Part part = null) 
+        public WorkpieceModel(WorkPieceInfo info, Part part = null)
         {
             this.Info = info;
             this.PartTag = part;
         }
         public WorkpieceModel(Part part) : base(part)
         {
-           
+
         }
         /// <summary>
         /// 创建part档
@@ -124,7 +124,21 @@ namespace MolexPlugin.Model
                 throw ex;
             }
         }
+        public Component Load(Part parentPart,Matrix4 mat,Point3d pt)
+        {
+            Matrix4 matr = new Matrix4();
+            matr.Identity();
+            try
+            {
+                Component ct = Basic.AssmbliesUtils.PartLoad(parentPart, this.WorkpiecePath, this.AssembleName, mat, pt);
+                return ct;
 
+            }
+            catch (NXException ex)
+            {
+                throw ex;
+            }
+        }
         /// <summary>
         /// 判断当前部件是否是Workpiece
         /// </summary>

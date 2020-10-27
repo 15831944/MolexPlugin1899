@@ -103,19 +103,22 @@ namespace MolexPlugin
         {
             try
             {
-
-                if (workPart.ComponentAssembly.RootComponent != null)
+                UserSingleton user = UserSingleton.Instance();
+                if (user.UserSucceed && user.Jurisd.GetElectrodeJurisd())
                 {
-                    theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "工件是装配档");
-                    return 0;
+                    if (workPart.ComponentAssembly.RootComponent != null)
+                    {
+                        theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "工件是装配档");
+                        return 0;
+                    }
+                    if (workPart.PartUnits == BasePart.Units.Inches)
+                    {
+                        theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "工件是英制");
+                        return 0;
+                    }
+                    workPart.Save(BasePart.SaveComponents.False, BasePart.CloseAfterSave.False);
+                    theDialog.Show();
                 }
-                if (workPart.PartUnits == BasePart.Units.Inches)
-                {
-                    theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "工件是英制");
-                    return 0;
-                }
-                workPart.Save(BasePart.SaveComponents.False, BasePart.CloseAfterSave.False);
-                theDialog.Show();
             }
             catch (Exception ex)
             {
@@ -199,7 +202,7 @@ namespace MolexPlugin
                     EditionNumber = this.EditionNumber.WideValue.ToUpper(),
                     ClientName = this.ClientNumber.WideValue,
                     MoldType = this.MoldType.WideValue.ToUpper(),
-                    MachineType=this.MachineType.WideValue.ToUpper()
+                    MachineType = this.MachineType.WideValue.ToUpper()
                 };
                 string directoryPath = GetDirectoryPath(info);
                 if (!Directory.Exists(directoryPath))

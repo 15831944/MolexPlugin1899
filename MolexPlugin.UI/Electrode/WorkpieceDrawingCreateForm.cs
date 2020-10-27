@@ -28,7 +28,7 @@ namespace MolexPlugin
         {
             Part workPart = Session.GetSession().Parts.Work;
             ASMModel asm = null;
-            if (!ASMModel.IsAsm(workPart))
+            if (!ParentAssmblieInfo.IsAsm(workPart))
             {
                 asm = ASMCollection.GetAsmModel(workPart);
                 if (asm == null)
@@ -58,7 +58,7 @@ namespace MolexPlugin
         public void Show()
         {
             UserSingleton user = UserSingleton.Instance();
-            if (PartIsAsm() && user.UserSucceed && user.Jurisd.GetElectrodeJurisd())
+            if  (user.UserSucceed && user.Jurisd.GetElectrodeJurisd() && PartIsAsm())
                 ShowForm();
         }
     }

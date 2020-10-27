@@ -16,26 +16,41 @@ namespace MolexPlugin.DAL
         private double eleMinDis;
         private double baseFaceDia;
         private double minDis = 0;
+        private bool isMin = false;
         public double[] twice = new double[] { 4, 3, 2, 1.5, 1, 0.8, 0.6, 0.5, 0.4, 0.3, 0.2 };
         public CompterToolName(AnalysisElectrodeBody analysisEle, double eleMinDis)
         {
             this.analysisEle = analysisEle;
             this.eleMinDis = eleMinDis;
-            try
+
+        }
+        private void GetMin()
+        {
+            if (isMin)
             {
-                this.baseFaceDia = analysisEle.GetBaseMinDia(analysisEle.BaseFace.Face) * 2;
-                if (eleMinDis > baseFaceDia)
-                {
-                    minDis = baseFaceDia;
-                }
-                else
-                {
-                    minDis = eleMinDis;
-                }
+                return;
             }
-            catch (Exception ex)
+            else
             {
-                throw ex;
+                try
+                {
+                    this.baseFaceDia = analysisEle.GetBaseMinDia(analysisEle.BaseFace.Face) * 2;
+                    if (eleMinDis > baseFaceDia)
+                    {
+                        minDis = baseFaceDia;
+                        isMin = true;
+                    }
+                    else
+                    {
+                        minDis = eleMinDis;
+                        isMin = true;
+                    }
+                }
+                catch
+                {
+                    minDis = 3.0;
+                    isMin = true;
+                }
             }
         }
         /// <summary>
@@ -44,7 +59,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public string GetRoughTool()
         {
-
+            GetMin();
             if (minDis > 8.2)
                 return "EM8";
             if (minDis > 6.2 && minDis <= 8.2)
@@ -59,6 +74,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public string GetBaseStationTool()
         {
+            GetMin();
             if (minDis > 8.2)
                 return "EM7.98";
             if (minDis > 6.2 && minDis <= 8.2)
@@ -74,6 +90,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public List<string> GetTwiceRoughTool()
         {
+            GetMin();
             List<string> twice = new List<string>();
 
             if (minDis >= 6.0)
@@ -106,6 +123,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public string GetFinishFlatTool()
         {
+            GetMin();
             foreach (double k in twice)
             {
                 if ((k) <= minDis)
@@ -142,6 +160,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public string GetBaseFaceTool()
         {
+            GetMin();
             double min = 0;
             foreach (double k in twice)
             {

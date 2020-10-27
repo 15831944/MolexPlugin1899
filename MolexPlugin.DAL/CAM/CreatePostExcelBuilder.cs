@@ -21,9 +21,9 @@ namespace MolexPlugin.DAL
     public class CreatePostExcelBuilder
     {
         private Part part;
-        private List<NCGroup> groups = new List<NCGroup>();
+        private List<ProgramModel> groups = new List<ProgramModel>();
         private PartPostExcelInfo info;
-        public CreatePostExcelBuilder(List<NCGroup> groups, Part part)
+        public CreatePostExcelBuilder(List<ProgramModel> groups, Part part)
         {
             this.part = part;
             this.groups = groups;
@@ -126,20 +126,20 @@ namespace MolexPlugin.DAL
         private void SetRowData(ISheet sheet, ICellStyle style, ICellStyle styleDate)
         {
             int row = 6;
-            foreach (NCGroup np in groups)
+            foreach (ProgramModel model in groups)
             {
 
                 int oldRow = row;
-                ProgramModel model = new ProgramModel(np);
                 List<MolexPlugin.Model.OperationData> datas = model.OperData;
                 List<MolexPlugin.Model.OperationData> other = model.GetOperationFiltrationOrher();
-                if (row > 20)
-                {
-                    IRow iRow = sheet.GetRow(row);
-                    ExcelUtils.InsertRow(sheet, row, other.Count, iRow);
-                }
+               
                 foreach (MolexPlugin.Model.OperationData data in other)
                 {
+                    if (row > 20)
+                    {
+                        IRow iRow = sheet.GetRow(row);
+                        ExcelUtils.InsertRow(sheet, row, 1, iRow);
+                    }
                     string name = data.OperName;
                     if (name.Length >= 10)
                         name = name.Substring(0, 10);
@@ -168,7 +168,7 @@ namespace MolexPlugin.DAL
                     sheet.AddMergedRegion(new CellRangeAddress(oldRow, row - 1, 15, 15));
                 }
 
-                ExcelUtils.SetValue(sheet, style, oldRow, 0, np.Name);
+                ExcelUtils.SetValue(sheet, style, oldRow, 0, model.ProgramGroup.Name);
                 ExcelUtils.SetValue(sheet, style, oldRow, 1, datas[0].Tool.ToolName);
                 if (other[0].Tool.ToolNumber != 0)
                 {

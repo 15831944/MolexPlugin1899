@@ -76,9 +76,13 @@ namespace MolexPlugin
         }
         public static void Show()
         {
-            List<ProgramModel> groups = new List<ProgramModel>();
-            if (PartIsAsm(out groups))
-                ShowForm(groups);
+            UserSingleton user = UserSingleton.Instance();
+            if (user.UserSucceed && user.Jurisd.GetCAMJurisd())
+            {
+                List<ProgramModel> groups = new List<ProgramModel>();
+                if (PartIsAsm(out groups))
+                    ShowForm(groups);
+            }
         }
 
         private static NXOpen.CAM.NCGroup GetNCGroup()

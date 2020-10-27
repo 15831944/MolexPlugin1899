@@ -33,7 +33,7 @@ namespace Basic
             }
             catch (NXException ex)
             {
-                LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
+               // LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
                 throw ex;
             }
             finally
@@ -67,7 +67,7 @@ namespace Basic
             }
             catch (NXException ex)
             {
-                LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
+              //  LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
                 throw ex;
             }
             finally
@@ -93,7 +93,7 @@ namespace Basic
             }
             catch (NXException ex)
             {
-                LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
+              //  LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
                 throw ex;
             }
             finally
@@ -127,7 +127,7 @@ namespace Basic
             }
             catch (NXException ex)
             {
-                LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
+               // LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
                 throw ex;
             }
             finally
@@ -154,7 +154,7 @@ namespace Basic
             }
             catch (NXException ex)
             {
-                LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
+               // LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
                 throw ex;
             }
             finally
@@ -187,7 +187,7 @@ namespace Basic
             }
             catch (NXException ex)
             {
-                LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
+              //  LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
                 throw ex;
             }
             finally
@@ -217,7 +217,7 @@ namespace Basic
             }
             catch (NXException ex)
             {
-                LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
+              //  LogMgr.WriteLog("AttributeUtils:AttributeOperation:" + ex.Message);
                 throw ex;
             }
             finally

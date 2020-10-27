@@ -28,8 +28,7 @@ namespace MolexPlugin
         private bool PartIsAsm()
         {
             Part workPart = Session.GetSession().Parts.Work;
-
-            if (!ASMModel.IsAsm(workPart))
+            if (!ParentAssmblieInfo.IsAsm(workPart))
             {
                 asm = ASMCollection.GetAsmModel(workPart);
                 if (asm == null)
@@ -56,14 +55,17 @@ namespace MolexPlugin
         }
         public void Show()
         {
-            if (PartIsAsm())
+            UserSingleton user = UserSingleton.Instance();
+            if (user.UserSucceed && user.Jurisd.GetElectrodeJurisd())
             {
-                bool anyPartsModified1;
-                NXOpen.PartSaveStatus partSaveStatus1;
-                Session.GetSession().Parts.SaveAll(out anyPartsModified1, out partSaveStatus1);
-                ShowForm();
+                if (PartIsAsm())
+                {
+                    bool anyPartsModified1;
+                    NXOpen.PartSaveStatus partSaveStatus1;
+                    Session.GetSession().Parts.SaveAll(out anyPartsModified1, out partSaveStatus1);
+                    ShowForm();
+                }
             }
-
         }
     }
 }

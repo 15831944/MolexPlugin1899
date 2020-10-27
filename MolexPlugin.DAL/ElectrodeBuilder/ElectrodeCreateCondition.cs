@@ -38,7 +38,7 @@ namespace MolexPlugin.DAL
             this.workpiece = workpiece;
             this.work = work;
             Initialize();
-            toolhInfo = GetToolhInfo(HeadBodys);
+            toolhInfo = ToolhClassify(HeadBodys);
         }
 
         private void Initialize()
@@ -54,12 +54,57 @@ namespace MolexPlugin.DAL
         private List<ElectrodeToolhInfo> GetToolhInfo(List<Body> bodys)
         {
             List<ElectrodeToolhInfo> toolhs = new List<ElectrodeToolhInfo>();
-            var toolhNameList = bodys.GroupBy(a => AttributeUtils.GetAttrForString(a, "ToolhName"));
+            // var toolhNameList = bodys.GroupBy(a => AttributeUtils.GetAttrForString(a, "ToolhName"));
+            var toolhNameList = bodys.GroupBy(delegate (Body a)
+            {
+                string temp = AttributeUtils.GetAttrForString(a, "ToolhName");
+                char result;
+                double tp = 0;
+                if (Char.TryParse(temp, out result))
+                    return ((int)result);
+                else
+                {
+                    if (Double.TryParse(temp, out tp))
+                        return tp;
+                }
+                return 0;
+            });
+            List<Double> keys = new List<Double>();
+            foreach (IGrouping<Double, Body> group in toolhNameList)
+            {
+                keys.Add(group.Key);
+            }
+            keys.Sort();
             toolhNameList.OrderByDescending(a => a.Key);
             int num = 65;
-            foreach (var toolhName in toolhNameList)
+            for (int j = 0; j < keys.Count; j++)
             {
-                ElectrodeToolhInfo toolh = ElectrodeToolhInfo.GetToolhInfoForAttribute(toolhName.ToArray());
+                foreach (var te in toolhNameList)
+                {
+                    if (te.Key == keys[j])
+                    {
+                        ElectrodeToolhInfo toolh = ElectrodeToolhInfo.GetToolhInfoForAttribute(te.ToArray());
+                        char k = (char)num;
+                        toolh.SetToolhName(k.ToString());
+                        toolhs.Add(toolh);
+                        num++;
+                        break;
+                    }
+
+                }
+
+            }
+            return toolhs;
+        }
+
+        private List<ElectrodeToolhInfo> ToolhClassify(List<Body> bodys)
+        {
+            int num = 65;
+            List<ElectrodeToolhInfo> toolhs = new List<ElectrodeToolhInfo>();
+            List<ElectrodeToolhClassify> classify = ElectrodeToolhClassify.Classify(bodys);
+            foreach (ElectrodeToolhClassify ey in classify)
+            {
+                ElectrodeToolhInfo toolh = ElectrodeToolhInfo.GetToolhInfoForAttribute(ey.ToolhBodys.ToArray());
                 char k = (char)num;
                 toolh.SetToolhName(k.ToString());
                 toolhs.Add(toolh);

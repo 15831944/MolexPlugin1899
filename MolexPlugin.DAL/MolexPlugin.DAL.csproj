@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddWorkBuilder.cs" />
     <Compile Include="CAM\AbstractElectrodeCAM.cs" />
     <Compile Include="CAM\Operation\RounghSurfaceCreateOperation.cs" />
     <Compile Include="CAM\Template\AbstractElectrodeTemplate.cs" />
@@ -99,7 +100,7 @@
     <Compile Include="CAM\Operation\BaseStationCreateOperation.cs" />
     <Compile Include="CAM\CreateElectrodeCAMBuilder.cs" />
     <Compile Include="CAM\CreateProgramBuilder.cs" />
-    <Compile Include="CreatePostExcelBuilder.cs" />
+    <Compile Include="CAM\CreatePostExcelBuilder.cs" />
     <Compile Include="ElectrodeBuilder\DeleteElectrodeBuilder.cs" />
     <Compile Include="ElectrodeBuilder\CreateElectrode.cs" />
     <Compile Include="ElectrodeBuilder\AbstractCreateAssmbile.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="CAM\ElectrodeCAMFactory.cs" />
     <Compile Include="CAM\ElectrodeCAMFile.cs" />
     <Compile Include="CAM\ElectrodeCAMTreeInfo.cs" />
+    <Compile Include="ElectrodeToolhClassify.cs" />
     <Compile Include="Hole\StepBuilder.cs" />
     <Compile Include="Hole\HoleBuilder.cs" />
     <Compile Include="Hole\StepBlindHoleFeature.cs" />
@@ -177,8 +179,8 @@
     <Compile Include="CAM\Template\PlanarAndSufaceEleTemplate.cs" />
     <Compile Include="CAM\Template\SimplenessVerticalEleTemplate.cs" />
     <Compile Include="CAM\OperationTreeListViewInfo.cs" />
-    <Compile Include="PartPostBuilder.cs" />
-    <Compile Include="PartPostExcelInfo.cs" />
+    <Compile Include="CAM\PartPostBuilder.cs" />
+    <Compile Include="CAM\PartPostExcelInfo.cs" />
     <Compile Include="SlopeAndDia\AnalysisBodySlopeAndMinDia.cs" />
     <Compile Include="SlopeAndDia\FaceSlopeColourBuilder.cs" />
     <Compile Include="SlopeAndDia\BackOffFaceSlopeColour.cs" />

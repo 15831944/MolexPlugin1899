@@ -95,12 +95,16 @@ namespace MolexPlugin
         {
             try
             {
-                if (!WorkModel.IsWork(workPart))
+                UserSingleton user = UserSingleton.Instance();
+                if (user.UserSucceed && user.Jurisd.GetElectrodeJurisd())
                 {
-                    theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "请设置WORK为工作部件");
-                    return 0;
+                    if (!ParentAssmblieInfo.IsWork(workPart))
+                    {
+                        theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "请设置WORK为工作部件");
+                        return 0;
+                    }
+                    theDialog.Show();
                 }
-                theDialog.Show();
             }
             catch (Exception ex)
             {

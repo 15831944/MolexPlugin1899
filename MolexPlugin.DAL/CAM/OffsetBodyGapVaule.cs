@@ -71,6 +71,7 @@ namespace MolexPlugin.DAL
             }
             catch
             {
+                isok = false;
                 this.SetAttribute(isok);
                 return isok;
             }
@@ -96,10 +97,10 @@ namespace MolexPlugin.DAL
             NXObject objEr = null;
             try
             {
-                objEr = OffsetRegionUtils.Offset(ErSide, out isokEr, ErFace.ToArray());
+                objEr = OffsetRegionUtils.Offset(-ErSide, out isokEr, ErFace.ToArray());
                 if (isokEr)
                 {
-                    objEr.SetName(ErSide.ToString());
+                    objEr.SetName((-ErSide).ToString());
                 }
 
             }
@@ -110,10 +111,10 @@ namespace MolexPlugin.DAL
             }
             try
             {
-                NXObject obj = OffsetRegionUtils.Offset(ErSide, out isokEf, EfFace.ToArray());
+                NXObject obj = OffsetRegionUtils.Offset(-EfSide, out isokEf, EfFace.ToArray());
                 if (isokEf)
                 {
-                    obj.SetName(EfSide.ToString());
+                    obj.SetName((-EfSide).ToString());
                 }
                 this.SetAttribute(true);
                 return true;

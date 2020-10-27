@@ -109,6 +109,8 @@ namespace MolexPlugin
         /// <param name="editionNumber"></param>
         private void UpdateEditionNumber(string editionNumber)
         {
+            UFSession theUFSession = UFSession.GetUFSession();
+            Session theSession = Session.GetSession();
             MoldInfo mf = asm.Info.MoldInfo;
             mf.EditionNumber = editionNumber;
             mf.SetAttribute(asm.PartTag);
@@ -117,6 +119,29 @@ namespace MolexPlugin
                 MoldInfo mi = em.Info.MoldInfo;
                 mi.EditionNumber = editionNumber;
                 mi.SetAttribute(em.PartTag);
+                string dwgName = em.Info.AllInfo.Name.EleName + "_dwg";
+                string dwg = em.WorkpieceDirectoryPath + em.Info.AllInfo.Name.EleName + "_dwg.prt";
+                if (File.Exists(dwg))
+                {
+                    Part dwgPart = null;
+                    try
+                    {
+                        dwgPart = theSession.Parts.FindObject(dwgName) as Part;
+                        if (dwgPart != null)
+                        {
+                            mi.SetAttribute(dwgPart);
+                            continue;
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                    Tag part;
+                    UFPart.LoadStatus error_status;
+                    theUFSession.Part.Open(dwg, out part, out error_status);
+                    mi.SetAttribute(NXObjectManager.Get(part) as Part);
+                }
             }
             foreach (MoldInfo mi in asmColl.MoldInfo)
             {
@@ -127,13 +152,14 @@ namespace MolexPlugin
                     wmMold.EditionNumber = editionNumber;
                     wmMold.SetAttribute(wm.PartTag);
                 }
-                foreach(EDMModel em in wkColl.EdmModel)
+                foreach (EDMModel em in wkColl.EdmModel)
                 {
                     MoldInfo wmMold = em.Info.MoldInfo;
                     wmMold.EditionNumber = editionNumber;
                     wmMold.SetAttribute(em.PartTag);
                 }
             }
+            PartUtils.SetPartDisplay(asm.PartTag);
 
         }
 
