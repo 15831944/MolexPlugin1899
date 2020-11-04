@@ -65,7 +65,7 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "编号";
-            this.columnHeader2.Width = 100;
+            this.columnHeader2.Width = 40;
             // 
             // columnHeader1
             // 

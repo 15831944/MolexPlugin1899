@@ -70,7 +70,8 @@ namespace MolexPlugin
             AddAndDeleteData data = new AddAndDeleteData();
             data.SerializeControlToData();
             data.SerializeUserToData();
-
+           
+           
 
         }
         public static bool IsAuthenticated(string username, string pwd)

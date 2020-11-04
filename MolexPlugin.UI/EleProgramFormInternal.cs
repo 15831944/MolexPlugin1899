@@ -120,6 +120,33 @@ namespace MolexPlugin
             }
             return ElectrodeTemplate.User;
         }
+
+        private void SetTemplate(ElectrodeTemplate type)
+        {
+            switch (type)
+            {
+                case ElectrodeTemplate.SimplenessVerticalEleTemplate:
+                    this.listBoxTemplate.Text = "直电极";
+                    break;
+                case ElectrodeTemplate.PlanarAndSufaceEleTemplate:
+                    this.listBoxTemplate.Text = "直+等宽";
+                    break;
+                case ElectrodeTemplate.PlanarAndZleveAndSufaceEleTemplate:
+                    this.listBoxTemplate.Text = "直+等高+等宽";
+                    break;
+                case ElectrodeTemplate.ZleveAndSufaceEleTemplate:
+                    this.listBoxTemplate.Text = "等宽+等高";
+                    break;
+                case ElectrodeTemplate.ZleveEleTemplate:
+                    this.listBoxTemplate.Text = "等高电极";
+                    break;
+                case ElectrodeTemplate.User:
+                    this.listBoxTemplate.Text = "模板";
+                    break;
+                default:
+                    break;
+            }
+        }
         /// <summary>
         /// 获取特征
         /// </summary>
@@ -128,20 +155,32 @@ namespace MolexPlugin
         private CreateElectrodeCAMBuilder GetBuilder(Part pt, ElectrodeTemplate type)
         {
             CreateElectrodeCAMBuilder cm = camBd.Find(a => a.Pt.Equals(pt));
-            try
+            if(cm!=null)
             {
-                CreateElectrodeCAMBuilder cc = new CreateElectrodeCAMBuilder(pt, model, type);
-                cc.CreateOperationNameModel();
-                if (cm != null)
+                try
                 {
-                    camBd.Remove(cm);
+                    cm.CreateOperationNameModel(type);
+                    return cm;
                 }
-                return cc;
+                catch (Exception ex)
+                {
+                    ClassItem.Print(pt.Name + "无法加载模板     " + ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                ClassItem.Print(pt.Name + "无法加载模板     " + ex.Message);
+                try
+                {
+                    CreateElectrodeCAMBuilder cc = new CreateElectrodeCAMBuilder(pt, model);
+                    cc.CreateOperationNameModel(type);                
+                    return cc;
+                }
+                catch (Exception ex)
+                {
+                    ClassItem.Print(pt.Name + "无法加载模板     " + ex.Message);
+                }
             }
+           
             return null;
 
         }
@@ -299,6 +338,9 @@ namespace MolexPlugin
                 else
                 {
                     ClassItem.StatusMessge("选择模板类型");
+                    cc = new CreateElectrodeCAMBuilder(pt, model);
+                    this.camBd.Add(cc);
+                    SetTemplate(cc.GetElectrodeTemplate());
                     ShowTreeInfo(new List<ElectrodeCAMTreeInfo>());
                 }
                 this.butTemplate.Enabled = true;

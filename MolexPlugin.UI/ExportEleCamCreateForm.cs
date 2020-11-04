@@ -20,7 +20,7 @@ namespace MolexPlugin
             UserSingleton user = UserSingleton.Instance();
             if (user.UserSucceed && user.Jurisd.GetCAMJurisd())
             {
-                EleProgramForm form = new EleProgramForm(user.CreatorUser);
+                ExportEleCamForm form = new ExportEleCamForm();
                 IntPtr intPtr = NXOpenUI.FormUtilities.GetDefaultParentWindowHandle();
                 NXOpenUI.FormUtilities.ReparentForm(form);
                 NXOpenUI.FormUtilities.SetApplicationIcon(form);

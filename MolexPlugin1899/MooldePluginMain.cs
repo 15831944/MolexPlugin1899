@@ -213,6 +213,10 @@ namespace MolexPlugin
             {
                 new CopyAsm().Show();
             }
+            if (args[0] == "MENU_ExportEleCam")
+            {
+                new ExportEleCamCreateForm().Show();
+            }
             #endregion
 
             if (args[0] == "MENU_EleProgram")

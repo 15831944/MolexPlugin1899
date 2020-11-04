@@ -150,9 +150,12 @@ namespace MolexPlugin
                 CreateElectrodeCAMBuilder cc = GetBuilder(pt, GetTemplate());
                 if (cc != null)
                 {
+                    if (cc.Template == null)
+                        cc.CreateOperationNameModel(GetTemplate());
                     this.operInfo = new OperationTreeListViewInfo(cc.Template);
                     ShowTreeInfo(this.operInfo.TreeInfo);
-                    this.camBd.Add(cc);
+                    if (!this.camBd.Exists(a => a.Pt.Equals(pt)))
+                        this.camBd.Add(cc);
                 }
             }
         }
@@ -508,7 +511,7 @@ namespace MolexPlugin
             }
             foreach (CreateElectrodeCAMBuilder cb in this.camBd)
             {
-                if(cb.Template.Type==ElectrodeTemplate.User)
+                if (cb.Template.Type == ElectrodeTemplate.User)
                 {
                     err.AddRange(cb.CreateUserOperation());
                 }
@@ -516,7 +519,7 @@ namespace MolexPlugin
                 {
                     err.AddRange(cb.CreateOperation());
                 }
-               
+
                 cb.SetGenerateToolPath(this.checkBoxIsGenerate.Checked);
                 err.AddRange(cb.ExportFile(this.fileSave, true));
                 elePart.Remove(cb.Pt);

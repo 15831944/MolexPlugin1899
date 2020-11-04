@@ -75,7 +75,7 @@ namespace MolexPlugin
         private void AlterWorkpiece(NXOpen.Assemblies.Component ct, UserModel user)
         {
             MoldInfo mold;
-            if (ParentAssmblieInfo.IsParent(ct))
+            if (!ParentAssmblieInfo.IsParent(ct))
             {
                 mold = new MoldInfo()
                 {
@@ -91,9 +91,7 @@ namespace MolexPlugin
                 mold.WorkpieceNumber = this.strWorkpieceNumber.Value;
                 mold.EditionNumber = this.strEditionNumber.Value;
             }
-            ParentAssmblieInfo info = ParentAssmblieInfo.GetAttribute(ct);
-            info.MoldInfo = mold;
-            info.UserModel = user;
+            ParentAssmblieInfo info = new ParentAssmblieInfo(mold,user);
             string newName = mold.MoldNumber + "-" + mold.WorkpieceNumber + "-" + mold.EditionNumber;
             Part pt = ct.Prototype as Part;
             ReplaceOther ot = new ReplaceOther(pt, info);

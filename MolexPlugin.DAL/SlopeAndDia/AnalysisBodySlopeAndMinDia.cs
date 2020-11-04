@@ -14,7 +14,6 @@ namespace MolexPlugin.DAL
     {
         private Vector3d vec;
         private Body body;
-        private UserSingleton user;
         private double min = 0;
         private List<AnalysisFaceSlopeAndDia> anaFace = new List<AnalysisFaceSlopeAndDia>();
         /// <summary>
@@ -49,7 +48,7 @@ namespace MolexPlugin.DAL
         {
             this.body = body;
             this.vec = vec;
-            user = UserSingleton.Instance();
+        
         }
         /// <summary>
         /// 分析
@@ -57,18 +56,15 @@ namespace MolexPlugin.DAL
         private void Analysis()
         {
             double min = 9999;
-            if (user.UserSucceed && user.Jurisd.GetComm())
+            foreach (Face face in body.GetFaces())
             {
-                foreach (Face face in body.GetFaces())
+                AnalysisFaceSlopeAndDia afs = new AnalysisFaceSlopeAndDia(face, vec);
+                if (afs.Data.IntNorm == -1 && afs.MinDia != 0)
                 {
-                    AnalysisFaceSlopeAndDia afs = new AnalysisFaceSlopeAndDia(face, vec);
-                    if (afs.Data.IntNorm == -1 && afs.MinDia != 0)
-                    {
-                        if (min > afs.MinDia)
-                            min = afs.MinDia;
-                    }
-                    anaFace.Add(afs);
+                    if (min > afs.MinDia)
+                        min = afs.MinDia;
                 }
+                anaFace.Add(afs);
             }
             anaFace.Sort();
             anaFace.RemoveAt(0);

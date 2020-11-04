@@ -49,6 +49,26 @@ namespace MolexPlugin.DAL
             }
             return filePath;
         }
+
+        public List<string> CopyFile(params string[] paths)
+        {
+            List<string> filePath = new List<string>();
+            if (paths.Length > 0)
+            {
+                eleFile = camFile + GetTimeStamp() + "\\";
+                if (!Directory.Exists(eleFile))
+                {
+                    Directory.CreateDirectory(eleFile);
+                }
+                foreach (string st in paths)
+                {
+                    string temp = Path.GetFileName(st);
+                    File.Copy(st, eleFile + temp);
+                    filePath.Add(eleFile + temp);
+                }
+            }
+            return filePath;
+        }
         /// <summary>
         /// 添加文件
         /// </summary>

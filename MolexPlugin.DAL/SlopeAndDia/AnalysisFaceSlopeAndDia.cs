@@ -42,22 +42,13 @@ namespace MolexPlugin.DAL
             this.vec = vec;
             double[] dia = new double[2];
             double[] slope = new double[2];
-            user = UserSingleton.Instance();
-            if (user.UserSucceed && user.Jurisd.GetComm())
-            {
-                AbstractFaceSlopeAndDia absface = FaceSlopeAndDiaFactory.CreateFaceSlopeAndDia(face);
-                this.Data = absface.Data;
-                absface.GetSlopeAndDia(vec, out slope, out dia);
-                this.MaxSlope = slope[1];
-                this.MinSlope = slope[0];
-                this.MinDia = dia[0];
-                this.MaxDia = dia[1];
-            }
-            else
-            {
-                this.Data = FaceUtils.AskFaceData(face);
-                return;
-            }
+            AbstractFaceSlopeAndDia absface = FaceSlopeAndDiaFactory.CreateFaceSlopeAndDia(face);
+            this.Data = absface.Data;
+            absface.GetSlopeAndDia(vec, out slope, out dia);
+            this.MaxSlope = slope[1];
+            this.MinSlope = slope[0];
+            this.MinDia = dia[0];
+            this.MaxDia = dia[1];
         }
         /// <summary>
         /// 设置颜色

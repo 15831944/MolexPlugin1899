@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NXOpen;
+using NXOpen.UF;
 using MolexPlugin.Model;
 using NXOpen.CAM;
 using Basic;
@@ -20,7 +21,7 @@ namespace MolexPlugin.DAL
         private Part pt = null;
         public Part Pt { get { return pt; } }
         public AbstractElectrodeTemplate Template { get { return template; } }
-        public CreateElectrodeCAMBuilder(Part pt, UserModel user, ElectrodeTemplate type)
+        public CreateElectrodeCAMBuilder(Part pt, UserModel user)
         {
             this.pt = pt;
             try
@@ -31,15 +32,7 @@ namespace MolexPlugin.DAL
             {
                 throw ex;
             }
-            try
-            {
-                CompterToolName tool = cam.GetTool();
-                template = ElectrodeTemplateFactory.CreateOperation(type, tool);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+          
 
         }
         /// <summary>
@@ -70,8 +63,17 @@ namespace MolexPlugin.DAL
         /// <summary>
         ///  创建加工名字
         /// </summary>
-        public void CreateOperationNameModel()
+        public void CreateOperationNameModel(ElectrodeTemplate type)
         {
+            try
+            {
+                CompterToolName tool = cam.GetTool();
+                template = ElectrodeTemplateFactory.CreateOperation(type, tool);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             template.CreateProgramName();
         }
 
@@ -85,9 +87,42 @@ namespace MolexPlugin.DAL
             PartUtils.SetPartDisplay(pt);
             theSession.ApplicationSwitchImmediate("UG_APP_MODELING");
             cam.CreateOffsetInter();
+            theSession.ApplicationSwitchImmediate("UG_APP_MANUFACTURING");
             try
             {
                 CreateCamSetup();
+            }
+            catch (NXException ex)
+            {
+                err.Add("进入加工环境错误！请检查！                     " + ex.Message);
+                return err;
+            }
+            try
+            {
+                SetWorkpiece();
+            }
+            catch (NXException ex)
+            {
+                err.Add("自动选择加工体错误！请检查加工体！                     " + ex.Message);
+            }
+            foreach (ProgramOperationName pm in this.template.Programs)
+            {
+                err.AddRange(pm.CreateOperation(cam));
+            }
+            return err;
+
+        }
+
+        public List<string> CreateOperationExe()
+        {
+            List<string> err = new List<string>();
+            Session theSession = Session.GetSession();
+            PartUtils.SetPartDisplay(pt);
+            theSession.ApplicationSwitchImmediate("UG_APP_MODELING");
+            cam.CreateOffsetInter();          
+            try
+            {
+                CreateSetupForUF();
             }
             catch (NXException ex)
             {
@@ -154,15 +189,26 @@ namespace MolexPlugin.DAL
         private void CreateCamSetup()
         {
             Session theSession = Session.GetSession();
+            UFSession theUFSession = UFSession.GetUFSession();
             Part workPart = theSession.Parts.Work;
             bool result1;
             result1 = theSession.IsCamSessionInitialized();
             theSession.CreateCamSession();
             NXOpen.CAM.CAMSetup cAMSetup1;
-            cAMSetup1 = workPart.CreateCamSetup("electrode");
-
+            cAMSetup1 = workPart.CreateCamSetup("electrode");            
         }
-
+        private void CreateSetupForUF()
+        {
+            UFSession theUFSession = UFSession.GetUFSession();
+            Session theSession = Session.GetSession();
+            theSession.ApplicationSwitchImmediate("UG_APP_MANUFACTURING");
+            Part workPart = theSession.Parts.Work;
+            bool result1;
+            result1 = theSession.IsCamSessionInitialized();
+            theSession.CreateCamSession();
+            theUFSession.Cam.OptAddTemplatePart(@"S:\NXAPS\8.5\PROD\CAM\tool\MolexPlugIn-1899\resource\template_part\metric\electrode.prt");
+            theUFSession.Setup.Create(workPart.Tag, "electrode");
+        }
         private bool isProgram()
         {
             try
@@ -205,6 +251,11 @@ namespace MolexPlugin.DAL
             }
 
             return err;
+        }
+
+        public ElectrodeTemplate GetElectrodeTemplate()
+        {
+            return this.cam.GetElectrodeTemplate();
         }
     }
 }

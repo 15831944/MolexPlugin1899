@@ -1,4 +1,4 @@
-﻿namespace MolexPlugin.UI
+﻿namespace MolexPlugin
 {
     partial class ExportEleCamForm
     {
@@ -98,7 +98,7 @@
             // 
             this.groupBox1.Controls.Add(this.butSave);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(0, 351);
+            this.groupBox1.Location = new System.Drawing.Point(10, 357);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(324, 71);
             this.groupBox1.TabIndex = 30;
@@ -108,7 +108,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.listViewEleInfo);
-            this.groupBox2.Location = new System.Drawing.Point(0, 12);
+            this.groupBox2.Location = new System.Drawing.Point(10, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(324, 340);
             this.groupBox2.TabIndex = 30;
@@ -121,7 +121,7 @@
             this.but_Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.but_Close.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.but_Close.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.but_Close.Location = new System.Drawing.Point(179, 434);
+            this.but_Close.Location = new System.Drawing.Point(187, 440);
             this.but_Close.Name = "but_Close";
             this.but_Close.Size = new System.Drawing.Size(81, 38);
             this.but_Close.TabIndex = 31;
@@ -134,7 +134,7 @@
             this.butOK.BackColor = System.Drawing.Color.PaleTurquoise;
             this.butOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butOK.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.butOK.Location = new System.Drawing.Point(47, 434);
+            this.butOK.Location = new System.Drawing.Point(55, 440);
             this.butOK.Name = "butOK";
             this.butOK.Size = new System.Drawing.Size(81, 38);
             this.butOK.TabIndex = 32;
@@ -147,7 +147,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(333, 484);
+            this.ClientSize = new System.Drawing.Size(346, 490);
             this.Controls.Add(this.but_Close);
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.groupBox2);

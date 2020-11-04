@@ -19,9 +19,9 @@ namespace MolexPlugin.DAL
         protected UserModel user;
         protected AnalysisElectrodeBody analysis;
         protected bool IsOffsetInter = false;
-  
+
         protected List<Face> allFace = new List<Face>();
-      
+
         protected OffsetBodyGapVaule offser;
         public AnalysisElectrodeBody Analysis { get { return analysis; } }
         public double Inter { get; protected set; }
@@ -61,7 +61,7 @@ namespace MolexPlugin.DAL
         /// 创建文件夹
         /// </summary>
         /// <returns></returns>
-        public abstract bool CreateNewFile(string filePath,bool open);
+        public abstract bool CreateNewFile(string filePath, bool open);
 
         /// <summary>
         /// 获取基准框边界和地面点
@@ -74,7 +74,7 @@ namespace MolexPlugin.DAL
             pl.GetPeripheralBoundary(out boundary, out blank);
             boundary.ToolSide = NXOpen.CAM.BoundarySet.ToolSideTypes.OutsideOrRight;
             boundary.BouudaryPt = analysis.BaseFace.BoxMinCorner;
-          //  boundary.PlaneTypes = NXOpen.CAM.BoundarySet.PlaneTypes.Automatic;
+            //  boundary.PlaneTypes = NXOpen.CAM.BoundarySet.PlaneTypes.Automatic;
             floorPt = this.analysis.BaseSubfaceFace.BoxMinCorner;
         }
 
@@ -113,7 +113,42 @@ namespace MolexPlugin.DAL
         /// </summary>
         /// <returns></returns>
         public abstract Line[] GetBaseFaceLine();
+        /// <summary>
+        /// 获取模板
+        /// </summary>
+        /// <returns></returns>
+        public ElectrodeTemplate GetElectrodeTemplate()
+        {
+            List<Face> flat = new List<Face>();
+            List<Face> steep = new List<Face>();
+            double flatRid = 0;
+            double steepRid = 0;
+            try
+            {
+                this.analysis.GetFlatFaces(out flat, out flatRid);
+                this.analysis.GetSteepFaces(out steep, out steepRid);
+            }
+            catch
+            {
 
-
+            }
+            if (flat.Count == 0 && steep.Count == 0)
+            {
+                return ElectrodeTemplate.SimplenessVerticalEleTemplate;
+            }
+            if (flat.Count > 0 && steep.Count == 0)
+            {
+                return ElectrodeTemplate.PlanarAndSufaceEleTemplate;
+            }
+            if (flat.Count == 0 && steep.Count > 0)
+            {
+                return ElectrodeTemplate.PlanarAndZleveEleTemplate;
+            }
+            if (flat.Count > 0 && steep.Count > 0)
+            {
+                return ElectrodeTemplate.PlanarAndZleveAndSufaceEleTemplate;
+            }
+            return ElectrodeTemplate.User;
+        }
     }
 }

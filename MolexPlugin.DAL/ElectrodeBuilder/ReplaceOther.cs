@@ -37,9 +37,7 @@ namespace MolexPlugin.DAL
             List<string> err = ReplacePart.Replace(pt, newPath, newName, out newPart);
             if (newPart != null)
             {
-                ParentAssmblieInfo info = ParentAssmblieInfo.GetAttribute(newPart);
-                info.MoldInfo = newInfo.MoldInfo;
-                info.UserModel = newInfo.UserModel;
+                ParentAssmblieInfo info = new ParentAssmblieInfo(newInfo.MoldInfo, newInfo.UserModel);
                 info.SetAttribute(newPart);
             }
             return err;

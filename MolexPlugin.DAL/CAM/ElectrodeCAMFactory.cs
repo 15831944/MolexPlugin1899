@@ -17,7 +17,8 @@ namespace MolexPlugin.DAL
             {
                 ElectrodeModel em = new ElectrodeModel(pt);
                 ElectrodeGapValueInfo gap = em.Info.AllInfo.GapValue;
-                if ((gap.ERNum[0] != 0 || gap.ERNum[1] != 0) && (gap.FineInter != 0 && gap.FineNum != 0) && (gap.CrudeInter != 0 && gap.CrudeNum == 0))
+                if ((gap.ERNum[0] != 0 || gap.ERNum[1] != 0) && (gap.FineInter != 0 && gap.FineNum != 0) &&
+                    (gap.CrudeInter != 0 && gap.CrudeNum == 0))
                 {
                     try
                     {
@@ -30,7 +31,7 @@ namespace MolexPlugin.DAL
                 }
                 else if (((gap.FineInter != 0 && gap.FineNum != 0) && (gap.CrudeInter != 0 && gap.CrudeNum != 0)) ||
                     ((gap.FineInter != 0 && gap.FineNum != 0) && (gap.DuringInter != 0 && gap.DuringNum != 0)) ||
-                    ((gap.CrudeInter != 0 && gap.CrudeNum != 0) && (gap.CrudeInter != 0 && gap.CrudeNum != 0)))
+                    ((gap.CrudeInter != 0 && gap.CrudeNum != 0) && (gap.DuringInter != 0 && gap.DuringNum != 0)))
                 {
                     try
                     {

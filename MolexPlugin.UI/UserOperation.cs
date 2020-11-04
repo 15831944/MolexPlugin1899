@@ -23,8 +23,8 @@ namespace MolexPlugin
             if (user.UserSucceed && user.Jurisd.GetCAMJurisd())
             {
                 Part workPart = Session.GetSession().Parts.Work;
-                CreateElectrodeCAMBuilder cam = new CreateElectrodeCAMBuilder(workPart, user.CreatorUser, ElectrodeTemplate.User);
-                cam.CreateOperationNameModel();
+                CreateElectrodeCAMBuilder cam = new CreateElectrodeCAMBuilder(workPart, user.CreatorUser);
+                cam.CreateOperationNameModel(ElectrodeTemplate.User);
                 List<string> err = cam.CreateUserOperation();
                 if (err.Count > 0)
                 {

@@ -15,7 +15,7 @@ using MolexPlugin.Model;
 using Basic;
 using System.Diagnostics;
 
-namespace MolexPlugin.UI
+namespace MolexPlugin
 {
     public partial class ExportEleCamForm : Form
     {
@@ -71,18 +71,22 @@ namespace MolexPlugin.UI
             {
                 if (listViewEleInfo.Items[i].Checked)
                 {
-                    path += this.elePart[i].FullPath + " ";
+                    path += "\"" + this.elePart[i].FullPath + "\" ";
                 }
             }
-            ProcessStartInfo startInfo = new ProcessStartInfo("C:\\Program Files\\Siemens\\NX1899\\NXBIN\\BatchElectrodeOperation.exe", path);
-            //设置不在新窗口中启动新的进程
-            startInfo.CreateNoWindow = true;
-            //不使用操作系统使用的shell启动进程
-            startInfo.UseShellExecute = false;
-            //将输出信息重定向
-            startInfo.RedirectStandardOutput = true;
-            Process process = Process.Start(startInfo); ;
-            process.WaitForExit();
+            //ProcessStartInfo startInfo = new ProcessStartInfo("C:\\Program Files\\Siemens\\NX1899\\NXBIN\\BatchElectrodeOperation.exe", path);
+            ////设置不在新窗口中启动新的进程
+            //startInfo.CreateNoWindow = false;
+            ////不使用操作系统使用的shell启动进程
+            //startInfo.UseShellExecute = false;
+            ////将输出信息重定向
+            //startInfo.RedirectStandardOutput = true;
+            //Process process = Process.Start(startInfo); ;
+            //process.WaitForExit();
+            Process process = Process.Start("C:\\Program Files\\Siemens\\NX1899\\NXBIN\\BatchElectrodeOperation.exe", path);
+            process.WaitForExit(1);
+             
+            this.Close();
         }
     }
 }
