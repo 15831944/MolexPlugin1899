@@ -91,10 +91,10 @@ namespace MolexPlugin
                 mold.WorkpieceNumber = this.strWorkpieceNumber.Value;
                 mold.EditionNumber = this.strEditionNumber.Value;
             }
-            ParentAssmblieInfo info = new ParentAssmblieInfo(mold,user);
+            WorkPieceInfo wk = new WorkPieceInfo(mold, user);
             string newName = mold.MoldNumber + "-" + mold.WorkpieceNumber + "-" + mold.EditionNumber;
             Part pt = ct.Prototype as Part;
-            ReplaceOther ot = new ReplaceOther(pt, info);
+            ReplaceOther ot = new ReplaceOther(pt, wk);
             List<string> err = ot.Alter(newName);
             if (err.Count > 0)
                 ClassItem.Print(err.ToArray());

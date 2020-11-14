@@ -26,6 +26,7 @@ namespace MolexPlugin
         {
             List<string> err = new List<string>();
             string temp = info.MoldInfo.MoldNumber + "-" + info.MoldInfo.WorkpieceNumber;
+            info.Type = PartType.Work;
             foreach (WorkModel wm in wks)
             {
                 string workName = temp + "-WORK" + wm.Info.WorkNumber;
@@ -44,6 +45,7 @@ namespace MolexPlugin
         {
             List<string> err = new List<string>();
             string temp = info.MoldInfo.MoldNumber + "-" + info.MoldInfo.WorkpieceNumber;
+            info.Type = PartType.EDM;
             foreach (EDMModel em in edms)
             {
                 string old = em.Info.MoldInfo.MoldNumber + "-" + em.Info.MoldInfo.WorkpieceNumber;
@@ -58,6 +60,7 @@ namespace MolexPlugin
         {
             List<string> err = new List<string>();
             string temp = info.MoldInfo.MoldNumber + "-" + info.MoldInfo.WorkpieceNumber;
+            info.Type = PartType.Electrode;
             foreach (ElectrodeModel em in eles)
             {
                 string old = em.Info.MoldInfo.MoldNumber + "-" + em.Info.MoldInfo.WorkpieceNumber;
@@ -80,6 +83,7 @@ namespace MolexPlugin
             bool anyPartsModified1;
             NXOpen.PartSaveStatus partSaveStatus1;
             theSession.Parts.SaveAll(out anyPartsModified1, out partSaveStatus1);
+            info.Type = PartType.ASM;
             string temp = info.MoldInfo.MoldNumber + "-" + info.MoldInfo.WorkpieceNumber;
             string name = temp + "-ASM";
             ReplaceOther rep = new ReplaceOther(asm.PartTag, info);

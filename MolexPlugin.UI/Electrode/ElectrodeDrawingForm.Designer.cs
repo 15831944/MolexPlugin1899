@@ -71,7 +71,7 @@
             // 
             this.columnHeader1.Text = "电极名";
             this.columnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader1.Width = 200;
+            this.columnHeader1.Width = 260;
             // 
             // buttCancel
             // 

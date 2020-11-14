@@ -90,6 +90,7 @@ namespace MolexPlugin.Model
             {
                 PartUtils.SetPartDisplay(asm);
                 List<NXOpen.Assemblies.Component> ct = AssmbliesUtils.GetPartComp(asm, this.PartTag);
+                CsysUtils.SetWcsOfCenteAndMatr(this.Info.Matr.GetCenter(), this.Info.Matr.GetMatrix3());
                 PartUtils.SetPartWork(ct[0]);
                 CartesianCoordinateSystem csys = asm.WCS.Save();
                 string name = "WORK" + this.Info.WorkNumber.ToString();
@@ -103,6 +104,7 @@ namespace MolexPlugin.Model
                 csys.Layer = 200;
                 csys.Color = 186;
                 PartUtils.SetPartWork(null);
+                CsysUtils.SetWcsToAbs();
                 return true;
             }
             catch (NXException ex)

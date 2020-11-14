@@ -29,10 +29,10 @@ namespace MolexPlugin.DAL
             AttributeUtils.AttributeOperation("CreatorCAMName", user.CreatorName, pt);
             if (inters)
             {
-                AttributeUtils.AttributeOperation("MdblsShrinkBody", "0", pt);
+                AttributeUtils.AttributeOperation("MdblsShrinkBody", "1", pt);
             }
             else
-                AttributeUtils.AttributeOperation("MdblsShrinkBody", "1", pt);
+                AttributeUtils.AttributeOperation("MdblsShrinkBody", "0", pt);
         }
         /// <summary>
         /// 偏置电极间隙
@@ -44,9 +44,9 @@ namespace MolexPlugin.DAL
         {
 
             string mb = AttributeUtils.GetAttrForString(pt, "MdblsShrinkBody");
-            if (mb.Equals("0", StringComparison.CurrentCultureIgnoreCase))
-                return true;
             if (mb.Equals("1", StringComparison.CurrentCultureIgnoreCase))
+                return true;
+            if (mb.Equals("0", StringComparison.CurrentCultureIgnoreCase))
                 return false;
             bool isok = false;
             UFSession theUFSession = UFSession.GetUFSession();
@@ -80,9 +80,9 @@ namespace MolexPlugin.DAL
         {
 
             string mb = AttributeUtils.GetAttrForString(pt, "MdblsShrinkBody");
-            if (mb.Equals("0", StringComparison.CurrentCultureIgnoreCase))
-                return true;
             if (mb.Equals("1", StringComparison.CurrentCultureIgnoreCase))
+                return true;
+            if (mb.Equals("0", StringComparison.CurrentCultureIgnoreCase))
                 return false;
             bool isokEr = false;
             bool isokEf = false;

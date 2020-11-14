@@ -28,7 +28,7 @@ namespace MolexPlugin.Model
         /// <summary>
         /// 文档类型
         /// </summary>
-        public PartType Type { get; protected set; }
+        public PartType Type { get;  set; }
         public ParentAssmblieInfo(MoldInfo mold, UserModel user)
         {
             this.MoldInfo = mold;

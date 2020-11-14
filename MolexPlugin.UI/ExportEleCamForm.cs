@@ -24,6 +24,11 @@ namespace MolexPlugin
         {
             InitializeComponent();
             this.elePart = GetElePartForCamInfo();
+            this.elePart.Sort(delegate (Part a, Part b)
+            {
+                return a.Name.CompareTo(b.Name);
+
+            });
             foreach (Part pt in this.elePart)
             {
                 ListViewItem lv = new ListViewItem();
@@ -85,7 +90,7 @@ namespace MolexPlugin
             //process.WaitForExit();
             Process process = Process.Start("C:\\Program Files\\Siemens\\NX1899\\NXBIN\\BatchElectrodeOperation.exe", path);
             process.WaitForExit(1);
-             
+
             this.Close();
         }
     }

@@ -401,7 +401,7 @@ namespace MolexPlugin.DAL
             {
                 Basic.DrawingUtils.SetNote(new Point3d(130, 20, 0), 6, "非标准铜料");
             }
-            Basic.DrawingUtils.SetNote(new Point3d(130, 30, 0), 6, this.model.Info.MoldInfo.MachineType);
+            Basic.DrawingUtils.SetNote(new Point3d(370, 84, 0), 6, this.model.Info.MoldInfo.MachineType);
             Basic.DrawingUtils.SetNote(new Point3d(130, 40, 0), 4, this.model.Info.AllInfo.Remarks.ElePresentation);
         }
         /// <summary>
