@@ -33,8 +33,14 @@ namespace MolexPlugin.DAL
         public List<string> Alter(string newName)
         {
             string newPath = this.directoryPath + newName + ".prt";
+            List<string> err = new List<string>();
+            if (File.Exists(newPath))
+            {
+                err.Add(newName + "            替换失败，替换后有同名工件！          ");
+                return err;
+            }
             Part newPart;
-            List<string> err = ReplacePart.Replace(pt, newPath, newName, out newPart);
+            err.AddRange(ReplacePart.Replace(pt, newPath, newName, out newPart));
             if (newPart != null)
             {
                 newInfo.SetAttribute(newPart);

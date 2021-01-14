@@ -31,6 +31,11 @@ namespace MolexPlugin.DAL
                 return eleMatr;
             }
         }
+
+        /// <summary>
+        /// 加工方向
+        /// </summary>
+        public string EleProcessDir { get; protected set; }
         public AbstractElectrodeMatrix()
         {
 
@@ -76,7 +81,7 @@ namespace MolexPlugin.DAL
         /// </summary>
         /// <param name="pre">备料</param>
         /// <param name="originPt"></param>
-        public virtual void SetMatrixOrigin(int[] pre,Point3d originPt)
+        public virtual void SetMatrixOrigin(int[] pre, Point3d originPt)
         {
             Matrix4 mat = new Matrix4();
             mat.Identity();

@@ -79,7 +79,7 @@ namespace MolexPlugin
             dataGridView.Columns[1].Frozen = true; //冻结首列
             dataGridView.AutoGenerateColumns = false;
 
-            DataTable table;
+            DataTable table;        
             try
             {
                 table = ElectrodeAllInfo.CreateDataTable();

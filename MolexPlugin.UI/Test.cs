@@ -70,8 +70,8 @@ namespace MolexPlugin
             AddAndDeleteData data = new AddAndDeleteData();
             data.SerializeControlToData();
             data.SerializeUserToData();
-           
-           
+
+
 
         }
         public static bool IsAuthenticated(string username, string pwd)
@@ -101,5 +101,12 @@ namespace MolexPlugin
             }
             return true;
         }
+
+        public static void Tt()
+        {
+            FTPHelper ftp = new FTPHelper("10.221.167.49", "moldyun", "ycchen10", "Chyuch^011");
+            ftp.Delete("123.txt");
+        }
     }
+
 }

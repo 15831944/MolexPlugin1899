@@ -41,7 +41,7 @@ namespace MolexPlugin.DAL
                 Body body1 = ExtrudeUtils.CreateExtrude(dir, "0", "DatumHeigth", null, sketch.LeiLine.ToArray()).GetBodies()[0];
                 CreateChamfer(body1.Tag);
                 SetDatumAttr(body1);
-                Body body2 = ExtrudeUtils.CreateExtrude(dir, "DatumHeigth", "PreparationZ", null, sketch.WaiLine.ToArray()).GetBodies()[0];
+                Body body2 = ExtrudeUtils.CreateExtrude(dir, "DatumHeigth", "extrudePreparation", null, sketch.WaiLine.ToArray()).GetBodies()[0];
                 this.DatumBody = BooleanUtils.CreateBooleanFeature(body1, false, false, NXOpen.Features.Feature.BooleanType.Unite, body2).GetBodies()[0];
                 return true;
             }

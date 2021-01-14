@@ -85,6 +85,12 @@ namespace MolexPlugin.DAL
             string er = AttributeUtils.GetAttrForString(analysisBody.AnaFaces[1].Face, "DatumFace");
             if (er.Equals("Datum", StringComparison.CurrentCultureIgnoreCase))
                 return analysisBody.AnaFaces[1].Data;
+            foreach (AnalysisFaceSlopeAndDia fe in analysisBody.AnaFaces)
+            {
+                string da = AttributeUtils.GetAttrForString(fe.Face, "DatumFace");
+                if (er.Equals("Datum", StringComparison.CurrentCultureIgnoreCase))
+                    return fe.Data;
+            }
             FaceLoopUtils.LoopList[] loops = FaceLoopUtils.AskFaceLoops(analysisBody.AnaFaces[0].Face.Tag);
             foreach (FaceLoopUtils.LoopList lt in FaceLoopUtils.AskFaceLoops(analysisBody.AnaFaces[0].Face.Tag)) //找到竖直面
             {
@@ -327,7 +333,7 @@ namespace MolexPlugin.DAL
             foreach (AnalysisFaceSlopeAndDia ar in analysisBody.AnaFaces)
             {
                 if (UMathUtils.IsEqual(ar.MaxSlope, 0) && UMathUtils.IsEqual(ar.MinSlope, 0) && UMathUtils.IsEqual(GetFaceIsHighst(ar.Data), 0))
-                {                   
+                {
                     plane.Add(ar.Face);
                 }
 

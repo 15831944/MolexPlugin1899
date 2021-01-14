@@ -35,6 +35,11 @@ namespace MolexPlugin.Model
         /// 电极高度
         /// </summary>
         public double EleHeight { get; set; }
+
+        /// <summary>
+        /// 加工方向
+        /// </summary>
+        public string EleProcessDir { get; set; } = "Z+";
         /// <summary>
         /// 设置属性
         /// </summary>
@@ -68,6 +73,7 @@ namespace MolexPlugin.Model
                 info.DatumHeigth = AttributeUtils.GetAttrForDouble(obj, "DatumHeigth");
                 info.ExtrudeHeight = AttributeUtils.GetAttrForDouble(obj, "Extrudewith");
                 info.EleHeight = AttributeUtils.GetAttrForDouble(obj, "EleHeight");
+                info.EleProcessDir = AttributeUtils.GetAttrForString(obj, "EleProcessDir");
                 return info;
             }
             catch (NXException ex)
@@ -98,6 +104,7 @@ namespace MolexPlugin.Model
                 AttributeUtils.AttributeOperation("DatumHeigth", this.DatumHeigth, objs);
                 AttributeUtils.AttributeOperation("Extrudewith", this.ExtrudeHeight, objs);
                 AttributeUtils.AttributeOperation("EleHeight", this.EleHeight, objs);
+                AttributeUtils.AttributeOperation("EleProcessDir", this.EleProcessDir, objs);
                 return true;
             }
             catch (NXException ex)

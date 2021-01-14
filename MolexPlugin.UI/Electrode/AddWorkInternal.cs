@@ -323,7 +323,7 @@ namespace MolexPlugin
             }
             else
             {
-                foreach (NXOpen.Assemblies.Component co in AssmbliesUtils.GetPartComp(workPart, pt))
+                foreach (NXOpen.Assemblies.Component co in AssmbliesUtils.GetPartComp(ct.Prototype as Part, pt))
                 {
                     if (!co.IsSuppressed)
                     {

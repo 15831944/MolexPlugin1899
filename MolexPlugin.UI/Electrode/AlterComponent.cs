@@ -70,8 +70,11 @@ namespace MolexPlugin
         private NXOpen.BlockStyler.StringBlock strEleName;// Block type: String
         private NXOpen.BlockStyler.StringBlock strEleName1;// Block type: String
         private NXOpen.BlockStyler.StringBlock strEleEditionNumber;// Block type: String
+        private NXOpen.BlockStyler.Group groupWork;// Block type: Group
+        private NXOpen.BlockStyler.IntegerBlock intWorkNumber;// Block type: Integer
         private ParentAssmblieInfo info;
         private UserSingleton user;
+        private ASMModel asm;
         //------------------------------------------------------------------------------
         //Constructor for NX Styler class
         //------------------------------------------------------------------------------
@@ -109,7 +112,7 @@ namespace MolexPlugin
                     Part disPart = theSession.Parts.Display;
                     if (!ASMModel.IsAsm(disPart))
                     {
-                        ASMModel asm = ASMCollection.GetAsmModel(disPart);
+                        asm = ASMCollection.GetAsmModel(disPart);
                         if (asm != null)
                             PartUtils.SetPartDisplay(asm.PartTag);
                         else
@@ -117,6 +120,10 @@ namespace MolexPlugin
                             theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "工作部件无法找到ASM!");
                             return 0;
                         }
+                    }
+                    else
+                    {
+                        asm = new ASMModel(disPart);
                     }
                     theDialog.Show();
                 }
@@ -162,6 +169,8 @@ namespace MolexPlugin
                 strEleName = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("strEleName");
                 strEleName1 = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("strEleName1");
                 strEleEditionNumber = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("strEleEditionNumber");
+                groupWork = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("groupWork");
+                intWorkNumber = (NXOpen.BlockStyler.IntegerBlock)theDialog.TopBlock.FindBlock("intWorkNumber");
                 Selection.MaskTriple maskComp = new Selection.MaskTriple()
                 {
                     Type = 63,
@@ -190,7 +199,7 @@ namespace MolexPlugin
                 //---- Enter your callback code here -----
                 this.groupEle.Show = false;
                 this.groupWorkpiece.Show = false;
-
+                this.groupWork.Show = false;
             }
             catch (Exception ex)
             {
@@ -213,10 +222,15 @@ namespace MolexPlugin
                 {
                     AlterEle(ct);
                 }
-                else
+                else if (ParentAssmblieInfo.IsWork(ct))
+                {
+                    AlterWork(ct, user.CreatorUser);
+                }
+                else if (ParentAssmblieInfo.IsWorkpiece(ct) || !ParentAssmblieInfo.IsParent(ct))
                 {
                     AlterWorkpiece(ct, user.CreatorUser);
                 }
+
                 bool anyPartsModified;
                 PartSaveStatus saveStatus;
                 theSession.Parts.SaveAll(out anyPartsModified, out saveStatus);
@@ -245,7 +259,7 @@ namespace MolexPlugin
                     {
                         NXOpen.Assemblies.Component ct = tt[0] as NXOpen.Assemblies.Component;
                         if (ct != null)
-                            SetDisp(ct);                     
+                            SetDisp(ct);
                     }
                 }
                 else if (block == strMoldNumber)
@@ -269,6 +283,10 @@ namespace MolexPlugin
                     //---------Enter your code here-----------
                 }
                 else if (block == strEleEditionNumber)
+                {
+                    //---------Enter your code here-----------
+                }
+                else if (block == intWorkNumber)
                 {
                     //---------Enter your code here-----------
                 }
@@ -309,7 +327,7 @@ namespace MolexPlugin
             NXOpen.Assemblies.Component ct = selectedObject as NXOpen.Assemblies.Component;
             if (ct != null)
             {
-                if (ParentAssmblieInfo.IsElectrode(ct) || ParentAssmblieInfo.IsWorkpiece(ct) || !ParentAssmblieInfo.IsParent(ct))
+                if (ParentAssmblieInfo.IsElectrode(ct) || ParentAssmblieInfo.IsWorkpiece(ct) || !ParentAssmblieInfo.IsParent(ct) || ParentAssmblieInfo.IsWork(ct))
                     return (NXOpen.UF.UFConstants.UF_UI_SEL_ACCEPT);
             }
             return (NXOpen.UF.UFConstants.UF_UI_SEL_FAILURE);

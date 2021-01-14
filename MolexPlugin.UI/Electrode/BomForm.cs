@@ -158,17 +158,24 @@ namespace MolexPlugin
                 if (dataGridView.CurrentCellAddress.X == 4 || dataGridView.CurrentCellAddress.X == 5 || dataGridView.CurrentCellAddress.X == 7
               || dataGridView.CurrentCellAddress.X == 8)
                 {
+                    ElectrodeModel em = eleModels.Find(a => a.Info.AllInfo.Name.EleName.Equals(newInfo.Name.EleName, StringComparison.CurrentCultureIgnoreCase));
+                    if (em == null)
+                        return;
+                    else
+                    {
+                        ElectrodePitchUpdate pitch = new ElectrodePitchUpdate(em.Info.AllInfo.Pitch, newInfo.Pitch);
+                        double[] setValue = pitch.GetNewSetValue(em.Info.AllInfo.SetValue.EleSetValue);
+                        newInfo.SetValue.EleSetValue = setValue;
+                        dataGridView.Rows[e.RowIndex].Cells[1].Value = setValue[0].ToString("f3");
+                        dataGridView.Rows[e.RowIndex].Cells[2].Value = setValue[1].ToString("f3");
 
-                    ElectrodePitchUpdate pitch = new ElectrodePitchUpdate(oldEleInfo.Pitch, newInfo.Pitch);
-                    double[] setValue = pitch.GetNewSetValue(oldEleInfo.SetValue.EleSetValue);
+                        int[] pre = pitch.GetNewPreparation(em.Info.AllInfo.Preparetion.Preparation, newInfo.Preparetion.Material);
 
-                    dataGridView.Rows[e.RowIndex].Cells[1].Value = setValue[0].ToString("f3");
-                    dataGridView.Rows[e.RowIndex].Cells[2].Value = setValue[1].ToString("f3");
+                        dataGridView.Rows[e.RowIndex].Cells[20].Value = pre[0].ToString();
+                        dataGridView.Rows[e.RowIndex].Cells[21].Value = pre[1].ToString();
+                        newInfo.Preparetion.Preparation = pre;
+                    }
 
-                    int[] pre = pitch.GetNewPreparation(oldEleInfo.Preparetion.Preparation, newInfo.Preparetion.Material);
-
-                    dataGridView.Rows[e.RowIndex].Cells[20].Value = pre[0].ToString();
-                    dataGridView.Rows[e.RowIndex].Cells[21].Value = pre[1].ToString();
                 }
                 if (!newEleModel.Exists(a => a.Name.EleName.Equals(newInfo.Name.EleName, StringComparison.CurrentCultureIgnoreCase)))
                     this.newEleModel.Add(newInfo);
@@ -176,6 +183,7 @@ namespace MolexPlugin
                 {
                     ElectrodeAllInfo bu = newEleModel.Find(a => a.Name.EleName.Equals(newInfo.Name.EleName, StringComparison.CurrentCultureIgnoreCase));
                     this.newEleModel.Remove(bu);
+                    //   DataRow newDr = (dataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row;
                     this.newEleModel.Add(newInfo);
                 }
 

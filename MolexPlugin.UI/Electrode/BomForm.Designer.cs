@@ -81,7 +81,7 @@
             this.FineInter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FineNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EleType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.CH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CH = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Material = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Condition = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.PreparationX = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -384,9 +384,22 @@
             dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.CH.DefaultCellStyle = dataGridViewCellStyle19;
             this.CH.HeaderText = "CH";
+            this.CH.Items.AddRange(new object[] {
+            "CH0",
+            "CH4",
+            "CH8",
+            "CH10",
+            "CH12",
+            "CH14",
+            "CH18",
+            "CH20",
+            "CH22",
+            "CH24",
+            "CH25",
+            "CH27"});
             this.CH.Name = "CH";
-            this.CH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CH.Width = 50;
+            this.CH.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.CH.Width = 65;
             // 
             // Material
             // 
@@ -396,7 +409,7 @@
             this.Material.HeaderText = "材料";
             this.Material.Name = "Material";
             this.Material.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Material.Width = 50;
+            this.Material.Width = 65;
             // 
             // Condition
             // 
@@ -445,6 +458,7 @@
             this.DatumWidth.DefaultCellStyle = dataGridViewCellStyle25;
             this.DatumWidth.HeaderText = "宽度";
             this.DatumWidth.Name = "DatumWidth";
+            this.DatumWidth.ReadOnly = true;
             this.DatumWidth.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.DatumWidth.Width = 50;
             // 
@@ -520,7 +534,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FineInter;
         private System.Windows.Forms.DataGridViewTextBoxColumn FineNum;
         private System.Windows.Forms.DataGridViewComboBoxColumn EleType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CH;
+        private System.Windows.Forms.DataGridViewComboBoxColumn CH;
         private System.Windows.Forms.DataGridViewComboBoxColumn Material;
         private System.Windows.Forms.DataGridViewComboBoxColumn Condition;
         private System.Windows.Forms.DataGridViewTextBoxColumn PreparationX;

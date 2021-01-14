@@ -51,7 +51,7 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public bool IsWorkpiece()
         {
-            return ParentAssmblieInfo.IsElectrode(this.pt);
+            return ParentAssmblieInfo.IsWorkpiece(this.pt)|| !ParentAssmblieInfo.IsParent(this.pt);
         }
         /// <summary>
         /// 获取电极号

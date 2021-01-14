@@ -20,6 +20,7 @@ namespace MolexPlugin.Model
         public ElectrodeAllInfo AllInfo { get; set; }
 
         public Matrix4Info MatrInfo { get; set; }
+
         /// <summary>
         /// 矩阵
         /// </summary>
@@ -30,7 +31,7 @@ namespace MolexPlugin.Model
             this.MatrInfo = matInfo;
             this.AllInfo = allInfo;
             this.Matr = matInfo.Matr;
-        }
+        }      
         /// <summary>
         /// 以属性得到实体
         /// </summary>
@@ -39,7 +40,7 @@ namespace MolexPlugin.Model
         public new static ElectrodeInfo GetAttribute(NXObject obj)
         {
             try
-            {
+            {        
                 return new ElectrodeInfo(MoldInfo.GetAttribute(obj), UserModel.GetAttribute(obj), ElectrodeAllInfo.GetAttribute(obj), Matrix4Info.GetAttribute(obj));
 
             }
@@ -53,6 +54,7 @@ namespace MolexPlugin.Model
         {
             try
             {
+                
                 return base.SetAttribute(objs) && this.MatrInfo.SetAttribute(objs) && this.AllInfo.SetAttribute(objs);
             }
             catch

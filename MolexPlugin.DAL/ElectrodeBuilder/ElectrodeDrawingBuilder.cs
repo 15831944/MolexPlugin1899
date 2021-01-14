@@ -201,9 +201,11 @@ namespace MolexPlugin.DAL
             int x = 0;
             for (int i = 0; i < elePoint.Count; i++)
             {
+                Point3d xPt = elePoint[i].Coordinates;
+                mat.ApplyPos(ref xPt);
                 if (i == 0)
-                    xTemmp = elePoint[i].Coordinates.X;
-                if (UMathUtils.IsEqual(xTemmp, elePoint[i].Coordinates.X) && i != 0)
+                    xTemmp = xPt.X;
+                if (UMathUtils.IsEqual(xTemmp, xPt.X) && i != 0)
                     continue;
                 Point3d dimPt = new Point3d(originPt.X + 10.0, originPt.Y + disPt.Y * scale + (10 * (x + 1)), 0);
                 try
@@ -227,9 +229,11 @@ namespace MolexPlugin.DAL
             int y = 0;
             for (int i = 0; i < elePoint.Count; i++)
             {
+                Point3d yPt = elePoint[i].Coordinates;
+                mat.ApplyPos(ref yPt);
                 if (i == 0)
-                    yTemmp = elePoint[i].Coordinates.Y;
-                if (UMathUtils.IsEqual(yTemmp, elePoint[i].Coordinates.Y) && i != 0)
+                    yTemmp = yPt.Y;
+                if (UMathUtils.IsEqual(yTemmp, yPt.Y) && i != 0)
                     continue;
                 Point3d dimPt = new Point3d(originPt.X - (this.disPt.X * scale + 8 * (y + 1)), originPt.Y + 10, 0);
                 try
@@ -268,9 +272,11 @@ namespace MolexPlugin.DAL
             int z = 0;
             for (int i = 0; i < elePoint.Count; i++)
             {
+                Point3d zPt = elePoint[i].Coordinates;
+                mat.ApplyPos(ref zPt);
                 if (i == 0)
-                    zTemmp = elePoint[i].Coordinates.Z;
-                if (UMathUtils.IsEqual(zTemmp, elePoint[i].Coordinates.Z) && i != 0)
+                    zTemmp = zPt.Z;
+                if (UMathUtils.IsEqual(zTemmp, zPt.Z) && i != 0)
                     continue;
                 Point3d dimPt = new Point3d(originPt.X - (disPt.X * scale + 8 * (z + 1)), originPt.Y + 10, 0);
                 try
@@ -367,7 +373,7 @@ namespace MolexPlugin.DAL
             {
                 NXOpen.Annotations.Dimension dim = Basic.DrawingUtils.DimensionVertical(topView, dimPt, xEdge[0], centerPt, ref err);
                 if (dim != null)
-                    Basic.DrawingUtils.SetDimensionPrecision(dim, 1);
+                    Basic.DrawingUtils.SetDimensionPrecision(dim, 3);
             }
             catch (NXException ex)
             {

@@ -68,7 +68,7 @@ namespace MolexPlugin
             textBox_pitchXNum.Text = "1";
             textBox_pitchX.Text = "0";
             textBox_pitchY.Text = "0";
-            textBox_CH.Text = "18";
+            comboBox_Ch.Text = "18";
             textBox_Ext.Text = "1.3";
             this.textBox_name.Text = GetDefEleName(this.parent.MoldInfo);
             SetPichContrShow();
@@ -210,6 +210,7 @@ namespace MolexPlugin
             datum.DatumHeigth = 2;
             datum.DatumWidth = 1;
             datum.EleHeight = this.condition.ExpAndMatr.Matr.GetZHeight(datum.ExtrudeHeight);
+            datum.EleProcessDir = this.condition.ExpAndMatr.Matr.EleProcessDir;
             return datum;
         }
         /// <summary>
@@ -232,7 +233,7 @@ namespace MolexPlugin
         {
             ElectrodeRemarksInfo re = new ElectrodeRemarksInfo();
             re.Technology = this.comboBox_technology.Text;
-            re.Ch = "CH" + this.textBox_CH.Text;
+            re.Ch = "CH" + this.comboBox_Ch.Text;
             re.Condition = this.comboBox_Condition.Text;
             string temp = "";
             if (this.checkBox_rotate.Checked)
@@ -312,7 +313,7 @@ namespace MolexPlugin
                 {
                     erForm.Name = "ER个数";
                     erForm.ShowDialog(this);
-                }              
+                }
             }
             if (checkBox_during.Checked)
             {
@@ -323,7 +324,7 @@ namespace MolexPlugin
                     erForm.Name = "DR个数";
                     erForm.ShowDialog(this);
                 }
-               
+
             }
 
         }

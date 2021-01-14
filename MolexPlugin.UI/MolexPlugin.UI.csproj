@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="AddProgram.cs" />
     <Compile Include="Electrode\CopyElectrode.cs" />
+    <Compile Include="ExportEleCMMCreateForm.cs" />
     <Compile Include="ExportEleCamCreateForm.cs" />
     <Compile Include="EleProgramFormInternal.cs">
       <SubType>Form</SubType>
@@ -124,6 +125,12 @@
     </Compile>
     <Compile Include="EleProgramForm.Designer.cs">
       <DependentUpon>EleProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportEleCMMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportEleCMMForm.Designer.cs">
+      <DependentUpon>ExportEleCMMForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExportEleCamForm.cs">
       <SubType>Form</SubType>
@@ -205,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EleProgramForm.resx">
       <DependentUpon>EleProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportEleCMMForm.resx">
+      <DependentUpon>ExportEleCMMForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExportEleCamForm.resx">
       <DependentUpon>ExportEleCamForm.cs</DependentUpon>

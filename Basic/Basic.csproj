@@ -93,6 +93,7 @@
     <Compile Include="ExtrudedUtils.cs" />
     <Compile Include="FaceLoopUtils.cs" />
     <Compile Include="FaceUtils.cs" />
+    <Compile Include="FTPHelper.cs" />
     <Compile Include="OffsetRegionUtils.cs" />
     <Compile Include="OperationUtils.cs" />
     <Compile Include="ViewUtils.cs" />

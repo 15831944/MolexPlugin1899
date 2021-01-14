@@ -39,6 +39,7 @@ namespace MolexPlugin.DAL
 
                 ExpressionUtils.SetAttrExp("DatumWidth", "DatumWidth", NXObject.AttributeType.Real);
                 ExpressionUtils.SetAttrExp("DatumHeigth", "DatumHeigth", NXObject.AttributeType.Real);
+                ExpressionUtils.SetAttrExp("EleHeight", "EleHeight", NXObject.AttributeType.Real);
 
                 ExpressionUtils.CreateExp("moveZ=0", "Number");
 
@@ -46,6 +47,7 @@ namespace MolexPlugin.DAL
                 ExpressionUtils.CreateExp("yNCopies=PitchYNum", "Number");
                 ExpressionUtils.CreateExp("xPitchDistance=PitchX", "Number");
                 ExpressionUtils.CreateExp("yPitchDistance=-PitchY", "Number");
+                ExpressionUtils.CreateExp("extrudePreparation=ceiling(PreparationZ-EleHeight-2)", "Number");
                 if (zDatum)
                 {
                     ExpressionUtils.CreateExp("moveBoxZ=0", "Number");

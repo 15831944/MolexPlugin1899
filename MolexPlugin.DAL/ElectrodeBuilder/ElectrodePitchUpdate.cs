@@ -32,8 +32,8 @@ namespace MolexPlugin.DAL
         public Vector3d GetIncrement()
         {
             Vector3d temp = new Vector3d();
-            temp.X = ((newPitch.PitchXNum) * (newPitch.PitchX) - (oldPitch.PitchXNum) * (oldPitch.PitchX)) / 2;
-            temp.Y = ((newPitch.PitchYNum) * (newPitch.PitchY) - (oldPitch.PitchYNum) * (oldPitch.PitchY)) / 2;
+            temp.X = ((newPitch.PitchXNum-1) * (newPitch.PitchX) - (oldPitch.PitchXNum-1) * (oldPitch.PitchX)) / 2;
+            temp.Y = ((newPitch.PitchYNum-1) * (newPitch.PitchY) - (oldPitch.PitchYNum-1) * (oldPitch.PitchY)) / 2;
             return temp;
         }
         /// <summary>

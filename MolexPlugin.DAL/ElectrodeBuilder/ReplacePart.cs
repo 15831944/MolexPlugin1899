@@ -36,45 +36,39 @@ namespace MolexPlugin.DAL
             Part workPart = theSession.Parts.Work;
             List<Component> cts = AssmbliesUtils.GetPartComp(workPart, pt);
             string oldPath = pt.FullPath;
-            if (File.Exists(newPath))
+
+            pt.Close(NXOpen.BasePart.CloseWholeTree.False, NXOpen.BasePart.CloseModified.UseResponses, null);
+            File.Move(oldPath, newPath);
+            if (cts.Count > 0)
             {
-                err.Add(newName + "            替换失败，替换后有同名工件！          ");
+                foreach (Component co in cts)
+                {
+                    try
+                    {
+                        bool rep = AssmbliesUtils.ReplaceComp(co, newPath, newName);
+                        if (rep)
+                            err.Add(newName + "           组件替换成功！          ");
+                        else
+                            err.Add(newName + "           组件替换失败！          ");
+                    }
+                    catch
+                    {
+                        err.Add(newName + "           组件替换失败！          ");
+                    }
+                }
+                newPart = cts[0].Prototype as Part;
                 return err;
             }
             else
             {
-                pt.Close(NXOpen.BasePart.CloseWholeTree.False, NXOpen.BasePart.CloseModified.UseResponses, null);
-                File.Move(oldPath, newPath);
-                if (cts.Count > 0)
-                {
-                    foreach (Component co in cts)
-                    {
-                        try
-                        {
-                            bool rep = AssmbliesUtils.ReplaceComp(co, newPath, newName);
-                            if (rep)
-                                err.Add(newName + "           组件替换成功！          ");
-                            else
-                                err.Add(newName + "           组件替换失败！          ");
-                        }
-                        catch
-                        {
-                            err.Add(newName + "           组件替换失败！          ");
-                        }
-                    }
-                    newPart = cts[0].Prototype as Part;
-                    return err;
-                }
-                else
-                {
-                    Tag partTag;
-                    UFPart.LoadStatus error_status;
-                    theUFSession.Part.Open(newPath, out partTag, out error_status);
-                    err.Add(newName + "           组件替换成功！          ");
-                    newPart = NXObjectManager.Get(partTag) as Part;
-                    return err;
-                }
+                Tag partTag;
+                UFPart.LoadStatus error_status;
+                theUFSession.Part.Open(newPath, out partTag, out error_status);
+                err.Add(newName + "           组件替换成功！          ");
+                newPart = NXObjectManager.Get(partTag) as Part;
+                return err;
             }
         }
+
     }
 }

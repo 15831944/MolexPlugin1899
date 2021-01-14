@@ -500,12 +500,12 @@ namespace MolexPlugin
             }
             if (obj.Length > 0)
             {
-                Part part = (obj[0] as NXOpen.Assemblies.Component).Prototype as Part;
+              //  Part part = (obj[0] as NXOpen.Assemblies.Component).Prototype as Part;
                 if (selectedObject is Face)
                 {
                     Face seleFace = selectedObject as Face;
                     Part selePart = (seleFace.Prototype as Face).OwningPart as Part;
-                    if (selePart.Tag == part.Tag)
+                    if (selePart.Tag == this.selectPart.Tag)
                         return UFConstants.UF_UI_SEL_ACCEPT;
                 }
                 else if(selectedObject is Point)

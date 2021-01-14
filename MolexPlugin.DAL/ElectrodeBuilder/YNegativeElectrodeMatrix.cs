@@ -18,7 +18,7 @@ namespace MolexPlugin.DAL
         private Point3d workpieceDisPt = new Point3d();
         public YNegativeElectrodeMatrix()
         {
-
+            this.EleProcessDir = "Y-";
         }
         public override void Initialinze(Matrix4 workMatr, List<Body> eleHead, Part workpiecePart = null)
         {
@@ -38,7 +38,7 @@ namespace MolexPlugin.DAL
         {
             double preY = Math.Ceiling(2 * this.disPt.Z);
             double preX = Math.Ceiling(2 * this.disPt.X + Math.Abs((pitch.PitchXNum - 1) * pitch.PitchX));
-            double preZ = Math.Ceiling(2 * this.disPt.Y) + 45;
+            double preZ = Math.Ceiling(Math.Abs(this.centerPt.Y + disPt.Y)) + 47;
             if (zDatum)
             {
                 preX = Math.Ceiling(2 * this.disPt.X + Math.Abs((pitch.PitchXNum) * pitch.PitchX));

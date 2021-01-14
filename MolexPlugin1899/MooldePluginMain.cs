@@ -217,6 +217,10 @@ namespace MolexPlugin
             {
                 new ExportEleCamCreateForm().Show();
             }
+            if (args[0] == "MENU_ExportEleCMM")
+            {
+                new ExportEleCMMCreateForm().Show();
+            }
             #endregion
 
             if (args[0] == "MENU_EleProgram")
@@ -244,8 +248,7 @@ namespace MolexPlugin
                 PostShopdocCreateForm.Show();
             }
 
-           // Test.User();
-
+            // Test.User();
             return 1;
         }
 

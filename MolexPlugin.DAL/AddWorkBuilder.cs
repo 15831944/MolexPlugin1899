@@ -103,7 +103,7 @@ namespace MolexPlugin.DAL
             List<string> err = new List<string>();
             WorkInfo workInfo = work.Info.Clone() as WorkInfo;
             WorkCollection workColl = new WorkCollection(workInfo.MoldInfo);
-            int workNum = workColl.Work.Count + 1;
+            int workNum = workColl.Work[workColl.Work.Count - 1].Info.WorkNumber + 1;
             workInfo.WorkNumber = workNum;
             workInfo.UserModel = user;
             EDMModel edm = GetEDMModel();
@@ -183,7 +183,11 @@ namespace MolexPlugin.DAL
             WorkpieceModel workpieceModel = new WorkpieceModel(workpieceCt.Prototype as Part);
             WorkInfo workInfo = work.Info.Clone() as WorkInfo;
             WorkCollection workColl = new WorkCollection(workpieceModel.Info.MoldInfo);
-            int workNum = workColl.Work[workColl.Work.Count - 1].Info.WorkNumber + 1;
+            int workNum = 1;
+            if (workColl.Work.Count > 0)
+            {
+                workNum = workColl.Work[workColl.Work.Count - 1].Info.WorkNumber + 1;
+            }
             workInfo.WorkNumber = workNum;
             workInfo.UserModel = user;
             workInfo.Matr = mat;

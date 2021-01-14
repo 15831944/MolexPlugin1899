@@ -17,14 +17,14 @@ namespace MolexPlugin.DAL
 
         public ZPositiveElectrodeMatrix()
         {
-
+            this.EleProcessDir = "Z+";
         }
 
         public override double[] GetPreparation(ElectrodePitchInfo pitch, bool zDatum)
         {
             double preX = Math.Ceiling(2 * disPt.X + Math.Abs((pitch.PitchXNum - 1) * pitch.PitchX)) ;
             double preY = Math.Ceiling(2 * disPt.Y + Math.Abs((pitch.PitchYNum - 1) * pitch.PitchY)) ;
-            double preZ = Math.Ceiling(Math.Abs(this.centerPt.Z - disPt.Z)) + 25;
+            double preZ = Math.Ceiling(Math.Abs(this.centerPt.Z - disPt.Z)) + 35;
             if (zDatum)
             {
                 if (preX >= preY)

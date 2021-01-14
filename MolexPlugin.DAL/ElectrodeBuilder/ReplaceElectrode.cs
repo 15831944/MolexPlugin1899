@@ -36,14 +36,23 @@ namespace MolexPlugin.DAL
         /// 修改电极名
         /// </summary>
         /// <returns></returns>
-        public List<string> AlterEle()
+        public List<string> AlterEle(out Part newElePart)
         {
-            Part newElePart;
+            newElePart = null;
             string newEleName = elePt.Name.Replace(oldNameInfo.EleName, newNameInfo.EleName);
             string newPath = directoryPath + newEleName + ".prt";
-            List<string> err = ReplacePart.Replace(elePt, newPath, newEleName, out newElePart);
-            if (newElePart != null)
-                newNameInfo.SetAttribute(newElePart);
+            List<string> err = new List<string>();
+            if (File.Exists(newPath))
+            {
+                err.Add(newEleName + "            替换失败，替换后有同名工件！          ");
+
+            }
+            else
+            {
+                err.AddRange(ReplacePart.Replace(elePt, newPath, newEleName, out newElePart));
+                if (newElePart != null)
+                    newNameInfo.SetAttribute(newElePart);
+            }
             return err;
         }
         public List<string> AlterEle(ParentAssmblieInfo parenInfo)
@@ -51,10 +60,16 @@ namespace MolexPlugin.DAL
             Part newElePart;
             string newEleName = elePt.Name.Replace(oldNameInfo.EleName, newNameInfo.EleName);
             string newPath = directoryPath + newEleName + ".prt";
+            List<string> err = new List<string>();
+            if (File.Exists(newPath))
+            {
+                err.Add(newEleName + "            替换失败，替换后有同名工件！          ");
+                return err;
+            }
             ParentAssmblieInfo info = ParentAssmblieInfo.GetAttribute(elePt);
-            List<string> err = ReplacePart.Replace(elePt, newPath, newEleName, out newElePart);
+            err.AddRange(ReplacePart.Replace(elePt, newPath, newEleName, out newElePart));
             if (newElePart != null)
-            {                             
+            {
                 info.MoldInfo = parenInfo.MoldInfo;
                 info.UserModel = parenInfo.UserModel;
                 newNameInfo.SetAttribute(newElePart);
@@ -71,9 +86,14 @@ namespace MolexPlugin.DAL
             List<string> err = new List<string>();
             UFSession theUFSession = UFSession.GetUFSession();
             string oldDra = directoryPath + oldNameInfo.EleName + "_dwg.prt";
+            if (!File.Exists(oldDra))
+            {
+                return err;
+            }
             string newDra = directoryPath + newNameInfo.EleName + "_dwg.prt";
             if (File.Exists(newDra))
             {
+                err.Add(newNameInfo.EleName + "            替换失败，替换后有同名工件！          ");
                 return err;
             }
             else
@@ -109,9 +129,14 @@ namespace MolexPlugin.DAL
             UFSession theUFSession = UFSession.GetUFSession();
             Part workPart = Session.GetSession().Parts.Work;
             string oldDra = directoryPath + oldNameInfo.EleName + "_dwg.prt";
+            if (!File.Exists(oldDra))
+            {
+                return err;
+            }
             string newDra = directoryPath + newNameInfo.EleName + "_dwg.prt";
             if (File.Exists(newDra))
             {
+                err.Add(newNameInfo.EleName + "            替换失败，替换后有同名工件！          ");
                 return err;
             }
             else

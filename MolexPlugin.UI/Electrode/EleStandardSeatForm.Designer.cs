@@ -35,12 +35,12 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.comboBox_Condition = new System.Windows.Forms.ComboBox();
             this.textBox_Ext = new System.Windows.Forms.TextBox();
-            this.textBox_CH = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox_fine = new System.Windows.Forms.CheckBox();
             this.checkBox_during = new System.Windows.Forms.CheckBox();
             this.checkBox_crude = new System.Windows.Forms.CheckBox();
             this.comboBox_material = new System.Windows.Forms.ComboBox();
+            this.comboBox_Ch = new System.Windows.Forms.ComboBox();
             this.comboBox_eleType = new System.Windows.Forms.ComboBox();
             this.comboBox_fineNum = new System.Windows.Forms.ComboBox();
             this.comboBox_fineInter = new System.Windows.Forms.ComboBox();
@@ -143,12 +143,12 @@
             // 
             this.groupBox2.Controls.Add(this.comboBox_Condition);
             this.groupBox2.Controls.Add(this.textBox_Ext);
-            this.groupBox2.Controls.Add(this.textBox_CH);
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.checkBox_fine);
             this.groupBox2.Controls.Add(this.checkBox_during);
             this.groupBox2.Controls.Add(this.checkBox_crude);
             this.groupBox2.Controls.Add(this.comboBox_material);
+            this.groupBox2.Controls.Add(this.comboBox_Ch);
             this.groupBox2.Controls.Add(this.comboBox_eleType);
             this.groupBox2.Controls.Add(this.comboBox_fineNum);
             this.groupBox2.Controls.Add(this.comboBox_fineInter);
@@ -192,15 +192,6 @@
             this.textBox_Ext.Size = new System.Drawing.Size(72, 25);
             this.textBox_Ext.TabIndex = 7;
             this.textBox_Ext.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Ext_KeyPress);
-            // 
-            // textBox_CH
-            // 
-            this.textBox_CH.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_CH.Location = new System.Drawing.Point(211, 238);
-            this.textBox_CH.Name = "textBox_CH";
-            this.textBox_CH.Size = new System.Drawing.Size(72, 25);
-            this.textBox_CH.TabIndex = 7;
-            this.textBox_CH.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_CH_KeyPress);
             // 
             // checkBox1
             // 
@@ -264,6 +255,30 @@
             this.comboBox_material.Size = new System.Drawing.Size(72, 27);
             this.comboBox_material.TabIndex = 2;
             // 
+            // comboBox_Ch
+            // 
+            this.comboBox_Ch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_Ch.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox_Ch.FormattingEnabled = true;
+            this.comboBox_Ch.Items.AddRange(new object[] {
+            "0",
+            "4",
+            "8",
+            "10",
+            "12",
+            "14",
+            "18",
+            "20",
+            "22",
+            "24",
+            "25",
+            "27"});
+            this.comboBox_Ch.Location = new System.Drawing.Point(210, 239);
+            this.comboBox_Ch.Name = "comboBox_Ch";
+            this.comboBox_Ch.Size = new System.Drawing.Size(72, 27);
+            this.comboBox_Ch.TabIndex = 2;
+            this.comboBox_Ch.Leave += new System.EventHandler(this.comboBox_eleType_Leave);
+            // 
             // comboBox_eleType
             // 
             this.comboBox_eleType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -295,9 +310,11 @@
             // 
             // comboBox_fineInter
             // 
+            this.comboBox_fineInter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_fineInter.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox_fineInter.FormattingEnabled = true;
             this.comboBox_fineInter.Items.AddRange(new object[] {
+            "0.00",
             "0.01",
             "0.02",
             "0.03",
@@ -308,6 +325,9 @@
             "0.10",
             "0.12",
             "0.15",
+            "0.20",
+            "0.25",
+            "0.30",
             ""});
             this.comboBox_fineInter.Location = new System.Drawing.Point(76, 146);
             this.comboBox_fineInter.Name = "comboBox_fineInter";
@@ -335,15 +355,20 @@
             // 
             // comboBox_duringInter
             // 
+            this.comboBox_duringInter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_duringInter.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox_duringInter.FormattingEnabled = true;
             this.comboBox_duringInter.Items.AddRange(new object[] {
+            "0.02",
             "0.03",
+            "0.04",
             "0.05",
+            "0.06",
             "0.07",
-            "0.1",
+            "0.10",
             "0.12",
-            "0.15"});
+            "0.15",
+            ""});
             this.comboBox_duringInter.Location = new System.Drawing.Point(76, 102);
             this.comboBox_duringInter.Name = "comboBox_duringInter";
             this.comboBox_duringInter.Size = new System.Drawing.Size(72, 27);
@@ -370,16 +395,19 @@
             // 
             // comboBox_crudeInter
             // 
+            this.comboBox_crudeInter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_crudeInter.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox_crudeInter.FormattingEnabled = true;
             this.comboBox_crudeInter.Items.AddRange(new object[] {
             "0.05",
+            "0.06",
             "0.07",
-            "0.1",
+            "0.10",
             "0.12",
             "0.15",
-            "0.2",
-            "0.25"});
+            "0.20",
+            "0.25",
+            "0.30"});
             this.comboBox_crudeInter.Location = new System.Drawing.Point(76, 58);
             this.comboBox_crudeInter.Name = "comboBox_crudeInter";
             this.comboBox_crudeInter.Size = new System.Drawing.Size(72, 27);
@@ -1016,7 +1044,6 @@
         public System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox comboBox_Condition;
         private System.Windows.Forms.TextBox textBox_Ext;
-        private System.Windows.Forms.TextBox textBox_CH;
         private System.Windows.Forms.CheckBox checkBox_fine;
         private System.Windows.Forms.CheckBox checkBox_during;
         private System.Windows.Forms.CheckBox checkBox_crude;
@@ -1079,5 +1106,6 @@
         public System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ComboBox comboBox_Ch;
     }
 }

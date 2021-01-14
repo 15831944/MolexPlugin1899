@@ -198,7 +198,7 @@ namespace MolexPlugin.DAL
             ElectrodeSetValueInfo setValueInfo = ElectrodeSetValueInfo.GetAttribute(eleAsmComp);
             Part workPt = eleAsmComp.Parent.Prototype as Part;
             WorkModel work = new WorkModel(workPt);
-            ElectrodePitchUpdate pitchUpdate = new ElectrodePitchUpdate(eleModel.Info.AllInfo.Pitch, newAllInfo.Pitch);
+            ElectrodePitchUpdate pitchUpdate = new ElectrodePitchUpdate(oldAllInfo.Pitch, newAllInfo.Pitch);
             Vector3d temp = pitchUpdate.GetIncrement();
             double[] setValue = pitchUpdate.GetNewSetValue(setValueInfo.EleSetValue);
             setValueInfo.EleSetValue = setValue;
@@ -254,13 +254,8 @@ namespace MolexPlugin.DAL
         /// <returns></returns>
         public bool UpdateEleBuilder()
         {
-            newAllInfo.SetAttribute(eleModel.PartTag);
-            bool isok = false;
             List<NXOpen.Assemblies.Component> eleCts = AssmbliesUtils.GetPartComp(asm, eleModel.PartTag);
-            if (!oldAllInfo.Pitch.IsEquals(newAllInfo.Pitch) || !oldAllInfo.GapValue.IsEquals(newAllInfo.GapValue))
-            {
-                isok = UpdatePitch();
-            }
+            bool isok = false;
             foreach (NXOpen.Assemblies.Component ct in eleCts)
             {
                 if (!eleModel.Info.AllInfo.Pitch.IsEquals(newAllInfo.Pitch))
@@ -273,6 +268,11 @@ namespace MolexPlugin.DAL
                 }
 
             }
+            newAllInfo.SetAttribute(eleModel.PartTag);
+            if (!oldAllInfo.Pitch.IsEquals(newAllInfo.Pitch) || !oldAllInfo.GapValue.IsEquals(newAllInfo.GapValue))
+            {
+                isok = UpdatePitch();
+            }
             return isok;
 
         }
@@ -283,6 +283,10 @@ namespace MolexPlugin.DAL
         {
             string dwgName = eleModel.Info.AllInfo.Name.EleName + "_dwg";
             string path = eleModel.WorkpieceDirectoryPath + dwgName + ".prt";
+            if (!File.Exists(path))
+            {
+                return;
+            }
             Part dwg = null;
             foreach (Part part in Session.GetSession().Parts)
             {
@@ -313,7 +317,16 @@ namespace MolexPlugin.DAL
                     {
                         Basic.DrawingUtils.UpdateViews(sh);
                     }
+                   
                 }
+                if(!oldAllInfo.Preparetion.IsEquals(newAllInfo.Preparetion))
+                {
+                    foreach (NXOpen.Drawings.DrawingSheet sh in dwg.DrawingSheets)
+                    {
+                        Basic.DrawingUtils.UpdateViews(sh);
+                    }
+                }
+                newAllInfo.SetAttribute(dwg);
                 PartUtils.SetPartDisplay(asm);
             }
         }

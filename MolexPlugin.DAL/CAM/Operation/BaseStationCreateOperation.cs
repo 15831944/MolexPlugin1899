@@ -89,7 +89,8 @@ namespace MolexPlugin.DAL
         }
         public override void SetOperationData(AbstractElectrodeCAM eleCam)
         {
-            this.Inter = eleCam.Inter;
+            //this.Inter = eleCam.Inter;
+            this.Inter = 0;
             Point3d floorPt;
             BoundaryModel conditions;
             eleCam.GetBaseStationBoundary(out conditions, out floorPt);

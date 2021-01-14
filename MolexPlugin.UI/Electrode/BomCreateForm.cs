@@ -54,6 +54,7 @@ namespace MolexPlugin
                         return false;
                     }
                 }
+               
                 return true;
             }
             else
@@ -62,7 +63,12 @@ namespace MolexPlugin
         public void Show()
         {
             if (PartIsAsm())
+            {
+                Session.UndoMarkId markId;
+                markId = Session.GetSession().SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "BOM");
                 ShowForm();
+            }
+                
         }
 
     }

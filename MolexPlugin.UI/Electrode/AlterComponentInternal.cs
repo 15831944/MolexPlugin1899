@@ -25,25 +25,36 @@ namespace MolexPlugin
             {
                 this.groupEle.Show = true;
                 info = ElectrodeInfo.GetAttribute(ct);
-                this.strMoldNumber.Show = false;
-                this.strWorkpieceNumber.Show = false;
-                this.strEditionNumber.Show = false;
+                //this.strMoldNumber.Show = false;
+                // this.strWorkpieceNumber.Show = false;
+                // this.strEditionNumber.Show = false;
+                this.groupWorkpiece.Show = false;
+                this.groupWork.Show = false;
                 ElectrodeInfo eleInfo = info as ElectrodeInfo;
                 string temp = info.MoldInfo.MoldNumber + "-" + info.MoldInfo.WorkpieceNumber;
                 this.strEleName.Value = temp;
                 this.strEleName1.Value = eleInfo.AllInfo.Name.EleName.Substring(temp.Length, eleInfo.AllInfo.Name.EleName.Length - temp.Length);
                 this.strEleEditionNumber.Value = eleInfo.AllInfo.Name.EleEditionNumber;
             }
-            if (ParentAssmblieInfo.IsWorkpiece(ct))
+            else if (ParentAssmblieInfo.IsWorkpiece(ct))
             {
                 info = WorkPieceInfo.GetAttribute(ct);
                 this.groupWorkpiece.Show = true;
                 this.groupEle.Show = false;
+                this.groupWork.Show = false;
                 this.strMoldNumber.Value = info.MoldInfo.MoldNumber;
                 this.strWorkpieceNumber.Value = info.MoldInfo.WorkpieceNumber;
                 this.strEditionNumber.Value = info.MoldInfo.EditionNumber;
             }
-            if (!ParentAssmblieInfo.IsParent(ct))
+            else if (ParentAssmblieInfo.IsWork(ct))
+            {
+                info = WorkInfo.GetAttribute(ct);
+                this.groupWork.Show = true;
+                this.groupEle.Show = false;
+                this.groupWorkpiece.Show = false;
+                this.intWorkNumber.Value = (info as WorkInfo).WorkNumber;
+            }
+            else if (!ParentAssmblieInfo.IsParent(ct))
             {
                 this.groupWorkpiece.Show = true;
                 this.groupEle.Show = false;
@@ -62,9 +73,20 @@ namespace MolexPlugin
             };
             newNameInfo.EleNumber = newNameInfo.GetEleNumber(newNameInfo.EleName);
             ReplaceElectrode el = new ReplaceElectrode(pt, newNameInfo);
-            List<string> err = el.AlterEle();
-            err.AddRange(el.AlterEleDra());
+            Part newPart = null;
+            List<string> err = el.AlterEle(out newPart);
+            if (newPart != null)
+            {
+                err.AddRange(el.AlterEleDra());
+                List<NXObject> objs = AskEleAllInstance(newPart);
+                if (objs.Count > 0)
+                {
+                    newNameInfo.SetAttribute(objs.ToArray());
+                }
+            }
+
             PartUtils.SetPartDisplay(workPart);
+
             if (err.Count > 0)
                 ClassItem.Print(err.ToArray());
         }
@@ -98,6 +120,44 @@ namespace MolexPlugin
             List<string> err = ot.Alter(newName);
             if (err.Count > 0)
                 ClassItem.Print(err.ToArray());
+        }
+
+        /// <summary>
+        /// 替换工件
+        /// </summary>
+        /// <param name="ct"></param>
+        private void AlterWork(NXOpen.Assemblies.Component ct, UserModel user)
+        {
+            int workNumber = this.intWorkNumber.Value;
+            string newName = info.MoldInfo.MoldNumber + "-" + info.MoldInfo.WorkpieceNumber + "-WORK" + workNumber.ToString(); ;
+            WorkInfo workInfo = new WorkInfo(info.MoldInfo, user, workNumber, (info as WorkInfo).Matr);
+            Part pt = ct.Prototype as Part;
+            ReplaceOther ot = new ReplaceOther(pt, workInfo);
+            List<string> err = ot.Alter(newName);
+            if (err.Count > 0)
+                ClassItem.Print(err.ToArray());
+        }
+
+        private List<NXObject> AskEleAllInstance(Part ele)
+        {
+            List<NXObject> objs = new List<NXObject>();
+            foreach (NXOpen.Assemblies.Component ct in AssmbliesUtils.GetPartComp(asm.PartTag, ele))
+            {
+                NXObject nt = null;
+                try
+                {
+                    nt = AssmbliesUtils.GetOccOfInstance(ct.Tag);
+                }
+                catch
+                {
+
+                }
+                if (nt != null)
+                {
+                    objs.Add(nt);
+                }
+            }
+            return objs;
         }
     }
 }
