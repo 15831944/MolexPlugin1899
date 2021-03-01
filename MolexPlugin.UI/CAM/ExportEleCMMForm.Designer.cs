@@ -38,6 +38,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.but_Close = new System.Windows.Forms.Button();
             this.butOK = new System.Windows.Forms.Button();
+            this.butSele = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -121,9 +122,9 @@
             this.but_Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.but_Close.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.but_Close.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.but_Close.Location = new System.Drawing.Point(187, 440);
+            this.but_Close.Location = new System.Drawing.Point(246, 440);
             this.but_Close.Name = "but_Close";
-            this.but_Close.Size = new System.Drawing.Size(81, 38);
+            this.but_Close.Size = new System.Drawing.Size(70, 38);
             this.but_Close.TabIndex = 31;
             this.but_Close.Text = "取消";
             this.but_Close.UseVisualStyleBackColor = false;
@@ -134,13 +135,26 @@
             this.butOK.BackColor = System.Drawing.Color.PaleTurquoise;
             this.butOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butOK.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.butOK.Location = new System.Drawing.Point(55, 440);
+            this.butOK.Location = new System.Drawing.Point(114, 440);
             this.butOK.Name = "butOK";
-            this.butOK.Size = new System.Drawing.Size(81, 38);
+            this.butOK.Size = new System.Drawing.Size(70, 38);
             this.butOK.TabIndex = 32;
             this.butOK.Text = "确定";
             this.butOK.UseVisualStyleBackColor = false;
             this.butOK.Click += new System.EventHandler(this.butOK_Click);
+            // 
+            // butSele
+            // 
+            this.butSele.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.butSele.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.butSele.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.butSele.Location = new System.Drawing.Point(10, 440);
+            this.butSele.Name = "butSele";
+            this.butSele.Size = new System.Drawing.Size(70, 38);
+            this.butSele.TabIndex = 32;
+            this.butSele.Text = "全选";
+            this.butSele.UseVisualStyleBackColor = false;
+            this.butSele.Click += new System.EventHandler(this.butSele_Click);
             // 
             // ExportEleCMMForm
             // 
@@ -149,6 +163,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(346, 490);
             this.Controls.Add(this.but_Close);
+            this.Controls.Add(this.butSele);
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -176,5 +191,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button but_Close;
         private System.Windows.Forms.Button butOK;
+        private System.Windows.Forms.Button butSele;
     }
 }

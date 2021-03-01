@@ -14,13 +14,14 @@ using MolexPlugin.DAL;
 using MolexPlugin.Model;
 using Basic;
 using System.Diagnostics;
+using System.IO;
 
 namespace MolexPlugin
 {
-    public partial class ExportEleCamForm : Form
+    public partial class ExportEleCMMForm : Form
     {
         private List<Part> elePart = new List<Part>();
-        public ExportEleCamForm()
+        public ExportEleCMMForm()
         {
             InitializeComponent();
             this.elePart = GetElePartForCamInfo();
@@ -50,9 +51,7 @@ namespace MolexPlugin
             {
                 if (ParentAssmblieInfo.IsElectrode(pt))
                 {
-                    ElectrodeCAMInfo cam = ElectrodeCAMInfo.GetAttribute(pt);
-                    if (cam.CamTemplate == null || cam.CamTemplate != "")
-                        elePart.Add(pt);
+                    elePart.Add(pt);
                 }
 
             }
@@ -71,27 +70,58 @@ namespace MolexPlugin
 
         private void butOK_Click(object sender, EventArgs e)
         {
-            string path = "";
+            List<string> err = new List<string>();
+            string ftp = @"\\10.221.167.49\cmm_cyc_root\";
             for (int i = 0; i < listViewEleInfo.Items.Count; i++)
             {
                 if (listViewEleInfo.Items[i].Checked)
                 {
-                    path += "\"" + this.elePart[i].FullPath + "\" ";
+                    string oldPath = this.elePart[i].FullPath;
+                    string newPath = ftp + GetEleNameForCMM(this.elePart[i]) + ".prt";
+                    try
+                    {
+                        File.Copy(oldPath, newPath, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        err.Add(ex.Message);
+                    }
                 }
             }
-            //ProcessStartInfo startInfo = new ProcessStartInfo("C:\\Program Files\\Siemens\\NX1899\\NXBIN\\BatchElectrodeOperation.exe", path);
-            ////设置不在新窗口中启动新的进程
-            //startInfo.CreateNoWindow = false;
-            ////不使用操作系统使用的shell启动进程
-            //startInfo.UseShellExecute = false;
-            ////将输出信息重定向
-            //startInfo.RedirectStandardOutput = true;
-            //Process process = Process.Start(startInfo); ;
-            //process.WaitForExit();
-            Process process = Process.Start("C:\\Program Files\\Siemens\\NX1899\\NXBIN\\BatchElectrodeOperation.exe", path);
-            process.WaitForExit(1);
-
+            if (err.Count != 0)
+            {
+                ClassItem.Print(err.ToArray());
+            }
             this.Close();
+        }
+
+        private string GetEleNameForCMM(Part ele)
+        {
+            ElectrodeNameInfo nameInfo = ElectrodeNameInfo.GetAttribute(ele);
+            MoldInfo moldInfo = MoldInfo.GetAttribute(ele);
+            return moldInfo.MoldNumber + "-" + moldInfo.WorkpieceNumber + "-E" + nameInfo.EleNumber.ToString();
+        }
+
+        private void butSele_Click(object sender, EventArgs e)
+        {
+            if (butSele.Text.Equals("全选"))
+            {
+                butSele.Text = "单选";
+                for (int i = 0; i < listViewEleInfo.Items.Count; i++)
+                {
+                    listViewEleInfo.Items[i].Checked = false;
+                } 
+            }
+
+            else
+            {
+                butSele.Text = "全选";
+                for (int i = 0; i < listViewEleInfo.Items.Count; i++)
+                {
+                        listViewEleInfo.Items[i].Checked = true;
+                }
+
+            }
         }
     }
 }

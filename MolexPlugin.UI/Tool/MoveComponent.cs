@@ -105,15 +105,20 @@ namespace MolexPlugin
         {
             try
             {
-                CsysUtils.SetWcsToAbs();
-                Component ct = workPart.ComponentAssembly.RootComponent;
-                if (ct == null)
+                UserSingleton user = UserSingleton.Instance();
+                if (user.UserSucceed && user.Jurisd.GetComm())
                 {
-                    theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "显示部件不是装配档!");
-                    return 0;
+                    CsysUtils.SetWcsToAbs();
+                    Component ct = workPart.ComponentAssembly.RootComponent;
+                    if (ct == null)
+                    {
+                        theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Error, "显示部件不是装配档!");
+                        return 0;
+                    }
+
+                    theDialog.Show();
                 }
 
-                theDialog.Show();
             }
             catch (Exception ex)
             {
@@ -319,7 +324,11 @@ namespace MolexPlugin
         //------------------------------------------------------------------------------
         public int filter_cb(NXOpen.BlockStyler.UIBlock block, NXOpen.TaggedObject selectedObject)
         {
-            return (NXOpen.UF.UFConstants.UF_UI_SEL_ACCEPT);
+            NXOpen.Assemblies.Component ct = selectedObject as Component;
+            Component workPartCt = workPart.ComponentAssembly.RootComponent;
+            if (ct != null && ct.Parent.Equals(workPartCt))
+                return (NXOpen.UF.UFConstants.UF_UI_SEL_ACCEPT);
+            return NXOpen.UF.UFConstants.UF_UI_SEL_FAILURE;
         }
 
         //------------------------------------------------------------------------------

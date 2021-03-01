@@ -100,9 +100,13 @@ namespace MolexPlugin
         public NXOpen.UIStyler.DialogResponse Show()
         {
             try
-            {
-                CsysUtils.SetWcsToAbs();
-                theDialog.Show();
+            {               
+                UserSingleton user = UserSingleton.Instance();
+                if (user.UserSucceed && user.Jurisd.GetComm())
+                {
+                    CsysUtils.SetWcsToAbs();
+                    theDialog.Show();
+                }
             }
             catch (Exception ex)
             {
@@ -144,6 +148,12 @@ namespace MolexPlugin
                 rotation_y = (NXOpen.BlockStyler.Button)theDialog.TopBlock.FindBlock("rotation_y");
                 rotation_z = (NXOpen.BlockStyler.Button)theDialog.TopBlock.FindBlock("rotation_z");
                 //get_point.SelectModeAsString = "Multiple";
+                Selection.MaskTriple maskBody = new Selection.MaskTriple()
+                {
+                    Type = 70,
+                    Subtype = 0,
+                    SolidBodySubtype = 0
+                };
                 Selection.MaskTriple maskFace = new Selection.MaskTriple()
                 {
                     Type = 70,
@@ -155,9 +165,11 @@ namespace MolexPlugin
                     Type = 2,
                     Subtype = 0,
                     SolidBodySubtype = 0
-                };              
+                };
                 Selection.MaskTriple[] masks = { maskFace, maskPoint };
+                Selection.MaskTriple[] masks1 = { maskBody };
                 get_point.SetSelectionFilter(Selection.SelectionAction.ClearAndEnableSpecific, masks);//过滤只选择点和面
+                selectionBody.SetSelectionFilter(Selection.SelectionAction.ClearAndEnableSpecific, masks1);
             }
             catch (Exception ex)
             {
@@ -224,7 +236,7 @@ namespace MolexPlugin
                     {
                         DeleteObject.Delete(points.ToArray());
                     }
-                    points.Clear();                  
+                    points.Clear();
                     foreach (TaggedObject tobj in selectionBody.GetSelectedObjects())
                     {
 

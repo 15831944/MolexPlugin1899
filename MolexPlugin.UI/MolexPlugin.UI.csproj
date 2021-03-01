@@ -75,14 +75,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddProgram.cs" />
+    <Compile Include="CAM\AddProgram.cs" />
     <Compile Include="Electrode\CopyElectrode.cs" />
-    <Compile Include="ExportEleCMMCreateForm.cs" />
-    <Compile Include="ExportEleCamCreateForm.cs" />
-    <Compile Include="EleProgramFormInternal.cs">
+    <Compile Include="CAM\ExportEleCMMCreateForm.cs" />
+    <Compile Include="CAM\ExportEleCamCreateForm.cs" />
+    <Compile Include="CAM\EleProgramFormInternal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EleProgramCreateForm.cs" />
+    <Compile Include="CAM\EleProgramCreateForm.cs" />
     <Compile Include="Electrode\CopyAsmInternal.cs" />
     <Compile Include="Electrode\AlterComponentInternal.cs" />
     <Compile Include="Electrode\AlterComponent.cs" />
@@ -120,32 +120,32 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Electrode\MoovElectrode.cs" />
-    <Compile Include="EleProgramForm.cs">
+    <Compile Include="CAM\EleProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EleProgramForm.Designer.cs">
+    <Compile Include="CAM\EleProgramForm.Designer.cs">
       <DependentUpon>EleProgramForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExportEleCMMForm.cs">
+    <Compile Include="CAM\ExportEleCMMForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExportEleCMMForm.Designer.cs">
+    <Compile Include="CAM\ExportEleCMMForm.Designer.cs">
       <DependentUpon>ExportEleCMMForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExportEleCamForm.cs">
+    <Compile Include="CAM\ExportEleCamForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExportEleCamForm.Designer.cs">
+    <Compile Include="CAM\ExportEleCamForm.Designer.cs">
       <DependentUpon>ExportEleCamForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OffsetBodyGapVauleUi.cs" />
-    <Compile Include="PostShopdoc.cs">
+    <Compile Include="CAM\OffsetBodyGapVauleUi.cs" />
+    <Compile Include="CAM\PostShopdoc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PostShopdoc.Designer.cs">
+    <Compile Include="CAM\PostShopdoc.Designer.cs">
       <DependentUpon>PostShopdoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="PostShopdocCreateForm.cs" />
+    <Compile Include="CAM\PostShopdocCreateForm.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -178,7 +178,7 @@
     <Compile Include="Electrode\WorkpieceDrawingForm.Designer.cs">
       <DependentUpon>WorkpieceDrawingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserOperation.cs" />
+    <Compile Include="CAM\UserOperation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Basic\Basic.csproj">
@@ -210,16 +210,16 @@
     <EmbeddedResource Include="Electrode\WorkpieceDrawingForm.resx">
       <DependentUpon>WorkpieceDrawingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EleProgramForm.resx">
+    <EmbeddedResource Include="CAM\EleProgramForm.resx">
       <DependentUpon>EleProgramForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExportEleCMMForm.resx">
+    <EmbeddedResource Include="CAM\ExportEleCMMForm.resx">
       <DependentUpon>ExportEleCMMForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExportEleCamForm.resx">
+    <EmbeddedResource Include="CAM\ExportEleCamForm.resx">
       <DependentUpon>ExportEleCamForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PostShopdoc.resx">
+    <EmbeddedResource Include="CAM\PostShopdoc.resx">
       <DependentUpon>PostShopdoc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -230,6 +230,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

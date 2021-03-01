@@ -148,7 +148,11 @@ namespace MolexPlugin
         {
             try
             {
-                theDialog.Show();
+                UserSingleton user = UserSingleton.Instance();
+                if (user.UserSucceed && user.Jurisd.GetComm())
+                {
+                    theDialog.Show();
+                }
             }
             catch (Exception ex)
             {
@@ -253,7 +257,7 @@ namespace MolexPlugin
                     bool backOff = true;
                     foreach (Body by in bodys)
                     {
-                        AnalysisBodySlopeAndMinDia ana = new AnalysisBodySlopeAndMinDia(this.vector.Vector, by);                      
+                        AnalysisBodySlopeAndMinDia ana = new AnalysisBodySlopeAndMinDia(this.vector.Vector, by);
                         if (ana.AskBackOffFace())
                             backOff = false;
                         if (min >= ana.MinDia)
@@ -264,7 +268,7 @@ namespace MolexPlugin
                     if (min != 9999)
                     {
                         Basic.ClassItem.Print("最小内R角          " + (min / 2).ToString("f3"));
-                    }                        
+                    }
                     if (!backOff)
                         theUI.NXMessageBox.Show("提示！", NXMessageBox.DialogType.Warning, "有倒扣面");
                     workPart.ModelingViews.WorkView.Regenerate();
