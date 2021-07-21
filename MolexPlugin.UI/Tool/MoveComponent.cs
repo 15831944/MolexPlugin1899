@@ -258,8 +258,8 @@ namespace MolexPlugin
                     Component ct = selectionBody.GetLastSelectedObjects()[0] as Component;
                     foreach (Body by in (ct.Prototype as Part).Bodies)
                     {
-
-                        nxObjects.Add(AssmbliesUtils.GetNXObjectOfOcc(ct.Tag, by.Tag));
+                        if (by.IsBlanked)
+                            nxObjects.Add(AssmbliesUtils.GetNXObjectOfOcc(ct.Tag, by.Tag));
 
                     }
                     this.aoo = new NXObjectAooearancePoint(nxObjects.ToArray());
@@ -324,11 +324,19 @@ namespace MolexPlugin
         //------------------------------------------------------------------------------
         public int filter_cb(NXOpen.BlockStyler.UIBlock block, NXOpen.TaggedObject selectedObject)
         {
+
             NXOpen.Assemblies.Component ct = selectedObject as Component;
             Component workPartCt = workPart.ComponentAssembly.RootComponent;
-            if (ct != null && ct.Parent.Equals(workPartCt))
+            if (ct != null)
+            {
+                if (ct.Parent.Equals(workPartCt))
+                    return (NXOpen.UF.UFConstants.UF_UI_SEL_ACCEPT);
+                else
+                    return NXOpen.UF.UFConstants.UF_UI_SEL_FAILURE;
+
+            }
+            else
                 return (NXOpen.UF.UFConstants.UF_UI_SEL_ACCEPT);
-            return NXOpen.UF.UFConstants.UF_UI_SEL_FAILURE;
         }
 
         //------------------------------------------------------------------------------

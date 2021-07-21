@@ -88,7 +88,7 @@ namespace MolexPlugin.DAL
             foreach (AnalysisFaceSlopeAndDia fe in analysisBody.AnaFaces)
             {
                 string da = AttributeUtils.GetAttrForString(fe.Face, "DatumFace");
-                if (er.Equals("Datum", StringComparison.CurrentCultureIgnoreCase))
+                if (da.Equals("Datum", StringComparison.CurrentCultureIgnoreCase))
                     return fe.Data;
             }
             FaceLoopUtils.LoopList[] loops = FaceLoopUtils.AskFaceLoops(analysisBody.AnaFaces[0].Face.Tag);

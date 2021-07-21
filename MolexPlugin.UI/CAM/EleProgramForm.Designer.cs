@@ -760,19 +760,22 @@
             // listBoxTemplate
             // 
             this.listBoxTemplate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listBoxTemplate.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listBoxTemplate.FormattingEnabled = true;
-            this.listBoxTemplate.ItemHeight = 19;
+            this.listBoxTemplate.ItemHeight = 17;
             this.listBoxTemplate.Items.AddRange(new object[] {
             "直电极",
             "直+等高",
             "直+等宽",
             "直+等高+等宽",
+            "直+等高+等宽+清根",
             "等宽+等高",
+            "等宽+等高+清根",
             "等高电极",
             "模板"});
             this.listBoxTemplate.Location = new System.Drawing.Point(6, 23);
             this.listBoxTemplate.Name = "listBoxTemplate";
-            this.listBoxTemplate.Size = new System.Drawing.Size(91, 135);
+            this.listBoxTemplate.Size = new System.Drawing.Size(131, 121);
             this.listBoxTemplate.TabIndex = 4;
             this.listBoxTemplate.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxTemplate_MouseClick);
             // 
@@ -785,7 +788,7 @@
             this.groupTemplate.Controls.Add(this.listBoxTemplate);
             this.groupTemplate.Location = new System.Drawing.Point(626, 74);
             this.groupTemplate.Name = "groupTemplate";
-            this.groupTemplate.Size = new System.Drawing.Size(251, 220);
+            this.groupTemplate.Size = new System.Drawing.Size(277, 220);
             this.groupTemplate.TabIndex = 5;
             this.groupTemplate.TabStop = false;
             this.groupTemplate.Text = "选择模板";
@@ -818,9 +821,9 @@
             // 
             this.png.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.png.Image = ((System.Drawing.Image)(resources.GetObject("png.Image")));
-            this.png.Location = new System.Drawing.Point(103, 23);
+            this.png.Location = new System.Drawing.Point(143, 23);
             this.png.Name = "png";
-            this.png.Size = new System.Drawing.Size(142, 135);
+            this.png.Size = new System.Drawing.Size(128, 130);
             this.png.TabIndex = 6;
             this.png.TabStop = false;
             // 
@@ -837,7 +840,7 @@
             this.groupParameter.Controls.Add(this.label4);
             this.groupParameter.Location = new System.Drawing.Point(626, 397);
             this.groupParameter.Name = "groupParameter";
-            this.groupParameter.Size = new System.Drawing.Size(251, 184);
+            this.groupParameter.Size = new System.Drawing.Size(277, 184);
             this.groupParameter.TabIndex = 6;
             this.groupParameter.TabStop = false;
             this.groupParameter.Text = "参数设置";
@@ -937,7 +940,7 @@
             this.groupAddOper.Location = new System.Drawing.Point(626, 300);
             this.groupAddOper.Name = "groupAddOper";
             this.groupAddOper.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupAddOper.Size = new System.Drawing.Size(251, 91);
+            this.groupAddOper.Size = new System.Drawing.Size(275, 91);
             this.groupAddOper.TabIndex = 3;
             this.groupAddOper.TabStop = false;
             this.groupAddOper.Text = "添加刀路";
@@ -1029,7 +1032,7 @@
             this.groupSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupSet.Location = new System.Drawing.Point(626, 587);
             this.groupSet.Name = "groupSet";
-            this.groupSet.Size = new System.Drawing.Size(251, 118);
+            this.groupSet.Size = new System.Drawing.Size(277, 118);
             this.groupSet.TabIndex = 6;
             this.groupSet.TabStop = false;
             this.groupSet.Text = "设置";
@@ -1078,7 +1081,7 @@
             this.groupBoxOpen.Location = new System.Drawing.Point(626, 4);
             this.groupBoxOpen.Name = "groupBoxOpen";
             this.groupBoxOpen.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBoxOpen.Size = new System.Drawing.Size(249, 64);
+            this.groupBoxOpen.Size = new System.Drawing.Size(275, 64);
             this.groupBoxOpen.TabIndex = 7;
             this.groupBoxOpen.TabStop = false;
             this.groupBoxOpen.Text = "打开";
@@ -1139,7 +1142,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.CancelButton = this.but_Close;
-            this.ClientSize = new System.Drawing.Size(889, 802);
+            this.ClientSize = new System.Drawing.Size(915, 802);
             this.Controls.Add(this.groupOper);
             this.Controls.Add(this.groupBoxOpen);
             this.Controls.Add(this.groupAddOper);

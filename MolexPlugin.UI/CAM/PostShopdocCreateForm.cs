@@ -71,7 +71,16 @@ namespace MolexPlugin
                 err.AddRange(pm.Gouged());
             }
             if (err.Count > 0)
-                ClassItem.Print(err.ToArray());
+            {
+                int ok = theUI.NXMessageBox.Show("错误", NXMessageBox.DialogType.Question, "程序过切！");
+                if (ok == 2)
+                {
+                    ClassItem.Print(err.ToArray());
+                    return false;                   
+                }
+
+            }
+
             return true;
         }
         public static void Show()

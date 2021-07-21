@@ -150,9 +150,10 @@ namespace MolexPlugin.DAL
             }
             if (min >= 2)
                 return "BN1.98";
-            else
+            else if (min >= 0.2)
                 return "BN" + (min - 0.02).ToString();
-
+            else
+                return "BN0.18";
         }
         /// <summary>
         /// 获取光基准台面

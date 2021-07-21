@@ -80,6 +80,10 @@ namespace MolexPlugin.DAL
         /// </summary>
         PlanarAndZleveAndSufaceEleTemplate,
         /// <summary>
+        /// 直加等高等宽加清根
+        /// </summary>
+        PlanarAndZleveAndSufaceAndFlowCutEleTemplate,
+        /// <summary>
         /// 等高加等宽
         /// </summary>
         ZleveAndSufaceEleTemplate,
@@ -88,8 +92,14 @@ namespace MolexPlugin.DAL
         /// </summary>
         ZleveEleTemplate,
         /// <summary>
+        /// 等高加等宽加清根
+        /// </summary>
+        ZleveAndSufaceAndFlowCutEleTemplate,
+        /// <summary>
         /// 用户定义电极
         /// </summary>
         User,
+
+       
     }
 }

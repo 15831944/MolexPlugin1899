@@ -20,6 +20,7 @@ namespace MolexPlugin.DAL
         public string ReferencetoolName { get; private set; } = "";
         public FlowCutCreateOperation(int site, string tool) : base(site, tool)
         {
+            this.ReferencetoolName = "BN0.98";
             this.Type = ElectrodeOperationType.FlowCut;
         }
         public override List<string> CreateOperation()
@@ -38,7 +39,7 @@ namespace MolexPlugin.DAL
             }
             try
             {
-                this.operModel.Create(this.operModel.OperName);
+                this.operModel.Create(this.nameModel.OperName);
             }
             catch (NXException ex)
             {

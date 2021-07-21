@@ -9,6 +9,7 @@ using NXOpen;
 using NXOpen.UF;
 using NXOpen.Utilities;
 using MolexPlugin.DAL;
+using MolexPlugin.Model;
 namespace MolexPlugin
 {
     public class Test
@@ -68,10 +69,14 @@ namespace MolexPlugin
         public static void User()
         {
             AddAndDeleteData data = new AddAndDeleteData();
-            data.SerializeControlToData();
+          //  data.SerializeControlToData();
             data.SerializeUserToData();
+            //SystemInfo info;
+            //UFSession theUFSession = UFSession.GetUFSession();
+            //theUFSession.UF.AskSystemInfo(out info);           
+            //string[] msg = new string[] { info.os_version,info.program_name};
 
-
+            //ClassItem.Print(msg);
 
         }
         public static bool IsAuthenticated(string username, string pwd)
@@ -106,6 +111,21 @@ namespace MolexPlugin
         {
             FTPHelper ftp = new FTPHelper("10.221.167.49", "moldyun", "ycchen10", "Chyuch^011");
             ftp.Delete("123.txt");
+        }
+
+        public static void Add()
+        {
+            List<UserInfo> users = UserInfoDeserialize.Deserialize();
+            foreach(UserInfo info in users)
+            {
+                LogMgr.WriteLog(info.UserName + "**************" + info.UserJob + "********" + info.UserAccount);
+            }
+           
+            //List<ControlEnum> control = ControlDeserialize.Controls;
+
+            //AddAndDeleteData add = new AddAndDeleteData();
+            //add.AddControl(control.ToArray());
+            //add.AddUser(users.ToArray());
         }
     }
 

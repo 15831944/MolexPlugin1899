@@ -59,7 +59,10 @@ namespace Basic
             }
 
         }
-
+        /// <summary>
+        /// 删除参数
+        /// </summary>
+        /// <param name="obj"></param>
         public static void DeleteParms(params NXObject[] obj)
         {
             Part workPart = Session.GetSession().Parts.Work;

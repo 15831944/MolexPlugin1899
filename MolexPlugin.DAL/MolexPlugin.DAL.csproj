@@ -101,6 +101,8 @@
     <Compile Include="CAM\CreateElectrodeCAMBuilder.cs" />
     <Compile Include="CAM\CreateProgramBuilder.cs" />
     <Compile Include="CAM\CreatePostExcelBuilder.cs" />
+    <Compile Include="CAM\Template\PlanarAndZleveAndSufaceAndFlowCutEleTemplate.cs" />
+    <Compile Include="CAM\Template\ZleveAndSufaceAndFlowCutEleTemplate.cs" />
     <Compile Include="ElectrodeBuilder\DeleteElectrodeBuilder.cs" />
     <Compile Include="ElectrodeBuilder\CreateElectrode.cs" />
     <Compile Include="ElectrodeBuilder\AbstractCreateAssmbile.cs" />

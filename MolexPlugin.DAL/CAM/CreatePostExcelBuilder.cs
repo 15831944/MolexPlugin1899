@@ -143,7 +143,7 @@ namespace MolexPlugin.DAL
                     string name = data.OperName;
                     if (name.Length >= 10)
                         name = name.Substring(0, 10);
-                    ExcelUtils.SetValue(sheet, style, row, 2, name);//程序名
+                    ExcelUtils.SetValue(sheet, style, row, 4, name);//程序名
                     if (!datas[0].CutterCompenstation.Equals(""))
                         ExcelUtils.SetValue(sheet, style, row, 5, datas[0].CutterCompenstation); //刀半径补偿号
                     ExcelUtils.SetValue(sheet, style, row, 6, data.Stepover);//部距
@@ -159,8 +159,8 @@ namespace MolexPlugin.DAL
                 {
                     sheet.AddMergedRegion(new CellRangeAddress(oldRow, row - 1, 0, 0));
                     sheet.AddMergedRegion(new CellRangeAddress(oldRow, row - 1, 1, 1));
+                    sheet.AddMergedRegion(new CellRangeAddress(oldRow, row - 1, 2, 2));
                     sheet.AddMergedRegion(new CellRangeAddress(oldRow, row - 1, 3, 3));
-                    sheet.AddMergedRegion(new CellRangeAddress(oldRow, row - 1, 4, 4));
                     sheet.AddMergedRegion(new CellRangeAddress(oldRow, row - 1, 11, 11));
                     sheet.AddMergedRegion(new CellRangeAddress(oldRow, row - 1, 12, 12));
                     sheet.AddMergedRegion(new CellRangeAddress(oldRow, row - 1, 13, 13));
@@ -172,8 +172,8 @@ namespace MolexPlugin.DAL
                 ExcelUtils.SetValue(sheet, style, oldRow, 1, datas[0].Tool.ToolName);
                 if (other[0].Tool.ToolNumber != 0)
                 {
-                    ExcelUtils.SetValue(sheet, style, oldRow, 3, "T" + other[0].Tool.ToolNumber.ToString()); //刀号             
-                    ExcelUtils.SetValue(sheet, style, oldRow, 4, "H" + other[0].Tool.ToolNumber.ToString()); //刀长号
+                    ExcelUtils.SetValue(sheet, style, oldRow, 2, "T" + other[0].Tool.ToolNumber.ToString()); //刀号             
+                    ExcelUtils.SetValue(sheet, style, oldRow, 3, "H" + other[0].Tool.ToolNumber.ToString()); //刀长号
                 }
                 double zMin, zMax;
                 model.GetOperationZMinAndZMax(other, out zMin, out zMax);

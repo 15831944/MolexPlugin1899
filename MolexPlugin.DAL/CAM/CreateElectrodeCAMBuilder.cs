@@ -84,6 +84,7 @@ namespace MolexPlugin.DAL
         {
             List<string> err = new List<string>();
             Session theSession = Session.GetSession();
+            UFSession theUFSession = UFSession.GetUFSession();
             PartUtils.SetPartDisplay(pt);
             theSession.ApplicationSwitchImmediate("UG_APP_MODELING");
             cam.CreateOffsetInter();
@@ -109,6 +110,7 @@ namespace MolexPlugin.DAL
             {
                 err.AddRange(pm.CreateOperation(cam));
             }
+          //  theUFSession.UiOnt.ExpandView();
             return err;
 
         }

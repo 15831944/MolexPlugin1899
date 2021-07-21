@@ -182,17 +182,19 @@ namespace MolexPlugin.Model
             UFSession theUFSession = UFSession.GetUFSession();
             foreach (OperationData od in this.OperData)
             {
+                if (od.Oper.GougeCheckStatus)
+                    continue;
                 bool result = false;
                 try
                 {
                     theUFSession.Oper.IsPathGouged(od.Oper.Tag, out result);
-                    result = true;
+                   // result = true;
                 }
                 catch
                 {
 
                 }
-                if (!result)
+                if (result)
                     err.Add(od.OperName + "        过切！");
             }
             return err;

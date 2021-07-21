@@ -11,7 +11,7 @@ using MolexPlugin.Model;
 namespace MolexPlugin.DAL
 {
     /// <summary>
-    /// 二次开粗
+    /// 等高
     /// </summary>
     public class ZLevelMillingCreateOperation : AbstractCreateOperation
     {

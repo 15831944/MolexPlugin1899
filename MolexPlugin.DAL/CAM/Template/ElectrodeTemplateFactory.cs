@@ -34,6 +34,12 @@ namespace MolexPlugin.DAL
                 case ElectrodeTemplate.ZleveEleTemplate:
                     ao = new ZleveEleTemplate(tool);
                     break;
+                case ElectrodeTemplate.PlanarAndZleveAndSufaceAndFlowCutEleTemplate:
+                    ao = new PlanarAndZleveAndSufaceAndFlowCutEleTemplate(tool);
+                    break;
+                case ElectrodeTemplate.ZleveAndSufaceAndFlowCutEleTemplate:
+                    ao = new ZleveAndSufaceAndFlowCutEleTemplate(tool);
+                    break;
                 default:
                     break;
             }

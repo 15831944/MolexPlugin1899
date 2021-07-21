@@ -92,6 +92,11 @@ namespace MolexPlugin
             Part workPart = Session.GetSession().Parts.Work;
             PartPostBuilder post = new PartPostBuilder(workPart);
             List<NCGroup> postGroup = new List<NCGroup>();
+            if(this.listBoxPostName.SelectedItem==null)
+            {
+                MessageBox.Show("请选择后处理格式。", "提示！", MessageBoxButtons.OK);
+                return;
+            }        
             if (buttonShopdoc.Text.Equals("产生工单"))
             {
                 CreatePostExcelBuilder excel = new CreatePostExcelBuilder(this.models, workPart);

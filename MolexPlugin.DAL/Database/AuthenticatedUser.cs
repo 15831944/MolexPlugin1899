@@ -48,7 +48,17 @@ namespace MolexPlugin.DAL
             string dllPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             string userPath = dllPath.Replace("application\\", "Cofigure\\SerializeUser.dat");
             if (File.Exists(userPath))
-                File.Delete(userPath);
+            {
+                try
+                {
+                    File.Delete(userPath);
+                }
+                catch
+                {
+
+                }
+            }
+               
             UserInfoDll user = new UserInfoDll();
             user.Delete(user.GetList());
         }
@@ -57,7 +67,16 @@ namespace MolexPlugin.DAL
             string dllPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             string contr = dllPath.Replace("application\\", "Cofigure\\SerializeContr.dat");
             if (File.Exists(contr))
-                File.Delete(contr);
+            {
+                try
+                {
+                    File.Delete(contr);
+                }
+                catch
+                {
+
+                }
+            }
             ControlEnumNameDll contrdata = new ControlEnumNameDll();
             contrdata.Delete(contrdata.GetList());
         }

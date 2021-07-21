@@ -104,7 +104,7 @@ namespace MolexPlugin.DAL
 
         public override AbstractCreateOperation CopyOperation(int programNumber)
         {
-            FlowCutCreateOperation fo = new FlowCutCreateOperation(this.site, this.toolName);
+            SurfaceContourCreateOperation fo = new SurfaceContourCreateOperation(this.site, this.toolName);
             fo.CreateOperationName(programNumber);
             return fo;
         }
